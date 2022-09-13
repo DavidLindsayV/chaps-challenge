@@ -7,6 +7,24 @@ import java.io.IOException;
  */
 public class MainRecorder {
   public static void main(String[] args) throws IOException {
-    Recorder.save();
+    MockRecorder mock = new MockRecorder();
+
+    mock.left();
+    mock.left();
+    mock.left();
+    mock.up();
+    mock.right();
+    mock.right();
+    mock.right();
+    mock.right();
+    mock.down();
+    mock.down();
+    mock.down();
+    mock.down();
+    mock.down();
+    mock.down();
+
+    mock.exitGame();
+
   }
 }
