@@ -3,39 +3,36 @@ package nz.ac.vuw.ecs.swen225.gp22.recorder;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;  
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 public class Recorder {
 
-
-    public static Document createDocument() {
+    /** 
+     * Creates the document of the recorded game.
+     */
+    private static Document createDocument(String nowStr) {
         Document document = DocumentHelper.createDocument();
-        Element root = document.addElement("root");
-
-        root.addElement("author")
-            .addAttribute("name", "Jeffe")
-            .addAttribute("location", "Minis thirith")
-            .addText("James Strachan");
-
-        root.addElement("author")
-            .addAttribute("name", "Bob")
-            .addAttribute("location", "US")
-            .addText("Bob McWhirter");
-
+        Element TimeDate = document.addElement("TimeDate")
+            .addText(nowStr);
         return document;
     }
 
-    public static void write(Document document) throws IOException {
-
-        FileWriter out = new FileWriter("foo.xml");
-
-        System.out.println("Writen");
-
+    /** 
+     * Saves the recorded game.
+     */
+    public static void save() throws IOException {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmmss");  
+        LocalDateTime now = LocalDateTime.now();  
+        String nowStr = dtf.format(now);
+        Document document = Recorder.createDocument(nowStr);
+        FileWriter out = new FileWriter("recorded_games/"+"Chaps Record ("+nowStr+").xml");
         document.write(out);
         out.close();
-
     }
 
 }
