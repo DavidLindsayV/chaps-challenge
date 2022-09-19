@@ -35,9 +35,15 @@ public class DomainBuilder {
      * 
      */
 
-    
+    public DomainBuilder empty(int row, int col) {
+        domainContent[row][col] = FreeTile.empty();
+        domainHeight = Math.max(domainHeight, row + 1);
+        domainWidth  = Math.max(domainWidth, col + 1);
+        return this;
+    }
+
     /**
-     * Returns the domain.
+     * Returns the constructed domain object.
      * @return
      */
     public Domain make() {
