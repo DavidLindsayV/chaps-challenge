@@ -1,34 +1,49 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 public class DomainBuilder {
-    private int domainHeight = -1;          /** Must be set */
-    private int domainWidth  = -1;          /** Must be set */
-    
+    private static final int MAX_WIDTH  = 1000;
+    private static final int MAX_HEIGHT = 1000;
+
+    private Tile[][] domainContent;
+    private Integer  domainHeight;
+    private Integer  domainWidth;
+
     public DomainBuilder() {
-        
-    }
-    
-    /**
-     * Sets the height of the domain in construction.
-     * @param height Height of the domain.
-     * @return Builder object.
-     */
-    public DomainBuilder height(int height) {
-        if (height <= 0) {  throw new IllegalArgumentException("Domain height must be positive."); }        
-        this.domainHeight = height;
-        return this;
+        this.reset();
     }
 
     /**
-     * Sets the width of the domain in construction.
-     * @param width Width of the domain.
-     * @return Builder object.
+     * Resets the state of the builder
+     * All tiles are wall tiles by default.
      */
-    public DomainBuilder width(int width) {
-        if (width <= 0) { throw new IllegalArgumentException("Domain width must be positive."); }
-        this.domainWidth = width;
-        return this;
+    public void reset() {
+        domainContent = new Tile[MAX_WIDTH][MAX_HEIGHT];
+        domainHeight  = -1;
+        domainWidth   = -1;
     }
 
+    /**
+     * 
+     * Fill in with corresponding tile creation methods for the individual tiles.
+     * Automatically detect the width / height, through max of given number.
+     * ...
+     * 
+     */
+
     
+    /**
+     * Returns the domain.
+     * @return
+     */
+    public Domain make() {
+        // Copies over the selected region.
+        Tile[][] selectedDomainContent = new Tile[domainWidth][domainWidth];
+        for (int y=0; y<domainHeight; ++y) {
+            for (int x=0; x<domainWidth; ++x) {
+                selectedDomainContent[y][x] = domainContent[y][x];
+            }
+        }
+
+        return new Domain(selectedDomainContent);
+    }
 }
