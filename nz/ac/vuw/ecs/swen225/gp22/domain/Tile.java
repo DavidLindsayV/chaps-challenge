@@ -22,4 +22,5 @@ public interface Tile {
      * @param player Player object.
      */
     public void acceptPlayer(Player player);
+
 }

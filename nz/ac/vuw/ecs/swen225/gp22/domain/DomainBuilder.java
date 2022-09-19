@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.Arrays;
+
 public class DomainBuilder {
     private static final int MAX_WIDTH  = 1000;
     private static final int MAX_HEIGHT = 1000;
@@ -14,12 +16,15 @@ public class DomainBuilder {
 
     /**
      * Resets the state of the builder
-     * All tiles are wall tiles by default.
+     * All tiles are free tiles by default.
      */
     public void reset() {
-        domainContent = new Tile[MAX_WIDTH][MAX_HEIGHT];
+        domainContent = new Tile[MAX_WIDTH][MAX_HEIGHT];    
         domainHeight  = -1;
         domainWidth   = -1;
+        for (Tile[] domainContentRow : domainContent) {
+            Arrays.fill(domainContentRow, new WallTile());
+        }
     }
 
     /**
