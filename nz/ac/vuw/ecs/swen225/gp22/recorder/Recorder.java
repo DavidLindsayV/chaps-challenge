@@ -1,56 +1,58 @@
 package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;  
+import javax.swing.JFileChooser;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
 
 public class Recorder {
 
+    /* Fields. */
+    private RecordWriter recWriter;
     private Document document;
-    
-    private Element game;
-    private Element moves;
 
     /*
-     * Recorder default constructor
+     * Recorder constructor
      */
     public Recorder(){
         this.document = DocumentHelper.createDocument();
-        this.game = document.addElement("game");
-        this.moves = game.addElement("moves");
+        this.recWriter = new RecordWriter(this.document);
     }
 
     /*
-     * Recorder default constructor
+     * Recorder record a given move
      */
     public void move(String move){
-        moves.addElement("move")
-            .addAttribute("tick", "0")
-            .addText(move);
+        this.recWriter.move(move);
     }
 
     /* 
-     * Saves the recorded game.
+     * Saves a recorded game to an xml file.
      */
     public void save() throws IOException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmmss");  
-        LocalDateTime now = LocalDateTime.now();  
-        String nowStr = dtf.format(now);
+        this.recWriter.save();
+    }
 
-        // Pretty print write to a xml file
-        FileWriter fileWriter = new FileWriter("recorded_games/"+"Chaps Record ("+nowStr+").xml");
-        OutputFormat format = OutputFormat.createPrettyPrint();
-        XMLWriter writer = new XMLWriter(fileWriter, format);
-        writer.write( document );
-        writer.close();
+    /* 
+     * Loads a game from a record xml file.
+     */
+    public void load() throws MalformedURLException, DocumentException{
+        URL url;
+        JFileChooser fileChooser = new JFileChooser("recorded_games/");
+        int responce = fileChooser.showOpenDialog(null);
+        if(responce == JFileChooser.APPROVE_OPTION){
+            url = new File(fileChooser.getSelectedFile().getAbsolutePath()).toURI().toURL();
+            
+            //Here we have the document, currently it just prints the file to the console.
+            Document readDocument = RecordReader.parse(url);
+            System.out.println(readDocument.asXML());
+        }
     }
 
 }

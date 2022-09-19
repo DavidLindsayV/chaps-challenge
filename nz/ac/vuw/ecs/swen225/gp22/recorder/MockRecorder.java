@@ -2,26 +2,28 @@ package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
 import java.io.IOException;
 
-public class MockRecorder {
+import org.dom4j.DocumentException;
 
+public class MockRecorder {
+    
+    /* Fields */
     private Recorder recorder;
 
+    /* 
+     * Constructor 
+     */
     public MockRecorder(){
         recorder = new Recorder();
     }
     
-    /**Move Chap in a direction */
+    /* Chap moved in a direction */
     public void up() { recorder.move("up"); }
     public void down() { recorder.move("down"); }
     public void left() { recorder.move("left"); }
     public void right() { recorder.move("right"); }
 
-    /**Stop moving Chap in a direction */
-    public void unUp() { recorder.move("unUp"); }
-    public void unDown() { recorder.move("unDown"); }
-    public void unLeft() { recorder.move("unLeft"); }
-    public void unRight() { recorder.move("unRight"); }
-
-    public void exitGame() throws IOException { recorder.save(); }
+    /* Saving and loading a record of a game */
+    public void saveGame() throws IOException { recorder.save(); }
+    public void loadGame() throws IOException, DocumentException { recorder.load(); }
 
 }
