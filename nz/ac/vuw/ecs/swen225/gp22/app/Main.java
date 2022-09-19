@@ -1,3 +1,4 @@
+package nz.ac.vuw.ecs.swen225.gp22.app;
 /**
  * An executable class which starts the game
  */
