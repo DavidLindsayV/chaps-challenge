@@ -23,20 +23,34 @@ public class DomainBuilder {
         domainHeight  = -1;
         domainWidth   = -1;
         for (Tile[] domainContentRow : domainContent) {
-            Arrays.fill(domainContentRow, new WallTile());
+            Arrays.fill(domainContentRow, WallTile.of());
         }
     }
 
     /**
-     * 
-     * Fill in with corresponding tile creation methods for the individual tiles.
-     * Automatically detect the width / height, through max of given number.
-     * ...
-     * 
+     * Creates an empty tile at given row and column.
+     * @param row Row of the tile.
+     * @param col Column of the tile.
+     * @return Domain builder object.
      */
-
     public DomainBuilder empty(int row, int col) {
         domainContent[row][col] = FreeTile.empty();
+        domainHeight = Math.max(domainHeight, row + 1);
+        domainWidth  = Math.max(domainWidth, col + 1);
+        return this;
+    }
+
+    /**
+     * Creates a wall tile at the given location.
+     * !! NOTE, this really shouldn't be used often. 
+     * As all default tiles are rows.
+     * 
+     * @param row Row of the tile.
+     * @param col Column of the tile.
+     * @return Domain builder object.
+     */
+    public DomainBuilder wall(int row, int col) {
+        domainContent[row][col] = WallTile.of();
         domainHeight = Math.max(domainHeight, row + 1);
         domainWidth  = Math.max(domainWidth, col + 1);
         return this;
