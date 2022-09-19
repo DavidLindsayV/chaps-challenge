@@ -35,7 +35,4 @@ package. Testing is to be done manually.
 TASKS LEFT:
 - Make the movement buttons work
 - Make the ctrl - something buttons work
-- Make pausing and resuming work
 - Display time left to play, current level, keys collected, treasures needing collecting
-- Make buttons for pause/exit/save/resume/rules
-- Refactor code, rename classes, split code among classes

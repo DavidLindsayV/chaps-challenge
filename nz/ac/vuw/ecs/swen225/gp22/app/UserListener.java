@@ -1,23 +1,21 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.*;
 
 /**
- *
+ * This class listens and reacts to keypresses of the user, as well as implements a ping() timer
  */
-public class UserInteraction implements KeyListener {
+public class UserListener implements KeyListener {
 
+  public static boolean paused = false;
   static int currentLevel = 1;
-  static int timeLeftToPlay = 0; //time left to play current level in milliseconds
+
   static Set<mockKey> keysCollected;
   static int treasuresLeft; //number of treasures still needing collecting
-  static Timer timer = new Timer();
-  static final int pingRate = 500; //the timer will refresh every 500 ms
+  static pingTimer timer = new pingTimer();
+
+  public UserListener() {}
 
   public static void run() {
     loadLevel();
@@ -111,10 +109,16 @@ to be loaded
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
-  public static void pauseGame() {}
+  public static void pauseGame() {
+    paused = true;
+    timer.cancel();
+  }
 
   /**Removed "Game is paused" dialog, resumes game */
-  public static void resumeGame() {}
+  public static void resumeGame() {
+    paused = false;
+    timer = new pingTimer();
+  }
 
   /**Loads the level of the game based on currentLevel */
   public static void loadLevel() {
@@ -126,24 +130,7 @@ to be loaded
    */
   public static void loadTimer() {
     timer.cancel();
-    timer = new Timer();
-    timeLeftToPlay = 60 * 1000 * currentLevel;
-    TimerTask t = new TimerTask() {
-      public void run() {
-        ping();
-      }
-    };
-    timer.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
-  }
-
-  /**Function that runs whenever the timer triggers */
-  public static void ping() {
-    timeLeftToPlay -= pingRate;
-    System.out.println(timeLeftToPlay);
-    if (timeLeftToPlay == 0) {
-      System.out.println("Ran out of time. Restarting level");
-      loadLevel();
-    }
+    timer = new pingTimer();
   }
 
   /**Move Chap in a direction */
