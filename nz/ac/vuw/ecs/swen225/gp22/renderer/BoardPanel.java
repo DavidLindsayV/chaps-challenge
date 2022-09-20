@@ -11,10 +11,10 @@ public class BoardPanel extends JPanel {
 
     static int originX = 200;
     static int originY = 200;
-    int xSpacing = (1000 - (originX * 2)) / cols;
-    int ySpacing = (1000 - (originY * 2)) / rows;
-    int xEndPoint = originX + xSpacing * 11;
-    int yEndPoint = originY + ySpacing * 11;
+    static int xSpacing = (1000 - (originX * 2)) / cols;
+    static int ySpacing = (1000 - (originY * 2)) / rows;
+    static int xEndPoint = originX + xSpacing * 11;
+    static int yEndPoint = originY + ySpacing * 11;
 
     @Override
     protected void paintComponent(Graphics g) {
