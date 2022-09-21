@@ -1,8 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
 import javax.swing.JPanel;
+
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
+
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class BoardPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -21,9 +27,12 @@ public class BoardPanel extends JPanel {
         g.setColor(new Color(85, 73, 148));
         super.paintComponent(g);
         g.fillRect(0, 0, 1000, 1000);
+        g.setColor(new Color(255, 204, 179));
+        g.fillRect(originX - 10, originY - 10, xEndPoint - originX + 20, yEndPoint - originY + 20);
         g.setColor(new Color(46, 39, 82));
         g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
         createGrid(g);
+        updateGrid(g);
     }
 
     private void createGrid(Graphics g) {
@@ -43,11 +52,30 @@ public class BoardPanel extends JPanel {
         originY = tempOriginY;
     }
 
+    public void drawImg(BufferedImage img, int x, int y, Graphics g) {
+        g.drawImage(img, getXPos(x), getYPos(y), getXPos(x) + xSpacing, getYPos(y) + ySpacing, 0, 0, img.getWidth(),
+                img.getHeight(), null);
+    }
+
     public int getXPos(int x) {
         return originX + (xSpacing * x);
     }
 
     public int getYPos(int y) {
         return originY + (ySpacing * y);
+    }
+
+    public void updateGrid(Graphics g) {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                parser(i, j, g);
+            }
+        }
+        drawImg(Img.Chap.image, 5, 5, g);
+    }
+
+    public void parser(int x, int y, Graphics g) {
+        drawImg(Img.FloorSprite.image, x, y, g);
+        // TODO ALL THE OTHER BULLSHIT THIS IS SUPPOSED TO DO
     }
 }

@@ -16,6 +16,7 @@ import java.io.IOException;
 public class Renderer extends JFrame {
     private int width;
     private int height;
+    BoardPanel panel;
 
     public Renderer(int w, int h) {
         width = w;
@@ -27,12 +28,8 @@ public class Renderer extends JFrame {
         setTitle("Test Title");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        BoardPanel panel = new BoardPanel();
+        panel = new BoardPanel();
         add(panel);
         setVisible(true);
-    }
-
-    public void drawGrid() {
-
     }
 }
