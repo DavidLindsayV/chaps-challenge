@@ -15,35 +15,40 @@ import org.dom4j.DocumentHelper;
 public class Recorder {
 
     /* Fields. */
-    private RecordWriter recWriter;
-    private Document document;
+    private static RecordWriter recWriter;
+    private static Document document;
 
-    /*
-     * Recorder constructor
-     */
-    public Recorder(){
-        this.document = DocumentHelper.createDocument();
-        this.recWriter = new RecordWriter(this.document);
+    // /*
+    //  * Recorder constructor
+    //  */
+    // public Recorder(){
+    //     this.document = DocumentHelper.createDocument();
+    //     this.recWriter = new RecordWriter(this.document);
+    // }
+
+    public static void newGame(){
+        document = DocumentHelper.createDocument();
+        recWriter = new RecordWriter(document);
     }
 
     /*
      * Record a given tick
      */
-    public void tick(Map<String, String> moveMap ){
+    public static void tick(Map<String, String> moveMap ){
         recWriter.tick(moveMap);
     }
 
     /* 
      * Saves a recorded game to an xml file.
      */
-    public void save() throws IOException {
-        this.recWriter.save();
+    public static void save() throws IOException {
+        recWriter.save();
     }
 
     /* 
      * Loads a game from a record xml file.
      */
-    public void load() throws MalformedURLException, DocumentException{
+    public static void load() throws MalformedURLException, DocumentException{
         URL url;
         JFileChooser fileChooser = new JFileChooser("recorded_games/");
         int responce = fileChooser.showOpenDialog(null);

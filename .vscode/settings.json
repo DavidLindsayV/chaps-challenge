@@ -1,7 +1,6 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "chaps-challenge/nz/ac/vuw/ecs/swen225/gp22/lib/dom4j-2.1.3.jar",
-        "nz/ac/vuw/ecs/swen225/gp22/lib/dom4j-2.1.3.jar"
+        "chaps-challenge/nz/ac/vuw/ecs/swen225/gp22/lib/dom4j-2.1.3.jar"
     ]
 }
