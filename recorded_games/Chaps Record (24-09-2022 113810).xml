@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <ticks>
+    <tick tick="0">
+      <move actor="ant2">up</move>
+      <move actor="ant1">right</move>
+      <move actor="player">left</move>
+    </tick>
+    <tick tick="1">
+      <move actor="ant2">up</move>
+      <move actor="ant1">up</move>
+      <move actor="player">up</move>
+    </tick>
+    <tick tick="2">
+      <move actor="ant2">right</move>
+      <move actor="ant1">left</move>
+      <move actor="player">left</move>
+    </tick>
+    <tick tick="3">
+      <move actor="ant2">left</move>
+      <move actor="ant1">down</move>
+      <move actor="player">down</move>
+    </tick>
+    <tick tick="4">
+      <move actor="ant2">up</move>
+      <move actor="ant1">down</move>
+      <move actor="player">right</move>
+    </tick>
+    <tick tick="5">
+      <move actor="ant2">right</move>
+      <move actor="ant1">right</move>
+      <move actor="player">up</move>
+    </tick>
+    <tick tick="6">
+      <move actor="ant2">right</move>
+      <move actor="ant1">down</move>
+      <move actor="player">right</move>
+    </tick>
+  </ticks>
+</game>
+<!--24-09-2022 113810-->
