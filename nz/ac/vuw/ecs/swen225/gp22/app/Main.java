@@ -1,5 +1,4 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
-import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 import javax.swing.SwingUtilities;
 
@@ -9,6 +8,6 @@ import javax.swing.SwingUtilities;
 public class Main {
 
   public static void main(String[] args) {
-    SwingUtilities.invokeLater(() ->new GUI());
+    SwingUtilities.invokeLater(() -> new GUI());
   }
 }
