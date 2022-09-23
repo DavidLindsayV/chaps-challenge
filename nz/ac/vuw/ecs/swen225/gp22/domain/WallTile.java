@@ -8,7 +8,7 @@ public class WallTile implements Tile {
     private static final WallTile singleton = new WallTile();
 
     private WallTile() {
-        
+    
     }
 
     @Override

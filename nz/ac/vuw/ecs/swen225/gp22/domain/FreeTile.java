@@ -1,5 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+/**
+ * A Free tile is a tile that can store something.
+ * That 'something', is referred to as it's 'state'.
+ * List of possible states:
+ *      - Empty
+ *      - Key
+ *      -
+ */
 public class FreeTile implements Tile {
     private FreeTileState state;
 
@@ -18,6 +26,10 @@ public class FreeTile implements Tile {
     @Override
     public void acceptPlayer(Player p) {
         state.performAction(p, this);
+    }
+
+    public void changeState(FreeTileState s) {
+        this.state = s;
     }
 
     /**
