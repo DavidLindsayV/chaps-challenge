@@ -1,41 +1,63 @@
 package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Map;
+
+import javax.swing.JFileChooser;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 
 public class Recorder {
 
+    /* Fields. */
+    private static RecordWriter recWriter;
+    private static Document document;
 
-    public static Document createDocument() {
-        Document document = DocumentHelper.createDocument();
-        Element root = document.addElement("root");
+    // /*
+    //  * Recorder constructor
+    //  */
+    // public Recorder(){
+    //     this.document = DocumentHelper.createDocument();
+    //     this.recWriter = new RecordWriter(this.document);
+    // }
 
-        root.addElement("author")
-            .addAttribute("name", "Jeffe")
-            .addAttribute("location", "Minis thirith")
-            .addText("James Strachan");
-
-        root.addElement("author")
-            .addAttribute("name", "Bob")
-            .addAttribute("location", "US")
-            .addText("Bob McWhirter");
-
-        return document;
+    public static void newGame(){
+        document = DocumentHelper.createDocument();
+        recWriter = new RecordWriter(document);
     }
 
-    public static void write(Document document) throws IOException {
-
-        FileWriter out = new FileWriter("foo.xml");
-
-        System.out.println("Writen");
-
-        document.write(out);
-        out.close();
-
+    /*
+     * Record a given tick
+     */
+    public static void tick(Map<String, String> moveMap ){
+        recWriter.tick(moveMap);
     }
 
+    /* 
+     * Saves a recorded game to an xml file.
+     */
+    public static void save() throws IOException {
+        recWriter.save();
+    }
+
+    /* 
+     * Loads a game from a record xml file.
+     */
+    public static void load() throws MalformedURLException, DocumentException{
+        URL url;
+        JFileChooser fileChooser = new JFileChooser("recorded_games/");
+        int responce = fileChooser.showOpenDialog(null);
+        if(responce == JFileChooser.APPROVE_OPTION){
+            url = new File(fileChooser.getSelectedFile().getAbsolutePath()).toURI().toURL();
+            
+            //Here we have the document, currently it just prints the file to the console.
+            Document readDocument = RecordReader.parse(url);
+            System.out.println(readDocument.asXML());
+        }
+    }
 }
