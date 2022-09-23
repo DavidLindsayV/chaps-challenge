@@ -4,9 +4,19 @@ import java.awt.event.*;
 import java.util.Set;
 
 /**
- * This class listens and reacts to keypresses of the user, as well as implements a ping() timer
+ * This class listens and reacts to keypresses of the user
  */
 public class UserListener implements KeyListener {
+
+  public static enum moveType {
+    moveLeft,
+    moveRight,
+    moveUp,
+    moveDown,
+    None,
+  }
+
+  public static moveType move;
 
   public static boolean paused = false;
   static int currentLevel = 1;
@@ -28,12 +38,16 @@ public class UserListener implements KeyListener {
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
+        up();
         break;
       case KeyEvent.VK_DOWN:
+        down();
         break;
       case KeyEvent.VK_LEFT:
+        left();
         break;
       case KeyEvent.VK_RIGHT:
+        right();
         break;
     }
   }
@@ -46,14 +60,6 @@ public class UserListener implements KeyListener {
         break;
       case KeyEvent.VK_ESCAPE:
         resumeGame();
-        break;
-      case KeyEvent.VK_UP:
-        break;
-      case KeyEvent.VK_DOWN:
-        break;
-      case KeyEvent.VK_LEFT:
-        break;
-      case KeyEvent.VK_RIGHT:
         break;
       default:
         ctrlCommands(e);
@@ -134,20 +140,19 @@ to be loaded
   }
 
   /**Move Chap in a direction */
-  public void up() {}
+  public void up() {
+    move = moveType.moveUp;
+  }
 
-  public void down() {}
+  public void down() {
+    move = moveType.moveDown;
+  }
 
-  public void left() {}
+  public void left() {
+    move = moveType.moveLeft;
+  }
 
-  public void right() {}
-
-  /**Stop moving Chap in a direction */
-  public void unUp() {}
-
-  public void unDown() {}
-
-  public void unLeft() {}
-
-  public void unRight() {}
+  public void right() {
+    move = moveType.moveRight;
+  }
 }

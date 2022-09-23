@@ -26,10 +26,10 @@ public class pingTimer extends Timer {
   /**Function that runs whenever the timer triggers */
   public void ping() {
     timeLeftToPlay -= pingRate;
-    System.out.println(timeLeftToPlay);
     if (timeLeftToPlay == 0) {
-      System.out.println("Ran out of time. Restarting level");
       UserListener.loadLevel();
     }
+    mockRecorder.tick(UserListener.move);
+    UserListener.move = UserListener.moveType.None;
   }
 }
