@@ -15,11 +15,13 @@ interface ArtificialInput {
  */
 public class BasicInput {
     private static List<ArtificialInput> inputTypes = List.of(
-        ()->{/* moveup */},
-        ()->{/* movedown */},
-        ()->{/* moveleft */},
-        ()->{/* moveright */},
-        ()->{/* more types of input (mouse click?) */}
+        ()->{System.out.println("Moved Up");/* moveup */},
+        ()->{System.out.println("Moved Down");/* movedown */},
+        ()->{System.out.println("Moved Left");/* moveleft */},
+        ()->{System.out.println("Moved Right");/* moveright */},
+        ()->{System.out.println("Paused");/* pause */},
+        ()->{System.out.println("Unpaused");/* unpause */},
+        ()->{System.out.println("Other Input");/* more types of input (mouse click?) */}
     );
 
     /**

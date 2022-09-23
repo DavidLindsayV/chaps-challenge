@@ -1,7 +1,8 @@
-package nz.ac.vuw.ecs.swen225.gp22.fuzz;
+//package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,9 +28,15 @@ public class InputGenerator {
      * @return
      */
     public boolean playNext(/*App app*/){
-        //inputs.get(index).play(app);
-        return (++index != inputs.size());
+        inputs.get(index).play(/*app*/);
+        //if (index == 3) { throw new IllegalArgumentException();}				// comment this out to test exceptions
+        return (++index < inputs.size());
     }
+    
+    /**
+     * set index to the end
+     */
+    public void finish(){this.index = inputs.size();}
     
     public void playAll() {} // do this instead ?
 
@@ -50,4 +57,6 @@ public class InputGenerator {
      * @return
      */
     public List<ArtificialInput> getInputsList(){return Collections.unmodifiableList(inputs);}
+    
+    
 }

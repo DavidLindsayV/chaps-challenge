@@ -1,12 +1,18 @@
-package nz.ac.vuw.ecs.swen225.gp22.fuzz;
+//package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
+import java.rmi.RemoteException;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-//import static org.junit.jupiter.api.Assertions.*;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.Timeout;
-//import static org.junit.jupiter.api.Assertions.assertTimeout;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
+import org.opentest4j.AssertionFailedError;
+
+import static org.junit.jupiter.api.Assertions.assertTimeout;
 
 public class Fuzz{
     
@@ -17,38 +23,30 @@ public class Fuzz{
      */
     private InputGenerator generateRandomInput(){
         InputGenerator ig = new InputGenerator();
-        ig.generateRandom(100);
+        ig.generateRandom(2000000);
         return ig;
     }
 
     /**
-     * Performs a 1 minute random fuzz test (for level 1), takes the
-     * application as a parameter
-     * 
-     * @param app
+     * Performs a 1 minute random fuzz test (for level 1)
      */
-
-    //@Test
+    @Test
     public void test1Random(){
-        // open app, load in level 1
-
-        // until level is complete or time runs out keep going (times out and declares success after 60 seconds)
-        // assertTimeout(Duration.ofSeconds(60), playGame(/*...*/));
+        // create new app, open app, load in level 1
+    	
+        // until level is complete or time runs out keep going
+        playGame(/*...*/);
     }
 
     /**
-     * Performs a 1 minute random fuzz test (for level 2), takes the
-     * application as a parameter
-     * 
-     * @param app
+     * Performs a 1 minute random fuzz test (for level 2)
      */
-
-    //@Test
+    @Test
     public void test2Random(){
-        // open app, load in level 2
+        // create new app, open app, load in level 2
 
-        // until level is complete or time runs out keep going (times out and declares success after 60 seconds)
-        // assertTimeout(Duration.ofSeconds(60), playGame(/*...*/));
+        // until level is complete or time runs out keep going
+    	playGame(/*...*/);
     }
 
     /**
@@ -56,8 +54,26 @@ public class Fuzz{
      */
     public void playGame(/*App app*/){
         InputGenerator ig = generateRandomInput();
-        while (ig.playNext(/*app*/)) {
-            // do stuff ?
+        try {
+        	// timeout after 60 seconds
+	        assertTimeoutPreemptively(Duration.ofSeconds(60), ()->{
+	        	while (ig.playNext(/*app*/)) {/* do something? */}
+	        });
         }
+        
+        // if assertion times out then stop running, no errors found, return success
+        catch (AssertionFailedError e) {
+        	System.out.println("STOPPED RUNNING, TIMEOUT!"); 
+        	ig.finish();
+        }
+        
+        // if exception is caught, stop running and print exception (and where it is?)
+	    catch (Exception e) {
+	    	System.out.println("EXCEPTION OCCURRED TIMEOUT! " + e);
+	    	ig.finish();
+	    	assert false;
+	    }
+        
+        System.out.println("ALL INPUTS CONSUMED");
     }
 }
