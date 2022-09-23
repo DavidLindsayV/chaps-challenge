@@ -68,14 +68,20 @@ public class BoardPanel extends JPanel {
     public void updateGrid(Graphics g) {
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                parser(i, j, g);
+                drawImg(Img.WallSprite.image, 5, 5, g);
             }
         }
         drawImg(Img.Chap.image, 5, 5, g);
     }
 
-    public void parser(int x, int y, Graphics g) {
-        drawImg(Img.FloorSprite.image, x, y, g);
-        // TODO ALL THE OTHER BULLSHIT THIS IS SUPPOSED TO DO
+    /* 
+    public void parser(Tile t, Graphics g) {
+        if(t.toString().equals("")){
+            drawImg(Img.WallSprite.image, t.x(), t.y(), g);
+        }
+        else{
+            drawImg(Img.FloorSprite.image, t.x(), t.y(), g);
+        }
     }
+    */
 }

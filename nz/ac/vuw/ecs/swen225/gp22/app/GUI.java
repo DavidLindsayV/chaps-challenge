@@ -7,14 +7,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTextField;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
+
 /**
  * This class extends the Renderer's JFrame class and adds a menu and buttons
  * to allow pausing, resuming, saving, loading, and rules displaying
  */
 @SuppressWarnings("serial")
-public class GUI extends RenderersJFrameClass {
+public class GUI extends Renderer {
 
-  static JFrame gameFrame;
+  //static JFrame gameFrame;
   UserListener ul = new UserListener();
 
   JButton pauseButton;
@@ -28,10 +30,12 @@ public class GUI extends RenderersJFrameClass {
   JTextField rulesField;
 
   /**Makes the GUI for saving, loading, pausing and other functionality */
-  public GUI(String title) {
+  public GUI() {
+    super(1000,1000);
+    super.setUpGUI();
     //Make a JButton pauseButton
     pauseButton = new JButton("pause button");
-    gameFrame.add(pauseButton);
+    add(pauseButton);
     pauseButton.addActionListener(
       e -> {
         if (!UserListener.paused) {
@@ -43,7 +47,7 @@ public class GUI extends RenderersJFrameClass {
     );
     //Make exiting, saving and showing rules menu items
     menuBar = new JMenuBar();
-    gameFrame.setJMenuBar(menuBar);
+    setJMenuBar(menuBar);
     menu = new JMenu("Buttons menu");
     exitItem = new JMenuItem("Exit");
     saveItem = new JMenuItem("Save");
@@ -56,7 +60,7 @@ public class GUI extends RenderersJFrameClass {
     rulesItem.addActionListener(e -> showRules());
   }
 
-  /**Show the rules panel */
+  /**Show the rules panel */ 
   public static void showRules() {
     UserListener.pauseGame();
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
