@@ -5,7 +5,7 @@ import java.util.Set;
 public class Player {
     private int treasureCount;
     private Set<AuthenticationColour> keyWallet;
-    
+
     /**
      * Adds a key to the wallet 
      * @param key The colour of the key.

@@ -23,7 +23,7 @@ public class DomainBuilder {
         domainHeight  = -1;
         domainWidth   = -1;
         for (Tile[] domainContentRow : domainContent) {
-            Arrays.fill(domainContentRow, WallTile.of());
+            Arrays.fill(domainContentRow, FreeTile.empty());
         }
     }
 
@@ -62,7 +62,7 @@ public class DomainBuilder {
      */
     public Domain make() {
         // Copies over the selected region.
-        Tile[][] selectedDomainContent = new Tile[domainWidth][domainWidth];
+        Tile[][] selectedDomainContent = new Tile[domainWidth][domainHeight];
         for (int y=0; y<domainHeight; ++y) {
             for (int x=0; x<domainWidth; ++x) {
                 selectedDomainContent[y][x] = domainContent[y][x];
