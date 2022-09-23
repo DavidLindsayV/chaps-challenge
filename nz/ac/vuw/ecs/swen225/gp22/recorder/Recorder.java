@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 import javax.swing.JFileChooser;
 
@@ -26,10 +27,10 @@ public class Recorder {
     }
 
     /*
-     * Recorder record a given move
+     * Record a given tick
      */
-    public void move(String move){
-        this.recWriter.move(move);
+    public void tick(Map<String, String> moveMap ){
+        recWriter.tick(moveMap);
     }
 
     /* 
@@ -54,5 +55,4 @@ public class Recorder {
             System.out.println(readDocument.asXML());
         }
     }
-
 }

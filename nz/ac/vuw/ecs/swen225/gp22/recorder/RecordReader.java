@@ -7,10 +7,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
 public class RecordReader {
-
-    
-    public RecordReader(){ }
-
     /*
      * Parses the xml file
      */
@@ -19,5 +15,4 @@ public class RecordReader {
         Document document = reader.read(url);
         return document;
     }
-
 }

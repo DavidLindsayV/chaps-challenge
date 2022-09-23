@@ -4,7 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -16,24 +17,43 @@ public class RecordWriter {
     /* Fields. */
     private Document document;
     private Element game;
-    private Element moves;
+    private Element ticks;
+    private int tickNum;
 
     /*
      * Recorder constructor, writing to a given org.dom4j.Document.
      */
     public RecordWriter(Document document){
         this.document = document;
-        this.game = document.addElement("game");
-        this.moves = game.addElement("moves");
+        this.game = this.document.addElement("game");
+        this.ticks = this.game.addElement("ticks");
+        this.tickNum = 0;
+    }
+
+    /*
+     * Records a tick and what happens within the tick.
+     * 
+     * The move map is <Actor name/id, move>, we can change this later from move to action, if we need to add more actions.
+     * 
+     */
+    public void tick(Map<String, String> moveMap ){
+        Element tick = this.ticks.addElement("tick")
+            .addAttribute("tick", this.tickNum+"");
+        
+        
+        for(String actor : moveMap.keySet()){
+            String move = moveMap.get(actor);
+            this.move(tick, actor, move);
+        }
+        tickNum++;
     }
 
     /*
      * Record a given move
      */
-    public void move(String move){
-        moves.addElement("move")
-            .addAttribute("actor", "player")
-            .addAttribute("tick", "0")
+    private void move(Element tick, String actor,String move){
+        tick.addElement("move")
+            .addAttribute("actor", actor)
             .addText(move);
     }
 
@@ -54,5 +74,4 @@ public class RecordWriter {
         writer.write( document );
         writer.close();
     }
-
 }
