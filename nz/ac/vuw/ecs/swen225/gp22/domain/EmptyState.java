@@ -10,4 +10,14 @@ public class EmptyState implements FreeTileState {
     public void performAction(Player p, FreeTile tile) {
         return;        
     }
+
+    @Override
+    public String name() {
+        return "empty";
+    }
+
+    @Override
+    public String toString() {
+        return "_";
+    }
 }

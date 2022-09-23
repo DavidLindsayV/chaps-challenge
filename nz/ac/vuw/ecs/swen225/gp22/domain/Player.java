@@ -3,9 +3,18 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.Set;
 
 public class Player {
+    private Domain domain;
     private int treasureCount;
     private Set<AuthenticationColour> keyWallet;
 
+    /**
+     * Creates a player linked to a domain.
+     * @param d
+     */
+    public Player(Domain d) {
+        this.domain = d;
+    }
+    
     /**
      * Adds a key to the wallet 
      * @param key The colour of the key.
@@ -28,5 +37,9 @@ public class Player {
      */
     public void pickUpTreasure() {
         treasureCount++;
+    }
+
+    public boolean hasAllTreasures() {
+        return treasureCount == domain.requiredTreasureCount();
     }
 }

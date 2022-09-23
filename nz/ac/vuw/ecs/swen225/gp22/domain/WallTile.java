@@ -24,4 +24,14 @@ public class WallTile implements Tile {
     public static WallTile of() {
         return WallTile.singleton;
     }
+
+    @Override
+    public String name() {
+        return "wall";
+    }
+
+    @Override
+    public String toString() {
+        return "#";
+    }
 }

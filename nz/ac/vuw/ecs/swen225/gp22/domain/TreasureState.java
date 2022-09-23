@@ -11,4 +11,14 @@ public class TreasureState implements FreeTileState {
         p.pickUpTreasure();
         tile.changeState(new EmptyState());
     }
+
+    @Override
+    public String name() {
+        return "treasure";
+    }
+
+    @Override
+    public String toString() {
+        return "*";
+    }
 }

@@ -26,4 +26,14 @@ public class LockedDoorState implements FreeTileState {
             tile.changeState(new EmptyState());
         }
     }
+
+    @Override
+    public String name() {
+        return "locked_door";
+    }
+
+    @Override
+    public String toString() {
+        return "@";
+    }
 }

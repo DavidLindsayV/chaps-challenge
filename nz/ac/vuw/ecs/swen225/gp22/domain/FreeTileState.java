@@ -19,4 +19,16 @@ public interface FreeTileState {
      * The tile --> reverts to a state of empty.
      */
     public void performAction(Player p, FreeTile tile);
+
+    /**
+     * The English name of the tile.
+     * @return 
+     */
+    public String name();
+
+    /**
+     * A one character representation of the tile.
+     * @return
+     */
+    public String toString();
 }

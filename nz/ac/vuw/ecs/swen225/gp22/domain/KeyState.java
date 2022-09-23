@@ -23,8 +23,20 @@ public class KeyState implements FreeTileState {
     public void performAction(Player p, FreeTile tile) {
         // Pick up key for the player.
         p.addKey(this.colour);
-        
+
         // Switch tile state to empty state.
         tile.changeState(new EmptyState());
     }
+
+    @Override
+    public String name() {
+        return "key";
+    }
+
+    @Override 
+    public String toString() {
+        return "k";
+    }
+
+    
 }

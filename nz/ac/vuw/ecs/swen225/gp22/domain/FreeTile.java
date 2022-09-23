@@ -39,4 +39,14 @@ public class FreeTile implements Tile {
     public static FreeTile empty() {
         return new FreeTile(new EmptyState());
     }
+
+    @Override
+    public String name() {
+        return state.name();
+    }
+
+    @Override
+    public String toString() {
+        return state.toString();
+    }
 }

@@ -23,4 +23,15 @@ public interface Tile {
      */
     public void acceptPlayer(Player player);
 
+    /**
+     * The English name of the tile.
+     * @return 
+     */
+    public String name();
+
+    /**
+     * A one character representation of the tile.
+     * @return
+     */
+    public String toString();
 }
