@@ -9,6 +9,7 @@ public class DomainBuilder {
     private Tile[][] domainContent;
     private Integer  domainHeight;
     private Integer  domainWidth;
+    private Point    domainPlayerPosition = new Point(0, 0); // Default.
 
     public DomainBuilder() {
         this.reset();
@@ -25,6 +26,17 @@ public class DomainBuilder {
         for (Tile[] domainContentRow : domainContent) {
             Arrays.fill(domainContentRow, FreeTile.empty());
         }
+    }
+
+    /**
+     * Creates an player given row and column.
+     * @param row Row of the tile.
+     * @param col Column of the tile.
+     * @return Domain builder object.
+     */
+    public DomainBuilder player(int row, int col) {
+        domainPlayerPosition = new Point(row, col);
+        return this;
     }
 
     /**
@@ -104,13 +116,16 @@ public class DomainBuilder {
      */
     public Domain make() {
         // Copies over the selected region.
-        Tile[][] selectedDomainContent = new Tile[domainWidth][domainHeight];
+        Tile[][] selectedDomainContent = new Tile[domainHeight][domainWidth];
         for (int y=0; y<domainHeight; ++y) {
             for (int x=0; x<domainWidth; ++x) {
                 selectedDomainContent[y][x] = domainContent[y][x];
             }
         }
 
-        return new Domain(selectedDomainContent);
+        // Creates the player, linking it to the domain.
+        Domain d = new Domain(selectedDomainContent);
+        d.setPlayerPosition(domainPlayerPosition);
+        return d;
     }
 }

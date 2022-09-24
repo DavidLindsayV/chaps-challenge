@@ -1,6 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-public interface Tile {
+public interface Tile extends Printable {
     /**
      * Is the tile an obstruction.
      *      If this is true --> Do not let the player walk through.
@@ -22,16 +22,4 @@ public interface Tile {
      * @param player Player object.
      */
     public void acceptPlayer(Player player);
-
-    /**
-     * The English name of the tile.
-     * @return 
-     */
-    public String name();
-
-    /**
-     * A one character representation of the tile.
-     * @return
-     */
-    public String toString();
 }

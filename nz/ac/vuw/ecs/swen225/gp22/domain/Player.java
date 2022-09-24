@@ -2,19 +2,37 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Set;
 
-public class Player {
+public class Player implements Printable {
+    private Point position;
     private Domain domain;
     private int treasureCount;
     private Set<AuthenticationColour> keyWallet;
 
     /**
-     * Creates a player linked to a domain.
+     * Creates a player linked to a domain, at position p
      * @param d
      */
     public Player(Domain d) {
+        this.position = new Point(0, 0);
         this.domain = d;
     }
-    
+
+    /**
+     * Sets the position of the player.
+     * @param pos
+     */
+    public void setPosition(Point pos) {
+        this.position = pos;
+    }
+
+    /**
+     * Returns the position of the player (immutable)
+     */
+    public Point getPosition() {
+        System.out.println("player-getPosition: " + this.position);
+        return this.position;
+    }
+
     /**
      * Adds a key to the wallet 
      * @param key The colour of the key.
@@ -39,7 +57,21 @@ public class Player {
         treasureCount++;
     }
 
+    /**
+     * Checks if the player has all treasures.
+     * @return Boolean
+     */
     public boolean hasAllTreasures() {
         return treasureCount == domain.requiredTreasureCount();
+    }
+
+    @Override
+    public String name() {
+        return "player";
+    }
+
+    @Override
+    public String toString() {
+        return "P";
     }
 }
