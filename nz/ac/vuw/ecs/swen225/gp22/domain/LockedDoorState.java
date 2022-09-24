@@ -16,7 +16,7 @@ public class LockedDoorState implements FreeTileState {
 
     @Override
     public boolean isWall() {
-        return false;
+        return true;
     }
 
     @Override

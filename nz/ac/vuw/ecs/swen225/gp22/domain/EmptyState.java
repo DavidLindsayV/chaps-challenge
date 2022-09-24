@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 public class EmptyState implements FreeTileState {
+    
     @Override
     public boolean isWall() {
         return false;

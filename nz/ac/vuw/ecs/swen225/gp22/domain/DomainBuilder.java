@@ -49,8 +49,8 @@ public class DomainBuilder {
         domainExitLocation      = null;
         domainPlayerPosition    = null;
         domainContent           = new Tile[MAX_WIDTH][MAX_HEIGHT];    
-        domainHeight            = null;
-        domainWidth             = null;
+        domainHeight            = -1;
+        domainWidth             = -1;
         
         for (Tile[] domainContentRow : domainContent) {
             Arrays.fill(domainContentRow, FreeTile.empty());
@@ -65,7 +65,12 @@ public class DomainBuilder {
      */
     public DomainBuilder player(int row, int col) {
         preconditionCheck(row, col);
-        if (domainPlayerPosition != null) {throw new IllegalStateException("You cannot have more than one player."); }
+        if (domainPlayerPosition != null) {
+            throw new IllegalStateException("You cannot have more than one player."); 
+        }
+        if (!domainContent[row][col].name().equals("empty")) {
+            throw new IllegalStateException("You cannot spawn on a occupied tile."); 
+        }
         domainPlayerPosition = new Point(row, col);
         detectBoundaries(row, col);
         return this;
@@ -194,6 +199,9 @@ public class DomainBuilder {
      */
     public Domain make() {
         // Check for correct state
+        if (domainHeight == -1 || domainWidth == -1) {
+            throw new IllegalStateException("You haven't set any tiles.");
+        }
         if (domainPlayerPosition == null) {
             throw new IllegalStateException("You haven't set the players position.");
         }
