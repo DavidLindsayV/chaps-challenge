@@ -6,8 +6,6 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class BoardPanel extends JPanel {
