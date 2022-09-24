@@ -7,6 +7,7 @@ import java.util.function.BiFunction;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Node;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -18,16 +19,18 @@ record Point(int row, int col) {
 
 public class Parser {
 
+    private static int saveFileCount = 0;
+
     /**
      * Load the level layout from an xml file and use it to construct the domain
      * 
      * @param levelNum the level number being parsed
      * @return a Domain object representing the level
      */
-    public static Domain loadLevel(int levelNum) {
+    public static Domain loadLevel(String filename) {
         try {
             SAXReader reader = new SAXReader();
-            File levelFile = new File("level" + levelNum + ".xml");
+            File levelFile = new File(filename);
             Document document = reader.read(levelFile);
 
             Element levelElement = document.getRootElement();
@@ -59,6 +62,45 @@ public class Parser {
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Save the current level state to an xml file so that it can be loaded later
+     * 
+     * @param domain
+     */
+    public static void saveLevel(Domain domain) {
+        saveFileCount++;
+        Tile[][] levelLayout = domain.getLevelLayout();
+        Document document = createLevelDocument(levelLayout);
+        FileWriter out = new FileWriter("saved-game-" + saveFileCount + ".xml");
+        document.write(out);
+        out.close();
+    }
+
+    private Document createLevelDocument(Tile[][] levelLayout) {
+        Document document = DocumentHelper.createDocument();
+        Element level = document.addElement("level");
+        for (int row = 0; row < levelLayout.size(); row++) {
+            Element currRow = level.addElement("row").addAttribute("r", "" + row);
+            for (int col = 0; col < levelLayout[0].size(); col++) {
+                Tile t = levelLayout[row][col];
+                String name = t.name();
+                if (!name.equals("empty")) {
+                    Element tile = currRow.addElement(name).addAttribute("c", "" + col);
+                    if (name.equals("door") || name.equals("key")) {
+                        tile.addAttribute("colour", t.colour());
+                    } else if (name.equals("enemy")) {
+                        List<Point> path = t.getPath();
+                        path.stream().forEach(p -> {
+                            tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", "" + p.col());
+                        });
+                    }
+                }
+            }
+
+        }
+        return document;
     }
 
     /**
