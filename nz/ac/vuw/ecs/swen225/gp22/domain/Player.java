@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Player implements Printable {
@@ -15,6 +16,7 @@ public class Player implements Printable {
     public Player(Domain d) {
         this.position = new Point(0, 0);
         this.domain = d;
+        this.keyWallet = new HashSet<AuthenticationColour>();
     }
 
     /**

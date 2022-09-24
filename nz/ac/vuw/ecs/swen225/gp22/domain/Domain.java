@@ -70,9 +70,6 @@ public class Domain {
         return pos.equals(player.getPosition());
     }
 
-    /**
-     * 
-     */
     public void movePlayer(Domain.Direction direction) {
         Point pos = player.getPosition();
         pos = pos.translate(direction.dr, direction.dc);
