@@ -12,21 +12,18 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
+
 public class Recorder {
 
     /* Fields. */
     private static RecordWriter recWriter;
     private static Document document;
 
-    // /*
-    //  * Recorder constructor
-    //  */
-    // public Recorder(){
-    //     this.document = DocumentHelper.createDocument();
-    //     this.recWriter = new RecordWriter(this.document);
-    // }
-
-    public static void newGame(){
+    /*
+     * Refreashes the dom4j document and record writer, for a new level
+     */
+    public static void newLevel(){
         document = DocumentHelper.createDocument();
         recWriter = new RecordWriter(document);
     }
@@ -34,8 +31,8 @@ public class Recorder {
     /*
      * Record a given tick
      */
-    public static void tick(Map<String, String> moveMap ){
-        recWriter.tick(moveMap);
+    public static void tick(UserListener.moveType move){
+        recWriter.tick(move);
     }
 
     /* 
