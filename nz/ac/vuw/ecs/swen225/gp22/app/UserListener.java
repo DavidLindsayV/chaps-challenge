@@ -8,14 +8,6 @@ import java.util.Set;
  */
 public class UserListener implements KeyListener {
 
-  public static enum moveType {
-    moveLeft,
-    moveRight,
-    moveUp,
-    moveDown,
-    None,
-  }
-
   public static moveType move;
 
   public static boolean paused = false;
@@ -116,12 +108,14 @@ to be loaded
 
   /**Pauses game, displays a "Game is paused" dialog */
   public static void pauseGame() {
+    System.out.println("The game is paused");
     paused = true;
     timer.cancel();
   }
 
   /**Removed "Game is paused" dialog, resumes game */
   public static void resumeGame() {
+    System.out.println("The game has resumed");
     paused = false;
     timer = new pingTimer();
   }
