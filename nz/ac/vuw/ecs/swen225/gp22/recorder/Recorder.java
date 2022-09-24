@@ -7,7 +7,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 
-import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
+import nz.ac.vuw.ecs.swen225.gp22.app.moveType;
 
 public class Recorder {
 
@@ -26,7 +26,7 @@ public class Recorder {
     /*
      * Record a given tick
      */
-    public static void tick(UserListener.moveType move){
+    public static void tick(moveType move){
         recWriter.tick(move);
     }
 
