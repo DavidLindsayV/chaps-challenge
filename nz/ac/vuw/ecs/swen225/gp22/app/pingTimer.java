@@ -25,12 +25,15 @@ public class pingTimer extends Timer {
 
   /**Function that runs whenever the timer triggers */
   public void ping() {
-    System.out.println(timeLeftToPlay);
     timeLeftToPlay -= pingRate;
     if (timeLeftToPlay == 0) {
       UserListener.loadLevel();
     }
     mockRecorder.tick(UserListener.move);
     UserListener.move = moveType.None;
+    if (Main.gui != null) {
+      Main.gui.panel.revalidate();
+      Main.gui.panel.repaint();
+    }
   }
 }

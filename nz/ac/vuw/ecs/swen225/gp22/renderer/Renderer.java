@@ -15,7 +15,7 @@ public class Renderer extends JFrame {
 
   private int width;
   private int height;
-  protected BoardPanel panel;
+  public BoardPanel panel;
 
   public Renderer(int w, int h) {
     width = w;
