@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,7 +14,7 @@ public class UserListener implements KeyListener {
   public static boolean paused = false;
   static int currentLevel = 1;
 
-  static Set<mockKey> keysCollected;
+  static Set<mockKey> keysCollected = new HashSet<mockKey>();
   static int treasuresLeft; //number of treasures still needing collecting
   static pingTimer timer = new pingTimer();
 
