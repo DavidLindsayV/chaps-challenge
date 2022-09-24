@@ -57,6 +57,48 @@ public class DomainBuilder {
     }
 
     /**
+     * Creates a treasure tile at the given location.
+     * 
+     * @param row Row of the treasure.
+     * @param col Column of the treasure.
+     * @return Domain builder object.
+     */
+    public DomainBuilder treasure(int row, int col) {
+        domainContent[row][col] = FreeTile.treasure();
+        domainHeight = Math.max(domainHeight, row + 1);
+        domainWidth  = Math.max(domainWidth, col + 1);
+        return this;
+    }
+
+    /**
+     * Creates a treasure tile at the given location.
+     * 
+     * @param row Row of the treasure.
+     * @param col Column of the treasure.
+     * @return Domain builder object.
+     */
+    public DomainBuilder key(int row, int col, AuthenticationColour colour) {
+        domainContent[row][col] = FreeTile.key(colour);
+        domainHeight = Math.max(domainHeight, row + 1);
+        domainWidth  = Math.max(domainWidth, col + 1);
+        return this;
+    }
+
+    /**
+     * Creates a treasure tile at the given location.
+     * 
+     * @param row Row of the treasure.
+     * @param col Column of the treasure.
+     * @return Domain builder object.
+     */
+    public DomainBuilder door(int row, int col, AuthenticationColour colour) {
+        domainContent[row][col] = FreeTile.door(colour);
+        domainHeight = Math.max(domainHeight, row + 1);
+        domainWidth  = Math.max(domainWidth, col + 1);
+        return this;
+    }
+
+    /**
      * Returns the constructed domain object.
      * @return
      */

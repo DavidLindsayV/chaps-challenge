@@ -40,6 +40,30 @@ public class FreeTile implements Tile {
         return new FreeTile(new EmptyState());
     }
 
+    /**
+     * Factory method for treasure tile.
+     * @return Empty free tile.
+     */
+    public static FreeTile treasure() {
+        return new FreeTile(new TreasureState());
+    }
+
+    /**
+     * Factory method for a new door.
+     * @return Empty free tile.
+     */
+    public static FreeTile door(AuthenticationColour colour) {
+        return new FreeTile(new LockedDoorState(colour));
+    }
+
+    /**
+     * Factory method for a new key.
+     * @return Empty free tile.
+     */
+    public static FreeTile key(AuthenticationColour colour) {
+        return new FreeTile(new KeyState(colour));
+    }
+
     @Override
     public String name() {
         return state.name();
