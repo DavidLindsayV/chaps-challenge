@@ -3,7 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 /**
  * Represents treasure.
  * Can pass through.
- * No special traits, just a chip.
+ * When passing through, the player acquires +1 treasures.
  */
 public class TreasureState implements FreeTileState {
     @Override

@@ -64,7 +64,7 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder player(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         if (domainPlayerPosition != null) {
             throw new IllegalStateException("You cannot have more than one player."); 
         }
@@ -83,7 +83,7 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder empty(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = FreeTile.empty();
         detectBoundaries(row, col);
         return this;
@@ -94,12 +94,12 @@ public class DomainBuilder {
      * !! NOTE, this really shouldn't be used often. 
      * As all default tiles are rows.
      * 
-     * @param row Row of the tile.
-     * @param col Column of the tile.
+     * @param row Row of the wall tile.
+     * @param col Column of the wall tile.
      * @return Domain builder object.
      */
     public DomainBuilder wall(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = WallTile.of();
         detectBoundaries(row, col);
         return this;
@@ -108,12 +108,12 @@ public class DomainBuilder {
     /**
      * Creates a exit tile at the given location.
      * 
-     * @param row Row of the treasure.
-     * @param col Column of the treasure.
+     * @param row Row of the exit tile.
+     * @param col Column of the exit tile.
      * @return Domain builder object.
      */
     public DomainBuilder exit(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = new ExitTile();
         domainExitLocation = new Point(row, col);
         detectBoundaries(row, col);
@@ -128,21 +128,21 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder treasure(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = FreeTile.treasure();
         detectBoundaries(row, col);
         return this;
     }
 
     /**
-     * Creates a treasure tile at the given location.
+     * Creates a key tile at the given location.
      * 
-     * @param row Row of the treasure.
-     * @param col Column of the treasure.
+     * @param row Row of the key.
+     * @param col Column of the key.
      * @return Domain builder object.
      */
     public DomainBuilder key(int row, int col, AuthenticationColour colour) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = FreeTile.key(colour);
         detectBoundaries(row, col);
         return this;
@@ -156,7 +156,7 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder door(int row, int col, AuthenticationColour colour) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = FreeTile.door(colour);
         detectBoundaries(row, col);
         return this;
@@ -170,7 +170,7 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder info(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = FreeTile.info();
         detectBoundaries(row, col);
         return this;
@@ -184,7 +184,7 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder lock(int row, int col) {
-        preconditionCheck(row, col);
+        checkWithinAbsoluteLimits(row, col);
         domainContent[row][col] = FreeTile.lock();
         detectBoundaries(row, col);
         return this;
@@ -248,7 +248,7 @@ public class DomainBuilder {
      * @param col
      * @return 
      */
-    private void preconditionCheck(int row, int col) {
+    private void checkWithinAbsoluteLimits(int row, int col) {
         if (row < 0) { throw new IllegalArgumentException("Row cannot be less than 0."); }
         if (col < 0) { throw new IllegalArgumentException("Col cannot be less than 0."); }
         if (row >= MAX_HEIGHT) { throw new IllegalArgumentException("Row cannot be greater than 999."); }

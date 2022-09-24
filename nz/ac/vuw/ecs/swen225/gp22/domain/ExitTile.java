@@ -1,8 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 /**
- * Represents a wall tile.
- * Can be implemented as a singleton as all walls are the same.
+ * Represents the exit tile.
+ * Upon stepping on this tile, it will move the player to the next level.
  */
 public class ExitTile implements Tile {
     public ExitTile() {

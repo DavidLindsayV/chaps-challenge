@@ -7,5 +7,6 @@ public enum AuthenticationColour {
     PINK,
     BLUE,
     YELLOW,
-    GREEN
+    GREEN,
+    NULL
 }

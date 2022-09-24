@@ -1,5 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+/**
+ * Represents an exit lock, which acts as a wall.
+ * If the player carrys ALL TREASURES,
+ * then it becomes an empty tile.
+ * 
+ */
 public class ExitLockState implements FreeTileState {
     @Override
     public boolean isWall() {

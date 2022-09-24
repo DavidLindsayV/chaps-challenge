@@ -3,6 +3,13 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents the player on the game.
+ * The player keeps track of
+ *  - How many treasures it has.
+ *  - What keys it has on it's wallet.
+ *  - It's current position
+ */
 public class Player implements Printable {
     private Point position;
     private Domain domain;
@@ -10,7 +17,7 @@ public class Player implements Printable {
     private Set<AuthenticationColour> keyWallet;
 
     /**
-     * Creates a player linked to a domain, at position p
+     * Creates a player linked to a domain, at position (0, 0)
      * @param d
      */
     public Player(Domain d) {
@@ -21,14 +28,14 @@ public class Player implements Printable {
 
     /**
      * Sets the position of the player.
-     * @param pos
+     * @param pos Position to move player.
      */
     public void setPosition(Point pos) {
         this.position = pos;
     }
 
     /**
-     * Returns the position of the player (immutable)
+     * Returns the position of the player (immutable, due to record)
      */
     public Point getPosition() {
         return this.position;
@@ -43,7 +50,10 @@ public class Player implements Printable {
     }
 
     /**
-     * Does the wallet contain this colour
+     * Does the wallet contain this colour key? 
+     * If so: return TRUE
+     * Else:  return False
+     * 
      * @param colour The colour of the lock.
      * @return The privileges of the user.
      */
@@ -76,6 +86,9 @@ public class Player implements Printable {
         return "P";
     }
 
+    /**
+     * Called by exit tile, which allows the player to move to next lvl.
+     */
     public void nextLevel() {
         domain.nextLevel();
     }
