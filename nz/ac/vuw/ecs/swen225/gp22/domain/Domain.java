@@ -1,21 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.Arrays;
+
 public class Domain {
-    public static enum Direction {
-        UP(-1, 0),
-        DOWN(1, 0),
-        LEFT(0, -1),
-        RIGHT(0, 1),
-        NONE(0, 0);
-
-        public final int dr;
-        public final int dc;
-        Direction(int dr, int dc) {
-            this.dr = dr;
-            this.dc = dc;
-        }
-    }
-
     private Tile[][] gameState;
     private Player   player;
     private int      requiredTreasureCount;
@@ -26,6 +13,13 @@ public class Domain {
         countTreasures();
     }
 
+    /**
+     * Is this position within the domain.
+     * For example, moving up at (0, 0) --> false.
+     * Moving down --> true.
+     * @param pos
+     * @return
+     */
     private boolean withinDomain(Point pos) {
         return pos.row() >= 0 
             && pos.row() < gameState.length
@@ -70,7 +64,7 @@ public class Domain {
         return pos.equals(player.getPosition());
     }
 
-    public void movePlayer(Domain.Direction direction) {
+    public void movePlayer(Direction direction) {
         Point pos = player.getPosition();
         pos = pos.translate(direction.dr, direction.dc);
         
@@ -102,10 +96,21 @@ public class Domain {
         return board;
     }
 
+    /**
+     * TODO: Hook up to davids stuff.
+     */
     public void nextLevel() {
         
     }
 
+    /**
+     * TODO: Fix interface of tile.
+     * @return
+     */
+    public Tile[][] getInnerState() {
+        return Arrays.stream(gameState).map(Tile[]::clone).toArray(Tile[][]::new);
+    }
+    
     public static void main(String[] args) {
         Domain d = new DomainBuilder()
         .make();
