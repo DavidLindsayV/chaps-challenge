@@ -18,6 +18,12 @@ record Point(int row, int col) {
 
 public class Parser {
 
+    /**
+     * Load the level layout from an xml file and use it to construct the domain
+     * 
+     * @param levelNum the level number being parsed
+     * @return a Domain object representing the level
+     */
     public static Domain loadLevel(int levelNum) {
         try {
             SAXReader reader = new SAXReader();
@@ -55,6 +61,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse a standard node which only has a column attribute e.g wall
+     * 
+     * @param rowNum   the current row number
+     * @param nodes    the tile nodes being parsed
+     * @param consumer the consumer to build the tile which takes the row and column
+     */
     private static void parseStandardNode(int rowNum, List<Node> nodes, BiConsumer<Integer, Integer> consumer) {
         for (Node n : nodes) {
             Number colNum = n.numberValueOf("@c");
@@ -65,6 +78,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse a node tile type which has a colour attribute e.g door, key
+     * 
+     * @param rowNum   the current row number
+     * @param nodes    the tile nodes being parsed
+     * @param consumer the consumer to build the tile which take row, column and the
+     *                 colour
+     */
     private static void parseColourNode(int rowNum, List<Node> nodes, TriConsumer<Integer, Integer, String> consumer) {
         for (Node n : nodes) {
             Number colNum = n.numberValueOf("@c");
@@ -79,6 +100,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse a node tile type which has a path i.e an enemy
+     * 
+     * @param rowNum   the current row number
+     * @param nodes    the tile nodes being parsed
+     * @param consumer the consumer to build the tile which takes the row, column
+     *                 and the path
+     */
     private static void parsePathNode(int rowNum, List<Node> nodes,
             TriConsumer<Integer, Integer, List<Point>> consumer) {
         for (Node n : nodes) {
