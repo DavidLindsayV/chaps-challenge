@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -8,20 +9,12 @@ import java.util.Set;
  */
 public class UserListener implements KeyListener {
 
-  public static enum moveType {
-    moveLeft,
-    moveRight,
-    moveUp,
-    moveDown,
-    None,
-  }
-
   public static moveType move;
 
   public static boolean paused = false;
   static int currentLevel = 1;
 
-  static Set<mockKey> keysCollected;
+  static Set<mockKey> keysCollected = new HashSet<mockKey>();
   static int treasuresLeft; //number of treasures still needing collecting
   static pingTimer timer = new pingTimer();
 
@@ -116,12 +109,14 @@ to be loaded
 
   /**Pauses game, displays a "Game is paused" dialog */
   public static void pauseGame() {
+    System.out.println("The game is paused");
     paused = true;
     timer.cancel();
   }
 
   /**Removed "Game is paused" dialog, resumes game */
   public static void resumeGame() {
+    System.out.println("The game has resumed");
     paused = false;
     timer = new pingTimer();
   }

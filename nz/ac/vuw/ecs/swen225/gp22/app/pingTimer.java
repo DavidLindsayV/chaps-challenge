@@ -30,6 +30,10 @@ public class pingTimer extends Timer {
       UserListener.loadLevel();
     }
     mockRecorder.tick(UserListener.move);
-    UserListener.move = UserListener.moveType.None;
+    UserListener.move = moveType.None;
+    if (Main.gui != null) {
+      Main.gui.panel.revalidate();
+      Main.gui.panel.repaint();
+    }
   }
 }

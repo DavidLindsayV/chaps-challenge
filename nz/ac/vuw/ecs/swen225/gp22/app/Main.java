@@ -7,7 +7,13 @@ import javax.swing.SwingUtilities;
  */
 public class Main {
 
+  public static GUI gui;
+
   public static void main(String[] args) {
-    SwingUtilities.invokeLater(() -> new GUI());
+    SwingUtilities.invokeLater(
+      () -> {
+        gui = new GUI();
+      }
+    );
   }
 }
