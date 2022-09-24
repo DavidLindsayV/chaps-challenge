@@ -5,9 +5,11 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
-import org.dom4j.*;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Node;
+import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import java.util.stream.*;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 
@@ -47,12 +49,13 @@ public class Parser {
                         (r, c, colour) -> builder.door(r, c, colour));
                 parsePathNode(rowNumInt, row.selectNodes("level/row/enemy"), (r, c, path) -> builder.enemy(r, c, path));
             }
+            return builder.make();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
     }
 
-    public static void parseStandardNode(int rowNum, List<Node> nodes, BiConsumer<Integer, Integer> consumer) {
+    private static void parseStandardNode(int rowNum, List<Node> nodes, BiConsumer<Integer, Integer> consumer) {
         for (Node n : nodes) {
             Number colNum = n.numberValueOf("@c");
             if (colNum == null) {
@@ -62,7 +65,7 @@ public class Parser {
         }
     }
 
-    public static void parseColourNode(int rowNum, List<Node> nodes, TriConsumer<Integer, Integer, String> consumer) {
+    private static void parseColourNode(int rowNum, List<Node> nodes, TriConsumer<Integer, Integer, String> consumer) {
         for (Node n : nodes) {
             Number colNum = n.numberValueOf("@c");
             if (colNum == null) {
@@ -76,7 +79,7 @@ public class Parser {
         }
     }
 
-    public static void parsePathNode(int rowNum, List<Node> nodes,
+    private static void parsePathNode(int rowNum, List<Node> nodes,
             TriConsumer<Integer, Integer, List<Point>> consumer) {
         for (Node n : nodes) {
             Number colNum = n.numberValueOf("@c");
