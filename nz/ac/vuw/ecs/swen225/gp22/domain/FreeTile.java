@@ -64,6 +64,22 @@ public class FreeTile implements Tile {
         return new FreeTile(new KeyState(colour));
     }
 
+    /**
+     * Factory method for an information tile.
+     * @return Empty free tile.
+     */
+    public static FreeTile info() {
+        return new FreeTile(new InformationState());
+    }
+
+    /**
+     * Factory method for an exit lock tile.
+     * @return Empty free tile.
+     */
+    public static FreeTile lock() {
+        return new FreeTile(new ExitLockState());
+    }
+
     @Override
     public String name() {
         return state.name();

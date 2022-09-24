@@ -2,32 +2,61 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Arrays;
 
+/**
+ * Fluent Builder API for creating a Domain object.
+ * Every domain must have
+ *  - Exactly one player.
+ *  - At least one exit.
+ * 
+ * Example usage:
+ * 
+ * DomainBuilder db = new DomainBuilder();
+ * Domain d = db
+ *  .wall(1, 2)
+ *  .wall(1, 3)
+ *  .wall(1, 4)
+ *  .wall(2, 4)
+ *  .player(0, 1)
+ *  .exit(5, 5)
+ *  .make()
+ */
 public class DomainBuilder {
+    /**
+     * ----------------------INTERNAL VARIABLES (IGNORE)-----------------------
+     */
     private static final int MAX_WIDTH  = 1000;
     private static final int MAX_HEIGHT = 1000;
 
     private Tile[][] domainContent;
     private Integer  domainHeight;
     private Integer  domainWidth;
-    private Point    domainPlayerPosition = new Point(0, 0); // Default.
+    private Point    domainPlayerPosition;
+    private Point    domainExitLocation;
 
     public DomainBuilder() {
         this.reset();
     }
+    
+    /**
+     * ----------------------PUBLIC METHODS API-------------------------------
+     */
 
     /**
      * Resets the state of the builder
      * All tiles are free tiles by default.
      */
     public void reset() {
-        domainContent = new Tile[MAX_WIDTH][MAX_HEIGHT];    
-        domainHeight  = -1;
-        domainWidth   = -1;
+        domainExitLocation      = null;
+        domainPlayerPosition    = null;
+        domainContent           = new Tile[MAX_WIDTH][MAX_HEIGHT];    
+        domainHeight            = null;
+        domainWidth             = null;
+        
         for (Tile[] domainContentRow : domainContent) {
             Arrays.fill(domainContentRow, FreeTile.empty());
         }
     }
-
+    
     /**
      * Creates an player given row and column.
      * @param row Row of the tile.
@@ -35,7 +64,10 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder player(int row, int col) {
+        preconditionCheck(row, col);
+        if (domainPlayerPosition != null) {throw new IllegalStateException("You cannot have more than one player."); }
         domainPlayerPosition = new Point(row, col);
+        detectBoundaries(row, col);
         return this;
     }
 
@@ -46,9 +78,9 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder empty(int row, int col) {
+        preconditionCheck(row, col);
         domainContent[row][col] = FreeTile.empty();
-        domainHeight = Math.max(domainHeight, row + 1);
-        domainWidth  = Math.max(domainWidth, col + 1);
+        detectBoundaries(row, col);
         return this;
     }
 
@@ -62,9 +94,24 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder wall(int row, int col) {
+        preconditionCheck(row, col);
         domainContent[row][col] = WallTile.of();
-        domainHeight = Math.max(domainHeight, row + 1);
-        domainWidth  = Math.max(domainWidth, col + 1);
+        detectBoundaries(row, col);
+        return this;
+    }
+
+    /**
+     * Creates a exit tile at the given location.
+     * 
+     * @param row Row of the treasure.
+     * @param col Column of the treasure.
+     * @return Domain builder object.
+     */
+    public DomainBuilder exit(int row, int col) {
+        preconditionCheck(row, col);
+        domainContent[row][col] = new ExitTile();
+        domainExitLocation = new Point(row, col);
+        detectBoundaries(row, col);
         return this;
     }
 
@@ -76,9 +123,9 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder treasure(int row, int col) {
+        preconditionCheck(row, col);
         domainContent[row][col] = FreeTile.treasure();
-        domainHeight = Math.max(domainHeight, row + 1);
-        domainWidth  = Math.max(domainWidth, col + 1);
+        detectBoundaries(row, col);
         return this;
     }
 
@@ -90,9 +137,9 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder key(int row, int col, AuthenticationColour colour) {
+        preconditionCheck(row, col);
         domainContent[row][col] = FreeTile.key(colour);
-        domainHeight = Math.max(domainHeight, row + 1);
-        domainWidth  = Math.max(domainWidth, col + 1);
+        detectBoundaries(row, col);
         return this;
     }
 
@@ -104,17 +151,57 @@ public class DomainBuilder {
      * @return Domain builder object.
      */
     public DomainBuilder door(int row, int col, AuthenticationColour colour) {
+        preconditionCheck(row, col);
         domainContent[row][col] = FreeTile.door(colour);
-        domainHeight = Math.max(domainHeight, row + 1);
-        domainWidth  = Math.max(domainWidth, col + 1);
+        detectBoundaries(row, col);
         return this;
     }
 
     /**
+     * Creates a info tile at the given location.
+     * 
+     * @param row Row of the treasure.
+     * @param col Column of the treasure.
+     * @return Domain builder object.
+     */
+    public DomainBuilder info(int row, int col) {
+        preconditionCheck(row, col);
+        domainContent[row][col] = FreeTile.info();
+        detectBoundaries(row, col);
+        return this;
+    }
+
+    /**
+     * Creates a lock tile at the given location.
+     * 
+     * @param row Row of the lock.
+     * @param col Column of the treasure.
+     * @return Domain builder object.
+     */
+    public DomainBuilder lock(int row, int col) {
+        preconditionCheck(row, col);
+        domainContent[row][col] = FreeTile.lock();
+        detectBoundaries(row, col);
+        return this;
+    }
+
+
+    /**
      * Returns the constructed domain object.
-     * @return
+     * with a nested player (that is linked to the domain).
+     * 
+     * @return Built domain object.
      */
     public Domain make() {
+        // Check for correct state
+        if (domainPlayerPosition == null) {
+            throw new IllegalStateException("You haven't set the players position.");
+        }
+
+        if (domainExitLocation == null) {
+            throw new IllegalStateException("You haven't set an exit position.");
+        }
+
         // Copies over the selected region.
         Tile[][] selectedDomainContent = new Tile[domainHeight][domainWidth];
         for (int y=0; y<domainHeight; ++y) {
@@ -127,5 +214,36 @@ public class DomainBuilder {
         Domain d = new Domain(selectedDomainContent);
         d.setPlayerPosition(domainPlayerPosition);
         return d;
+    }
+
+    /**
+     * -------------------------PRIVATE HELPER FUNCTIONS-----------------------
+     */
+
+    /**
+     * Auto detects the boundaries of the board.
+     * and updates them.
+     * 
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
+    private void detectBoundaries(int row, int col) {
+        domainHeight = Math.max(domainHeight, row + 1);
+        domainWidth  = Math.max(domainWidth, col + 1);
+    }
+
+    /**
+     * Checks if the (row, col) is within the maximum bounds.
+     * @param row
+     * @param col
+     * @return 
+     */
+    private void preconditionCheck(int row, int col) {
+        if (row < 0) { throw new IllegalArgumentException("Row cannot be less than 0."); }
+        if (col < 0) { throw new IllegalArgumentException("Col cannot be less than 0."); }
+        if (row >= MAX_HEIGHT) { throw new IllegalArgumentException("Row cannot be greater than 999."); }
+        if (col >= MAX_WIDTH) { throw new IllegalArgumentException("Col cannot be greater than 999."); }
     }
 }

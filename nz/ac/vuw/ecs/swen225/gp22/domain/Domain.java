@@ -2,10 +2,10 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 public class Domain {
     public static enum Direction {
-        UP(1, 0),
-        DOWN(-1, 0),
+        UP(-1, 0),
+        DOWN(1, 0),
         LEFT(0, -1),
-        RIGHT(0, -1),
+        RIGHT(0, 1),
         NONE(0, 0);
 
         public final int dr;
@@ -15,7 +15,6 @@ public class Domain {
             this.dc = dc;
         }
     }
-
 
     private Tile[][] gameState;
     private Player   player;
@@ -68,8 +67,6 @@ public class Domain {
      * @param direction
      */
     public boolean playerOn(Point pos) {
-        System.out.println("pos="+pos);
-        System.out.println("play="+player);
         return pos.equals(player.getPosition());
     }
 
@@ -87,9 +84,9 @@ public class Domain {
             target.acceptPlayer(player);
 
             // Then move it in, iff it's not a wall.
-            // if (!target.isWall()) {
-            //     player.setPosition(pos);
-            // }
+            if (!target.isWall()) {
+                player.setPosition(pos);
+            }
         }
     }
 
@@ -107,11 +104,13 @@ public class Domain {
         }
         return board;
     }
-    
+
+    public void nextLevel() {
+        
+    }
+
     public static void main(String[] args) {
         Domain d = new DomainBuilder()
-        .wall(1, 2)
-        .player(0, 1)
         .make();
 
         System.out.println(d);

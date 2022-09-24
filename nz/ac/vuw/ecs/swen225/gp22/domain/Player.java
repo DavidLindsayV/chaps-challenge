@@ -29,7 +29,6 @@ public class Player implements Printable {
      * Returns the position of the player (immutable)
      */
     public Point getPosition() {
-        System.out.println("player-getPosition: " + this.position);
         return this.position;
     }
 
@@ -73,5 +72,9 @@ public class Player implements Printable {
     @Override
     public String toString() {
         return "P";
+    }
+
+    public void nextLevel() {
+        domain.nextLevel();
     }
 }
