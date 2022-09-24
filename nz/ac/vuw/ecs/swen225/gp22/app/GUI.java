@@ -1,9 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.RenderingHints;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -71,6 +75,8 @@ public class GUI extends Renderer {
     rulesItem.addActionListener(e -> showRules());
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
+    //Print text onto JFrame
+
   }
 
   /**Show the rules panel */
@@ -91,5 +97,21 @@ public class GUI extends Renderer {
     );
     frame.add(rulesField);
     frame.setVisible(true);
+  }
+
+  public static void drawText(Graphics g) {
+    g.setFont(new Font("Roboto", Font.BOLD, 20));
+    g.setColor(Color.RED);
+    g.drawString("Current level: " + UserListener.currentLevel, 50, 50);
+    g.setColor(Color.YELLOW);
+    g.drawString("Time left: " + pingTimer.timeLeftToPlay, 50, 70);
+    g.setColor(Color.GREEN);
+    g.drawString(
+      "Keys collected: " + UserListener.keysCollected.toString(),
+      50,
+      90
+    );
+    g.setColor(Color.BLUE);
+    g.drawString("Treasures left: " + UserListener.treasuresLeft, 50, 110);
   }
 }

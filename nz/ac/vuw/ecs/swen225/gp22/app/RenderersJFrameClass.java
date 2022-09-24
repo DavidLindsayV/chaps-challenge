@@ -2,7 +2,6 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import nz.ac.vuw.ecs.swen225.gp22.renderer.BoardPanel;
 
 public class RenderersJFrameClass extends JFrame {
 

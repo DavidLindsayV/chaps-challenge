@@ -25,6 +25,7 @@ public class pingTimer extends Timer {
 
   /**Function that runs whenever the timer triggers */
   public void ping() {
+    System.out.println(timeLeftToPlay);
     timeLeftToPlay -= pingRate;
     if (timeLeftToPlay == 0) {
       UserListener.loadLevel();
