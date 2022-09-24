@@ -30,7 +30,7 @@ public class MockRecorder {
 
         Recorder.newLevel();
 
-        for(int i=0; i<20000; i++){
+        for(int i=0; i<10; i++){
             Recorder.tick( randomEnum(UserListener.moveType.class) );
         }
         

@@ -18,7 +18,6 @@ public class RecordWriter {
     /* Fields. */
     private Document document;
     private Element game;
-    private Element ticks;
     private int tickNum;
 
     /*
@@ -27,7 +26,6 @@ public class RecordWriter {
     public RecordWriter(Document document){
         this.document = document;
         this.game = this.document.addElement("game");
-        this.ticks = this.game.addElement("ticks");
         this.tickNum = 0;
     }
 
@@ -38,7 +36,7 @@ public class RecordWriter {
      * 
      */
     public void tick(UserListener.moveType move ){
-        Element tick = this.ticks.addElement("tick")
+        Element tick = this.game.addElement("tick")
             .addAttribute("tick", this.tickNum+"");
         
         this.move(tick, "player", move.name());
