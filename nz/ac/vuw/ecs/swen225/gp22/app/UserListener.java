@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import java.awt.event.*;
 import java.util.HashSet;
 import java.util.Set;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 
 /**
  * This class listens and reacts to keypresses of the user
@@ -95,16 +96,22 @@ application will be started
   /**resume a saved game -- this will pop up a file selector to select a saved game
 to be loaded
  */
-  public static void loadSavedGame() {}
+  public static void loadSavedGame() {
+    // try{
+    //loadLevel(fileLevel.getLevelFilename());
+    // }catch(Exception e){}
+  }
 
   /** Starts a game at level 1 */
   public static void level1() {
     currentLevel = 1;
+    Parser.loadLevel(1);
   }
 
   /** Starts a game at level 2 */
   public static void level2() {
     currentLevel = 2;
+    Parser.loadLevel(2);
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
@@ -123,6 +130,11 @@ to be loaded
 
   /**Loads the level of the game based on currentLevel */
   public static void loadLevel() {
+    if (currentLevel == 1) {
+      level1();
+    } else if (currentLevel == 2) {
+      level2();
+    }
     loadTimer();
   }
 
