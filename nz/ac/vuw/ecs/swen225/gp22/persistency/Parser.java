@@ -67,7 +67,7 @@ public class Parser {
     /**
      * Save the current level state to an xml file so that it can be loaded later
      * 
-     * @param domain
+     * @param domain the current game domain
      */
     public static void saveLevel(Domain domain) {
         saveFileCount++;
@@ -78,6 +78,12 @@ public class Parser {
         out.close();
     }
 
+    /**
+     * Create a Document representation of the current level layout
+     * 
+     * @param levelLayout 2D array of the positions of tiles on the current level
+     * @return Document representing the current level
+     */
     private Document createLevelDocument(Tile[][] levelLayout) {
         Document document = DocumentHelper.createDocument();
         Element level = document.addElement("level");
