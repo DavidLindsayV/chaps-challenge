@@ -1,5 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+/**
+ * Represents the key object on the board.
+ * The key is a specific colour, and will be added to the players wallet
+ * If they step on it.
+ * It is NOT a wall.
+ */
 public class KeyState implements FreeTileState {
     /**
      * The colour of key (opens corresponding lock)
@@ -38,5 +44,9 @@ public class KeyState implements FreeTileState {
         return "k";
     }
 
+    @Override
+    public String colour() {
+        return this.colour.name();
+    }
     
 }

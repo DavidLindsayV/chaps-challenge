@@ -7,9 +7,12 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
  */
 public class WallTile implements Tile {
     private static final WallTile singleton = new WallTile();
-    private WallTile() {
-    
-    }
+
+    /**
+     * Private constructor so you can never call:
+     * new WallTile().
+     */
+    private WallTile() {}
 
     @Override
     public boolean isWall() {

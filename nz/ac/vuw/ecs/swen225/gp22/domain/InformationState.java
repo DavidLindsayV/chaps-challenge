@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+// TODO: Make this work (when you pass over it)
 public class InformationState implements FreeTileState {
     @Override
     public boolean isWall() {

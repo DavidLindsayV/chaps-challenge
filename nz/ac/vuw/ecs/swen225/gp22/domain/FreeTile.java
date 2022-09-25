@@ -89,4 +89,9 @@ public class FreeTile implements Tile {
     public String toString() {
         return state.toString();
     }
+
+    @Override 
+    public String colour() {
+        return state.colour();
+    }
 }

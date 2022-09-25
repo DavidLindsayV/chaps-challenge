@@ -1,6 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-public interface FreeTileState {
+public interface FreeTileState extends Printable {
     /**
      * Is the tile an obstruction, UNDER THIS STATE.
      *      If this is true --> Do not let the player walk through.
@@ -19,16 +19,4 @@ public interface FreeTileState {
      * The tile --> reverts to a state of empty.
      */
     public void performAction(Player p, FreeTile tile);
-
-    /**
-     * The English name of the tile.
-     * @return 
-     */
-    public String name();
-
-    /**
-     * A one character representation of the tile.
-     * @return
-     */
-    public String toString();
 }

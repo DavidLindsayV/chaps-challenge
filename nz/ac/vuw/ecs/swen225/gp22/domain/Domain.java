@@ -2,11 +2,17 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Arrays;
 
+
 public class Domain {
     private Tile[][] gameState;
     private Player   player;
     private int      requiredTreasureCount;
 
+    /**
+     * Raw constructor.
+     * Use of the DomainBuilder is higly advised.
+     * @param gameState
+     */
     public Domain(Tile[][] gameState) {
         this.player = new Player(this);
         this.gameState = gameState;
@@ -14,35 +20,13 @@ public class Domain {
     }
 
     /**
-     * Is this position within the domain.
-     * For example, moving up at (0, 0) --> false.
-     * Moving down --> true.
-     * @param pos
-     * @return
+     * ------------------ PUBLIC API ------------------------------------------
      */
-    private boolean withinDomain(Point pos) {
-        return pos.row() >= 0 
-            && pos.row() < gameState.length
-            && pos.col() >= 0
-            && pos.col() < gameState[0].length;
-    }
-
-    /**
-     * Counts the number of treasures to finish the level.
-     */
-    private void countTreasures() {
-        for (int y=0; y<gameState.length; ++y)  {
-            for (int x=0; x<gameState[y].length; ++x) {
-                if (gameState[y][x].name() == "treasure") {
-                    requiredTreasureCount++;
-                }
-            }
-        }
-    }
 
     /**
      * Returns the number of treasures on the map.
-     * @return
+     * Used within player to check if all treasures obtained.
+     * @return Number of treasures on the map.
      */
     public int requiredTreasureCount() {
         return requiredTreasureCount;
@@ -50,20 +34,22 @@ public class Domain {
 
     /**
      * Sets the player position.
-     * @param pos
+     * Used within the domain builder.
+     * @param pos The desired position of the player.
      */
     public void setPlayerPosition(Point pos) {
+        if (!withinDomain(pos)) { 
+            throw new IllegalArgumentException("Cannot set player position in domain out of bounds."); 
+        }
+        
         this.player.setPosition(pos);
     }
 
     /**
-     * Boolean for if player is on
-     * @param direction
+     * Move player in a given direction.
+     * TODO: Integrate with David's key calls.
+     * @param direction Direction enum (UP, LEFT, RIGHT, DOWN)
      */
-    public boolean playerOn(Point pos) {
-        return pos.equals(player.getPosition());
-    }
-
     public void movePlayer(Direction direction) {
         Point pos = player.getPosition();
         pos = pos.translate(direction.dr, direction.dc);
@@ -81,6 +67,9 @@ public class Domain {
         }
     }
 
+    /**
+     * For use in testing. Similar to SWEN221 chess toString.
+     */
     public String toString() {
         String board = "";
         for (int y=0; y<gameState.length; ++y){
@@ -97,24 +86,58 @@ public class Domain {
     }
 
     /**
-     * TODO: Hook up to davids stuff.
+     * This function will be called when the level is completed.
+     * Use observer pattern.
+     * TODO: Hook up to David Lindsay's stuff.
      */
     public void nextLevel() {
         
     }
 
     /**
+     * Returns a 2D clone of the internal view of the domain.
+     * TODO: Use this Georgia.
      * TODO: Fix interface of tile.
-     * @return
      */
     public Tile[][] getInnerState() {
         return Arrays.stream(gameState).map(Tile[]::clone).toArray(Tile[][]::new);
     }
-    
-    public static void main(String[] args) {
-        Domain d = new DomainBuilder()
-        .make();
 
-        System.out.println(d);
+    /** ---------------------PRIVATE FUNCTIONS------------------------------- */
+
+    /**
+     * Is this position within the domain.
+     * For example, moving up at (0, 0) --> false.
+     * Moving down --> true.
+     * @param pos
+     * @return
+     */
+    private boolean withinDomain(Point pos) {
+        return pos.row() >= 0 
+            && pos.row() < gameState.length
+            && pos.col() >= 0
+            && pos.col() < gameState[0].length;
+    }
+
+    /**
+     * Counts the number of treasures to finish the level.
+     * Should only be called within the constructor.
+     */
+    private void countTreasures() {
+        for (int y=0; y<gameState.length; ++y)  {
+            for (int x=0; x<gameState[y].length; ++x) {
+                if (gameState[y][x].name() == "treasure") {
+                    requiredTreasureCount++;
+                }
+            }
+        }
+    }
+
+    /**
+     * Check if the player is on this coordinate.
+     * @param pos Point of interest.
+     */
+    private boolean playerOn(Point pos) {
+        return pos.equals(player.getPosition());
     }
 }
