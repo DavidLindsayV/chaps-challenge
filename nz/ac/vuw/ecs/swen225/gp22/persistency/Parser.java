@@ -13,6 +13,8 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 record Point(int row, int col) {
 }
@@ -84,12 +86,12 @@ public class Parser {
      * @param levelLayout 2D array of the positions of tiles on the current level
      * @return Document representing the current level
      */
-    private Document createLevelDocument(Tile[][] levelLayout) {
+    private static Document createLevelDocument(Tile[][] levelLayout) {
         Document document = DocumentHelper.createDocument();
         Element level = document.addElement("level");
-        for (int row = 0; row < levelLayout.size(); row++) {
+        for (int row = 0; row < levelLayout.length; row++) {
             Element currRow = level.addElement("row").addAttribute("r", "" + row);
-            for (int col = 0; col < levelLayout[0].size(); col++) {
+            for (int col = 0; col < levelLayout[0].length; col++) {
                 Tile t = levelLayout[row][col];
                 String name = t.name();
                 if (!name.equals("empty")) {
