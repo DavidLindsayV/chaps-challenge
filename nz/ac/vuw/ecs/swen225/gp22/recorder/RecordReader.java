@@ -44,7 +44,7 @@ public class RecordReader {
             Document doc = parse(url);
             try {
                 List<moveType> actionList = actionList(doc);
-                System.out.println(actionList);
+                System.out.println(actionList.size());
             } catch (XmlFormatException e) {
                 e.printStackTrace();
             }
@@ -85,5 +85,5 @@ public class RecordReader {
         }
     }
 
-    
+
 }
