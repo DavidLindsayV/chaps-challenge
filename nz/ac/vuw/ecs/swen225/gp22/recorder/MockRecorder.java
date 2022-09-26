@@ -26,14 +26,10 @@ public class MockRecorder {
      * Runs a simulation of a game
      */
     public static void run() {
-        
-
         Recorder.newLevel();
-
-        for(int i=0; i<10; i++){
+        for(int i=0; i<5000; i++){
             Recorder.tick( randomEnum(moveType.class) );
         }
-        
         try {
             Recorder.save();
             Recorder.load();
