@@ -1,16 +1,18 @@
 package nz.ac.vuw.ecs.swen225.gp22.persistency;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Node;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
@@ -29,45 +31,44 @@ public class Parser {
      * @param levelNum the level number being parsed
      * @return a Domain object representing the level
      */
-    public static Domain loadLevel(String filename) {
-        try {
-            SAXReader reader = new SAXReader();
-            File levelFile = new File(filename);
-            Document document = reader.read(levelFile);
-
-            Element levelElement = document.getRootElement();
-            DomainBuilder builder = new DomainBuilder();
-            for (Node row : document.selectNodes("/level/row")) {
-                Number rowNum = row.numberValueOf("@r");
-                if (rowNum == null) {
-                    throw new NullPointerException("No row number specified");
-                }
-                int rowNumInt = rowNum.intValue();
-                parseStandardNode(rowNumInt, row.selectNodes("/level/row/wall"), (r, c) -> builder.wall(r, c));
-                parseStandardNode(rowNumInt, row.selectNodes("/level/row/exitLock"),
-                        (r, c) -> builder.lock(r, c));
-                parseStandardNode(rowNumInt, row.selectNodes("/level/row/player"),
-                        (r, c) -> builder.player(r, c));
-                parseStandardNode(rowNumInt, row.selectNodes("/level/row/treasure"),
-                        (r, c) -> builder.treasure(r, c));
-                parseStandardNode(rowNumInt, row.selectNodes("/level/row/exit"),
-                        (r, c) -> builder.exit(r, c));
-                parseStandardNode(rowNumInt, row.selectNodes("/level/row/info"),
-                        (r, c) -> builder.info(r, c));
-                /*
-                 * parseColourNode(rowNumInt, row.selectNodes("level/row/key"),
-                 * (r, c, colour) -> builder.key(r, c, colour));
-                 * parseColourNode(rowNumInt, row.selectNodes("level/row/door"),
-                 * (r, c, colour) -> builder.door(r, c, colour));
-                 * parsePathNode(rowNumInt, row.selectNodes("level/row/enemy"), (r, c, path) ->
-                 * builder.enemy(r, c, path));
-                 */
-            }
-            return builder.make();
-        } catch (DocumentException e) {
-            e.printStackTrace();
+    public static Domain loadLevel(String filename) throws DocumentException {
+        SAXReader reader = new SAXReader();
+        File levelFile = new File("");
+        String[] pathnames = levelFile.list();
+        for (String p : pathnames) {
+            System.out.println(p);
         }
-        return null;
+        Document document = reader.read(levelFile);
+
+        Element levelElement = document.getRootElement();
+        DomainBuilder builder = new DomainBuilder();
+        for (Node row : document.selectNodes("/level/row")) {
+            Number rowNum = row.numberValueOf("@r");
+            if (rowNum == null) {
+                throw new NullPointerException("No row number specified");
+            }
+            int rowNumInt = rowNum.intValue();
+            parseStandardNode(rowNumInt, row.selectNodes("/level/row/wall"), (r, c) -> builder.wall(r, c));
+            parseStandardNode(rowNumInt, row.selectNodes("/level/row/exitLock"),
+                    (r, c) -> builder.lock(r, c));
+            parseStandardNode(rowNumInt, row.selectNodes("/level/row/player"),
+                    (r, c) -> builder.player(r, c));
+            parseStandardNode(rowNumInt, row.selectNodes("/level/row/treasure"),
+                    (r, c) -> builder.treasure(r, c));
+            parseStandardNode(rowNumInt, row.selectNodes("/level/row/exit"),
+                    (r, c) -> builder.exit(r, c));
+            parseStandardNode(rowNumInt, row.selectNodes("/level/row/info"),
+                    (r, c) -> builder.info(r, c));
+            /*
+             * parseColourNode(rowNumInt, row.selectNodes("level/row/key"),
+             * (r, c, colour) -> builder.key(r, c, colour));
+             * parseColourNode(rowNumInt, row.selectNodes("level/row/door"),
+             * (r, c, colour) -> builder.door(r, c, colour));
+             * parsePathNode(rowNumInt, row.selectNodes("level/row/enemy"), (r, c, path) ->
+             * builder.enemy(r, c, path));
+             */
+        }
+        return builder.make();
     }
 
     /**
@@ -80,11 +81,13 @@ public class Parser {
         saveFileCount++;
         Tile[][] levelLayout = domain.getInnerState();
         Document document = createLevelDocument(levelLayout);
-        FileWriter out;
         try {
-            out = new FileWriter("saved-game-" + saveFileCount + ".xml");
-            document.write(out);
-            out.close();
+            FileWriter out = new FileWriter(
+                    "nz/ac/vuw/ecs/swen225/gp22/levels/" + "saved_game_" + saveFileCount + ".xml");
+            OutputFormat format = OutputFormat.createPrettyPrint();
+            XMLWriter writer = new XMLWriter(out, format);
+            writer.write(document);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
