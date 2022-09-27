@@ -1,6 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Fluent Builder API for creating a Domain object.
@@ -27,11 +29,13 @@ public class DomainBuilder {
     private static final int MAX_WIDTH  = 1000;
     private static final int MAX_HEIGHT = 1000;
 
-    private Tile[][] domainContent;
-    private Integer  domainHeight;
-    private Integer  domainWidth;
-    private Point    domainPlayerPosition;
-    private Point    domainExitLocation;
+    private Tile[][]    domainContent;
+    private List<Enemy> domainEnemies;
+    private Integer     domainHeight;
+    private Integer     domainWidth;
+    private Point       domainPlayerPosition;
+    private Point       domainExitLocation;
+    
 
     public DomainBuilder() {
         this.reset();
@@ -49,6 +53,7 @@ public class DomainBuilder {
         domainExitLocation      = null;
         domainPlayerPosition    = null;
         domainContent           = new Tile[MAX_WIDTH][MAX_HEIGHT];    
+        domainEnemies           = new ArrayList<Enemy>();
         domainHeight            = -1;
         domainWidth             = -1;
         
@@ -72,6 +77,22 @@ public class DomainBuilder {
             throw new IllegalStateException("You cannot spawn on a occupied tile."); 
         }
         domainPlayerPosition = new Point(row, col);
+        detectBoundaries(row, col);
+        return this;
+    }
+
+    /**
+     * Creates an enemy given a row and column, and it's path, set
+     * @param row
+     * @param col
+     * @return
+     */
+    public DomainBuilder enemy(int row, int col, List<Point> path) {
+        checkWithinAbsoluteLimits(row, col);
+        path.stream().forEach(p -> 
+            checkWithinAbsoluteLimits(p.row(), p.col()
+        ));
+        domainEnemies.add(new Enemy(path));
         detectBoundaries(row, col);
         return this;
     }
@@ -223,7 +244,7 @@ public class DomainBuilder {
         }
 
         // Creates the player, linking it to the domain.
-        Domain d = new Domain(selectedDomainContent);
+        Domain d = new Domain(selectedDomainContent, domainEnemies);
         d.setPlayerPosition(domainPlayerPosition);
         return d;
     }

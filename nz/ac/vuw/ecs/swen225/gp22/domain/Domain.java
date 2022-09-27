@@ -1,20 +1,23 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Domain {
-    private Tile[][] gameState;
-    private Player   player;
-    private int      requiredTreasureCount;
+    private Tile[][]            gameState;
+    private Player              player;
+    private List<Enemy>         enemies;
+    private int                 requiredTreasureCount;
 
     /**
      * Raw constructor.
      * Use of the DomainBuilder is higly advised.
      * @param gameState
      */
-    public Domain(Tile[][] gameState) {
+    public Domain(Tile[][] gameState, List<Enemy> enemies) {
         this.player = new Player(this);
+        this.enemies = enemies;
         this.gameState = gameState;
         countTreasures();
     }
@@ -65,6 +68,19 @@ public class Domain {
                 player.setPosition(pos);
             }
         }
+
+        // Check if the player's position collides with any enemies.
+        // TODO: Do something here.
+        boolean playerDead = enemies.stream().anyMatch(e -> e.collidesWith(player.getPosition()));
+    }
+
+    /**
+     * This function will be called when the enemies need to move.
+     * Use observer pattern.
+     * TODO: Hook up to David Lindsay's stuff.
+     */
+    public void moveActors() {
+        enemies.stream().forEach(e -> e.move());
     }
 
     /**
@@ -93,6 +109,8 @@ public class Domain {
     public void nextLevel() {
         
     }
+
+    
 
     /**
      * Returns a 2D clone of the internal view of the domain.
