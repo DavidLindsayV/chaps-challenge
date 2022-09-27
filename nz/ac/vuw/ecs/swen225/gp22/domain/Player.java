@@ -1,7 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents the player on the game.
@@ -14,7 +14,7 @@ public class Player implements Printable {
     private Point position;
     private Domain domain;
     private int treasureCount;
-    private Set<AuthenticationColour> keyWallet;
+    private Map<AuthenticationColour, Integer> keyWallet;
 
     /**
      * Creates a player linked to a domain, at position (0, 0)
@@ -23,7 +23,7 @@ public class Player implements Printable {
     public Player(Domain d) {
         this.position = new Point(0, 0);
         this.domain = d;
-        this.keyWallet = new HashSet<AuthenticationColour>();
+        this.keyWallet = new HashMap<AuthenticationColour, Integer>();
     }
 
     /**
@@ -46,7 +46,22 @@ public class Player implements Printable {
      * @param key The colour of the key.
      */
     public void addKey(AuthenticationColour key) {
-        keyWallet.add(key);
+        if (!keyWallet.containsKey(key)) {
+            keyWallet.put(key, 0);
+        } keyWallet.put(key, keyWallet.get(key) + 1);
+    }
+
+    /**
+     * Removes a key to the wallet 
+     * @param key The colour of the key.
+     */
+    public void removeKey(AuthenticationColour key) {
+        if (keyWallet.containsKey(key)) {
+            keyWallet.put(key, keyWallet.get(key) - 1);
+            if (keyWallet.get(key) <= 0) {
+                keyWallet.remove(key);
+            }
+        } 
     }
 
     /**
@@ -58,7 +73,7 @@ public class Player implements Printable {
      * @return The privileges of the user.
      */
     public boolean hasKey(AuthenticationColour colour) {
-        return keyWallet.contains(colour);
+        return keyWallet.containsKey(colour);
     }
 
     /**
