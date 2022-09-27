@@ -77,13 +77,8 @@ public class RecordReader {
      * Custom exception for checking that the xml recorded games are correctly formatted
      */
     private static class XmlFormatException extends Exception { 
-        XmlFormatException() {
-            super("Incorrect XML format");
-        }
         XmlFormatException(String errorMessage) {
             super("Incorrect XML format: "+errorMessage);
         }
     }
-
-
 }

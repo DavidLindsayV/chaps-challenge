@@ -7,7 +7,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 
-import nz.ac.vuw.ecs.swen225.gp22.app.moveType;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
 public class Recorder {
 
@@ -16,7 +16,9 @@ public class Recorder {
     private static Document document;
 
     /*
-     * Refreashes the dom4j document and record writer, for a new level
+     * Called when a new level is created.
+     * 
+     * Creates the dom4j document and record writer, for a new level
      */
     public static void newLevel(){
         document = DocumentHelper.createDocument();
@@ -26,7 +28,7 @@ public class Recorder {
     /*
      * Record a given tick
      */
-    public static void tick(moveType move){
+    public static void tick(Direction move){
         recWriter.tick(move);
     }
 
@@ -35,6 +37,13 @@ public class Recorder {
      */
     public static void save() throws IOException {
         recWriter.save();
+    }
+
+    /* 
+     * Loads a level which is partially completed.
+     */
+    public static void loadPartial(){
+
     }
 
     /* 
