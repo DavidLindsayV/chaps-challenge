@@ -141,9 +141,11 @@ public class DomainBuilder {
      * @param col Column of the key.
      * @return Domain builder object.
      */
-    public DomainBuilder key(int row, int col, AuthenticationColour colour) {
+    public DomainBuilder key(int row, int col, String colour) {
         checkWithinAbsoluteLimits(row, col);
-        domainContent[row][col] = FreeTile.key(colour);
+        domainContent[row][col] = FreeTile.key(
+            AuthenticationColour.valueOf(colour)
+        );
         detectBoundaries(row, col);
         return this;
     }
@@ -155,9 +157,11 @@ public class DomainBuilder {
      * @param col Column of the treasure.
      * @return Domain builder object.
      */
-    public DomainBuilder door(int row, int col, AuthenticationColour colour) {
+    public DomainBuilder door(int row, int col, String colour) {
         checkWithinAbsoluteLimits(row, col);
-        domainContent[row][col] = FreeTile.door(colour);
+        domainContent[row][col] = FreeTile.door(
+            AuthenticationColour.valueOf(colour)
+        );
         detectBoundaries(row, col);
         return this;
     }
