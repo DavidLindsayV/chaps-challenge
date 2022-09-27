@@ -45,7 +45,7 @@ public class Parser {
                 int rowNumInt = rowNum.intValue();
                 parseStandardNode(rowNumInt, row.selectNodes("/level/row/wall"), (r, c) -> builder.wall(r, c));
                 parseStandardNode(rowNumInt, row.selectNodes("/level/row/exitLock"),
-                        (r, c) -> builder.exitLock(r, c));
+                        (r, c) -> builder.lock(r, c));
                 parseStandardNode(rowNumInt, row.selectNodes("/level/row/player"),
                         (r, c) -> builder.player(r, c));
                 parseStandardNode(rowNumInt, row.selectNodes("/level/row/treasure"),
@@ -54,30 +54,41 @@ public class Parser {
                         (r, c) -> builder.exit(r, c));
                 parseStandardNode(rowNumInt, row.selectNodes("/level/row/info"),
                         (r, c) -> builder.info(r, c));
-                parseColourNode(rowNumInt, row.selectNodes("level/row/key"),
-                        (r, c, colour) -> builder.key(r, c, colour));
-                parseColourNode(rowNumInt, row.selectNodes("level/row/door"),
-                        (r, c, colour) -> builder.door(r, c, colour));
-                parsePathNode(rowNumInt, row.selectNodes("level/row/enemy"), (r, c, path) -> builder.enemy(r, c, path));
+                /*
+                 * parseColourNode(rowNumInt, row.selectNodes("level/row/key"),
+                 * (r, c, colour) -> builder.key(r, c, colour));
+                 * parseColourNode(rowNumInt, row.selectNodes("level/row/door"),
+                 * (r, c, colour) -> builder.door(r, c, colour));
+                 * parsePathNode(rowNumInt, row.selectNodes("level/row/enemy"), (r, c, path) ->
+                 * builder.enemy(r, c, path));
+                 */
             }
             return builder.make();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
      * Save the current level state to an xml file so that it can be loaded later
      * 
      * @param domain the current game domain
+     * @throws IOException
      */
     public static void saveLevel(Domain domain) {
         saveFileCount++;
-        Tile[][] levelLayout = domain.getLevelLayout();
+        Tile[][] levelLayout = domain.getInnerState();
         Document document = createLevelDocument(levelLayout);
-        FileWriter out = new FileWriter("saved-game-" + saveFileCount + ".xml");
-        document.write(out);
-        out.close();
+        FileWriter out;
+        try {
+            out = new FileWriter("saved-game-" + saveFileCount + ".xml");
+            document.write(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -98,12 +109,15 @@ public class Parser {
                     Element tile = currRow.addElement(name).addAttribute("c", "" + col);
                     if (name.equals("door") || name.equals("key")) {
                         tile.addAttribute("colour", t.colour());
-                    } else if (name.equals("enemy")) {
-                        List<Point> path = t.getPath();
-                        path.stream().forEach(p -> {
-                            tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", "" + p.col());
-                        });
-                    }
+                    } /*
+                       * else if (name.equals("enemy")) {
+                       * List<Point> path = t.getPath();
+                       * path.stream().forEach(p -> {
+                       * tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+                       * + p.col());
+                       * });
+                       * }
+                       */
                 }
             }
 
