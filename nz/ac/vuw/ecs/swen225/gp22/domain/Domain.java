@@ -88,10 +88,14 @@ public class Domain {
      */
     public String toString() {
         String board = "";
+        
         for (int y=0; y<gameState.length; ++y){
             for (int x=0; x<gameState[y].length; ++x) {
-                if (playerOn(new Point(y, x))) {
+                Point currentPosition = new Point(y, x);
+                if (playerOn(currentPosition)) {
                     board+="|"+player.toString();    
+                } else if (enemies.stream().anyMatch(e -> e.collidesWith(currentPosition))) {
+                    board+="|"+enemies.get(0).toString();    
                 } else {
                     board+="|"+gameState[y][x].toString();
                 }

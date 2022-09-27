@@ -48,5 +48,4 @@ public class KeyState implements FreeTileState {
     public String colour() {
         return this.colour.name();
     }
-    
 }
