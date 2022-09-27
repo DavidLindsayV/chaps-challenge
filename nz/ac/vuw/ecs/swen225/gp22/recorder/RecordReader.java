@@ -15,7 +15,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import nz.ac.vuw.ecs.swen225.gp22.app.moveType;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
 public class RecordReader {
     
@@ -43,8 +43,8 @@ public class RecordReader {
             //Here we have the document, currently it just prints the file to the console.
             Document doc = parse(url);
             try {
-                List<moveType> actionList = actionList(doc);
-                System.out.println(actionList.size());
+                List<Direction> actionList = actionList(doc);
+                System.out.println(actionList);
             } catch (XmlFormatException e) {
                 e.printStackTrace();
             }
@@ -54,9 +54,10 @@ public class RecordReader {
     /* 
      * Method to read the xml file and turn it into an action list.
      */
-    private static List<moveType> actionList(Document doc) throws XmlFormatException {
+    private static List<Direction> actionList(Document doc) throws XmlFormatException {
         Element e = doc.getRootElement();
-        List<moveType> moves = new ArrayList<moveType>();
+        List<Direction> moves = new ArrayList<Direction>();
+        
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
             if(!(tick.node(1) instanceof Element))  {
@@ -66,10 +67,12 @@ public class RecordReader {
             if(!moveEle.getName().equals("move")) {
                 throw new XmlFormatException("The element tick.node(1) is not a move!");
             }
+
             String moveStr = moveEle.getText();
-            moveType move = moveType.valueOf(moveStr);
+            Direction move = Direction.valueOf(moveStr);
             moves.add(move);
         }
+
         return Collections.unmodifiableList(moves);
     }
 
