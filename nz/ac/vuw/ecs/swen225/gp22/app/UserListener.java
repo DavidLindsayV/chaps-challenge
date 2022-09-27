@@ -1,6 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
@@ -96,7 +98,11 @@ public class UserListener implements KeyListener {
 application will be started
    */
   public static void saveGame() {
-    Recorder.save();
+    try {
+      Recorder.save();
+    } catch (IOException e) {
+      System.out.println("Saving the Recording threw an IOException " + e);
+    }
     exitGame();
   }
 
@@ -114,13 +120,13 @@ to be loaded
   /** Starts a game at level 1 */
   public static void level1() {
     currentLevel = 1;
-    currentGame = Parser.loadLevel(1);
+    currentGame = Parser.loadLevel("level1.xml");
   }
 
   /** Starts a game at level 2 */
   public static void level2() {
     currentLevel = 2;
-    currentGame = Parser.loadLevel(2);
+    currentGame = Parser.loadLevel("level2.xml");
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
@@ -162,14 +168,14 @@ to be loaded
   }
 
   public void down() {
-    move = moveType.DOWN;
+    move = Direction.DOWN;
   }
 
   public void left() {
-    move = moveType.LEFT;
+    move = Direction.LEFT;
   }
 
   public void right() {
-    move = moveType.RIGHT;
+    move = Direction.RIGHT;
   }
 }

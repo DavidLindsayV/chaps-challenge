@@ -2,6 +2,8 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 /**
