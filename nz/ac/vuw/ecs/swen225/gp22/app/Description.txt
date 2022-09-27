@@ -34,5 +34,10 @@ package. Testing is to be done manually.
 
 TASKS LEFT:
 - Make the movement buttons work
-- Make the ctrl - something buttons work
+- Make level1 and level2 loading work
+- Make loading saved levels work
+- Make exiting game work
+- Make saving levels work
+- Make resuming levels work
+- Make space and esc pause and resume
 - Display time left to play, current level, keys collected, treasures needing collecting
