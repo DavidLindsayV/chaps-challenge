@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 /**
  * This class creates a timer that calls ping() every 200ms
@@ -25,15 +26,23 @@ public class pingTimer extends Timer {
 
   /**Function that runs whenever the timer triggers */
   public void ping() {
+    //Advance the timer
     timeLeftToPlay -= pingRate;
+    //If out of time, reload level
     if (timeLeftToPlay == 0) {
       UserListener.loadLevel();
     }
-    mockRecorder.tick(UserListener.move);
-    UserListener.move = moveType.None;
+    //Record the move with the Recorder
+    Recorder.tick(UserListener.move);
+    //Move the player
+    UserListener.currentGame.movePlayer(UserListener.move);
+    UserListener.move = Direction.NONE;
+    //Repaint the GUI
     if (Main.gui != null) {
       Main.gui.panel.revalidate();
       Main.gui.panel.repaint();
     }
+    //Move the actors in Domain
+    UserListener.currentGame.moveActors();
   }
 }

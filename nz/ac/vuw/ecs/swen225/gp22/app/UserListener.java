@@ -3,13 +3,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.HashSet;
 import java.util.Set;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 /**
  * This class listens and reacts to keypresses of the user
  */
 public class UserListener implements KeyListener {
 
-  public static moveType move;
+  public static Domain currentGame;
+  public static Direction move;
 
   public static boolean paused = false;
   static int currentLevel = 1;
@@ -90,21 +95,32 @@ public class UserListener implements KeyListener {
   /**exit the game, saves the game state, game will resume next time the
 application will be started
    */
-  public static void saveGame() {}
+  public static void saveGame() {
+    Recorder.save();
+    exitGame();
+  }
 
   /**resume a saved game -- this will pop up a file selector to select a saved game
 to be loaded
  */
-  public static void loadSavedGame() {}
+  public static void loadSavedGame() {
+    // try{
+    //currentGame = loadLevel(fileLevel.getLevelFilename());
+    // }catch(Exception e){
+    //  System.out.println("Level loading failed");
+    //}
+  }
 
   /** Starts a game at level 1 */
   public static void level1() {
     currentLevel = 1;
+    currentGame = Parser.loadLevel(1);
   }
 
   /** Starts a game at level 2 */
   public static void level2() {
     currentLevel = 2;
+    currentGame = Parser.loadLevel(2);
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
@@ -121,8 +137,14 @@ to be loaded
     timer = new pingTimer();
   }
 
-  /**Loads the level of the game based on currentLevel */
+  /**Starts the level of the game based on currentLevel, either level 1 or level 2*/
   public static void loadLevel() {
+    Recorder.newLevel();
+    if (currentLevel == 1) {
+      level1();
+    } else if (currentLevel == 2) {
+      level2();
+    }
     loadTimer();
   }
 
@@ -136,18 +158,18 @@ to be loaded
 
   /**Move Chap in a direction */
   public void up() {
-    move = moveType.moveUp;
+    move = Direction.UP;
   }
 
   public void down() {
-    move = moveType.moveDown;
+    move = moveType.DOWN;
   }
 
   public void left() {
-    move = moveType.moveLeft;
+    move = moveType.LEFT;
   }
 
   public void right() {
-    move = moveType.moveRight;
+    move = moveType.RIGHT;
   }
 }
