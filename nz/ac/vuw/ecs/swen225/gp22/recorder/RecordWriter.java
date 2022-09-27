@@ -11,8 +11,6 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
-
 public class RecordWriter {
 
     /* Fields. */
@@ -35,7 +33,7 @@ public class RecordWriter {
      * The move map is <Actor name/id, move>, we can change this later from move to action, if we need to add more actions.
      * 
      */
-    public void tick(Direction move ){
+    public <E extends Enum<E>> void tick(E move ){
         Element tick = this.game.addElement("tick")
             .addAttribute("tick", this.tickNum+"");
         

@@ -28,7 +28,7 @@ public class Recorder {
     /*
      * Record a given tick
      */
-    public static void tick(Direction move){
+    public static <E extends Enum<E>> void tick(E move){
         recWriter.tick(move);
     }
 
@@ -50,6 +50,6 @@ public class Recorder {
      * Loads a game from a record xml file.
      */
     public static void load() throws MalformedURLException, DocumentException{
-        RecordReader.loadDoc();
+        RecordReader.loadDoc(Direction.class);
     }
 }

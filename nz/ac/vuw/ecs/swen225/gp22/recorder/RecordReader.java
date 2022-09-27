@@ -15,8 +15,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
-
 public class RecordReader {
     
     /*
@@ -34,7 +32,7 @@ public class RecordReader {
      * @throws MalformedURLException
      * @throws DocumentException
      */
-    public static void loadDoc() throws MalformedURLException, DocumentException{
+    public static <E extends Enum<E>> void loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
         URL url;
         JFileChooser fileChooser = new JFileChooser("recorded_games/");
         int responce = fileChooser.showOpenDialog(null);
@@ -43,7 +41,7 @@ public class RecordReader {
             //Here we have the document, currently it just prints the file to the console.
             Document doc = parse(url);
             try {
-                List<Direction> actionList = actionList(doc);
+                List<E> actionList = actionList(clazz,doc);
                 System.out.println(actionList);
             } catch (XmlFormatException e) {
                 e.printStackTrace();
@@ -54,9 +52,10 @@ public class RecordReader {
     /* 
      * Method to read the xml file and turn it into an action list.
      */
-    private static List<Direction> actionList(Document doc) throws XmlFormatException {
+    private static <E extends Enum<E>> List<E> actionList(Class<E> clazz, Document doc) throws XmlFormatException {
+
         Element e = doc.getRootElement();
-        List<Direction> moves = new ArrayList<Direction>();
+        List<E> moves = new ArrayList<E>();
         
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
@@ -69,7 +68,7 @@ public class RecordReader {
             }
 
             String moveStr = moveEle.getText();
-            Direction move = Direction.valueOf(moveStr);
+            E move = E.valueOf(clazz, moveStr);
             moves.add(move);
         }
 
