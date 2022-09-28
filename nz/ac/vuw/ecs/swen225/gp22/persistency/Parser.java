@@ -13,6 +13,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
@@ -54,14 +55,13 @@ public class Parser {
                     (r, c) -> builder.exit(r, c));
             parseStandardNode(rowNumInt, row.elements("info"),
                     (r, c) -> builder.info(r, c));
-            /*
-             * parseColourNode(rowNumInt, row.selectNodes("level/row/key"),
-             * (r, c, colour) -> builder.key(r, c, colour));
-             * parseColourNode(rowNumInt, row.selectNodes("level/row/door"),
-             * (r, c, colour) -> builder.door(r, c, colour));
-             * parsePathNode(rowNumInt, row.selectNodes("level/row/enemy"), (r, c, path) ->
-             * builder.enemy(r, c, path));
-             */
+
+            parseColourNode(rowNumInt, row.elements("key"),
+                    (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
+            parseColourNode(rowNumInt, row.elements("door"),
+                    (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
+            parsePathNode(rowNumInt, row.elements("enemy"), (r, c, path) -> builder.enemy(r, c, path));
+
         }
         return builder.make();
     }
