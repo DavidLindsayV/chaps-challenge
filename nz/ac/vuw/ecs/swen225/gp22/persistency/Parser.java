@@ -56,11 +56,11 @@ public class Parser {
             parseStandardNode(rowNumInt, row.elements("info"),
                     (r, c) -> builder.info(r, c));
 
-            parseColourNode(rowNumInt, row.elements("key"),
+            parseColourElement(rowNumInt, row.elements("key"),
                     (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
-            parseColourNode(rowNumInt, row.elements("door"),
+            parseColourElement(rowNumInt, row.elements("door"),
                     (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
-            parsePathNode(rowNumInt, row.elements("enemy"), (r, c, path) -> builder.enemy(r, c, path));
+            parsePathElement(rowNumInt, row.elements("enemy"), (r, c, path) -> builder.enemy(r, c, path));
 
         }
         return builder.make();
@@ -143,7 +143,7 @@ public class Parser {
      * @param consumer the consumer to build the tile which take row, column and the
      *                 colour
      */
-    private static void parseColourNode(int rowNum, List<Element> elems,
+    private static void parseColourElement(int rowNum, List<Element> elems,
             TriConsumer<Integer, Integer, String> consumer) {
         for (Element e : elems) {
             Number colNum = e.numberValueOf("@c");
@@ -166,7 +166,7 @@ public class Parser {
      * @param consumer the consumer to build the tile which takes the row, column
      *                 and the path
      */
-    private static void parsePathNode(int rowNum, List<Element> elems,
+    private static void parsePathElement(int rowNum, List<Element> elems,
             TriConsumer<Integer, Integer, List<Point>> consumer) {
         for (Element e : elems) {
             Number colNum = e.numberValueOf("@c");
