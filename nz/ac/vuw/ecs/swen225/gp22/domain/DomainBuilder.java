@@ -6,6 +6,10 @@ import java.util.List;
 
 /**
  * Fluent Builder API for creating a Domain object.
+ * Initial height and width does not need to be provided
+ * It will AUTODETECT this.
+ * Remember to call .make() to crystalise the object.
+ * 
  * Every domain must have
  *  - Exactly one player.
  *  - At least one exit.
@@ -20,7 +24,15 @@ import java.util.List;
  *  .wall(2, 4)
  *  .player(0, 1)
  *  .exit(5, 5)
- *  .make()
+ *  .make()            
+ * 
+ * toString() -->
+ * 
+ * |_|P|_|_|_|_|
+ * |_|_|#|#|#|_|
+ * |_|_|_|_|#|_|
+ * |_|_|_|_|_|_|
+ * |_|_|_|_|_|E|
  */
 public class DomainBuilder {
     /**
@@ -90,10 +102,12 @@ public class DomainBuilder {
     public DomainBuilder enemy(int row, int col, List<Point> path) {
         if (path == null) { throw new IllegalArgumentException("Null path disallowed."); }
         if (path.isEmpty()) { throw new IllegalArgumentException("Empty path disallowed."); }
+        if (path.stream().anyMatch(p -> p == null)) {
+            throw new IllegalArgumentException("Cannot have null points in path.");
+        }
 
         checkWithinAbsoluteLimits(row, col);
         checkNoPlayerHere(row, col);
-
         path.stream().forEach(p -> {
             checkWithinAbsoluteLimits(p.row(), p.col());
             checkWithinRelativeLimits(p.row(), p.col());
@@ -171,6 +185,7 @@ public class DomainBuilder {
      * 
      * @param row Row of the key.
      * @param col Column of the key.
+     * @param colour String representation in ALL CAPS of the colour .. PINK e.g
      * @return Domain builder object.
      */
     public DomainBuilder key(int row, int col, String colour) {
@@ -184,10 +199,10 @@ public class DomainBuilder {
     }
 
     /**
-     * Creates a treasure tile at the given location.
+     * Creates a door tile at the given location, with a specific colour.
      * 
-     * @param row Row of the treasure.
-     * @param col Column of the treasure.
+     * @param row Row of the door.
+     * @param col Column of the door.
      * @return Domain builder object.
      */
     public DomainBuilder door(int row, int col, String colour) {
@@ -203,8 +218,8 @@ public class DomainBuilder {
     /**
      * Creates a info tile at the given location.
      * 
-     * @param row Row of the treasure.
-     * @param col Column of the treasure.
+     * @param row Row of the info.
+     * @param col Column of the info.
      * @return Domain builder object.
      */
     public DomainBuilder info(int row, int col) {
@@ -216,10 +231,10 @@ public class DomainBuilder {
     }
 
     /**
-     * Creates a lock tile at the given location.
+     * Creates an exit lock tile at the given location.
      * 
      * @param row Row of the lock.
-     * @param col Column of the treasure.
+     * @param col Column of the lock.
      * @return Domain builder object.
      */
     public DomainBuilder lock(int row, int col) {
@@ -296,7 +311,8 @@ public class DomainBuilder {
     }
 
     /**
-     * Checks if the (row, col) is within the maximum bounds.
+     * Checks if the (row, col) is within the relative bounds.
+     * This is called when paths of enemies move outside of the map.
      * @param row
      * @param col
      * @return 
@@ -304,12 +320,12 @@ public class DomainBuilder {
     private void checkWithinRelativeLimits(int row, int col) {
         if (row < 0) { throw new IllegalArgumentException("Row cannot be less than 0."); }
         if (col < 0) { throw new IllegalArgumentException("Col cannot be less than 0."); }
-        if (row >= domainHeight) { throw new IllegalArgumentException("Row cannot be greater than 999."); }
-        if (col >= domainWidth) { throw new IllegalArgumentException("Col cannot be greater than 999."); }
+        if (row >= domainHeight) { throw new IllegalArgumentException("Row cannot be greater than " + domainHeight); }
+        if (col >= domainWidth) { throw new IllegalArgumentException("Col cannot be greater than " + domainWidth); }
     }
 
     /**
-     * Checks if the (row, col) is within the maximum bounds.
+     * Ensures there is no player at the position.
      * @param row
      * @param col
      * @return 

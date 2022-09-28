@@ -1,12 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 /**
- * A Free tile is a tile that can store something.
+ * A Free tile is a tile that can store 'something'.
  * That 'something', is referred to as it's 'state'.
  * List of possible states:
  *      - Empty
  *      - Key
- *      -
+ *      - ...
  */
 public class FreeTile implements Tile {
     private FreeTileState state;
@@ -18,6 +18,9 @@ public class FreeTile implements Tile {
         this.state = state;
     }
 
+    /** 
+     * ------------------------------PUBLIC API---------------------------------
+     */
     @Override
     public boolean isWall() {
         return state.isWall();
@@ -32,12 +35,16 @@ public class FreeTile implements Tile {
         this.state = s;
     }
 
+    /** 
+     * -----------------------------FACTORY METHODS-----------------------------
+     */
+
     /**
      * Factory method for empty free tile.
      * @return Empty free tile.
      */
     public static FreeTile empty() {
-        return new FreeTile(new EmptyState());
+        return new FreeTile(EmptyState.of());
     }
 
     /**
@@ -80,6 +87,9 @@ public class FreeTile implements Tile {
         return new FreeTile(new ExitLockState());
     }
 
+    /**
+     * ----------------------------PRINTABLE FUNCTIONS--------------------------
+     */
     @Override
     public String name() {
         return state.name();

@@ -1,4 +1,4 @@
-/** ----------------ADD THIS STUFF BACK IN AFTER -----------------------------*/
+/** ---------------- REMINDER - ADD THIS STUFF BACK IN AFTER -----------------------------*/
 
 // package nz.ac.vuw.ecs.swen225.gp22.domain;
 

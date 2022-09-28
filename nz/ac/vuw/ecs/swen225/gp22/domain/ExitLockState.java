@@ -16,7 +16,7 @@ public class ExitLockState implements FreeTileState {
     public void performAction(Player p, FreeTile tile) {
         // If the player has all the treasures, let him pass.
         if (p.hasAllTreasures()) {
-            tile.changeState(new EmptyState());
+            tile.changeState(EmptyState.of());
         }
     }
 

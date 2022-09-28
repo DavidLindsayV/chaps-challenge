@@ -2,7 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 /**
  * Represents a locked door.
- * The locked door is a wall, but is dismantled iff
+ * The locked door is a wall, but becomes non-wall iff
  *  : the player carrys the correct COLOUR key.
  */
 public class LockedDoorState implements FreeTileState {
@@ -28,7 +28,7 @@ public class LockedDoorState implements FreeTileState {
     public void performAction(Player p, FreeTile tile) {
         // If the correct key is carried - then you move pass.
         if (p.hasKey(this.colour)) {
-            tile.changeState(new EmptyState());
+            tile.changeState(EmptyState.of());
             p.removeKey(this.colour);
         }
     }

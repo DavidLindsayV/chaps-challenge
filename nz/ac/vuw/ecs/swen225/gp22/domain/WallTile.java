@@ -4,6 +4,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
  * Represents a wall tile.
  * Cannot be passed through.
  * Can be implemented as a singleton as all walls are the same.
+ * This saves memory.
  */
 public class WallTile implements Tile {
     private static final WallTile singleton = new WallTile();
@@ -24,6 +25,11 @@ public class WallTile implements Tile {
         return;
     }
 
+    /**
+     * !! Important
+     * Call WallTile.of() if you want to use a wall tile
+     * @return
+     */
     public static WallTile of() {
         return WallTile.singleton;
     }

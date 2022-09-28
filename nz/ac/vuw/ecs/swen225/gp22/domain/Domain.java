@@ -14,9 +14,11 @@ public class Domain {
     private int                 requiredTreasureCount;
     private boolean             playing;
 
+    public static final int GRAPHICAL_PADDING = 5; // Viewport padding.
+
     /**
      * Raw constructor.
-     * Use of the DomainBuilder is higly advised.
+     * Use of the DomainBuilder is highly advised.
      * @param gameState
      */
     public Domain(Tile[][] gameState, List<Enemy> enemies) {
@@ -87,7 +89,6 @@ public class Domain {
 
     /**
      * Move player in a given direction.
-     * TODO: Integrate with David's key calls.
      * @param direction Direction enum (UP, LEFT, RIGHT, DOWN)
      */
     public void movePlayer(Direction direction) {
@@ -109,19 +110,18 @@ public class Domain {
         }
 
         // Check if the player's position collides with any enemies.
-        boolean playerDead = enemies.stream().anyMatch(e -> e.collidesWith(player.getPosition()));
-        if (playerDead) {
-            loseLevel();
-        }
+        checkIfPlayerKilledByEnemies();
     }
+
 
     /**
      * This function will be called when the enemies need to move.
+     * Checks if any enemies collided with enemies.
      * Use observer pattern.
-     * TODO: Hook up to David Lindsay's stuff.
      */
     public void moveActors() {
         enemies.stream().forEach(e -> e.move());
+        checkIfPlayerKilledByEnemies();
     }
 
     /**
@@ -129,7 +129,6 @@ public class Domain {
      */
     public String toString() {
         String board = "";
-        
         for (int y=0; y<gameState.length; ++y){
             for (int x=0; x<gameState[y].length; ++x) {
                 Point currentPosition = new Point(y, x);
@@ -149,26 +148,50 @@ public class Domain {
     /**
      * This function will be called when the level is completed.
      * Use observer pattern.
-     * TODO: Hook up to David Lindsay's stuff.
      */
     public void nextLevel() {
         this.playing = false;
+        // UserListener.nextLevel();
     }
 
+    /**
+     * This function will be called when the level is lost.
+     */
     public void loseLevel() {
         this.playing = false;
-        UserListener.loseLevel();
+        // UserListener.loseLevel();
     }
-
-    
 
     /**
      * Returns a 2D clone of the internal view of the domain.
-     * TODO: Use this Georgia.
-     * TODO: Fix interface of tile.
+     * Use this Georgia.
      */
     public Tile[][] getInnerState() {
         return Arrays.stream(gameState).map(Tile[]::clone).toArray(Tile[][]::new);
+    }
+
+    /**
+     * Returns a padded 2D clone of the internal view of the domain.
+     * Use this Adam.
+     */
+    public Tile[][] getGraphicalState() {
+        int domainHeight = gameState.length;
+        int domainWidth = gameState[0].length;
+        int graphicalHeight = domainHeight + GRAPHICAL_PADDING * 2;
+        int graphicalWidth = domainWidth + GRAPHICAL_PADDING * 2;
+
+        Tile[][] graphicalGameState = new Tile[graphicalHeight][graphicalWidth];
+        for (Tile[] gameRow : graphicalGameState) {
+            Arrays.fill(gameRow, FreeTile.empty());
+        }
+
+        for (int y=0; y<domainHeight; ++y) {
+            for (int x=0; x<domainWidth; ++x) {
+                graphicalGameState[y+GRAPHICAL_PADDING][x+GRAPHICAL_PADDING] = gameState[y][x];
+            }
+        }
+
+        return graphicalGameState;
     }
 
     /** ---------------------PRIVATE FUNCTIONS------------------------------- */
@@ -207,5 +230,15 @@ public class Domain {
      */
     private boolean playerOn(Point pos) {
         return pos.equals(player.getPosition());
+    }
+
+    /**
+     * Loses the level, iff the player is hit by enemies.
+     */
+    private void checkIfPlayerKilledByEnemies() {
+        boolean playerDead = enemies.stream().anyMatch(e -> e.collidesWith(player.getPosition()));
+        if (playerDead) {
+            loseLevel();
+        }
     }
 }

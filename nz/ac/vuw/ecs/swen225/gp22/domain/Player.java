@@ -5,17 +5,18 @@ import java.util.Map;
 
 /**
  * Represents the player on the game.
+ * 
  * The player keeps track of
- *  - How many treasures it has.
- *  - What keys it has on it's wallet.
- *  - It's current position
+ *      - How many treasures it has.
+ *      - What keys it has on it's wallet.
+ *      - It's current position
  */
 public class Player implements Printable {
-    private Point position;
-    private Domain domain;
-    private int treasureCount;
-    private Map<AuthenticationColour, Integer> keyWallet;
-    private int totalKeysCollected;
+    private Point                               position;
+    private Domain                              domain;
+    private int                                 treasureCount;
+    private Map<AuthenticationColour, Integer>  keyWallet;
+    private int                                 totalKeysCollected;
 
     /**
      * Creates a player linked to a domain, at position (0, 0)
@@ -41,6 +42,13 @@ public class Player implements Printable {
      */
     public Point getPosition() {
         return this.position;
+    }
+
+    /**
+     * Returns the position of the player
+     */
+    public Point getGraphicalPosition() {
+        return this.position.translate(Domain.GRAPHICAL_PADDING, Domain.GRAPHICAL_PADDING);
     }
 
     /**
@@ -72,6 +80,9 @@ public class Player implements Printable {
      * If so: return TRUE
      * Else:  return False
      * 
+     * This handles multiple keys, as if there are no keys,
+     * removeKey removes the entry.
+     * 
      * @param colour The colour of the lock.
      * @return The privileges of the user.
      */
@@ -100,7 +111,7 @@ public class Player implements Printable {
     public int getTotalKeysCollected() {
         return totalKeysCollected;
     }
-    
+
 
     /**
      * Checks if the player has all treasures.

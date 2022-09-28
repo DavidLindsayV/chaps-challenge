@@ -31,7 +31,7 @@ public class KeyState implements FreeTileState {
         p.addKey(this.colour);
 
         // Switch tile state to empty state.
-        tile.changeState(new EmptyState());
+        tile.changeState(EmptyState.of());
     }
 
     @Override

@@ -1,10 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * This class represents an enemy that moves in a predetermined path.
  * If the player moves into this enemy, it will DIE.
+ * If the enemy moves into this player, it will DIE.
  */
 public class Enemy {
     /**
@@ -32,25 +34,40 @@ public class Enemy {
         if (path.stream().anyMatch(p -> p == null)) {
             throw new IllegalArgumentException("Cannot have null points in path.");
         }
-        
+
         this.path = path;
         this.currentFrameIndex = 0;
+    }
+
+    /**
+     * Returns the path
+     * @return
+     */
+    public List<Point> getPath() {
+        return Collections.unmodifiableList(path);
     }
 
     /**
      * Returns the current position of the enemy.
      * @return Point object.
      */
-    public Point currentPosition() {
+    public Point getPosition() {
         return this.path.get(currentFrameIndex);
     }
 
+    /**
+     * Returns the position of the enemy
+     * @return Point object.
+     */
+    public Point getGraphicalPosition() {
+        return getPosition().translate(Domain.GRAPHICAL_PADDING, Domain.GRAPHICAL_PADDING);
+    }
 
     /**
      * Does the position passed into the program collide with.
      */
     public Boolean collidesWith(Point pos) {
-        return currentPosition().equals(pos);
+        return getPosition().equals(pos);
     }
 
     /**

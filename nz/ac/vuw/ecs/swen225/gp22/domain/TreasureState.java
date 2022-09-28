@@ -4,6 +4,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
  * Represents treasure.
  * Can pass through.
  * When passing through, the player acquires +1 treasures.
+ * And the tile becomes empty.
  */
 public class TreasureState implements FreeTileState {
     @Override
@@ -14,7 +15,7 @@ public class TreasureState implements FreeTileState {
     @Override
     public void performAction(Player p, FreeTile tile) {
         p.pickUpTreasure();
-        tile.changeState(new EmptyState());
+        tile.changeState(EmptyState.of());
     }
 
     @Override
