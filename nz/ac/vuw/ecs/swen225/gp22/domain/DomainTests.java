@@ -1,6 +1,7 @@
+//package Tests;
 package nz.ac.vuw.ecs.swen225.gp22.domain;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
+
 import org.junit.*;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
@@ -57,10 +58,16 @@ class BuilderInputGenerator{
 	}
 
 
+	/**
+	 * build the domain using the given inputs
+	 * @param db
+	 */
 	public void playAll(DomainBuilder db) {
 		inputs.stream().forEach(i->i.play(db));
 	}
 }
+
+
 
 public class DomainTests {
 
@@ -470,6 +477,71 @@ public class DomainTests {
 	}
 
 	// ####################################################
+	// 					ENEMY TESTS
+	// ####################################################
+
+	@Test
+	public void enemyTest01() {
+		String ideal = 	"|P|_|_|_|\n" +
+						"|_|4|_|_|\n" +
+						"|_|_|_|_|\n" +
+						"|_|_|_|E|\n";
+
+		// test enemy exists
+		Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+				.enemy(1, 1, List.of(new Point(1, 1), new Point(1, 2), new Point(1, 3))).make();
+		testCompare(ideal, d.toString());
+	}
+
+	@Test
+	public void enemyTest02() {
+		String ideal = 	"|P|_|_|_|\n" +
+						"|_|_|_|4|\n" +
+						"|_|_|_|_|\n" +
+						"|_|_|_|E|\n";
+
+		// test enemy can move
+		Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+				.enemy(1, 1, List.of(new Point(1, 1), new Point(1, 2), new Point(1, 3))).make();
+		d.moveActors();
+		d.moveActors();
+		testCompare(ideal, d.toString());
+	}
+
+	@Test
+	public void enemyTest03() {
+		String ideal = 	"|P|_|_|_|\n" +
+						"|_|4|_|_|\n" +
+						"|_|_|_|_|\n" +
+						"|_|_|_|E|\n";
+
+		// test enemy loops around when path is finished
+		Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+				.enemy(1, 1, List.of(new Point(1, 1), new Point(1, 2), new Point(1, 3))).make();
+		d.moveActors();
+		d.moveActors();
+		d.moveActors();
+
+		testCompare(ideal, d.toString());
+	}
+
+	@Test
+	public void enemyTest04() {
+		String ideal = 	"|P|_|_|_|\n" +
+						"|_|4|_|_|\n" +
+						"|_|_|_|_|\n" +
+						"|_|_|_|E|\n";
+
+		// test enemy resets stage
+		Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+				.enemy(1, 1, List.of(new Point(1, 1), new Point(1, 2), new Point(1, 3))).make();
+		d.movePlayer(Direction.RIGHT);
+		d.movePlayer(Direction.DOWN);
+
+		testCompare(ideal, d.toString());
+	}
+
+	// ####################################################
 	// 					EXIT TESTS
 	// ####################################################
 
@@ -689,6 +761,154 @@ public class DomainTests {
 		});
 	}
 
+	@Test
+	public void failingTest13() {
+		// test enemy cant function with empty list
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of()).make();
+		});
+	}
+
+	@Test
+	public void failingTest14() {
+		// test enemy cant function with null list
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, (List<Point>) null).make();
+		});
+	}
+
+	@Test
+	public void failingTest15() {
+		// test enemy cant function with list of null points
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(null, null)).make();
+		});
+	}
+
+	@Test
+	public void failingTest16() {
+		// test enemy cant move outside of domain (row boundary)
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(new Point(-1, 0))).make();
+		});
+
+		// check over boundary
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(new Point(6, 0))).make();
+			System.out.println(d.toString());
+		});
+	}
+
+	@Test
+	public void failingTest17() {
+		// check column boundary
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(new Point(0, -1))).make();
+		});
+
+		// check over boundary
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(new Point(0, 6))).make();
+		});
+	}
+
+	@Test
+	public void failingTest18() {
+		// check both boundary
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(new Point(-1, -1))).make();
+		});
+
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+					.enemy(1, 1, List.of(new Point(6, 6))).make();
+		});
+	}
+
+	@Test
+	public void failingTest19() {
+		// check cannot put a wall on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).wall(0, 0).exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest20() {
+		// check cannot put a key on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).key(0, 0, "PINK").exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest21() {
+		// check cannot put an exit lock on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).lock(0, 0).exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest22() {
+		// check cannot put an exit on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(0, 0).make();
+		});
+	}
+
+	@Test
+	public void failingTest23() {
+		// check cannot put an door on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).door(0, 0, "PINK").exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest24() {
+		// check cannot put treasure on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).treasure(0, 0).exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest25() {
+		// check cannot put an empty tile on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).empty(0, 0).exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest26() {
+		// check cannot put an enemy on a player
+		checkFailed(()->{
+			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).enemy(0, 0, List.of(new Point(0,0))).exit(1, 1).make();
+		});
+	}
+
+	@Test
+	public void failingTest27() {
+		// check cannot put an exit on a player
+		checkFailed(()->{});
+	}
+
+	@Test
+	public void failingTest28() {
+		// test for enemy branch coverage
+		checkFailed(()->{Enemy e = new Enemy((List<Point>) null);});
+	}
+
 	// ####################################################
 	// 						OTHER TESTS
 	// ####################################################
@@ -781,6 +1001,36 @@ public class DomainTests {
 	}
 
 	@Test
+	public void otherTest07() {
+		// test player position matching with actual position
+		Domain d = new DomainBuilder().empty(5, 5).player(0, 0).exit(2, 2).make();
+		assert d.getPlayerPosition().equals(new Point(0, 0)) : "Player position not matching";
+
+		// test player position is still working after moving
+		d.movePlayer(Direction.DOWN);
+		d.movePlayer(Direction.DOWN);
+		d.movePlayer(Direction.DOWN);
+		assert d.getPlayerPosition().equals(new Point(3, 0)) : "Player position not matching";
+	}
+
+	@Test
+	public void otherTest08() {
+		// test domain can get the enemies
+		Domain d = new DomainBuilder()
+				.enemy(0, 0, List.of(new Point(0, 0)))
+				.enemy(0, 0, List.of(new Point(0, 1)))
+				.enemy(0, 0, List.of(new Point(1, 0))).player(1, 1).exit(2, 2).make();
+		assert d.getEnemies().size() == 3;
+	}
+
+	@Test
+	public void otherTest09() {
+		// test for player branch coverage
+		Player p = new Player(new DomainBuilder().empty(0, 0).player(0, 0).exit(2, 2).make());
+		p.removeKey(AuthenticationColour.BLUE);
+	}
+
+	@Test
 	public void fuzzTest() {
 		DomainBuilder db = new DomainBuilder();
 		BuilderInputGenerator big = new BuilderInputGenerator();
@@ -798,7 +1048,7 @@ public class DomainTests {
 		try {
 			f.execute();
 		}
-		catch (IllegalArgumentException | IllegalStateException b ) {return;}
+		catch (IllegalArgumentException | IllegalStateException e) {return;}
 		catch (Exception e) {assert false : "Exception e was: " + e;}
 		assert false : "Test should've thrown an exception";
 	}
