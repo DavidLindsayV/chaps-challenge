@@ -8,6 +8,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.IOException;
+
 import org.dom4j.DocumentException;
 
 public class PersistencyTests {
@@ -29,6 +31,10 @@ public class PersistencyTests {
         db.info(1, 2).wall(2, 2).exit(2, 3).player(3, 3);
         Domain d = db.make();
 
-        Parser.saveLevel(d);
+        try {
+            Parser.saveLevel(d);
+        } catch (IOException e) {
+            assert false : e.getMessage();
+        }
     }
 }
