@@ -4,12 +4,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
+
 
 public class Domain {
     private Tile[][]            gameState;
     private Player              player;
     private List<Enemy>         enemies;
     private int                 requiredTreasureCount;
+    private boolean             playing;
 
     /**
      * Raw constructor.
@@ -20,6 +23,7 @@ public class Domain {
         this.player = new Player(this);
         this.enemies = enemies;
         this.gameState = gameState;
+        this.playing = true;
         countTreasures();
     }
 
@@ -87,6 +91,8 @@ public class Domain {
      * @param direction Direction enum (UP, LEFT, RIGHT, DOWN)
      */
     public void movePlayer(Direction direction) {
+        if (playing == false) { return; }
+
         Point pos = player.getPosition();
         pos = pos.translate(direction.dr, direction.dc);
         
@@ -103,8 +109,10 @@ public class Domain {
         }
 
         // Check if the player's position collides with any enemies.
-        // TODO: Do something here.
         boolean playerDead = enemies.stream().anyMatch(e -> e.collidesWith(player.getPosition()));
+        if (playerDead) {
+            loseLevel();
+        }
     }
 
     /**
@@ -144,7 +152,12 @@ public class Domain {
      * TODO: Hook up to David Lindsay's stuff.
      */
     public void nextLevel() {
-        
+        this.playing = false;
+    }
+
+    public void loseLevel() {
+        this.playing = false;
+        UserListener.loseLevel();
     }
 
     

@@ -88,10 +88,17 @@ public class DomainBuilder {
      * @return
      */
     public DomainBuilder enemy(int row, int col, List<Point> path) {
+        if (path == null) { throw new IllegalArgumentException("Null path disallowed."); }
+        if (path.isEmpty()) { throw new IllegalArgumentException("Empty path disallowed."); }
+
         checkWithinAbsoluteLimits(row, col);
-        path.stream().forEach(p -> 
-            checkWithinAbsoluteLimits(p.row(), p.col()
-        ));
+        checkNoPlayerHere(row, col);
+
+        path.stream().forEach(p -> {
+            checkWithinAbsoluteLimits(p.row(), p.col());
+            checkWithinRelativeLimits(p.row(), p.col());
+        });
+
         domainEnemies.add(new Enemy(path));
         detectBoundaries(row, col);
         return this;
@@ -105,6 +112,7 @@ public class DomainBuilder {
      */
     public DomainBuilder empty(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.empty();
         detectBoundaries(row, col);
         return this;
@@ -121,6 +129,7 @@ public class DomainBuilder {
      */
     public DomainBuilder wall(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = WallTile.of();
         detectBoundaries(row, col);
         return this;
@@ -135,6 +144,7 @@ public class DomainBuilder {
      */
     public DomainBuilder exit(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = new ExitTile();
         domainExitLocation = new Point(row, col);
         detectBoundaries(row, col);
@@ -150,6 +160,7 @@ public class DomainBuilder {
      */
     public DomainBuilder treasure(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.treasure();
         detectBoundaries(row, col);
         return this;
@@ -164,6 +175,7 @@ public class DomainBuilder {
      */
     public DomainBuilder key(int row, int col, String colour) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.key(
             AuthenticationColour.valueOf(colour)
         );
@@ -180,6 +192,7 @@ public class DomainBuilder {
      */
     public DomainBuilder door(int row, int col, String colour) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.door(
             AuthenticationColour.valueOf(colour)
         );
@@ -196,6 +209,7 @@ public class DomainBuilder {
      */
     public DomainBuilder info(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.info();
         detectBoundaries(row, col);
         return this;
@@ -210,6 +224,7 @@ public class DomainBuilder {
      */
     public DomainBuilder lock(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.lock();
         detectBoundaries(row, col);
         return this;
@@ -279,4 +294,31 @@ public class DomainBuilder {
         if (row >= MAX_HEIGHT) { throw new IllegalArgumentException("Row cannot be greater than 999."); }
         if (col >= MAX_WIDTH) { throw new IllegalArgumentException("Col cannot be greater than 999."); }
     }
+
+    /**
+     * Checks if the (row, col) is within the maximum bounds.
+     * @param row
+     * @param col
+     * @return 
+     */
+    private void checkWithinRelativeLimits(int row, int col) {
+        if (row < 0) { throw new IllegalArgumentException("Row cannot be less than 0."); }
+        if (col < 0) { throw new IllegalArgumentException("Col cannot be less than 0."); }
+        if (row >= domainHeight) { throw new IllegalArgumentException("Row cannot be greater than 999."); }
+        if (col >= domainWidth) { throw new IllegalArgumentException("Col cannot be greater than 999."); }
+    }
+
+    /**
+     * Checks if the (row, col) is within the maximum bounds.
+     * @param row
+     * @param col
+     * @return 
+     */
+    private void checkNoPlayerHere(int row, int col) {
+        if (domainPlayerPosition.equals(new Point(row, col))) {
+            throw new IllegalStateException("You cannot place a tile on top of a player.");
+        }
+    }
 }
+
+

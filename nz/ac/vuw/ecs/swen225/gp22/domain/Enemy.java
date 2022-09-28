@@ -29,6 +29,10 @@ public class Enemy {
             throw new IllegalArgumentException("Invalid enemy path.");
         }
 
+        if (path.stream().anyMatch(p -> p == null)) {
+            throw new IllegalArgumentException("Cannot have null points in path.");
+        }
+        
         this.path = path;
         this.currentFrameIndex = 0;
     }
