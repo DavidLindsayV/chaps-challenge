@@ -15,6 +15,7 @@ public class Player implements Printable {
     private Domain domain;
     private int treasureCount;
     private Map<AuthenticationColour, Integer> keyWallet;
+    private int totalKeysCollected;
 
     /**
      * Creates a player linked to a domain, at position (0, 0)
@@ -24,6 +25,7 @@ public class Player implements Printable {
         this.position = new Point(0, 0);
         this.domain = d;
         this.keyWallet = new HashMap<AuthenticationColour, Integer>();
+        this.totalKeysCollected = 0;
     }
 
     /**
@@ -49,6 +51,7 @@ public class Player implements Printable {
         if (!keyWallet.containsKey(key)) {
             keyWallet.put(key, 0);
         } keyWallet.put(key, keyWallet.get(key) + 1);
+        totalKeysCollected++;
     }
 
     /**
@@ -82,6 +85,22 @@ public class Player implements Printable {
     public void pickUpTreasure() {
         treasureCount++;
     }
+
+    /** 
+     * Returns the number of treasures collected
+     */
+    public int getTreasureCount() {
+        return treasureCount;
+    }
+
+    /**
+     * Get total keys collected over time.
+     * @return
+     */
+    public int getTotalKeysCollected() {
+        return totalKeysCollected;
+    }
+    
 
     /**
      * Checks if the player has all treasures.
