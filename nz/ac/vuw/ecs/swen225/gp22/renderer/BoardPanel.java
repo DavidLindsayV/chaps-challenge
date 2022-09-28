@@ -68,7 +68,7 @@ public class BoardPanel extends JPanel {
     public void updateGrid(Graphics g) {
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                drawImg(Img.WallSprite.image, 5, 5, g);
+                drawImg(Img.WallSprite.image, i, j, g);
             }
         }
         drawImg(Img.Chap.image, 5, 5, g);
