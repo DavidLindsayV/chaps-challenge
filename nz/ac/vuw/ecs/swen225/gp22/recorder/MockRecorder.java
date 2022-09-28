@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.dom4j.DocumentException;
 
-import nz.ac.vuw.ecs.swen225.gp22.app.moveType;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
 public class MockRecorder {
 
@@ -28,7 +28,7 @@ public class MockRecorder {
     public static void run() {
         Recorder.newLevel();
         for(int i=0; i<5000; i++){
-            Recorder.tick( randomEnum(moveType.class) );
+            Recorder.tick( randomEnum(Direction.class) );
         }
         try {
             Recorder.save();

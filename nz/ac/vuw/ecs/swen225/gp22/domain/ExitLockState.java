@@ -27,6 +27,6 @@ public class ExitLockState implements FreeTileState {
 
     @Override
     public String toString() {
-        return "_";
+        return "L";
     }
 }

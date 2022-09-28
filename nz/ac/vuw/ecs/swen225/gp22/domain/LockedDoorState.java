@@ -3,7 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 /**
  * Represents a locked door.
  * The locked door is a wall, but is dismantled iff
- *  : the player carrys the correct COLOUR key.
+ * : the player carrys the correct COLOUR key.
  */
 public class LockedDoorState implements FreeTileState {
     /**
@@ -13,6 +13,7 @@ public class LockedDoorState implements FreeTileState {
 
     /**
      * Creates a key state with a desired colour.
+     * 
      * @param c
      */
     public LockedDoorState(AuthenticationColour c) {
@@ -29,12 +30,13 @@ public class LockedDoorState implements FreeTileState {
         // If the correct key is carried - then you move pass.
         if (p.hasKey(this.colour)) {
             tile.changeState(new EmptyState());
+            p.removeKey(this.colour);
         }
     }
 
     @Override
     public String name() {
-        return "locked_door";
+        return "door";
     }
 
     @Override

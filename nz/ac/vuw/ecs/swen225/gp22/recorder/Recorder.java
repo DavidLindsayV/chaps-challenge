@@ -7,16 +7,19 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 
-import nz.ac.vuw.ecs.swen225.gp22.app.moveType;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
 public class Recorder {
 
     /* Fields. */
     private static RecordWriter recWriter;
     private static Document document;
+    private static final Class<Direction> clazz = Direction.class;
 
     /*
-     * Refreashes the dom4j document and record writer, for a new level
+     * Called when a new level is created.
+     * 
+     * Creates the dom4j document and record writer, for a new level
      */
     public static void newLevel(){
         document = DocumentHelper.createDocument();
@@ -26,7 +29,7 @@ public class Recorder {
     /*
      * Record a given tick
      */
-    public static void tick(moveType move){
+    public static <E extends Enum<E>> void tick(E move){
         recWriter.tick(move);
     }
 
@@ -38,9 +41,16 @@ public class Recorder {
     }
 
     /* 
+     * Loads a level which is partially completed.
+     */
+    public static void loadPartial(){
+
+    }
+
+    /* 
      * Loads a game from a record xml file.
      */
     public static void load() throws MalformedURLException, DocumentException{
-        RecordReader.loadDoc();
+        RecordReader.loadDoc(clazz);
     }
 }

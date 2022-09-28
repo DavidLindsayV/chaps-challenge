@@ -16,10 +16,8 @@ import org.dom4j.io.XMLWriter;
 import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
-
-record Point(int row, int col) {
-}
 
 public class Parser {
 
@@ -60,7 +58,8 @@ public class Parser {
                     (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
             parseColourElement(rowNumInt, row.elements("door"),
                     (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
-            parsePathElement(rowNumInt, row.elements("enemy"), (r, c, path) -> builder.enemy(r, c, path));
+            parsePathElement(rowNumInt, row.elements("enemy"),
+                    (r, c, path) -> builder.enemy(r.intValue(), c.intValue(), path));
 
         }
         return builder.make();
@@ -102,16 +101,16 @@ public class Parser {
                     Element tile = currRow.addElement(name).addAttribute("c", "" + col);
                     if (name.equals("door") || name.equals("key")) {
                         tile.addAttribute("colour", t.colour());
-                    } else if (name.equals("enemy")) {
-                        List<Point> path = t.getPath();
-                        path.stream().forEach(p -> {
-                            tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-                                    + p.col());
-                        });
-                    }
+                    } 
+                    // else if (name.equals("enemy")) {
+                    //     List<Point> path = t.getPath();
+                    //     path.stream().forEach(p -> {
+                    //         tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+                    //                 + p.col());
+                    //     });
+                    // }
                 }
             }
-
         }
         return document;
     }

@@ -15,8 +15,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import nz.ac.vuw.ecs.swen225.gp22.app.moveType;
-
 public class RecordReader {
     
     /*
@@ -34,7 +32,7 @@ public class RecordReader {
      * @throws MalformedURLException
      * @throws DocumentException
      */
-    public static void loadDoc() throws MalformedURLException, DocumentException{
+    public static <E extends Enum<E>> void loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
         URL url;
         JFileChooser fileChooser = new JFileChooser("recorded_games/");
         int responce = fileChooser.showOpenDialog(null);
@@ -43,8 +41,8 @@ public class RecordReader {
             //Here we have the document, currently it just prints the file to the console.
             Document doc = parse(url);
             try {
-                List<moveType> actionList = actionList(doc);
-                System.out.println(actionList.size());
+                List<E> actionList = actionList(clazz,doc);
+                System.out.println(actionList);
             } catch (XmlFormatException e) {
                 e.printStackTrace();
             }
@@ -54,9 +52,11 @@ public class RecordReader {
     /* 
      * Method to read the xml file and turn it into an action list.
      */
-    private static List<moveType> actionList(Document doc) throws XmlFormatException {
+    private static <E extends Enum<E>> List<E> actionList(Class<E> clazz, Document doc) throws XmlFormatException {
+
         Element e = doc.getRootElement();
-        List<moveType> moves = new ArrayList<moveType>();
+        List<E> moves = new ArrayList<E>();
+        
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
             if(!(tick.node(1) instanceof Element))  {
@@ -66,10 +66,12 @@ public class RecordReader {
             if(!moveEle.getName().equals("move")) {
                 throw new XmlFormatException("The element tick.node(1) is not a move!");
             }
+
             String moveStr = moveEle.getText();
-            moveType move = moveType.valueOf(moveStr);
+            E move = E.valueOf(clazz, moveStr);
             moves.add(move);
         }
+
         return Collections.unmodifiableList(moves);
     }
 
@@ -77,13 +79,8 @@ public class RecordReader {
      * Custom exception for checking that the xml recorded games are correctly formatted
      */
     private static class XmlFormatException extends Exception { 
-        XmlFormatException() {
-            super("Incorrect XML format");
-        }
         XmlFormatException(String errorMessage) {
             super("Incorrect XML format: "+errorMessage);
         }
     }
-
-
 }

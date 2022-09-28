@@ -1,27 +1,35 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+//import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 /**
  * This class listens and reacts to keypresses of the user
  */
 public class UserListener implements KeyListener {
 
-  public static moveType move;
-
+  //Stores the Domain of the current level
+  public static Domain currentGame;
+  //The direction the player will move this ping
+  public static Direction move;
+  //Whether the game is paused
   public static boolean paused = false;
-  static int currentLevel = 1;
+  //The current level being played
+  static String currentLevel;
+  //The timer that calls ping
+  static pingTimer timer;
 
-  static Set<mockKey> keysCollected = new HashSet<mockKey>();
-  static int treasuresLeft; //number of treasures still needing collecting
-  static pingTimer timer = new pingTimer();
-
-  public UserListener() {}
-
-  public static void run() {
-    loadLevel();
+  public UserListener() {
+    currentLevel = fileLevel.getStartingFileName();
+    System.out.println("starting file name is " + currentLevel);
+    timer = new pingTimer();
   }
 
   @Override
@@ -73,10 +81,12 @@ public class UserListener implements KeyListener {
           loadSavedGame();
           break;
         case KeyEvent.VK_1:
-          level1();
+          currentLevel = "level1.xml";
+          loadLevel();
           break;
         case KeyEvent.VK_2:
-          level1();
+          currentLevel = "level2.xml";
+          loadLevel();
           break;
       }
     }
@@ -85,26 +95,34 @@ public class UserListener implements KeyListener {
   /**Exits the game. The current game state will be lost,
    * the next time the game is started, it will resume from the last unfinished level
    */
-  public static void exitGame() {}
+  public static void exitGame() {
+    GUI.closeAll();
+    System.exit(0);
+  }
 
   /**exit the game, saves the game state, game will resume next time the
 application will be started
    */
-  public static void saveGame() {}
+  public static void saveGame() {
+    //try {
+    //Recorder.save();  //TODO
+    //} catch (IOException e) {
+    //  System.out.println("Saving the Recording threw an IOException " + e);
+    //}
+    fileLevel.saveStartingFileName(currentLevel);
+    exitGame();
+  }
 
   /**resume a saved game -- this will pop up a file selector to select a saved game
 to be loaded
  */
-  public static void loadSavedGame() {}
-
-  /** Starts a game at level 1 */
-  public static void level1() {
-    currentLevel = 1;
-  }
-
-  /** Starts a game at level 2 */
-  public static void level2() {
-    currentLevel = 2;
+  public static void loadSavedGame() {
+    try {
+      currentLevel = fileLevel.getLevelFilename();
+      loadLevel();
+    } catch (Exception e) {
+      System.out.println("Level loading failed");
+    }
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
@@ -118,11 +136,13 @@ to be loaded
   public static void resumeGame() {
     System.out.println("The game has resumed");
     paused = false;
-    timer = new pingTimer();
+    timer = new pingTimer(timer);
   }
 
-  /**Loads the level of the game based on currentLevel */
+  /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
+    Recorder.newLevel();
+    //currentGame = Parser.loadLevel(currentLevel);
     loadTimer();
   }
 
@@ -136,18 +156,24 @@ to be loaded
 
   /**Move Chap in a direction */
   public void up() {
-    move = moveType.moveUp;
+    move = Direction.UP;
   }
 
   public void down() {
-    move = moveType.moveDown;
+    move = Direction.DOWN;
   }
 
   public void left() {
-    move = moveType.moveLeft;
+    move = Direction.LEFT;
   }
 
   public void right() {
-    move = moveType.moveRight;
+    move = Direction.RIGHT;
+  }
+
+  public static void loseLevel() {
+    System.out.println(
+      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
+    );
   }
 }
