@@ -1,6 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -44,8 +45,24 @@ public class Domain {
         if (!withinDomain(pos)) { 
             throw new IllegalArgumentException("Cannot set player position in domain out of bounds."); 
         }
-        
         this.player.setPosition(pos);
+    }
+
+    /**
+     * Get the player position
+     * Adam: Use this for getting player position.
+     * @param pos The position of the player.
+     */
+    public Point getPlayerPosition() {
+        return player.getPosition();
+    }
+
+    /**
+     * Get the enemies
+     * @param direction
+     */
+    public List<Enemy> getEnemies() {
+        return Collections.unmodifiableList(enemies);
     }
 
     /**

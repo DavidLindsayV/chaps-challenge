@@ -1,6 +1,6 @@
-package Tests;
-import static org.junit.jupiter.api.Assertions.assertAll;
+package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.*;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
@@ -28,14 +28,14 @@ class BuilderInputGenerator{
 		(d)->{d.empty(rint(BOARDSIZE), rint(BOARDSIZE));},
 		(d)->{d.wall(rint(BOARDSIZE), rint(BOARDSIZE));},
 		(d)->{d.treasure(rint(BOARDSIZE), rint(BOARDSIZE));},
-		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.PINK);},
-		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.PINK);},
-		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.BLUE);},
-		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.BLUE);},
-		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.YELLOW);},
-		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.YELLOW);},
-		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.GREEN);},
-		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), AuthenticationColour.GREEN);}
+		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), "PINK");},
+		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), "PINK");},
+		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), "BLUE");},
+		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), "BLUE");},
+		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), "YELLOW");},
+		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), "YELLOW");},
+		(d)->{d.key(rint(BOARDSIZE), rint(BOARDSIZE), "GREEN");},
+		(d)->{d.door(rint(BOARDSIZE), rint(BOARDSIZE), "GREEN");}
 	);
 	List<DomainBuilderFuzzTest> inputs = new ArrayList<>();
 
@@ -295,7 +295,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test player can take key
-		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, AuthenticationColour.BLUE).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, "BLUE").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 
 		testCompare(ideal, d.toString());
@@ -308,7 +308,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test player can have more than one key of different colours
-		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, AuthenticationColour.BLUE).key(1, 1, AuthenticationColour.GREEN).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, "BLUE").key(1, 1, "GREEN").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.DOWN);
 		testCompare(ideal, d.toString());
@@ -321,7 +321,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test player can have more than one key of the same colour
-		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, AuthenticationColour.BLUE).key(1, 1, AuthenticationColour.BLUE).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, "BLUE").key(1, 1, "BLUE").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.DOWN);
 		d.movePlayer(Direction.LEFT);
@@ -335,8 +335,8 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test key can exists
-		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, AuthenticationColour.BLUE)
-				.key(1, 1, AuthenticationColour.BLUE).key(1, 0, AuthenticationColour.GREEN).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 1).key(0, 1, "BLUE")
+				.key(1, 1, "BLUE").key(1, 0, "GREEN").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.DOWN);
 		testCompare(ideal, d.toString());
@@ -353,7 +353,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test blue door w/ blue key
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.PINK).door(0, 2, AuthenticationColour.PINK).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "PINK").door(0, 2, "PINK").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
 		testCompare(ideal, d.toString());
@@ -366,7 +366,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test blue door w/ blue key
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.BLUE).door(0, 2, AuthenticationColour.BLUE).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "BLUE").door(0, 2, "BLUE").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
 		testCompare(ideal, d.toString());
@@ -380,7 +380,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test blue door w/ blue key
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.YELLOW).door(0, 2, AuthenticationColour.YELLOW).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "YELLOW").door(0, 2, "YELLOW").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
 		testCompare(ideal, d.toString());
@@ -394,7 +394,7 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test blue door w/ blue key
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.GREEN).door(0, 2, AuthenticationColour.GREEN).player(0, 0).exit(2, 2).make();
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "GREEN").door(0, 2, "GREEN").player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
 		testCompare(ideal, d.toString());
@@ -407,8 +407,8 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test pink cant be used to open green door and then use on pink door
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.PINK)
-				.door(1, 1, AuthenticationColour.PINK).door(0, 2, AuthenticationColour.GREEN)
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "PINK")
+				.door(1, 1, "PINK").door(0, 2, "GREEN")
 				.player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
@@ -423,10 +423,10 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test player can pick up two green keys and then open two green doors
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.GREEN)
-				.key(0, 2, AuthenticationColour.GREEN)
-				.door(1, 2, AuthenticationColour.GREEN)
-				.door(1, 1, AuthenticationColour.GREEN)
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "GREEN")
+				.key(0, 2, "GREEN")
+				.door(1, 2, "GREEN")
+				.door(1, 1, "GREEN")
 				.player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
@@ -442,9 +442,9 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// test player can pick up one green key but ONLY one green door
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.GREEN)
-				.door(0, 2, AuthenticationColour.GREEN)
-				.door(1, 2, AuthenticationColour.GREEN)
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "GREEN")
+				.door(0, 2, "GREEN")
+				.door(1, 2, "GREEN")
 				.player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
@@ -459,9 +459,9 @@ public class DomainTests {
 						"|_|_|E|\n";
 
 		// ?
-		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, AuthenticationColour.GREEN)
-				.door(0, 2, AuthenticationColour.GREEN)
-				.door(1, 2, AuthenticationColour.GREEN)
+		Domain d = new DomainBuilder().empty(1, 2).key(0, 1, "GREEN")
+				.door(0, 2, "GREEN")
+				.door(1, 2, "GREEN")
 				.player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
@@ -726,10 +726,10 @@ public class DomainTests {
 	public void otherTest03() {
 		// test for key state
 		Domain d = new DomainBuilder().empty(5, 5)
-				.key(1, 0, AuthenticationColour.BLUE)
-				.key(1, 1, AuthenticationColour.GREEN)
-				.key(1, 2, AuthenticationColour.PINK)
-				.key(1, 3, AuthenticationColour.YELLOW)
+				.key(1, 0, "BLUE")
+				.key(1, 1, "GREEN")
+				.key(1, 2, "PINK")
+				.key(1, 3, "YELLOW")
 				.player(0, 0).exit(2, 2).make();
 		Tile[][] innerstate = d.getInnerState();
 		assert innerstate[1][0].colour().equals("BLUE") : "COLOUR SHOULD BE BLUE";
@@ -743,10 +743,10 @@ public class DomainTests {
 	public void otherTest04() {
 		// test for door state
 		Domain d = new DomainBuilder().empty(5, 5)
-				.door(1, 0, AuthenticationColour.BLUE)
-				.door(1, 1, AuthenticationColour.GREEN)
-				.door(1, 2, AuthenticationColour.PINK)
-				.door(1, 3, AuthenticationColour.YELLOW)
+				.door(1, 0, "BLUE")
+				.door(1, 1, "GREEN")
+				.door(1, 2, "PINK")
+				.door(1, 3, "YELLOW")
 				.player(0, 0).exit(2, 2).make();
 		Tile[][] innerstate = d.getInnerState();
 		assert innerstate[1][0].colour().equals("BLUE") : "COLOUR SHOULD BE BLUE";
