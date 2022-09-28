@@ -3,6 +3,7 @@
     <row r="1" />
     <row r="2">
         <treasure c="3" />
+        <player c="4" />
     </row>
     <row r="3">
         <wall c="3" />
