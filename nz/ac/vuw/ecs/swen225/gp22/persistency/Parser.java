@@ -13,7 +13,6 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
@@ -101,13 +100,13 @@ public class Parser {
                     Element tile = currRow.addElement(name).addAttribute("c", "" + col);
                     if (name.equals("door") || name.equals("key")) {
                         tile.addAttribute("colour", t.colour());
-                    } 
+                    }
                     // else if (name.equals("enemy")) {
-                    //     List<Point> path = t.getPath();
-                    //     path.stream().forEach(p -> {
-                    //         tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-                    //                 + p.col());
-                    //     });
+                    // List<Point> path = t.getPath();
+                    // path.stream().forEach(p -> {
+                    // tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+                    // + p.col());
+                    // });
                     // }
                 }
             }
