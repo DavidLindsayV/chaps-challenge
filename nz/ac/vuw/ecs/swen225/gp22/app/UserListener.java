@@ -15,20 +15,23 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
  */
 public class UserListener implements KeyListener {
 
+  //Stores the Domain of the current level
   public static Domain currentGame;
+  //The direction the player will move this ping
   public static Direction move;
-
+  //Whether the game is paused
   public static boolean paused = false;
-  static int currentLevel = 1;
+  //The current level being played
+  static String currentLevel;
 
-  static Set<mockKey> keysCollected = new HashSet<mockKey>();
-  static int treasuresLeft; //number of treasures still needing collecting
-  static pingTimer timer = new pingTimer();
+  static int keysCollected = 0; //number of keys collected
+  static int treasuresLeft = 5; //number of treasures still needing collecting
+  static pingTimer timer;
 
-  public UserListener() {}
-
-  public static void run() {
-    loadLevel();
+  public UserListener() {
+    currentLevel = fileLevel.getStartingFileName();
+    System.out.println("starting file name is " + currentLevel);
+    timer = new pingTimer();
   }
 
   @Override
@@ -80,10 +83,12 @@ public class UserListener implements KeyListener {
           loadSavedGame();
           break;
         case KeyEvent.VK_1:
-          level1();
+          currentLevel = "level1.xml";
+          loadLevel();
           break;
         case KeyEvent.VK_2:
-          level1();
+          currentLevel = "level2.xml";
+          loadLevel();
           break;
       }
     }
@@ -98,11 +103,12 @@ public class UserListener implements KeyListener {
 application will be started
    */
   public static void saveGame() {
-    try {
-      Recorder.save();
-    } catch (IOException e) {
-      System.out.println("Saving the Recording threw an IOException " + e);
-    }
+    //try {
+    //Recorder.save();  //TODO
+    //} catch (IOException e) {
+    //  System.out.println("Saving the Recording threw an IOException " + e);
+    //}
+    fileLevel.saveStartingFileName(currentLevel);
     exitGame();
   }
 
@@ -110,23 +116,12 @@ application will be started
 to be loaded
  */
   public static void loadSavedGame() {
-    // try{
-    //currentGame = loadLevel(fileLevel.getLevelFilename());
-    // }catch(Exception e){
-    //  System.out.println("Level loading failed");
-    //}
-  }
-
-  /** Starts a game at level 1 */
-  public static void level1() {
-    currentLevel = 1;
-    currentGame = Parser.loadLevel("level1.xml");
-  }
-
-  /** Starts a game at level 2 */
-  public static void level2() {
-    currentLevel = 2;
-    currentGame = Parser.loadLevel("level2.xml");
+    try {
+      currentLevel = fileLevel.getLevelFilename();
+      loadLevel();
+    } catch (Exception e) {
+      System.out.println("Level loading failed");
+    }
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
@@ -143,14 +138,10 @@ to be loaded
     timer = new pingTimer();
   }
 
-  /**Starts the level of the game based on currentLevel, either level 1 or level 2*/
+  /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
     Recorder.newLevel();
-    if (currentLevel == 1) {
-      level1();
-    } else if (currentLevel == 2) {
-      level2();
-    }
+    currentGame = Parser.loadLevel(currentLevel);
     loadTimer();
   }
 
