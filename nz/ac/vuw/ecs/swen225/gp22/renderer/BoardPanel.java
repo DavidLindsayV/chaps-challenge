@@ -29,11 +29,10 @@ public class BoardPanel extends JPanel {
     g.fillRect(0, 0, 1000, 1000);
     g.setColor(new Color(255, 204, 179));
     g.fillRect(
-      originX - 10,
-      originY - 10,
-      xEndPoint - originX + 20,
-      yEndPoint - originY + 20
-    );
+        originX - 10,
+        originY - 10,
+        xEndPoint - originX + 20,
+        yEndPoint - originY + 20);
     g.setColor(new Color(46, 39, 82));
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
@@ -60,17 +59,16 @@ public class BoardPanel extends JPanel {
 
   public void drawImg(BufferedImage img, int x, int y, Graphics g) {
     g.drawImage(
-      img,
-      getXPos(x),
-      getYPos(y),
-      getXPos(x) + xSpacing,
-      getYPos(y) + ySpacing,
-      0,
-      0,
-      img.getWidth(),
-      img.getHeight(),
-      null
-    );
+        img,
+        getXPos(x),
+        getYPos(y),
+        getXPos(x) + xSpacing,
+        getYPos(y) + ySpacing,
+        0,
+        0,
+        img.getWidth(),
+        img.getHeight(),
+        null);
   }
 
   public int getXPos(int x) {
@@ -89,87 +87,14 @@ public class BoardPanel extends JPanel {
     }
     drawImg(Img.Chap.image, 5, 5, g);
   }
-  /* 
-    public void parser(Tile t, Graphics g) {
-        if(t.toString().equals("")){
-            drawImg(Img.WallSprite.image, t.x(), t.y(), g);
-        }
-        else{
-            drawImg(Img.FloorSprite.image, t.x(), t.y(), g);
-        }
-    }
-    */
-}
-      originY - 10,
-      xEndPoint - originX + 20,
-      yEndPoint - originY + 20
-    );
-    g.setColor(new Color(46, 39, 82));
-    g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
-    createGrid(g);
-    updateGrid(g);
-    GUI.drawText(g);
-  }
-
-  private void createGrid(Graphics g) {
-    g.setColor(new Color(255, 204, 179));
-    int tempOriginX = originX;
-    for (int i = 0; i <= cols; i++) {
-      g.drawLine(originX, originY, originX, yEndPoint);
-      originX = originX + (xSpacing);
-    }
-    originX = tempOriginX;
-
-    public void updateGrid(Graphics g) {
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
-                drawImg(Img.WallSprite.image, i, j, g);
-            }
-        }
-        drawImg(Img.Chap.image, 5, 5, g);
-    }
-    originY = tempOriginY;
-  }
-
-  public void drawImg(BufferedImage img, int x, int y, Graphics g) {
-    g.drawImage(
-      img,
-      getXPos(x),
-      getYPos(y),
-      getXPos(x) + xSpacing,
-      getYPos(y) + ySpacing,
-      0,
-      0,
-      img.getWidth(),
-      img.getHeight(),
-      null
-    );
-  }
-
-  public int getXPos(int x) {
-    return originX + (xSpacing * x);
-  }
-
-  public int getYPos(int y) {
-    return originY + (ySpacing * y);
-  }
-
-  public void updateGrid(Graphics g) {
-    for (int i = 0; i < cols; i++) {
-      for (int j = 0; j < rows; j++) {
-        drawImg(Img.WallSprite.image, 5, 5, g);
-      }
-    }
-    drawImg(Img.Chap.image, 5, 5, g);
-  }
-  /* 
-    public void parser(Tile t, Graphics g) {
-        if(t.toString().equals("")){
-            drawImg(Img.WallSprite.image, t.x(), t.y(), g);
-        }
-        else{
-            drawImg(Img.FloorSprite.image, t.x(), t.y(), g);
-        }
-    }
-    */
+  /*
+   * public void parser(Tile t, Graphics g) {
+   * if(t.toString().equals("")){
+   * drawImg(Img.WallSprite.image, t.x(), t.y(), g);
+   * }
+   * else{
+   * drawImg(Img.FloorSprite.image, t.x(), t.y(), g);
+   * }
+   * }
+   */
 }
