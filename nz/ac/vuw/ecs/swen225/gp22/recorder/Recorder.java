@@ -14,6 +14,7 @@ public class Recorder {
     /* Fields. */
     private static RecordWriter recWriter;
     private static Document document;
+    private static final Class<Direction> clazz = Direction.class;
 
     /*
      * Called when a new level is created.
@@ -50,6 +51,6 @@ public class Recorder {
      * Loads a game from a record xml file.
      */
     public static void load() throws MalformedURLException, DocumentException{
-        RecordReader.loadDoc(Direction.class);
+        RecordReader.loadDoc(clazz);
     }
 }
