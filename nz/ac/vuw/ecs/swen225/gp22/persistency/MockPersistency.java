@@ -13,7 +13,7 @@ public class MockPersistency {
     public static void run() {
 
         try {
-            Domain d = Parser.loadLevel("level1.xml");
+            Domain d = Parser.loadLevel("level2.xml");
             Parser.saveLevel(d);
         } catch (IOException e) {
             e.printStackTrace();

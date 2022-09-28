@@ -15,6 +15,7 @@ import org.dom4j.io.XMLWriter;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
@@ -74,7 +75,8 @@ public class Parser {
         saveFileCount++;
         Tile[][] levelLayout = domain.getInnerState();
         Point player = domain.getPlayerPosition();
-        Document document = createLevelDocument(levelLayout, player);
+
+        Document document = createLevelDocument(levelLayout, player, domain.getEnemies());
 
         FileWriter fileWriter = new FileWriter("saved_games/" + "saved_game_" + saveFileCount + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
@@ -89,7 +91,7 @@ public class Parser {
      * @param levelLayout 2D array of the positions of tiles on the current level
      * @return Document representing the current level
      */
-    private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos) {
+    private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies) {
         Document document = DocumentHelper.createDocument();
         Element level = document.addElement("level");
 
@@ -97,6 +99,15 @@ public class Parser {
             Element currRow = level.addElement("row").addAttribute("r", "" + row);
             if (playerPos.row() == row) {
                 currRow.addElement("player").addAttribute("c", "" + playerPos.col());
+            }
+            for (Enemy e : enemies) {
+                if (e.getPosition().row() == row) {
+                    Element enemyElem = currRow.addElement("enemy").addAttribute("c", "" + e.getPosition().col());
+                    e.getPath().stream().forEach(p -> {
+                        enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+                                + p.col());
+                    });
+                }
             }
             for (int col = 0; col < levelLayout[0].length; col++) {
                 Tile t = levelLayout[row][col];
@@ -106,13 +117,6 @@ public class Parser {
                     if (name.equals("door") || name.equals("key")) {
                         tile.addAttribute("colour", t.colour());
                     }
-                    // else if (name.equals("enemy")) {
-                    // List<Point> path = t.getPath();
-                    // path.stream().forEach(p -> {
-                    // tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-                    // + p.col());
-                    // });
-                    // }
                 }
             }
         }
