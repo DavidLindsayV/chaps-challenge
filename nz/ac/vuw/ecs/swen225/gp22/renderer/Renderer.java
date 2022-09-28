@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 public class Renderer extends JFrame {
@@ -27,7 +29,7 @@ public class Renderer extends JFrame {
     setTitle("Test Title");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    panel = new BoardPanel();
+    panel = new BoardPanel(UserListener.currentGame);
     add(panel);
     setVisible(true);
   }
