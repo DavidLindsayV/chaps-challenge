@@ -102,15 +102,13 @@ public class Parser {
                     Element tile = currRow.addElement(name).addAttribute("c", "" + col);
                     if (name.equals("door") || name.equals("key")) {
                         tile.addAttribute("colour", t.colour());
-                    } /*
-                       * else if (name.equals("enemy")) {
-                       * List<Point> path = t.getPath();
-                       * path.stream().forEach(p -> {
-                       * tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-                       * + p.col());
-                       * });
-                       * }
-                       */
+                    } else if (name.equals("enemy")) {
+                        List<Point> path = t.getPath();
+                        path.stream().forEach(p -> {
+                            tile.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+                                    + p.col());
+                        });
+                    }
                 }
             }
 
