@@ -12,7 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
  */
 public class pingTimer extends Timer {
 
-  static int timeLeftToPlay = 0; //time left to play current level in milliseconds
+  public static int timeLeftToPlay = 0; //time left to play current level in milliseconds
   final int pingRate = 200; //the timer will refresh every 200 ms
   final TimerTask t = new TimerTask() {
     public void run() {
@@ -22,8 +22,24 @@ public class pingTimer extends Timer {
 
   public pingTimer() {
     super();
-    timeLeftToPlay = 60 * 1000 * UserListener.currentLevel;
+    timeLeftToPlay = 60 * 1000 * getLevelNum(UserListener.currentLevel);
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
+  }
+
+  public pingTimer(pingTimer p) {
+    super();
+    this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
+  }
+
+  private int getLevelNum(String level) {
+    try {
+      return Integer.parseInt(
+        Character.toString(level.charAt(level.indexOf("level") + 5))
+      );
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid file name format");
+    }
+    return 1;
   }
 
   /**Function that runs whenever the timer triggers */
@@ -36,6 +52,8 @@ public class pingTimer extends Timer {
     }
     //Record the move with the Recorder
     //Recorder.tick(UserListener.move);
+    //Move the enemies in Domain
+    UserListener.currentGame.moveActors();
     //Move the player
     UserListener.currentGame.movePlayer(UserListener.move);
     UserListener.move = Direction.NONE;
@@ -44,7 +62,5 @@ public class pingTimer extends Timer {
       Main.gui.panel.revalidate();
       Main.gui.panel.repaint();
     }
-    //Move the actors in Domain
-    //UserListener.currentGame.moveActors();
   }
 }

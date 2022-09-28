@@ -1,20 +1,24 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Domain {
-    private Tile[][] gameState;
-    private Player   player;
-    private int      requiredTreasureCount;
+    private Tile[][]            gameState;
+    private Player              player;
+    private List<Enemy>         enemies;
+    private int                 requiredTreasureCount;
 
     /**
      * Raw constructor.
      * Use of the DomainBuilder is higly advised.
      * @param gameState
      */
-    public Domain(Tile[][] gameState) {
+    public Domain(Tile[][] gameState, List<Enemy> enemies) {
         this.player = new Player(this);
+        this.enemies = enemies;
         this.gameState = gameState;
         countTreasures();
     }
@@ -33,6 +37,22 @@ public class Domain {
     }
 
     /**
+     * Returns the number of treasures left to collect
+     * @returns Number of treasures left
+     */
+    public int treasuresLeft() {
+        return requiredTreasureCount - player.getTreasureCount();
+    }
+
+    /**
+     * Returns the total keys
+     * @returns The number of keys left
+     */
+    public int keysCollected() {
+        return player.getTotalKeysCollected();
+    }
+
+    /**
      * Sets the player position.
      * Used within the domain builder.
      * @param pos The desired position of the player.
@@ -41,8 +61,24 @@ public class Domain {
         if (!withinDomain(pos)) { 
             throw new IllegalArgumentException("Cannot set player position in domain out of bounds."); 
         }
-        
         this.player.setPosition(pos);
+    }
+
+    /**
+     * Get the player position
+     * Adam: Use this for getting player position.
+     * @param pos The position of the player.
+     */
+    public Point getPlayerPosition() {
+        return player.getPosition();
+    }
+
+    /**
+     * Get the enemies
+     * @param direction
+     */
+    public List<Enemy> getEnemies() {
+        return Collections.unmodifiableList(enemies);
     }
 
     /**
@@ -65,6 +101,19 @@ public class Domain {
                 player.setPosition(pos);
             }
         }
+
+        // Check if the player's position collides with any enemies.
+        // TODO: Do something here.
+        boolean playerDead = enemies.stream().anyMatch(e -> e.collidesWith(player.getPosition()));
+    }
+
+    /**
+     * This function will be called when the enemies need to move.
+     * Use observer pattern.
+     * TODO: Hook up to David Lindsay's stuff.
+     */
+    public void moveActors() {
+        enemies.stream().forEach(e -> e.move());
     }
 
     /**
@@ -72,10 +121,14 @@ public class Domain {
      */
     public String toString() {
         String board = "";
+        
         for (int y=0; y<gameState.length; ++y){
             for (int x=0; x<gameState[y].length; ++x) {
-                if (playerOn(new Point(y, x))) {
+                Point currentPosition = new Point(y, x);
+                if (playerOn(currentPosition)) {
                     board+="|"+player.toString();    
+                } else if (enemies.stream().anyMatch(e -> e.collidesWith(currentPosition))) {
+                    board+="|"+enemies.get(0).toString();    
                 } else {
                     board+="|"+gameState[y][x].toString();
                 }
@@ -93,6 +146,8 @@ public class Domain {
     public void nextLevel() {
         
     }
+
+    
 
     /**
      * Returns a 2D clone of the internal view of the domain.

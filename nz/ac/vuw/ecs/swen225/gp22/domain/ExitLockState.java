@@ -22,11 +22,11 @@ public class ExitLockState implements FreeTileState {
 
     @Override
     public String name() {
-        return "empty";
+        return "exitLock";
     }
 
     @Override
     public String toString() {
-        return "_";
+        return "L";
     }
 }

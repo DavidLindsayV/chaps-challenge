@@ -15,11 +15,11 @@ public class InformationState implements FreeTileState {
 
     @Override
     public String name() {
-        return "key";
+        return "info";
     }
 
     @Override
     public String toString() {
-        return "k";
+        return "i";
     }
 }
