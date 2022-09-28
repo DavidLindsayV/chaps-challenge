@@ -120,10 +120,13 @@ public class BoardPanel extends JPanel {
     }
     originX = tempOriginX;
 
-    int tempOriginY = originY;
-    for (int i = 0; i <= rows; i++) {
-      g.drawLine(originX, originY, xEndPoint, originY);
-      originY = originY + (ySpacing);
+    public void updateGrid(Graphics g) {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                drawImg(Img.WallSprite.image, i, j, g);
+            }
+        }
+        drawImg(Img.Chap.image, 5, 5, g);
     }
     originY = tempOriginY;
   }
