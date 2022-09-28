@@ -13,6 +13,7 @@ public class LockedDoorState implements FreeTileState {
 
     /**
      * Creates a key state with a desired colour.
+     * 
      * @param c
      */
     public LockedDoorState(AuthenticationColour c) {
@@ -35,7 +36,7 @@ public class LockedDoorState implements FreeTileState {
 
     @Override
     public String name() {
-        return "locked_door";
+        return "door";
     }
 
     @Override

@@ -22,7 +22,7 @@ public class ExitLockState implements FreeTileState {
 
     @Override
     public String name() {
-        return "exit_lock";
+        return "exitLock";
     }
 
     @Override

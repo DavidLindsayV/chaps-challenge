@@ -11,8 +11,8 @@ import java.util.List;
  * Remember to call .make() to crystalise the object.
  * 
  * Every domain must have
- *  - Exactly one player.
- *  - At least one exit.
+ * - Exactly one player.
+ * - At least one exit.
  * 
  * Example usage:
  * 
@@ -38,21 +38,20 @@ public class DomainBuilder {
     /**
      * ----------------------INTERNAL VARIABLES (IGNORE)-----------------------
      */
-    private static final int MAX_WIDTH  = 1000;
+    private static final int MAX_WIDTH = 1000;
     private static final int MAX_HEIGHT = 1000;
 
-    private Tile[][]    domainContent;
+    private Tile[][] domainContent;
     private List<Enemy> domainEnemies;
-    private Integer     domainHeight;
-    private Integer     domainWidth;
-    private Point       domainPlayerPosition;
-    private Point       domainExitLocation;
-    
+    private Integer domainHeight;
+    private Integer domainWidth;
+    private Point domainPlayerPosition;
+    private Point domainExitLocation;
 
     public DomainBuilder() {
         this.reset();
     }
-    
+
     /**
      * ----------------------PUBLIC METHODS API-------------------------------
      */
@@ -62,20 +61,21 @@ public class DomainBuilder {
      * All tiles are free tiles by default.
      */
     public void reset() {
-        domainExitLocation      = null;
-        domainPlayerPosition    = null;
-        domainContent           = new Tile[MAX_WIDTH][MAX_HEIGHT];    
-        domainEnemies           = new ArrayList<Enemy>();
-        domainHeight            = -1;
-        domainWidth             = -1;
-        
+        domainExitLocation = null;
+        domainPlayerPosition = null;
+        domainContent = new Tile[MAX_WIDTH][MAX_HEIGHT];
+        domainEnemies = new ArrayList<Enemy>();
+        domainHeight = -1;
+        domainWidth = -1;
+
         for (Tile[] domainContentRow : domainContent) {
             Arrays.fill(domainContentRow, FreeTile.empty());
         }
     }
-    
+
     /**
      * Creates an player given row and column.
+     * 
      * @param row Row of the tile.
      * @param col Column of the tile.
      * @return Domain builder object.
@@ -83,10 +83,10 @@ public class DomainBuilder {
     public DomainBuilder player(int row, int col) {
         checkWithinAbsoluteLimits(row, col);
         if (domainPlayerPosition != null) {
-            throw new IllegalStateException("You cannot have more than one player."); 
+            throw new IllegalStateException("You cannot have more than one player.");
         }
         if (!domainContent[row][col].name().equals("empty")) {
-            throw new IllegalStateException("You cannot spawn on a occupied tile."); 
+            throw new IllegalStateException("You cannot spawn on a occupied tile.");
         }
         domainPlayerPosition = new Point(row, col);
         detectBoundaries(row, col);
@@ -95,6 +95,7 @@ public class DomainBuilder {
 
     /**
      * Creates an enemy given a row and column, and it's path, set
+     * 
      * @param row
      * @param col
      * @return
@@ -120,6 +121,7 @@ public class DomainBuilder {
 
     /**
      * Creates an empty tile at given row and column.
+     * 
      * @param row Row of the tile.
      * @param col Column of the tile.
      * @return Domain builder object.
@@ -134,7 +136,7 @@ public class DomainBuilder {
 
     /**
      * Creates a wall tile at the given location.
-     * !! NOTE, this really shouldn't be used often. 
+     * !! NOTE, this really shouldn't be used often.
      * As all default tiles are rows.
      * 
      * @param row Row of the wall tile.
@@ -192,8 +194,7 @@ public class DomainBuilder {
         checkWithinAbsoluteLimits(row, col);
         checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.key(
-            AuthenticationColour.valueOf(colour)
-        );
+                AuthenticationColour.valueOf(colour));
         detectBoundaries(row, col);
         return this;
     }
@@ -209,8 +210,7 @@ public class DomainBuilder {
         checkWithinAbsoluteLimits(row, col);
         checkNoPlayerHere(row, col);
         domainContent[row][col] = FreeTile.door(
-            AuthenticationColour.valueOf(colour)
-        );
+                AuthenticationColour.valueOf(colour));
         detectBoundaries(row, col);
         return this;
     }
@@ -245,7 +245,6 @@ public class DomainBuilder {
         return this;
     }
 
-
     /**
      * Returns the constructed domain object.
      * with a nested player (that is linked to the domain).
@@ -267,8 +266,8 @@ public class DomainBuilder {
 
         // Copies over the selected region.
         Tile[][] selectedDomainContent = new Tile[domainHeight][domainWidth];
-        for (int y=0; y<domainHeight; ++y) {
-            for (int x=0; x<domainWidth; ++x) {
+        for (int y = 0; y < domainHeight; ++y) {
+            for (int x = 0; x < domainWidth; ++x) {
                 selectedDomainContent[y][x] = domainContent[y][x];
             }
         }
@@ -294,20 +293,29 @@ public class DomainBuilder {
      */
     private void detectBoundaries(int row, int col) {
         domainHeight = Math.max(domainHeight, row + 1);
-        domainWidth  = Math.max(domainWidth, col + 1);
+        domainWidth = Math.max(domainWidth, col + 1);
     }
 
     /**
      * Checks if the (row, col) is within the maximum bounds.
+     * 
      * @param row
      * @param col
-     * @return 
+     * @return
      */
     private void checkWithinAbsoluteLimits(int row, int col) {
-        if (row < 0) { throw new IllegalArgumentException("Row cannot be less than 0."); }
-        if (col < 0) { throw new IllegalArgumentException("Col cannot be less than 0."); }
-        if (row >= MAX_HEIGHT) { throw new IllegalArgumentException("Row cannot be greater than 999."); }
-        if (col >= MAX_WIDTH) { throw new IllegalArgumentException("Col cannot be greater than 999."); }
+        if (row < 0) {
+            throw new IllegalArgumentException("Row cannot be less than 0.");
+        }
+        if (col < 0) {
+            throw new IllegalArgumentException("Col cannot be less than 0.");
+        }
+        if (row >= MAX_HEIGHT) {
+            throw new IllegalArgumentException("Row cannot be greater than 999.");
+        }
+        if (col >= MAX_WIDTH) {
+            throw new IllegalArgumentException("Col cannot be greater than 999.");
+        }
     }
 
     /**
