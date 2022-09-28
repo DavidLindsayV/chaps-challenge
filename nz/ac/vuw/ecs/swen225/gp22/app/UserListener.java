@@ -171,9 +171,16 @@ to be loaded
     move = Direction.RIGHT;
   }
 
+  /**Called when the level is lost */
   public static void loseLevel() {
     System.out.println(
       "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
     );
+  }
+
+  /**Loads the next level in the game */
+  public static void nextLevel() {
+    currentLevel = "level2.xml";
+    loadLevel();
   }
 }
