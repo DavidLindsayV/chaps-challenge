@@ -8,7 +8,23 @@ import javax.imageio.ImageIO;
 public enum Img {
     WallSprite,
     FloorSprite,
+    BlueDoor,
+    GreenDoor,
+    PurpleDoor,
+    RedDoor,
+    YellowDoor,
+    BlueKey,
+    GreenKey,
+    PurpleKey,
+    RedKey,
+    YellowKey,
+    Exit,
+    ExitLock,
+    Treasure,
+    InfoField,
+    Empty,
     Chap;
+
 
     public final BufferedImage image;
 
