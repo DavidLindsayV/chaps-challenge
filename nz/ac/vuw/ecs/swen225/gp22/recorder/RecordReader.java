@@ -48,14 +48,19 @@ public class RecordReader {
      * @throws DocumentException
      * @throws MalformedURLException
      */
-    public static <E extends Enum<E>> Document loadPartial(Class<E> clazz) throws MalformedURLException, DocumentException {
+    public static <E extends Enum<E>> void loadPartial(Class<E> clazz) throws MalformedURLException, DocumentException {
         
         Document doc = DocumentHelper.createDocument();
         List<E> actionList = loadDoc(clazz);
 
         // TODO: Get loading partially completed game working!
 
-        return doc;
+        //Set writer first to change the writer
+        Recorder.setWriter(new RecordWriter(doc));
+        for(E action : actionList){
+            Recorder.tick(action);
+        }
+        Recorder.setDocument(doc);
     }
     
     /**
@@ -71,10 +76,8 @@ public class RecordReader {
      * Method to read the xml file and turn it into an action list.
      */
     private static <E extends Enum<E>> List<E> actionList(Class<E> clazz, Document doc) throws XmlFormatException {
-
         Element e = doc.getRootElement();
         List<E> moves = new ArrayList<E>();
-        
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
             if(!(tick.node(1) instanceof Element))  {
@@ -84,7 +87,6 @@ public class RecordReader {
             if(!moveEle.getName().equals("move")) {
                 throw new XmlFormatException("The element tick.node(1) is not a move!");
             }
-
             String moveStr = moveEle.getText();
             E move = E.valueOf(clazz, moveStr);
             moves.add(move);

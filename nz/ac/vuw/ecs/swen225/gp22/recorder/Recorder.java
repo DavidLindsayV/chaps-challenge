@@ -52,7 +52,7 @@ public class Recorder {
      */
     public static void loadPartial() {
         try {
-            document = RecordReader.loadPartial(clazz);
+            RecordReader.loadPartial(clazz);     
         } catch (MalformedURLException | DocumentException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -70,4 +70,19 @@ public class Recorder {
             e.printStackTrace();
         }
     }
+
+    /** 
+     * Sets a new record writer.
+     */
+    public static void setWriter(RecordWriter writer){
+        recWriter = writer;
+    }
+    
+    /** 
+     * Sets a new Document.
+     */
+    public static void setDocument(Document doc){
+        document = doc;
+    }
+
 }

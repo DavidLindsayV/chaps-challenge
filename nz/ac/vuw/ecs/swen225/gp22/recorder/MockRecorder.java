@@ -24,7 +24,7 @@ public class MockRecorder {
      */
     public static void run() {
         Recorder.newLevel();
-        for(int i=0; i<2; i++){
+        for(int i=0; i<10; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
         
@@ -32,7 +32,7 @@ public class MockRecorder {
 
         Recorder.loadPartial();
 
-        for(int i=0; i<10; i++){
+        for(int i=0; i<2; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
 
