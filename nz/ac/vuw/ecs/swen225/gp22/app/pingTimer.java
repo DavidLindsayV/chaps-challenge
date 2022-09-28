@@ -52,15 +52,15 @@ public class pingTimer extends Timer {
     }
     //Record the move with the Recorder
     //Recorder.tick(UserListener.move);
+    //Move the enemies in Domain
+    UserListener.currentGame.moveActors();
     //Move the player
-    //UserListener.currentGame.movePlayer(UserListener.move);
+    UserListener.currentGame.movePlayer(UserListener.move);
     UserListener.move = Direction.NONE;
     //Repaint the GUI
     if (Main.gui != null) {
       Main.gui.panel.revalidate();
       Main.gui.panel.repaint();
     }
-    //Move the actors in Domain
-    //UserListener.currentGame.moveActors();
   }
 }

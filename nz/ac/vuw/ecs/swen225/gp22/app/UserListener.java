@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
-import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
+//import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 /**
