@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -23,37 +24,38 @@ public class RecordReader {
      * 
      * @throws MalformedURLException
      * @throws DocumentException
+     * 
+     * @return List<E> Where E is an enum
      */
-    public static <E extends Enum<E>> void loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
+    public static <E extends Enum<E>> List<E> loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
         URL url;
         JFileChooser fileChooser = new JFileChooser("recorded_games/");
         int responce = fileChooser.showOpenDialog(null);
         if(responce == JFileChooser.APPROVE_OPTION){
             url = new File(fileChooser.getSelectedFile().getAbsolutePath()).toURI().toURL();
-            //Here we have the document, currently it just prints the file to the console.
             Document doc = parse(url);
             try {
-                List<E> actionList = actionList(clazz,doc);
-                
-                System.out.println(actionList.size());
-
-            } catch (XmlFormatException e) {e.printStackTrace();}
+                return actionList(clazz,doc);
+            } catch (XmlFormatException e) { e.printStackTrace(); }
         }
+        JOptionPane.showMessageDialog(null, "No file chosen!", null, JOptionPane.INFORMATION_MESSAGE);
+        return List.of();
     }
 
     /**
      * Load a partially completed game for saving again.
-     * @throws XmlFormatException
+     * 
+     * @throws DocumentException
+     * @throws MalformedURLException
      */
-    public static <E extends Enum<E>> Document loadPartial(Class<E> clazz) throws XmlFormatException{
+    public static <E extends Enum<E>> Document loadPartial(Class<E> clazz) throws MalformedURLException, DocumentException {
         
         Document doc = DocumentHelper.createDocument();
-        
-        List<E> actionList = actionList(clazz,doc);
+        List<E> actionList = loadDoc(clazz);
 
+        // TODO: Get loading partially completed game working!
 
-
-        return null;
+        return doc;
     }
     
     /**
