@@ -122,7 +122,7 @@ public class Parser {
      * Parse a standard node which only has a column attribute e.g wall
      * 
      * @param rowNum   the current row number
-     * @param nodes    the tile nodes being parsed
+     * @param nodes    the tile elements being parsed
      * @param consumer the consumer to build the tile which takes the row and column
      */
     private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
@@ -139,17 +139,18 @@ public class Parser {
      * Parse a node tile type which has a colour attribute e.g door, key
      * 
      * @param rowNum   the current row number
-     * @param nodes    the tile nodes being parsed
+     * @param elems    the tile elements being parsed
      * @param consumer the consumer to build the tile which take row, column and the
      *                 colour
      */
-    private static void parseColourNode(int rowNum, List<Node> nodes, TriConsumer<Integer, Integer, String> consumer) {
-        for (Node n : nodes) {
-            Number colNum = n.numberValueOf("@c");
+    private static void parseColourNode(int rowNum, List<Element> elems,
+            TriConsumer<Integer, Integer, String> consumer) {
+        for (Element e : elems) {
+            Number colNum = e.numberValueOf("@c");
             if (colNum == null) {
                 throw new NullPointerException("No col number specified");
             }
-            String colour = n.valueOf("@colour");
+            String colour = e.valueOf("@colour");
             if (colour.isEmpty()) {
                 throw new IllegalArgumentException("No colour specified");
             }
@@ -161,19 +162,19 @@ public class Parser {
      * Parse a node tile type which has a path i.e an enemy
      * 
      * @param rowNum   the current row number
-     * @param nodes    the tile nodes being parsed
+     * @param elems    the tile elements being parsed
      * @param consumer the consumer to build the tile which takes the row, column
      *                 and the path
      */
-    private static void parsePathNode(int rowNum, List<Node> nodes,
+    private static void parsePathNode(int rowNum, List<Element> elems,
             TriConsumer<Integer, Integer, List<Point>> consumer) {
-        for (Node n : nodes) {
-            Number colNum = n.numberValueOf("@c");
+        for (Element e : elems) {
+            Number colNum = e.numberValueOf("@c");
             if (colNum == null) {
                 throw new NullPointerException("No col number specified");
             }
             List<Point> path = new ArrayList<Point>();
-            for (Node pathStep : n.selectNodes("level/row/enemy/path")) {
+            for (Node pathStep : e.elements("path")) {
                 Number pathRow = pathStep.numberValueOf("@r");
                 Number pathCol = pathStep.numberValueOf("@c");
                 if (pathRow == null || pathCol == null) {
