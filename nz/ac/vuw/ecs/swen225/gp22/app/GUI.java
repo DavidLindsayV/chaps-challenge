@@ -23,6 +23,8 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 @SuppressWarnings("serial")
 public class GUI extends Renderer {
 
+  public static GUI instance;
+
   UserListener ul = new UserListener();
 
   JButton pauseButton;
@@ -38,6 +40,7 @@ public class GUI extends Renderer {
   /**Makes the GUI for saving, loading, pausing and other functionality */
   public GUI() {
     super(1000, 1000);
+    instance = this;
     setUpGUI();
     setLayout(new BorderLayout());
     //Make a JButton pauseButton
@@ -109,5 +112,10 @@ public class GUI extends Renderer {
     g.drawString("Keys collected: " + UserListener.keysCollected, 50, 90);
     g.setColor(Color.BLUE);
     g.drawString("Treasures left: " + UserListener.treasuresLeft, 50, 110);
+  }
+
+  public static void closeAll() {
+    frame.dispose();
+    instance.dispose();
   }
 }

@@ -97,7 +97,10 @@ public class UserListener implements KeyListener {
   /**Exits the game. The current game state will be lost,
    * the next time the game is started, it will resume from the last unfinished level
    */
-  public static void exitGame() {}
+  public static void exitGame() {
+    GUI.closeAll();
+    System.exit(0);
+  }
 
   /**exit the game, saves the game state, game will resume next time the
 application will be started
@@ -135,7 +138,7 @@ to be loaded
   public static void resumeGame() {
     System.out.println("The game has resumed");
     paused = false;
-    timer = new pingTimer();
+    timer = new pingTimer(timer);
   }
 
   /**Starts the level of the game based on currentLevel string*/

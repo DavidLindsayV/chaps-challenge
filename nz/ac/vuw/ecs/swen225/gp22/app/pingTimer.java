@@ -12,7 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
  */
 public class pingTimer extends Timer {
 
-  static int timeLeftToPlay = 0; //time left to play current level in milliseconds
+  public static int timeLeftToPlay = 0; //time left to play current level in milliseconds
   final int pingRate = 200; //the timer will refresh every 200 ms
   final TimerTask t = new TimerTask() {
     public void run() {
@@ -23,6 +23,11 @@ public class pingTimer extends Timer {
   public pingTimer() {
     super();
     timeLeftToPlay = 60 * 1000 * getLevelNum(UserListener.currentLevel);
+    this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
+  }
+
+  public pingTimer(pingTimer p) {
+    super();
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
