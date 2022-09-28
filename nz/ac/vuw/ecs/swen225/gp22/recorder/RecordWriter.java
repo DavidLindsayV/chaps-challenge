@@ -18,7 +18,7 @@ public class RecordWriter {
     private Element game;
     private int tickNum;
 
-    /*
+    /**
      * Recorder constructor, writing to a given org.dom4j.Document.
      */
     public RecordWriter(Document document){
@@ -27,7 +27,7 @@ public class RecordWriter {
         this.tickNum = 0;
     }
 
-    /*
+    /**
      * Records a tick and what happens within the tick.
      * 
      * The move map is <Actor name/id, move>, we can change this later from move to action, if we need to add more actions.
@@ -41,7 +41,7 @@ public class RecordWriter {
         tickNum++;
     }
 
-    /*
+    /**
      * Record a given move
      */
     private void move(Element tick, String actor,String move){
@@ -50,7 +50,7 @@ public class RecordWriter {
             .addText(move);
     }
 
-    /* 
+    /** 
      * Saves the recorded game.
      */
     public void save() throws IOException {

@@ -12,19 +12,11 @@ import javax.swing.JFileChooser;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 public class RecordReader {
-    
-    /*
-     * Parses the xml file
-     */
-    private static Document parse(URL url) throws DocumentException{
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(url);
-        return document;
-    }
 
     /**
      * Loads a recorded game xml document
@@ -42,14 +34,38 @@ public class RecordReader {
             Document doc = parse(url);
             try {
                 List<E> actionList = actionList(clazz,doc);
-                System.out.println(actionList);
-            } catch (XmlFormatException e) {
-                e.printStackTrace();
-            }
+                
+                System.out.println(actionList.size());
+
+            } catch (XmlFormatException e) {e.printStackTrace();}
         }
     }
 
-    /* 
+    /**
+     * Load a partially completed game for saving again.
+     * @throws XmlFormatException
+     */
+    public static <E extends Enum<E>> Document loadPartial(Class<E> clazz) throws XmlFormatException{
+        
+        Document doc = DocumentHelper.createDocument();
+        
+        List<E> actionList = actionList(clazz,doc);
+
+
+
+        return null;
+    }
+    
+    /**
+     * Parses the xml file
+     */
+    private static Document parse(URL url) throws DocumentException{
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(url);
+        return document;
+    }
+
+    /**
      * Method to read the xml file and turn it into an action list.
      */
     private static <E extends Enum<E>> List<E> actionList(Class<E> clazz, Document doc) throws XmlFormatException {
@@ -75,7 +91,7 @@ public class RecordReader {
         return Collections.unmodifiableList(moves);
     }
 
-    /* 
+    /**
      * Custom exception for checking that the xml recorded games are correctly formatted
      */
     private static class XmlFormatException extends Exception { 
