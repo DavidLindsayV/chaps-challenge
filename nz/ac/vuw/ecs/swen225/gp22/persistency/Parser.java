@@ -73,7 +73,8 @@ public class Parser {
     public static void saveLevel(Domain domain) throws IOException {
         saveFileCount++;
         Tile[][] levelLayout = domain.getInnerState();
-        Document document = createLevelDocument(levelLayout);
+        Point player = domain.getPlayerPosition();
+        Document document = createLevelDocument(levelLayout, player);
 
         FileWriter fileWriter = new FileWriter("saved_games/" + "saved_game_" + saveFileCount + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
@@ -88,11 +89,15 @@ public class Parser {
      * @param levelLayout 2D array of the positions of tiles on the current level
      * @return Document representing the current level
      */
-    private static Document createLevelDocument(Tile[][] levelLayout) {
+    private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos) {
         Document document = DocumentHelper.createDocument();
         Element level = document.addElement("level");
+
         for (int row = 0; row < levelLayout.length; row++) {
             Element currRow = level.addElement("row").addAttribute("r", "" + row);
+            if (playerPos.row() == row) {
+                currRow.addElement("player").addAttribute("c", "" + playerPos.col());
+            }
             for (int col = 0; col < levelLayout[0].length; col++) {
                 Tile t = levelLayout[row][col];
                 String name = t.name();
