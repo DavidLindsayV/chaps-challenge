@@ -1,7 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.persistency;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.function.BiConsumer;
 
@@ -23,7 +22,7 @@ record Point(int row, int col) {
 
 public class Parser {
 
-    private static int saveFileCount = 0;
+    private static int saveFileCount;
 
     /**
      * Load the level layout from an xml file and use it to construct the domain
@@ -33,31 +32,27 @@ public class Parser {
      */
     public static Domain loadLevel(String filename) throws DocumentException {
         SAXReader reader = new SAXReader();
-        File levelFile = new File("");
-        String[] pathnames = levelFile.list();
-        for (String p : pathnames) {
-            System.out.println(p);
-        }
+        File levelFile = new File("nz/ac/vuw/ecs/swen225/gp22/levels/" + filename);
         Document document = reader.read(levelFile);
 
         Element levelElement = document.getRootElement();
         DomainBuilder builder = new DomainBuilder();
-        for (Node row : document.selectNodes("/level/row")) {
+        for (Element row : levelElement.elements("row")) {
             Number rowNum = row.numberValueOf("@r");
             if (rowNum == null) {
                 throw new NullPointerException("No row number specified");
             }
             int rowNumInt = rowNum.intValue();
-            parseStandardNode(rowNumInt, row.selectNodes("/level/row/wall"), (r, c) -> builder.wall(r, c));
-            parseStandardNode(rowNumInt, row.selectNodes("/level/row/exitLock"),
+            parseStandardNode(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c));
+            parseStandardNode(rowNumInt, row.elements("exitLock"),
                     (r, c) -> builder.lock(r, c));
-            parseStandardNode(rowNumInt, row.selectNodes("/level/row/player"),
+            parseStandardNode(rowNumInt, row.elements("player"),
                     (r, c) -> builder.player(r, c));
-            parseStandardNode(rowNumInt, row.selectNodes("/level/row/treasure"),
+            parseStandardNode(rowNumInt, row.elements("treasure"),
                     (r, c) -> builder.treasure(r, c));
-            parseStandardNode(rowNumInt, row.selectNodes("/level/row/exit"),
+            parseStandardNode(rowNumInt, row.elements("exit"),
                     (r, c) -> builder.exit(r, c));
-            parseStandardNode(rowNumInt, row.selectNodes("/level/row/info"),
+            parseStandardNode(rowNumInt, row.elements("info"),
                     (r, c) -> builder.info(r, c));
             /*
              * parseColourNode(rowNumInt, row.selectNodes("level/row/key"),
@@ -77,21 +72,16 @@ public class Parser {
      * @param domain the current game domain
      * @throws IOException
      */
-    public static void saveLevel(Domain domain) {
+    public static void saveLevel(Domain domain) throws IOException {
         saveFileCount++;
         Tile[][] levelLayout = domain.getInnerState();
         Document document = createLevelDocument(levelLayout);
-        try {
-            FileWriter out = new FileWriter(
-                    "nz/ac/vuw/ecs/swen225/gp22/levels/" + "saved_game_" + saveFileCount + ".xml");
-            OutputFormat format = OutputFormat.createPrettyPrint();
-            XMLWriter writer = new XMLWriter(out, format);
-            writer.write(document);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+        FileWriter fileWriter = new FileWriter("saved_games/" + "saved_game_" + saveFileCount + ".xml");
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        XMLWriter writer = new XMLWriter(fileWriter, format);
+        writer.write(document);
+        writer.close();
     }
 
     /**
@@ -135,9 +125,9 @@ public class Parser {
      * @param nodes    the tile nodes being parsed
      * @param consumer the consumer to build the tile which takes the row and column
      */
-    private static void parseStandardNode(int rowNum, List<Node> nodes, BiConsumer<Integer, Integer> consumer) {
-        for (Node n : nodes) {
-            Number colNum = n.numberValueOf("@c");
+    private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
+        for (Element e : elems) {
+            Number colNum = e.numberValueOf("@c");
             if (colNum == null) {
                 throw new NullPointerException("No col number specified");
             }
