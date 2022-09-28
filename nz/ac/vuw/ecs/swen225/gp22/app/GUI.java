@@ -109,9 +109,17 @@ public class GUI extends Renderer {
     g.setColor(Color.YELLOW);
     g.drawString("Time left: " + pingTimer.timeLeftToPlay, 50, 70);
     g.setColor(Color.GREEN);
-    g.drawString("Keys collected: " + UserListener.keysCollected, 50, 90);
+    g.drawString(
+      "Keys collected: " + UserListener.currentGame.keysCollected(),
+      50,
+      90
+    );
     g.setColor(Color.BLUE);
-    g.drawString("Treasures left: " + UserListener.treasuresLeft, 50, 110);
+    g.drawString(
+      "Treasures left: " + UserListener.currentGame.treasuresLeft(),
+      50,
+      110
+    );
   }
 
   public static void closeAll() {

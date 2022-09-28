@@ -23,9 +23,7 @@ public class UserListener implements KeyListener {
   public static boolean paused = false;
   //The current level being played
   static String currentLevel;
-
-  static int keysCollected = 0; //number of keys collected
-  static int treasuresLeft = 5; //number of treasures still needing collecting
+  //The timer that calls ping
   static pingTimer timer;
 
   public UserListener() {
@@ -144,7 +142,7 @@ to be loaded
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
     Recorder.newLevel();
-    currentGame = Parser.loadLevel(currentLevel);
+    //currentGame = Parser.loadLevel(currentLevel);
     loadTimer();
   }
 
@@ -171,5 +169,11 @@ to be loaded
 
   public void right() {
     move = Direction.RIGHT;
+  }
+
+  public static void loseLevel() {
+    System.out.println(
+      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
+    );
   }
 }
