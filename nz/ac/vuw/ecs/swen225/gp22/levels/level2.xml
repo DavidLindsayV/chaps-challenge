@@ -82,7 +82,7 @@
         <treasure c="17" />
         <wall c="18" />
     </row>
-    <row r="10" />
+    <row r="10">
         <wall c="5" />
         <wall c="8" />
         <enemy c="9">

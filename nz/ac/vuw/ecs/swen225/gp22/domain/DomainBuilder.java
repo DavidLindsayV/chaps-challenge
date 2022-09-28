@@ -18,13 +18,13 @@ import java.util.List;
  * 
  * DomainBuilder db = new DomainBuilder();
  * Domain d = db
- *  .wall(1, 2)
- *  .wall(1, 3)
- *  .wall(1, 4)
- *  .wall(2, 4)
- *  .player(0, 1)
- *  .exit(5, 5)
- *  .make()            
+ * .wall(1, 2)
+ * .wall(1, 3)
+ * .wall(1, 4)
+ * .wall(2, 4)
+ * .player(0, 1)
+ * .exit(5, 5)
+ * .make()
  * 
  * toString() -->
  * 
@@ -101,8 +101,12 @@ public class DomainBuilder {
      * @return
      */
     public DomainBuilder enemy(int row, int col, List<Point> path) {
-        if (path == null) { throw new IllegalArgumentException("Null path disallowed."); }
-        if (path.isEmpty()) { throw new IllegalArgumentException("Empty path disallowed."); }
+        if (path == null) {
+            throw new IllegalArgumentException("Null path disallowed.");
+        }
+        if (path.isEmpty()) {
+            throw new IllegalArgumentException("Empty path disallowed.");
+        }
         if (path.stream().anyMatch(p -> p == null)) {
             throw new IllegalArgumentException("Cannot have null points in path.");
         }
@@ -185,8 +189,8 @@ public class DomainBuilder {
     /**
      * Creates a key tile at the given location.
      * 
-     * @param row Row of the key.
-     * @param col Column of the key.
+     * @param row    Row of the key.
+     * @param col    Column of the key.
      * @param colour String representation in ALL CAPS of the colour .. PINK e.g
      * @return Domain builder object.
      */
@@ -321,28 +325,30 @@ public class DomainBuilder {
     /**
      * Checks if the (row, col) is within the relative bounds.
      * This is called when paths of enemies move outside of the map.
+     * 
      * @param row
      * @param col
-     * @return 
+     * @return
      */
     private void checkWithinRelativeLimits(int row, int col) {
-        if (row < 0) { throw new IllegalArgumentException("Row cannot be less than 0."); }
-        if (col < 0) { throw new IllegalArgumentException("Col cannot be less than 0."); }
-        if (row >= domainHeight) { throw new IllegalArgumentException("Row cannot be greater than " + domainHeight); }
-        if (col >= domainWidth) { throw new IllegalArgumentException("Col cannot be greater than " + domainWidth); }
+        if (row < 0) {
+            throw new IllegalArgumentException("Row cannot be less than 0.");
+        }
+        if (col < 0) {
+            throw new IllegalArgumentException("Col cannot be less than 0.");
+        }
     }
 
     /**
      * Ensures there is no player at the position.
+     * 
      * @param row
      * @param col
-     * @return 
+     * @return
      */
     private void checkNoPlayerHere(int row, int col) {
-        if (domainPlayerPosition.equals(new Point(row, col))) {
+        if (domainPlayerPosition != null && domainPlayerPosition.equals(new Point(row, col))) {
             throw new IllegalStateException("You cannot place a tile on top of a player.");
         }
     }
 }
-
-
