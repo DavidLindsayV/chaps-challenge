@@ -29,6 +29,7 @@ public class LockedDoorState implements FreeTileState {
         // If the correct key is carried - then you move pass.
         if (p.hasKey(this.colour)) {
             tile.changeState(new EmptyState());
+            p.removeKey(this.colour);
         }
     }
 
