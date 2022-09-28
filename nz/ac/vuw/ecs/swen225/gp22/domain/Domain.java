@@ -37,6 +37,22 @@ public class Domain {
     }
 
     /**
+     * Returns the number of treasures left to collect
+     * @returns Number of treasures left
+     */
+    public int treasuresLeft() {
+        return requiredTreasureCount - player.getTreasureCount();
+    }
+
+    /**
+     * Returns the total keys
+     * @returns The number of keys left
+     */
+    public int keysCollected() {
+        return player.getTotalKeysCollected();
+    }
+
+    /**
      * Sets the player position.
      * Used within the domain builder.
      * @param pos The desired position of the player.
