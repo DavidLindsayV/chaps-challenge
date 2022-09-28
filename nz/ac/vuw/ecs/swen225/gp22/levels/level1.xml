@@ -1,141 +1,147 @@
-<level rows=20 cols=21>
-    <row r=3>
-        <wall c=5 />
-        <wall c=6 />
-        <wall c=7 />
-        <wall c=8 />
-        <wall c=9 />
-        <wall c=11 />
-        <wall c=12 />
-        <wall c=13 />
-        <wall c=14 />
-        <wall c=15 />
+<level>
+    <row r="0" />
+    <row r="1" />
+    <row r="2" />
+    <row r="3">
+        <wall c="5" />
+        <wall c="6" />
+        <wall c="7" />
+        <wall c="8" />
+        <wall c="9" />
+        <wall c="11" />
+        <wall c="12" />
+        <wall c="13" />
+        <wall c="14" />
+        <wall c="15" />
     </row>
-    <row r=4>
-        <wall c=5 />
-        <wall c=9 />
-        <wall c=10 />
-        <wall c=11 />
-        <wall c=15 />
+    <row r="4">
+        <wall c="5" />
+        <wall c="9" />
+        <wall c="10" />
+        <wall c="11" />
+        <wall c="15" />
     </row>
-    <row r=5>
-        <wall c=5 />
-        <wall c=9 />
-        <exit c=10 />
-        <wall c=11 />
-        <wall c=15 />
+    <row r="5">
+        <wall c="5" />
+        <wall c="9" />
+        <exit c="10" />
+        <wall c="11" />
+        <wall c="15" />
     </row>
-    <row r=6>
-        <wall c=3 />
-        <wall c=4 />
-        <wall c=5 />
-        <wall c=6 />
-        <wall c=7 />
-        <door c=8 colour="green" />
-        <wall c=9 />
-        <exitLock c=10 />
-        <wall c=11 />
-        <door c=12 colour="green" />
-        <wall c=13 />
-        <wall c=14 />
-        <wall c=15 />
-        <wall c=16 />
-        <wall c=17 />
+    <row r="6">
+        <wall c="3" />
+        <wall c="4" />
+        <wall c="5" />
+        <wall c="6" />
+        <wall c="7" />
+        <door c="8" colour="green" />
+        <wall c="9" />
+        <exitLock c="10" />
+        <wall c="11" />
+        <door c="12" colour="green" />
+        <wall c="13" />
+        <wall c="14" />
+        <wall c="15" />
+        <wall c="16" />
+        <wall c="17" />
     </row>
-    <row r=7>
-        <wall c=3 />
-        <key c=5 colour="yellow" />
-        <door c=7 colour="blue" />
-        <door c=13 colour="pink" />
-        <key c=15 colour="yellow" />
-        <wall c=17 />
+    <row r="7">
+        <wall c="3" />
+        <key c="5" colour="yellow" />
+        <door c="7" colour="blue" />
+        <door c="13" colour="pink" />
+        <key c="15" colour="yellow" />
+        <wall c="17" />
     </row>
-    <row r=8>
-        <wall c=3 />
-        <treasure c=5 />
-        <wall c=7 />
-        <key c=8 colour="blue" />
-        <info c=10 />
-        <key c=12 colour="pink" />
-        <wall c=13 />
-        <treasure c=15 />
-        <wall c=17 />
+    <row r="8">
+        <wall c="3" />
+        <treasure c="5" />
+        <wall c="7" />
+        <key c="8" colour="blue" />
+        <info c="10" />
+        <key c="12" colour="pink" />
+        <wall c="13" />
+        <treasure c="15" />
+        <wall c="17" />
     </row>
-    <row r=9>
-        <wall c=3 />
-        <wall c=4 />
-        <wall c=5 />
-        <wall c=6 />
-        <wall c=7 />
-        <treasure c=8 />
-        <player c=10 />
-        <treasure c=12 />
-        <wall c=13 />
-        <wall c=14 />
-        <wall c=15 />
-        <wall c=16 />
-        <wall c=17 />
+    <row r="9">
+        <wall c="3" />
+        <wall c="4" />
+        <wall c="5" />
+        <wall c="6" />
+        <wall c="7" />
+        <treasure c="8" />
+        <player c="10" />
+        <treasure c="12" />
+        <wall c="13" />
+        <wall c="14" />
+        <wall c="15" />
+        <wall c="16" />
+        <wall c="17" />
     </row>
-    <row r=10>
-        <wall c=3 />
-        <treasure c=5 />
-        <wall c=7 />
-        <key c=8 colour="blue" />
-        <key c=12 colour="pink" />
-        <wall c=13 />
-        <treasure c=15 />
-        <wall c=17 />
+    <row r="10">
+        <wall c="3" />
+        <treasure c="5" />
+        <wall c="7" />
+        <key c="8" colour="blue" />
+        <key c="12" colour="pink" />
+        <wall c="13" />
+        <treasure c="15" />
+        <wall c="17" />
     </row>
-    <row r=11>
-        <wall c=3 />
-        <door c=7 colour="pink" />
-        <treasure c=10 />
-        <door c=13 colour="blue" />
-        <wall c=17 />
+    <row r="11">
+        <wall c="3" />
+        <door c="7" colour="pink" />
+        <treasure c="10" />
+        <door c="13" colour="blue" />
+        <wall c="17" />
     </row>
-    <row r=12>
-        <wall c=3 />
-        <wall c=4 />
-        <wall c=5 />
-        <wall c=6 />
-        <wall c=7 />
-        <wall c=8 />
-        <door c=9 colour="yellow" />
-        <wall c=10 />
-        <door c=11 colour="yellow" />
-        <wall c=12 />
-        <wall c=13 />
-        <wall c=14 />
-        <wall c=15 />
-        <wall c=16 />
-        <wall c=17 />
+    <row r="12">
+        <wall c="3" />
+        <wall c="4" />
+        <wall c="5" />
+        <wall c="6" />
+        <wall c="7" />
+        <wall c="8" />
+        <door c="9" colour="yellow" />
+        <wall c="10" />
+        <door c="11" colour="yellow" />
+        <wall c="12" />
+        <wall c="13" />
+        <wall c="14" />
+        <wall c="15" />
+        <wall c="16" />
+        <wall c="17" />
     </row>
-    <row r=13>
-        <wall c=7 />
-        <wall c=10 />
-        <wall c=13 />
+    <row r="13">
+        <wall c="7" />
+        <wall c="10" />
+        <wall c="13" />
     </row>
-    <row r=14>
-        <wall c=7 />
-        <treasure c=9 />
-        <wall c=10 />
-        <treasure c=11 />
-        <wall c=13 />
+    <row r="14">
+        <wall c="7" />
+        <treasure c="9" />
+        <wall c="10" />
+        <treasure c="11" />
+        <wall c="13" />
     </row>
-    <row r=15>
-        <wall c=7 />
-        <key c=9 colour="green" />
-        <wall c=10 />
-        <key c=11 colour="green" />
-        <wall c=13 />
+    <row r="15">
+        <wall c="7" />
+        <key c="9" colour="green" />
+        <wall c="10" />
+        <key c="11" colour="green" />
+        <wall c="13" />
     </row>
-    <row r=16>
-        <wall c=7 />
-        <wall c=8 />
-        <wall c=9 />
-        <wall c=10 />
-        <wall c=11 />
-        <wall c=12 />
-        <wall c=13 />
+    <row r="16">
+        <wall c="7" />
+        <wall c="8" />
+        <wall c="9" />
+        <wall c="10" />
+        <wall c="11" />
+        <wall c="12" />
+        <wall c="13" />
     </row>
+    <row r="17" />
+    <row r="18" />
+    <row r="19" />
 </level>
