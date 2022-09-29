@@ -27,7 +27,7 @@ public class GUI extends Renderer {
 
   public static GUI instance;
 
-  UserListener ul;
+  public UserListener ul;
 
   JButton pauseButton;
   JMenuBar menuBar;

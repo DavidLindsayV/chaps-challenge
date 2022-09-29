@@ -1,13 +1,16 @@
 package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
 import java.util.Random;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.*;
+
 import java.util.List;
 
 /**
  * Lambda-able interface for easy stuff
  */
 interface ArtificialInput {
-    public void play(/*App app*/);
+    public void play(UserListener u);
 }
 
 /**
@@ -15,13 +18,13 @@ interface ArtificialInput {
  */
 public class BasicInput {
     private static List<ArtificialInput> inputTypes = List.of(
-        ()->{System.out.println("Moved Up");/* moveup */},
-        ()->{System.out.println("Moved Down");/* movedown */},
-        ()->{System.out.println("Moved Left");/* moveleft */},
-        ()->{System.out.println("Moved Right");/* moveright */},
-        ()->{System.out.println("Paused");/* pause */},
-        ()->{System.out.println("Unpaused");/* unpause */},
-        ()->{System.out.println("Other Input");/* more types of input (mouse click?) */}
+        (u)->{u.up(); System.out.println("UP");/* moveup */},
+        (u)->{u.down(); System.out.println("DOWN");/* movedown */},
+        (u)->{u.left(); System.out.println("LEFT");/* moveleft */},
+        (u)->{u.right(); System.out.println("RIGHT");/* moveright */}//,
+        //()->{System.out.println("Paused");/* pause */},
+        //()->{System.out.println("Unpaused");/* unpause */},
+        //()->{System.out.println("Other Input");/* more types of input (mouse click?) */}
     );
 
     /**
@@ -29,6 +32,6 @@ public class BasicInput {
      * @return
      */
     public static ArtificialInput getRandom(){
-        return inputTypes.get(new Random().nextInt());
+        return inputTypes.get(new Random().nextInt(inputTypes.size()));
     }
 }
