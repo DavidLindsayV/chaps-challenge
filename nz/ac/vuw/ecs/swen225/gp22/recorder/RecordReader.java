@@ -53,8 +53,6 @@ public class RecordReader {
         Document doc = DocumentHelper.createDocument();
         List<E> actionList = loadDoc(clazz);
 
-        // TODO: Get loading partially completed game working!
-
         //Set writer first to change the writer
         Recorder.setWriter(new RecordWriter(doc));
         for(E action : actionList){
