@@ -23,7 +23,7 @@ public class MockRecorder {
      * Runs a simulation of a game
      */
     public static void run() {
-        Recorder.newLevel();
+        Recorder.setUp();
         for(int i=0; i<10; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
