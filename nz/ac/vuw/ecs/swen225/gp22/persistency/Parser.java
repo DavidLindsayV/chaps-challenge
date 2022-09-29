@@ -81,6 +81,7 @@ public class Parser {
      * @throws IOException
      */
     public static void saveLevel(Domain domain) throws IOException {
+        System.out.println("BREAKPOINT: Persistency is saving the level file.");
         Tile[][] levelLayout = domain.getInnerState();
         Point player = domain.getPlayerPosition();
 
@@ -94,6 +95,7 @@ public class Parser {
         Path path = Paths.get(directory);
         Files.createDirectory(path);
 
+        
         Recorder.save(directory + "/");
 
         FileWriter fileWriter = new FileWriter(
