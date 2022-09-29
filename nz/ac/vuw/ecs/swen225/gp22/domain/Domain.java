@@ -13,7 +13,7 @@ public class Domain {
   private int requiredTreasureCount;
   private boolean playing;
 
-  public static final int GRAPHICAL_PADDING = 5; // Viewport padding.
+  public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
 
   /**
    * Raw constructor.

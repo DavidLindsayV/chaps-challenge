@@ -107,11 +107,11 @@ public class UserListener implements KeyListener {
 application will be started
    */
   public static void saveGame() {
-    //try {
-    //Recorder.save();  //TODO
-    //} catch (IOException e) {
-    //  System.out.println("Saving the Recording threw an IOException " + e);
-    //}
+    try {
+      Parser.saveLevel(currentGame);
+    } catch (IOException e) {
+      System.out.println("Error occurred saving game");
+    }
     fileLevel.saveStartingFileName(currentLevel);
     exitGame();
   }
