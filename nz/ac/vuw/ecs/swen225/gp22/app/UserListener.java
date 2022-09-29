@@ -144,7 +144,6 @@ to be loaded
 
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
-    Recorder.newLevel();
     try {
       currentGame = Parser.loadLevel(currentLevel);
     } catch (DocumentException e) {

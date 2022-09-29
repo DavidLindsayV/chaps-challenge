@@ -22,6 +22,8 @@ public class pingTimer extends Timer {
 
   public pingTimer() {
     super();
+    //Sets up new recorder
+    Recorder.setUp();
     timeLeftToPlay = 60 * 1000 * getLevelNum(UserListener.currentLevel);
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
