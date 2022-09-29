@@ -10,6 +10,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.WallTile;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
@@ -98,46 +99,49 @@ public class BoardPanel extends JPanel {
   public void TileParser(Domain d, Graphics g) {
     Tile[][] t = d.getGraphicalState();
     Point p = d.getPlayerPosition();
-    for (int x = p.col() - 5; x < p.col() + 5; x++) {
-      for (int y = p.row() - 5; y < p.row() + 5; y++) {
+    System.out.println(d.toString());
+    for (int x = p.col() - 5; x < p.col() + 6; x++) {
+      for (int y = p.row() - 5; y < p.row() + 6; y++) {
+        int newX = x - (p.col() - 5);
+        int newY = y - (p.row() - 5);
         if (t[x][y].name().equals("wall")) {
-          drawImg(Img.WallSprite.image, x, y, g);
+          drawImg(Img.WallSprite.image, newX, newY, g);
         } else if (t[x][y].name().equals("treasure")) {
-          drawImg(Img.WallSprite.image, x, y, g);
+          drawImg(Img.WallSprite.image, newX, newY, g);
         } else if (t[x][y].name().equals("exit_lock")) {
-          drawImg(Img.ExitLock.image, x, y, g);
+          drawImg(Img.ExitLock.image, newX, newY, g);
         } else if (t[x][y].name().equals("exit")) {
-          drawImg(Img.Exit.image, x, y, g);
+          drawImg(Img.Exit.image, newX, newY, g);
         } else if (t[x][y].name().equals("info")) {
-          drawImg(Img.InfoField.image, x, y, g);
+          drawImg(Img.InfoField.image, newX, newY, g);
         } else if (t[x][y].name().equals("key")) {
           if (t[x][y].colour().equals("Red")) {
-            drawImg(Img.RedKey.image, x, y, g);
+            drawImg(Img.RedKey.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Green")) {
-            drawImg(Img.GreenKey.image, x, y, g);
+            drawImg(Img.GreenKey.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Purple")) {
-            drawImg(Img.PurpleKey.image, x, y, g);
+            drawImg(Img.PurpleKey.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Blue")) {
-            drawImg(Img.BlueKey.image, x, y, g);
+            drawImg(Img.BlueKey.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Yellow")) {
-            drawImg(Img.YellowKey.image, x, y, g);
+            drawImg(Img.YellowKey.image, newX, newY, g);
           }
         } else if (t[x][y].name().equals("locked_door")) {
           if (t[x][y].colour().equals("Red")) {
-            drawImg(Img.RedDoor.image, x, y, g);
+            drawImg(Img.RedDoor.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Green")) {
-            drawImg(Img.GreenDoor.image, x, y, g);
+            drawImg(Img.GreenDoor.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Purple")) {
-            drawImg(Img.PurpleDoor.image, x, y, g);
+            drawImg(Img.PurpleDoor.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Blue")) {
-            drawImg(Img.BlueDoor.image, x, y, g);
+            drawImg(Img.BlueDoor.image, newX, newY, g);
           } else if (t[x][y].colour().equals("Yellow")) {
-            drawImg(Img.YellowDoor.image, x, y, g);
+            drawImg(Img.YellowDoor.image, newX, newY, g);
           }
         } else if (t[x][y].name().equals("empty")) {
-          drawImg(Img.FloorSprite.image, x, y, g);
+          drawImg(Img.FloorSprite.image, newX, newY, g);
         } else {
-          drawImg(Img.Empty.image, x, y, g);
+          drawImg(Img.Empty.image, newX, newY, g);
         }
       }
     }
