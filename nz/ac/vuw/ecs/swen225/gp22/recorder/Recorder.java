@@ -38,9 +38,9 @@ public class Recorder {
     /**
      * Saves a recorded game to an xml file.
      */
-    public static void save() {
+    public static void save(String directory) {
         try {
-            recWriter.save();
+            recWriter.save(directory);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

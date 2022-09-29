@@ -53,7 +53,7 @@ public class RecordWriter {
     /** 
      * Saves the recorded game.
      */
-    public void save() throws IOException {
+    public void save(String dir) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmmss");  
         LocalDateTime now = LocalDateTime.now();  
         String nowStr = dtf.format(now);    
@@ -61,7 +61,7 @@ public class RecordWriter {
         document.addComment(nowStr);
 
         // Pretty print write to a xml file
-        FileWriter fileWriter = new FileWriter("recorded_games/"+"Chaps Record ("+nowStr+").xml");
+        FileWriter fileWriter = new FileWriter(dir+"Chaps Record ("+nowStr+").xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
         XMLWriter writer = new XMLWriter(fileWriter, format);
         writer.write( document );

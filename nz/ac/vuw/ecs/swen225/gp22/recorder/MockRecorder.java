@@ -28,7 +28,7 @@ public class MockRecorder {
             Recorder.tick( randomEnum(Direction.class) );
         }
         
-        Recorder.save();
+        Recorder.save("recorded_games/");
 
         Recorder.loadPartial();
 
@@ -36,7 +36,7 @@ public class MockRecorder {
             Recorder.tick( randomEnum(Direction.class) );
         }
 
-        Recorder.save();
+        Recorder.save("recorded_games/");
 
     }
 
