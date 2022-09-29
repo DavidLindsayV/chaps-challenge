@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.RenderingHints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -79,8 +81,9 @@ public class GUI extends Renderer {
     rulesItem.addActionListener(e -> showRules());
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
-    //Print text onto JFrame
-
+    //Add keylistener to JFrame
+    this.addKeyListener(ul);
+    this.setFocusable(true);
   }
 
   /**Show the rules panel */

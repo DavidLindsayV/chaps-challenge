@@ -40,7 +40,6 @@ public class UserListener implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
-    System.out.println("key pressed " + e);
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
         up();
@@ -59,7 +58,6 @@ public class UserListener implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
-    System.out.println("key released " + e);
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
         pauseGame();

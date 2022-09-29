@@ -93,9 +93,6 @@ public class Domain {
    * @param direction Direction enum (UP, LEFT, RIGHT, DOWN)
    */
   public void movePlayer(Direction direction) {
-    if (direction != Direction.NONE) {
-      System.out.println("Moved in direction " + direction);
-    }
     if (playing == false) {
       return;
     }
