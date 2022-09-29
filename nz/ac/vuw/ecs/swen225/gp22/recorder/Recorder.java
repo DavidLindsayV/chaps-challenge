@@ -23,7 +23,7 @@ public class Recorder {
      * 
      * Creates the dom4j document and record writer, for a new level
      */
-    public static void newLevel(){
+    public static void setUp(){
         document = DocumentHelper.createDocument();
         recWriter = new RecordWriter(document);
     }

@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.RenderingHints;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -25,7 +27,7 @@ public class GUI extends Renderer {
 
   public static GUI instance;
 
-  UserListener ul = new UserListener();
+  UserListener ul;
 
   JButton pauseButton;
   JMenuBar menuBar;
@@ -41,6 +43,7 @@ public class GUI extends Renderer {
   public GUI() {
     super(1000, 1000);
     instance = this;
+    ul = new UserListener();
     setUpGUI();
     setLayout(new BorderLayout());
     //Make a JButton pauseButton
@@ -78,8 +81,9 @@ public class GUI extends Renderer {
     rulesItem.addActionListener(e -> showRules());
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
-    //Print text onto JFrame
-
+    //Add keylistener to JFrame
+    this.addKeyListener(ul);
+    this.setFocusable(true);
   }
 
   /**Show the rules panel */

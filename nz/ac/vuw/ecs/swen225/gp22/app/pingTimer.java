@@ -22,6 +22,8 @@ public class pingTimer extends Timer {
 
   public pingTimer() {
     super();
+    //Sets up new recorder
+    Recorder.setUp();
     timeLeftToPlay = 60 * 1000 * getLevelNum(UserListener.currentLevel);
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
@@ -51,11 +53,13 @@ public class pingTimer extends Timer {
       UserListener.loadLevel();
     }
     //Record the move with the Recorder
-    //Recorder.tick(UserListener.move);
-    //Move the enemies in Domain
-    UserListener.currentGame.moveActors();
-    //Move the player
-    UserListener.currentGame.movePlayer(UserListener.move);
+    Recorder.tick(UserListener.move);
+    if (UserListener.currentGame != null) {
+      //Move the enemies in Domain
+      UserListener.currentGame.moveActors();
+      //Move the player
+      UserListener.currentGame.movePlayer(UserListener.move);
+    }
     UserListener.move = Direction.NONE;
     //Repaint the GUI
     if (Main.gui != null) {

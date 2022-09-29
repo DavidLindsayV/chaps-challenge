@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
-//import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
+import org.dom4j.DocumentException;
 
 /**
  * This class listens and reacts to keypresses of the user
@@ -27,9 +28,11 @@ public class UserListener implements KeyListener {
   static pingTimer timer;
 
   public UserListener() {
+    move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
     System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer();
+    loadLevel();
   }
 
   @Override
@@ -141,8 +144,12 @@ to be loaded
 
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
-    Recorder.newLevel();
-    //currentGame = Parser.loadLevel(currentLevel);
+    try {
+      currentGame = Parser.loadLevel(currentLevel);
+    } catch (DocumentException e) {
+      System.out.println("Exception loading a level");
+      exitGame();
+    }
     loadTimer();
   }
 
