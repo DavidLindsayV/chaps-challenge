@@ -21,7 +21,7 @@ public class RecordWriter {
     /**
      * Recorder constructor, writing to a given org.dom4j.Document.
      */
-    public RecordWriter(Document document){
+    public RecordWriter(Document document) {
         this.document = document;
         this.game = this.document.addElement("game");
         this.tickNum = 0;
@@ -30,13 +30,14 @@ public class RecordWriter {
     /**
      * Records a tick and what happens within the tick.
      * 
-     * The move map is <Actor name/id, move>, we can change this later from move to action, if we need to add more actions.
+     * The move map is <Actor name/id, move>, we can change this later from move to
+     * action, if we need to add more actions.
      * 
      */
-    public <E extends Enum<E>> void tick(E move ){
+    public <E extends Enum<E>> void tick(E move) {
         Element tick = this.game.addElement("tick")
-            .addAttribute("tick", this.tickNum+"");
-        
+                .addAttribute("tick", this.tickNum + "");
+
         this.move(tick, "player", move.name());
         tickNum++;
     }
@@ -44,27 +45,27 @@ public class RecordWriter {
     /**
      * Record a given move
      */
-    private void move(Element tick, String actor,String move){
+    private void move(Element tick, String actor, String move) {
         tick.addElement("move")
-            .addAttribute("actor", actor)
-            .addText(move);
+                .addAttribute("actor", actor)
+                .addText(move);
     }
 
-    /** 
+    /**
      * Saves the recorded game.
      */
     public void save(String dir) throws IOException {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmmss");  
-        LocalDateTime now = LocalDateTime.now();  
-        String nowStr = dtf.format(now);    
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
+        LocalDateTime now = LocalDateTime.now();
+        String nowStr = dtf.format(now);
 
         document.addComment(nowStr);
 
         // Pretty print write to a xml file
-        FileWriter fileWriter = new FileWriter(dir+"Chaps Record ("+nowStr+").xml");
+        FileWriter fileWriter = new FileWriter(dir + "game_record_" + nowStr + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
         XMLWriter writer = new XMLWriter(fileWriter, format);
-        writer.write( document );
+        writer.write(document);
         writer.close();
     }
 }
