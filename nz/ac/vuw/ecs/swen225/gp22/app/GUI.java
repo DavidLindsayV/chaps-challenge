@@ -25,7 +25,7 @@ public class GUI extends Renderer {
 
   public static GUI instance;
 
-  UserListener ul = new UserListener();
+  UserListener ul;
 
   JButton pauseButton;
   JMenuBar menuBar;
@@ -41,6 +41,7 @@ public class GUI extends Renderer {
   public GUI() {
     super(1000, 1000);
     instance = this;
+    ul = new UserListener();
     setUpGUI();
     setLayout(new BorderLayout());
     //Make a JButton pauseButton
