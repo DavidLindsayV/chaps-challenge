@@ -53,7 +53,7 @@ public class pingTimer extends Timer {
       UserListener.loadLevel();
     }
     //Record the move with the Recorder
-    //Recorder.tick(UserListener.move);
+    Recorder.tick(UserListener.move);
     if (UserListener.currentGame != null) {
       //Move the enemies in Domain
       UserListener.currentGame.moveActors();
