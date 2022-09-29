@@ -38,21 +38,51 @@ public class Recorder {
     /**
      * Saves a recorded game to an xml file.
      */
-    public static void save() throws IOException {
-        recWriter.save();
+    public static void save() {
+        try {
+            recWriter.save();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /** 
      * Loads a level which is partially completed.
      */
-    public static void loadPartial(){
-
+    public static void loadPartial() {
+        try {
+            RecordReader.loadPartial(clazz);     
+        } catch (MalformedURLException | DocumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /** 
      * Loads a game from a record xml file.
      */
-    public static void load() throws MalformedURLException, DocumentException{
-        RecordReader.loadDoc(clazz);
+    public static void load() {
+        try {
+            RecordReader.loadDoc(clazz);
+        } catch (MalformedURLException | DocumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
+
+    /** 
+     * Sets a new record writer.
+     */
+    public static void setWriter(RecordWriter writer){
+        recWriter = writer;
+    }
+    
+    /** 
+     * Sets a new Document.
+     */
+    public static void setDocument(Document doc){
+        document = doc;
+    }
+
 }

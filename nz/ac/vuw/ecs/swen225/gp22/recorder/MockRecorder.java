@@ -1,9 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
-import java.io.IOException;
 import java.util.Random;
-
-import org.dom4j.DocumentException;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
@@ -27,17 +24,20 @@ public class MockRecorder {
      */
     public static void run() {
         Recorder.newLevel();
-        for(int i=0; i<5000; i++){
+        for(int i=0; i<10; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
-        try {
-            Recorder.save();
-            Recorder.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            e.printStackTrace();
+        
+        Recorder.save();
+
+        Recorder.loadPartial();
+
+        for(int i=0; i<2; i++){
+            Recorder.tick( randomEnum(Direction.class) );
         }
+
+        Recorder.save();
+
     }
 
 }
