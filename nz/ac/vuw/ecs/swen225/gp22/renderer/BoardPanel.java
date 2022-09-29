@@ -98,7 +98,6 @@ public class BoardPanel extends JPanel {
   public void TileParser(Domain d, Graphics g) {
     Tile[][] t = d.getGraphicalState();
     Point p = d.getPlayerGraphicalPosition();
-    System.out.println(d.toString());
     for (int x = p.row() - 5; x < p.row() + 6; x++) {
       for (int y = p.col() - 5; y < p.col() + 6; y++) {
         int newX = x - (p.row() - 5);
