@@ -1,158 +1,152 @@
 <level  levelNum="2">
-    <row r="0" />
-    <row r="1" />
-    <row r="2" />
-    <row r="3">
+    <row r="0">
+        <wall c="2" />
+        <wall c="3" />
+        <wall c="4" />
         <wall c="5" />
         <wall c="6" />
         <wall c="7" />
         <wall c="8" />
+    </row>
+    <row r="1">
+        <wall c="2" />
+        <treasure c="5" />
+        <wall c="8" />
+    </row>
+    <row r="2">
+        <wall c="2" />
+        <wall c="8" />
+    </row>
+    <row r="3">
+        <wall c="2" />
+        <wall c="5" />
+        <wall c="8" />
         <wall c="9" />
         <wall c="10" />
         <wall c="11" />
+        <wall c="12" />
+        <wall c="13" />
+        <wall c="14" />
+        <wall c="15" />
     </row>
     <row r="4">
+        <wall c="0" />
+        <wall c="1" />
+        <wall c="2" />
         <wall c="5" />
-        <treasure c="8" />
-        <wall c="11" />
+        <wall c="9" />
+        <wall c="15" />
     </row>
     <row r="5">
-        <wall c="5" />
-        <wall c="11" />
-    </row>
-    <row r="6">
-        <wall c="5" />
-        <wall c="8" />
-        <wall c="11" />
-        <wall c="12" />
-        <wall c="13" />
-        <wall c="14" />
-        <wall c="15" />
-        <wall c="16" />
-        <wall c="17" />
-        <wall c="18" />
-    </row>
-    <row r="7">
-        <wall c="3" />
-        <wall c="4" />
-        <wall c="5" />
-        <wall c="8" />
-        <wall c="12" />
-        <wall c="18" />
-    </row>
-    <row r="8">
-        <wall c="3" />
-        <exit c="4" />
-        <exitLock c="5" />
-        <wall c="8" />
-        <wall c="9" />
-        <wall c="12" />
-        <wall c="13" />
-        <wall c="14" />
-        <player c="15" />
-        <info c="16" />
-        <wall c="18" />
-    </row>
-    <row r="9">
-        <wall c="3" />
-        <wall c="4" />
-        <wall c="5" />
-        <wall c="8" />
-        <enemy c="10">
-            <path r="9" c="10" />
-            <path r="8" c="10" />
-            <path r="7" c="10" />
-            <path r="7" c="9" />
-            <path r="6" c="9" />
-            <path r="5" c="9" />
-            <path r="5" c="8" />
-            <path r="5" c="7" />
-            <path r="6" c="7" />
-            <path r="7" c="7" />
-            <path r="8" c="7" />
-            <path r="9" c="7" />
-            <path r="10" c="7" />
-            <path r="11" c="7" />
-            <path r="11" c="8" />
-            <path r="11" c="9" />
-            <path r="10" c="9" />
-            <path r="9" c="9" />
-        </enemy>
-        <door c="12" colour="green" />
-        <treasure c="17" />
-        <wall c="18" />
-    </row>
-    <row r="10">
-        <wall c="5" />
-        <wall c="8" />
-        <enemy c="9">
-            <path r="10" c="9" />
-            <path r="9" c="9" />
-            <path r="9" c="10" />
-            <path r="8" c="10" />
-            <path r="7" c="10" />
-            <path r="7" c="9" />
-            <path r="6" c="9" />
-            <path r="5" c="9" />
-            <path r="5" c="8" />
-            <path r="5" c="7" />
-            <path r="6" c="7" />
-            <path r="7" c="7" />
-            <path r="8" c="7" />
-            <path r="9" c="7" />
-            <path r="10" c="7" />
-            <path r="11" c="7" />
-            <path r="11" c="8" />
-            <path r="11" c="9" />
-        </enemy>
-        <wall c="11" />
-        <wall c="12" />
-        <wall c="13" />
-        <wall c="14" />
-        <wall c="15" />
-        <wall c="16" />
-        <wall c="17" />
-        <wall c="18" />
-    </row>
-    <row r="11" >
-        <wall c="5" />
-        <enemy c="8">
-            <path r="11" c="8" />
-            <path r="11" c="9" />
-            <path r="10" c="9" />
-            <path r="9" c="9" />
-            <path r="9" c="10" />
-            <path r="8" c="10" />
-            <path r="7" c="10" />
-            <path r="7" c="9" />
-            <path r="6" c="9" />
-            <path r="5" c="9" />
-            <path r="5" c="8" />
-            <path r="5" c="7" />
-            <path r="6" c="7" />
-            <path r="7" c="7" />
-            <path r="8" c="7" />
-            <path r="9" c="7" />
-            <path r="10" c="7" />
-            <path r="11" c="7" />
-        </enemy>
-        <wall c="11" />
-    </row>
-    <row r="12">
-        <wall c="5" />
-        <treasure c="8" />
-        <wall c="11" />
-    </row>
-    <row r="13">
+        <wall c="0" />
+        <exit c="1" />
+        <exitLock c="2" />
         <wall c="5" />
         <wall c="6" />
-        <wall c="7" />
+        <wall c="9" />
+        <wall c="10" />
+        <wall c="11" />
+        <player c="12" />
+        <info c="13" />
+        <wall c="15" />
+    </row>
+    <row r="6">
+        <wall c="0" />
+        <wall c="1" />
+        <wall c="2" />
+        <wall c="5" />
+        <enemy c="7">
+            <path r="6" c="7" />
+            <path r="5" c="7" />
+            <path r="4" c="7" />
+            <path r="4" c="6" />
+            <path r="3" c="6" />
+            <path r="2" c="6" />
+            <path r="2" c="5" />
+            <path r="2" c="4" />
+            <path r="3" c="4" />
+            <path r="4" c="4" />
+            <path r="5" c="4" />
+            <path r="6" c="4" />
+            <path r="7" c="4" />
+            <path r="8" c="4" />
+            <path r="8" c="5" />
+            <path r="8" c="6" />
+            <path r="7" c="6" />
+            <path r="6" c="6" />
+        </enemy>
+        <door c="9" colour="green" />
+        <treasure c="14" />
+        <wall c="15" />
+    </row>
+    <row r="7">
+        <wall c="2" />
+        <wall c="5" />
+        <enemy c="6">
+            <path r="7" c="6" />
+            <path r="6" c="6" />
+            <path r="6" c="7" />
+            <path r="5" c="7" />
+            <path r="4" c="7" />
+            <path r="4" c="6" />
+            <path r="3" c="6" />
+            <path r="2" c="6" />
+            <path r="2" c="5" />
+            <path r="2" c="4" />
+            <path r="3" c="4" />
+            <path r="4" c="4" />
+            <path r="5" c="4" />
+            <path r="6" c="4" />
+            <path r="7" c="4" />
+            <path r="8" c="4" />
+            <path r="8" c="5" />
+            <path r="8" c="6" />
+        </enemy>
         <wall c="8" />
         <wall c="9" />
         <wall c="10" />
         <wall c="11" />
+        <wall c="12" />
+        <wall c="13" />
+        <wall c="14" />
+        <wall c="15" />
     </row>
-    <row r="14" />
-    <row r="15" />
-    <row r="16" />
+    <row r="8" >
+        <wall c="2" />
+        <enemy c="5">
+            <path r="8" c="5" />
+            <path r="8" c="6" />
+            <path r="7" c="6" />
+            <path r="6" c="6" />
+            <path r="6" c="7" />
+            <path r="5" c="7" />
+            <path r="4" c="7" />
+            <path r="4" c="6" />
+            <path r="3" c="6" />
+            <path r="2" c="6" />
+            <path r="2" c="5" />
+            <path r="2" c="4" />
+            <path r="3" c="4" />
+            <path r="4" c="4" />
+            <path r="5" c="4" />
+            <path r="6" c="4" />
+            <path r="7" c="4" />
+            <path r="8" c="4" />
+        </enemy>
+        <wall c="8" />
+    </row>
+    <row r="9">
+        <wall c="2" />
+        <treasure c="5" />
+        <wall c="8" />
+    </row>
+    <row r="10">
+        <wall c="2" />
+        <wall c="3" />
+        <wall c="4" />
+        <wall c="5" />
+        <wall c="6" />
+        <wall c="7" />
+        <wall c="8" />
+    </row>
 </level>
