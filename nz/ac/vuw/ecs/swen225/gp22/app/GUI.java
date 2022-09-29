@@ -43,6 +43,7 @@ public class GUI extends Renderer {
   public GUI() {
     super(1000, 1000);
     instance = this;
+    System.out.println("BREAKPOINT: Creating user listener....");
     ul = new UserListener();
     setUpGUI();
     setLayout(new BorderLayout());
@@ -84,6 +85,8 @@ public class GUI extends Renderer {
     //Add keylistener to JFrame
     this.addKeyListener(ul);
     this.setFocusable(true);
+
+    System.out.println("BREAKPOINT: Keys are listening...");
   }
 
   /**Show the rules panel */

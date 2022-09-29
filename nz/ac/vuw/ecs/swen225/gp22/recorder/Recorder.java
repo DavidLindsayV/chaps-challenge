@@ -24,6 +24,7 @@ public class Recorder {
      * Creates the dom4j document and record writer, for a new level
      */
     public static void setUp(){
+        System.out.println("BREAKPOINT: Recorder has been setup.");
         document = DocumentHelper.createDocument();
         recWriter = new RecordWriter(document);
     }
@@ -39,6 +40,7 @@ public class Recorder {
      * Saves a recorded game to an xml file.
      */
     public static void save(String directory) {
+        System.out.println("BREAKPOINT: Recorder has saved.");
         try {
             recWriter.save(directory);
         } catch (IOException e) {

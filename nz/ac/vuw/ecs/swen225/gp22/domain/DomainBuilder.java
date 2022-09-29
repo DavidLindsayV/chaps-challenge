@@ -49,6 +49,7 @@ public class DomainBuilder {
     private Point domainExitLocation;
 
     public DomainBuilder() {
+        System.out.println("BREAKPOINT: Domainbuilder initiated.");
         this.reset();
     }
 
@@ -279,6 +280,8 @@ public class DomainBuilder {
         // Creates the player, linking it to the domain.
         Domain d = new Domain(selectedDomainContent, domainEnemies);
         d.setPlayerPosition(domainPlayerPosition);
+
+        System.out.println("BREAKPOINT: Domainbuilder preconditions passed - domain returned.");
         return d;
     }
 

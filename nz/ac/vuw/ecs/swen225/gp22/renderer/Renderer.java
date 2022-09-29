@@ -20,11 +20,13 @@ public class Renderer extends JFrame {
   public BoardPanel panel;
 
   public Renderer(int w, int h) {
+    System.out.println("BREAKPOINT: Renderer created");
     width = w;
     height = h;
   }
 
   public void setUpGUI() {
+    System.out.println("BREAKPOINT: Renderer has set up the GUI.");
     setSize(width, height);
     setTitle("Test Title");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

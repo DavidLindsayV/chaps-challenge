@@ -69,6 +69,8 @@ public class Parser {
                     (r, c, path) -> builder.enemy(r.intValue(), c.intValue(), path));
 
         }
+
+        System.out.println("BREAKPOINT: Domain object created.");
         return builder.make();
     }
 

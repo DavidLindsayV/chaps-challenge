@@ -32,7 +32,9 @@ public class UserListener implements KeyListener {
     currentLevel = fileLevel.getStartingFileName();
     System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer();
+    System.out.println("BREAKPOINT: Loading level...");
     loadLevel();
+    System.out.println("BREAKPOINT: Loaded level.");
   }
 
   @Override
@@ -146,6 +148,8 @@ to be loaded
   public static void loadLevel() {
     try {
       currentGame = Parser.loadLevel(currentLevel);
+      System.out.println("BREAKPOINT: Parser has parsed a level file!");
+      System.out.println("BREAKPOINT: Domain object created.");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
@@ -157,6 +161,7 @@ to be loaded
    * Creates the timer for a level
    */
   public static void loadTimer() {
+    System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
     timer = new pingTimer();
   }

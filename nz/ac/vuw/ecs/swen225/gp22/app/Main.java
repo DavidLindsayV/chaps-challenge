@@ -16,6 +16,7 @@ public class Main {
     s.playSound("music");
     SwingUtilities.invokeLater(
         () -> {
+          System.out.println("BREAKPOINT: Creating GUI....");
           gui = new GUI();
         });
   }
