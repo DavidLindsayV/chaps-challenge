@@ -1,6 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.persistency;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.BiConsumer;
 
@@ -21,7 +26,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 public class Parser {
 
-    private static int saveFileCount;
+    private static int lastLoadedLevel;
 
     /**
      * Load the level layout from an xml file and use it to construct the domain
@@ -35,6 +40,7 @@ public class Parser {
         Document document = reader.read(levelFile);
 
         Element levelElement = document.getRootElement();
+        lastLoadedLevel = levelElement.numberValueOf("@levelNum").intValue();
         DomainBuilder builder = new DomainBuilder();
         for (Element row : levelElement.elements("row")) {
             Number rowNum = row.numberValueOf("@r");
@@ -72,13 +78,19 @@ public class Parser {
      * @throws IOException
      */
     public static void saveLevel(Domain domain) throws IOException {
-        saveFileCount++;
         Tile[][] levelLayout = domain.getInnerState();
         Point player = domain.getPlayerPosition();
 
         Document document = createLevelDocument(levelLayout, player, domain.getEnemies());
 
-        FileWriter fileWriter = new FileWriter("saved_games/" + "saved_game_" + saveFileCount + ".xml");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
+        LocalDateTime now = LocalDateTime.now();
+        String nowStr = dtf.format(now);
+        Path path = Paths.get("saved_game_" + nowStr);
+        Files.createDirectory(path);
+
+        FileWriter fileWriter = new FileWriter(
+                "saved_game_" + nowStr + "/" + "saved_game_level" + lastLoadedLevel + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
         XMLWriter writer = new XMLWriter(fileWriter, format);
         writer.write(document);
@@ -93,7 +105,7 @@ public class Parser {
      */
     private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies) {
         Document document = DocumentHelper.createDocument();
-        Element level = document.addElement("level");
+        Element level = document.addElement("level").addAttribute("levelNum", "" + lastLoadedLevel);
 
         for (int row = 0; row < levelLayout.length; row++) {
             Element currRow = level.addElement("row").addAttribute("r", "" + row);
