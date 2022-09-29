@@ -149,7 +149,7 @@ to be loaded
     try {
       currentGame = Parser.loadLevel(currentLevel);
       System.out.println("BREAKPOINT: Parser has parsed a level file!");
-      System.out.println("BREAKPOINT: Domain object created.");
+  
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();

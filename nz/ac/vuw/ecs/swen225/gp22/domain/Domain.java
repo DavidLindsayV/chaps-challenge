@@ -18,7 +18,6 @@ public class Domain {
   /**
    * Raw constructor.
    * Use of the DomainBuilder is highly advised.
-   * 
    * @param gameState
    */
   public Domain(Tile[][] gameState, List<Enemy> enemies) {
@@ -36,7 +35,6 @@ public class Domain {
   /**
    * Returns the number of treasures on the map.
    * Used within player to check if all treasures obtained.
-   * 
    * @return Number of treasures on the map.
    */
   public int requiredTreasureCount() {
@@ -45,7 +43,6 @@ public class Domain {
 
   /**
    * Returns the number of treasures left to collect
-   * 
    * @returns Number of treasures left
    */
   public int treasuresLeft() {
@@ -54,7 +51,6 @@ public class Domain {
 
   /**
    * Returns the total keys
-   * 
    * @returns The number of keys left
    */
   public int keysCollected() {
@@ -64,13 +60,13 @@ public class Domain {
   /**
    * Sets the player position.
    * Used within the domain builder.
-   * 
    * @param pos The desired position of the player.
    */
   public void setPlayerPosition(Point pos) {
     if (!withinDomain(pos)) {
       throw new IllegalArgumentException(
-          "Cannot set player position in domain out of bounds.");
+        "Cannot set player position in domain out of bounds."
+      );
     }
     this.player.setPosition(pos);
   }
@@ -78,7 +74,6 @@ public class Domain {
   /**
    * Get the player position
    * Adam: Use this for getting player position.
-   * 
    * @param pos The position of the player.
    */
   public Point getPlayerPosition() {
@@ -88,7 +83,6 @@ public class Domain {
   /**
    * Get the player position
    * Adam: Use this for getting player position.
-   * 
    * @param pos The position of the player.
    */
   public Point getPlayerGraphicalPosition() {
@@ -97,7 +91,6 @@ public class Domain {
 
   /**
    * Get the enemies
-   * 
    * @param direction
    */
   public List<Enemy> getEnemies() {
@@ -106,13 +99,14 @@ public class Domain {
 
   /**
    * Move player in a given direction.
-   * 
    * @param direction Direction enum (UP, LEFT, RIGHT, DOWN)
    */
   public void movePlayer(Direction direction) {
     if (playing == false) {
       return;
     }
+
+    System.out.println("BREAKPOINT: Domain! Key press propagated");
 
     Point pos = player.getPosition();
     pos = pos.translate(direction.dr, direction.dc);
@@ -153,7 +147,9 @@ public class Domain {
         Point currentPosition = new Point(y, x);
         if (playerOn(currentPosition)) {
           board += "|" + player.toString();
-        } else if (enemies.stream().anyMatch(e -> e.collidesWith(currentPosition))) {
+        } else if (
+          enemies.stream().anyMatch(e -> e.collidesWith(currentPosition))
+        ) {
           board += "|" + enemies.get(0).toString();
         } else {
           board += "|" + gameState[y][x].toString();
@@ -206,7 +202,8 @@ public class Domain {
 
     for (int y = 0; y < domainHeight; ++y) {
       for (int x = 0; x < domainWidth; ++x) {
-        graphicalGameState[y + GRAPHICAL_PADDING][x + GRAPHICAL_PADDING] = gameState[y][x];
+        graphicalGameState[y + GRAPHICAL_PADDING][x + GRAPHICAL_PADDING] =
+          gameState[y][x];
       }
     }
 
@@ -219,15 +216,16 @@ public class Domain {
    * Is this position within the domain.
    * For example, moving up at (0, 0) --> false.
    * Moving down --> true.
-   * 
    * @param pos
    * @return
    */
   private boolean withinDomain(Point pos) {
-    return (pos.row() >= 0 &&
-        pos.row() < gameState.length &&
-        pos.col() >= 0 &&
-        pos.col() < gameState[0].length);
+    return (
+      pos.row() >= 0 &&
+      pos.row() < gameState.length &&
+      pos.col() >= 0 &&
+      pos.col() < gameState[0].length
+    );
   }
 
   /**
@@ -246,7 +244,6 @@ public class Domain {
 
   /**
    * Check if the player is on this coordinate.
-   * 
    * @param pos Point of interest.
    */
   private boolean playerOn(Point pos) {
@@ -258,8 +255,8 @@ public class Domain {
    */
   private void checkIfPlayerKilledByEnemies() {
     boolean playerDead = enemies
-        .stream()
-        .anyMatch(e -> e.collidesWith(player.getPosition()));
+      .stream()
+      .anyMatch(e -> e.collidesWith(player.getPosition()));
     if (playerDead) {
       loseLevel();
     }
