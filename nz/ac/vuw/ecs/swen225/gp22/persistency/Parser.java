@@ -23,6 +23,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 public class Parser {
 
@@ -86,11 +87,15 @@ public class Parser {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
         LocalDateTime now = LocalDateTime.now();
         String nowStr = dtf.format(now);
-        Path path = Paths.get("saved_game_" + nowStr);
+
+        String directory = "saved_game_" + nowStr;
+        Path path = Paths.get(directory);
         Files.createDirectory(path);
 
+        Recorder.save(directory + "/");
+
         FileWriter fileWriter = new FileWriter(
-                "saved_game_" + nowStr + "/" + "saved_game_level" + lastLoadedLevel + ".xml");
+                directory + "/saved_game_level" + lastLoadedLevel + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
         XMLWriter writer = new XMLWriter(fileWriter, format);
         writer.write(document);
