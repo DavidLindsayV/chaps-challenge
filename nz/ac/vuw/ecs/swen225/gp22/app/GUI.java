@@ -44,7 +44,8 @@ public class GUI extends Renderer {
     "- Ctrl-R resumes a saved game\n" +
     "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
     "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
-    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n";
+    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
+    "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n";
 
   /**Makes the GUI for saving, loading, pausing and other functionality */
   public GUI() {
