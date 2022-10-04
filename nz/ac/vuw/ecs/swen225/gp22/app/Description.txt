@@ -33,7 +33,6 @@ Graphical user interfaces are notoriously difficult to test, so no unit tests ar
 package. Testing is to be done manually.
 
 TASKS LEFT:
-- Make space and esc pause and resume
 - Check displaying time left to play, current level, keys collected, treasures needing collecting all works
 - Update instructions for the game
 - Make GUI button to play recorded levels

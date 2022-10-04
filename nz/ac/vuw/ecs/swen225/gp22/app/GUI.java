@@ -11,6 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 /**
@@ -35,7 +36,7 @@ public class GUI extends Renderer {
   JMenuItem rulesItem;
   JMenuItem recordPlayerItem;
 
-  //A secondary JFrame used for displaying the rules
+  //The rules text
   String rulesText =
     "The inputs of the game:\n" +
     "- Up, down, left and right arrow keys move the rabbit\n" +
@@ -46,6 +47,9 @@ public class GUI extends Renderer {
     "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
     "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
     "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n";
+
+  //A field to store the JFrame for replaying recorded levels
+  ReplayGUI replayGUI;
 
   /**Makes the GUI for saving, loading, pausing and other functionality */
   public GUI() {
@@ -61,11 +65,9 @@ public class GUI extends Renderer {
     pauseButton.addActionListener(
       e -> {
         if (!UserListener.paused) {
-          pauseButton.setText("▶");
-          UserListener.pauseGame();
+          pauseGame();
         } else {
-          pauseButton.setText("⏸");
-          UserListener.resumeGame();
+          resumeGame();
         }
       }
     );
@@ -100,12 +102,18 @@ public class GUI extends Renderer {
   }
 
   /**Plays a recorded game */
-  private void playRecord() {}
+  private void playRecord() {
+    pauseGame();
+    SwingUtilities.invokeLater(
+      () -> {
+        replayGUI = new ReplayGUI();
+      }
+    );
+  }
 
   /**Show the rules panel */
   private void showRules() {
-    UserListener.pauseGame();
-    pauseButton.setText("▶");
+    pauseGame();
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
@@ -128,6 +136,18 @@ public class GUI extends Renderer {
       50,
       110
     );
+  }
+
+  /**A function to change the text of the pause/play button before calling pauseGame in UserListener */
+  private void pauseGame() {
+    pauseButton.setText("▶");
+    UserListener.pauseGame();
+  }
+
+  /**A function to change the text of the pause/play button before calling resumeGame in UserListener */
+  private void resumeGame() {
+    pauseButton.setText("⏸");
+    UserListener.resumeGame();
   }
 
   /**A function to close all the JFrames */
