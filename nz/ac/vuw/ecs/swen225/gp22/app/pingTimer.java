@@ -3,7 +3,6 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import java.util.Timer;
 import java.util.TimerTask;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 /**
@@ -13,8 +12,9 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 public class pingTimer extends Timer {
 
   public static int timeLeftToPlay = 0; //time left to play current level in milliseconds
-  final int pingRate = 200; //the timer will refresh every 200 ms
-  final TimerTask t = new TimerTask() {
+  private final int pingRate = 200; //the timer will refresh every 200 ms
+  //The timerTask that will run ping() each time the timer triggers
+  private final TimerTask t = new TimerTask() {
     public void run() {
       ping();
     }
@@ -43,7 +43,7 @@ public class pingTimer extends Timer {
   }
 
   /**Function that runs whenever the timer triggers */
-  public void ping() {
+  private void ping() {
     //Advance the timer
     timeLeftToPlay -= pingRate;
     //If out of time, reload level

@@ -2,14 +2,10 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
-import java.awt.RenderingHints;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -25,11 +21,14 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 @SuppressWarnings("serial")
 public class GUI extends Renderer {
 
+  //Is a Singleton to allow static access to this gui
   public static GUI instance;
+  //Is the KeyListener of the user which will listen and react to keypresses
+  public UserListener listener;
 
-  public Listener listener;
-
+  //A button for pausing the game
   JButton pauseButton;
+  //The menu and its elements
   JMenuBar menuBar;
   JMenu menu;
   JMenuItem exitItem;
@@ -37,6 +36,7 @@ public class GUI extends Renderer {
   JMenuItem rulesItem;
   JMenuItem recordPlayerItem;
 
+  //A secondary JFrame used for displaying the rules
   static final JFrame frame = new JFrame();
   JTextField rulesField;
 
