@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -131,16 +132,22 @@ to be loaded
 
   /**Pauses game, displays a "Game is paused" dialog */
   public static void pauseGame() {
-    System.out.println("The game is paused");
-    paused = true;
-    timer.cancel();
+    if (!paused) {
+      System.out.println("The game is paused");
+      paused = true;
+      timer.cancel();
+      JOptionPane.showMessageDialog(GUI.instance, "The game is Paused");
+    }
   }
 
   /**Removed "Game is paused" dialog, resumes game */
   public static void resumeGame() {
-    System.out.println("The game has resumed");
-    paused = false;
-    timer = new pingTimer(timer);
+    if (paused) {
+      System.out.println("The game has resumed");
+      paused = false;
+      timer = new pingTimer(timer);
+      JOptionPane.getRootFrame().dispose();
+    }
   }
 
   /**Starts the level of the game based on currentLevel string*/

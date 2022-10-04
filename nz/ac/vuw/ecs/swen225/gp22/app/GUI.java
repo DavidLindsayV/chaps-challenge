@@ -7,11 +7,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 /**
@@ -37,8 +36,15 @@ public class GUI extends Renderer {
   JMenuItem recordPlayerItem;
 
   //A secondary JFrame used for displaying the rules
-  static final JFrame frame = new JFrame();
-  JTextField rulesField;
+  String rulesText =
+    "The inputs of the game:\n" +
+    "- Up, down, left and right arrow keys move the rabbit\n" +
+    "- Ctrl-X exits the game\n" +
+    "- Ctrl-S saves and exits the game\n" +
+    "- Ctrl-R resumes a saved game\n" +
+    "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
+    "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
+    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n";
 
   /**Makes the GUI for saving, loading, pausing and other functionality */
   public GUI() {
@@ -54,11 +60,11 @@ public class GUI extends Renderer {
     pauseButton.addActionListener(
       e -> {
         if (!UserListener.paused) {
-          UserListener.pauseGame();
           pauseButton.setText("▶");
+          UserListener.pauseGame();
         } else {
-          UserListener.resumeGame();
           pauseButton.setText("⏸");
+          UserListener.resumeGame();
         }
       }
     );
@@ -89,7 +95,6 @@ public class GUI extends Renderer {
     //Add keylistener to JFrame
     this.addKeyListener(listener);
     this.setFocusable(true);
-
     System.out.println("BREAKPOINT: Keys are listening...");
   }
 
@@ -98,22 +103,9 @@ public class GUI extends Renderer {
 
   /**Show the rules panel */
   private void showRules() {
-    int xPos = 50;
-    int yPos = 50;
-    int width = 500;
-    int height = 500;
     UserListener.pauseGame();
     pauseButton.setText("▶");
-    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    frame.setBounds(xPos, yPos, width, height);
-    JTextField rulesField = new JTextField();
-    rulesField.setBounds(xPos, yPos, width, height);
-    rulesField.setEditable(false);
-    rulesField.setText(
-      "The rules of the game are simple. Dont lose. You're welcome :-)"
-    );
-    frame.add(rulesField);
-    frame.setVisible(true);
+    JOptionPane.showMessageDialog(this, rulesText);
   }
 
   /**A function that draws various texts, such as current level and keys collected, on the JPanel */
@@ -139,7 +131,6 @@ public class GUI extends Renderer {
 
   /**A function to close all the JFrames */
   public static void closeAll() {
-    frame.dispose();
     instance.dispose();
   }
 }
