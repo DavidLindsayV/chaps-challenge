@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -64,12 +65,12 @@ public class Recorder {
     /** 
      * Loads a game from a record xml file.
      */
-    public static void load() {
+    public static List<Direction> load() {
         try {
-            RecordReader.loadDoc(clazz);
+            return RecordReader.loadDoc(clazz);
         } catch (MalformedURLException | DocumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Load failed: "+e);
+            return List.of();
         }
     }
 
