@@ -152,6 +152,8 @@ to be loaded
 
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
+    Recorder.setUp();
+    move = Direction.NONE;
     try {
       currentGame = Parser.loadLevel(currentLevel);
       System.out.println("BREAKPOINT: Parser has parsed a level file!");
@@ -188,15 +190,30 @@ to be loaded
     move = Direction.RIGHT;
   }
 
-  /**Called when the level is lost */
+  /**Called when the level is lost by Domain*/
   public static void loseLevel() {
-    System.out.println(
-      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "The level is lost! Restarting the level"
     );
+    loadLevel();
+  }
+
+  /** Called when the user runs out of time on a level*/
+  public static void timeOutLevel() {
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "The level is lost! Your time has run out. Restarting the level"
+    );
+    loadLevel();
   }
 
   /**Loads the next level in the game */
   public static void nextLevel() {
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "The level " + currentLevel + " is won! Now starting level 2"
+    );
     currentLevel = "level2.xml";
     loadLevel();
   }

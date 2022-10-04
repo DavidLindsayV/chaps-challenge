@@ -48,7 +48,7 @@ public class pingTimer extends Timer {
     timeLeftToPlay -= pingRate;
     //If out of time, reload level
     if (timeLeftToPlay == 0) {
-      UserListener.loadLevel();
+      UserListener.timeOutLevel();
     }
     //Record the move with the Recorder
     Recorder.tick(UserListener.move);
