@@ -27,7 +27,7 @@ public class GUI extends Renderer {
 
   public static GUI instance;
 
-  public UserListener ul;
+  public Listener listener;
 
   JButton pauseButton;
   JMenuBar menuBar;
@@ -44,7 +44,7 @@ public class GUI extends Renderer {
     super(1000, 1000);
     instance = this;
     System.out.println("BREAKPOINT: Creating user listener....");
-    ul = new UserListener();
+    listener = new UserListener();
     setUpGUI();
     setLayout(new BorderLayout());
     //Make a JButton pauseButton
@@ -83,7 +83,7 @@ public class GUI extends Renderer {
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
     //Add keylistener to JFrame
-    this.addKeyListener(ul);
+    this.addKeyListener(listener);
     this.setFocusable(true);
 
     System.out.println("BREAKPOINT: Keys are listening...");

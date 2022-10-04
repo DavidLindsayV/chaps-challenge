@@ -14,7 +14,7 @@ import org.dom4j.DocumentException;
 /**
  * This class listens and reacts to keypresses of the user
  */
-public class UserListener implements KeyListener {
+public class UserListener implements Listener {
 
   //Stores the Domain of the current level
   public static Domain currentGame;
@@ -149,7 +149,6 @@ to be loaded
     try {
       currentGame = Parser.loadLevel(currentLevel);
       System.out.println("BREAKPOINT: Parser has parsed a level file!");
-  
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
