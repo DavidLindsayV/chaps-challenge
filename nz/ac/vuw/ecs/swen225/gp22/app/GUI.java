@@ -35,18 +35,19 @@ public class GUI extends Renderer {
   JMenuItem saveItem;
   JMenuItem rulesItem;
   JMenuItem recordPlayerItem;
+  JMenuItem playSavedItem;
 
   //The rules text
   String rulesText =
-    "The inputs of the game:\n" +
+    "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
+    "Controls:" +
     "- Up, down, left and right arrow keys move the rabbit\n" +
     "- Ctrl-X exits the game\n" +
     "- Ctrl-S saves and exits the game\n" +
     "- Ctrl-R resumes a saved game\n" +
     "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
     "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
-    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
-    "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n";
+    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n";
 
   //A field to store the JFrame for replaying recorded levels
   ReplayGUI replayGUI;
@@ -85,14 +86,17 @@ public class GUI extends Renderer {
     rulesItem = new JMenuItem("Show rules");
     exitItem = new JMenuItem("Exit Game");
     recordPlayerItem = new JMenuItem("Play recorded game");
+    playSavedItem = new JMenuItem("Resume playing saved game");
     menu.add(exitItem);
     menu.add(saveItem);
     menu.add(rulesItem);
     menu.add(recordPlayerItem);
+    menu.add(playSavedItem);
     exitItem.addActionListener(e -> UserListener.exitGame());
     saveItem.addActionListener(e -> UserListener.saveGame());
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(e -> playRecord());
+    playSavedItem.addActionListener(e -> UserListener.loadSavedGame());
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
     //Add keylistener to JFrame

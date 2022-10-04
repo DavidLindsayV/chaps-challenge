@@ -36,4 +36,4 @@ TASKS LEFT:
 - Check displaying time left to play, current level, keys collected, treasures needing collecting all works
 - Update instructions for the game
 - Make GUI button to play recorded levels
-- Update loseLevel()
+- Fix error with loading new levels not working correctly (rabbit won't move)

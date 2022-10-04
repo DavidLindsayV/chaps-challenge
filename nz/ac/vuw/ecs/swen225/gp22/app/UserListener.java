@@ -121,7 +121,7 @@ application will be started
   /**resume a saved game -- this will pop up a file selector to select a saved game
 to be loaded
  */
-  private static void loadSavedGame() {
+  public static void loadSavedGame() {
     try {
       currentLevel = fileLevel.getLevelFilename();
       loadLevel();
