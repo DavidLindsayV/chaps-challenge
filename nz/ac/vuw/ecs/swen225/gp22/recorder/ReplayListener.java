@@ -1,0 +1,150 @@
+package nz.ac.vuw.ecs.swen225.gp22.recorder;
+
+import java.awt.event.*;
+import java.io.IOException;
+import java.util.List;
+
+
+import nz.ac.vuw.ecs.swen225.gp22.app.fileLevel;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
+import org.dom4j.DocumentException;
+
+/**
+ * This class listens and reacts to keypresses of the user
+ */
+public class ReplayListener implements KeyListener {
+
+  //Stores the Domain of the current level
+  public static Domain currentGame;
+  
+  //The direction the player will move next
+  public static Direction move;
+  
+  //Whether the game is paused, false by default
+  public static boolean paused = false;
+  
+  //The current level being played
+  public static String currentLevel;
+
+  //The current index for the move we are on
+  private static int index;
+
+  //The list of moves
+  private List<Direction> moves;
+
+  public ReplayListener() {
+    moves = Recorder.load();
+    index = 0;
+    move = moves.get(index);
+    currentLevel = fileLevel.getStartingFileName();
+    System.out.println("DRAFT: starting file name is " + currentLevel);
+    System.out.println("DRAFT: Loading level...");
+    loadLevel();
+    System.out.println("DRAFT: Loaded level.");
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {}
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    switch (e.getKeyCode()) {
+      case KeyEvent.VK_RIGHT:
+        nextMove();
+        break;
+    }
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    switch (e.getKeyCode()) {
+      case KeyEvent.VK_SPACE:
+        pauseGame();
+        break;
+      case KeyEvent.VK_ESCAPE:
+        resumeGame();
+        break;
+    }
+  }
+
+  /**
+   * Exits the replay GUI
+   */
+  public static void exitGame() {
+    ReplayGui.closeAll();
+    System.exit(0);
+  }
+
+  /**
+   * resume a saved game -- this will pop up a file selector to select a saved game
+   * to be loaded
+   */
+  public static void loadReplay() {
+    try {
+      currentLevel = fileLevel.getLevelFilename();
+      loadLevel();
+    } catch (Exception e) {
+      System.out.println("Level loading failed");
+    }
+  }
+
+  /**
+   * Pauses game, displays a "Game is paused" dialog
+   */
+  public static void pauseGame() {
+    System.out.println("The game is paused");
+    paused = true;
+  }
+
+  /**
+   * Removed "Game is paused" dialog, resumes game 
+   */
+  public static void resumeGame() {
+    System.out.println("The game has resumed");
+    paused = false;
+  }
+
+  /**
+   * Starts the level of the game based on currentLevel string
+   */
+  public static void loadLevel() {
+    try {
+      currentGame = Parser.loadLevel(currentLevel);
+      System.out.println("DRAFT: Parser has parsed a level file!");
+  
+    } catch (DocumentException e) {
+      System.out.println("Exception loading a level");
+      exitGame();
+    }
+  }
+
+  /**
+   * Go to the next move
+   */
+  public void nextMove() {
+    currentGame.moveActors();
+
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      ReplayGui.drawText(ReplayGui.instance.panel.getGraphics());
+      MainRecorder.gui.panel.repaint();
+    }
+    if(index<moves.size()-1){
+      move = moves.get(index);
+      currentGame.movePlayer(move);
+      System.out.println("Tick number: "+index+" Move: "+move.name());
+      index++;
+    }else System.out.println("All the moves have been completed");    
+  }
+
+  /**
+   * Called when the level is lost 
+   */
+  public static void loseLevel() {
+    System.out.println(
+      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
+    );
+  }
+}

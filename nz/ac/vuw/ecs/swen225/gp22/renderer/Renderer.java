@@ -1,17 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
-import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
 
 public class Renderer extends JFrame {
 
@@ -35,4 +27,16 @@ public class Renderer extends JFrame {
     add(panel);
     setVisible(true);
   }
+
+  public void setUpGUIReplay() {
+    System.out.println("BREAKPOINT: Renderer has set up the GUI.");
+    setSize(width, height);
+    setTitle("Test Title");
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    panel = new BoardPanel(ReplayListener.currentGame);
+    add(panel);
+    setVisible(true);
+  }
+
 }
