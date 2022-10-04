@@ -28,6 +28,8 @@ public class UserListener implements Listener {
   static pingTimer timer;
 
   public UserListener() {
+    //Sets up new recorder
+    Recorder.setUp();
     move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
     System.out.println("starting file name is " + currentLevel);
