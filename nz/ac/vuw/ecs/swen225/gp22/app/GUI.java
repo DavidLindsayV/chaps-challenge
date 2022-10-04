@@ -35,6 +35,7 @@ public class GUI extends Renderer {
   JMenuItem exitItem;
   JMenuItem saveItem;
   JMenuItem rulesItem;
+  JMenuItem recordPlayerItem;
 
   static final JFrame frame = new JFrame();
   JTextField rulesField;
@@ -68,18 +69,21 @@ public class GUI extends Renderer {
     pauseButton.setMargin(new Insets(0, 0, 0, 0));
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
-    //Make exiting, saving and showing rules menu items
+    //Make exiting, saving showing rules and record playing menu items
     menuBar = new JMenuBar();
     menu = new JMenu("Other Options");
     saveItem = new JMenuItem("Save Level");
     rulesItem = new JMenuItem("Show rules");
     exitItem = new JMenuItem("Exit Game");
+    recordPlayerItem = new JMenuItem("Play recorded game");
     menu.add(exitItem);
     menu.add(saveItem);
     menu.add(rulesItem);
+    menu.add(recordPlayerItem);
     exitItem.addActionListener(e -> UserListener.exitGame());
     saveItem.addActionListener(e -> UserListener.saveGame());
     rulesItem.addActionListener(e -> showRules());
+    recordPlayerItem.addActionListener(e -> playRecord());
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
     //Add keylistener to JFrame
@@ -89,8 +93,11 @@ public class GUI extends Renderer {
     System.out.println("BREAKPOINT: Keys are listening...");
   }
 
+  /**Plays a recorded game */
+  private void playRecord() {}
+
   /**Show the rules panel */
-  public void showRules() {
+  private void showRules() {
     int xPos = 50;
     int yPos = 50;
     int width = 500;
@@ -109,6 +116,7 @@ public class GUI extends Renderer {
     frame.setVisible(true);
   }
 
+  /**A function that draws various texts, such as current level and keys collected, on the JPanel */
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
@@ -129,6 +137,7 @@ public class GUI extends Renderer {
     );
   }
 
+  /**A function to close all the JFrames */
   public static void closeAll() {
     frame.dispose();
     instance.dispose();
