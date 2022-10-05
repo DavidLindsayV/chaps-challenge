@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 /**
  * Represents the key object on the board.
  * The key is a specific colour, and will be added to the players wallet
@@ -29,6 +31,7 @@ public class KeyState implements FreeTileState {
     public void performAction(Player p, FreeTile tile) {
         // Pick up key for the player.
         p.addKey(this.colour);
+        SoundEffects.playSound("Key");
 
         // Switch tile state to empty state.
         tile.changeState(EmptyState.of());

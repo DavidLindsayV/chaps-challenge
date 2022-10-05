@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 /**
  * Represents a locked door.
  * The locked door is a wall, but becomes non-wall iff
@@ -31,6 +33,7 @@ public class LockedDoorState implements FreeTileState {
         if (p.hasKey(this.colour)) {
             tile.changeState(EmptyState.of());
             p.removeKey(this.colour);
+            SoundEffects.playSound("Door");
         }
     }
 
