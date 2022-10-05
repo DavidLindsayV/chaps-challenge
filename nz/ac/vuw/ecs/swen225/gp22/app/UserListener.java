@@ -7,6 +7,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 import org.dom4j.DocumentException;
 
 /**
@@ -44,19 +46,19 @@ public class UserListener implements KeyListener {
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
-        currentGame.getSoundEffect().playSound("Step");
+        SoundEffects.playSound("Step");
         up();
         break;
       case KeyEvent.VK_DOWN:
-        currentGame.getSoundEffect().playSound("Step");
+        SoundEffects.playSound("Step");
         down();
         break;
       case KeyEvent.VK_LEFT:
-        currentGame.getSoundEffect().playSound("Step");
+        SoundEffects.playSound("Step");
         left();
         break;
       case KeyEvent.VK_RIGHT:
-        currentGame.getSoundEffect().playSound("Step");
+        SoundEffects.playSound("Step");
         right();
         break;
     }
@@ -196,7 +198,7 @@ to be loaded
 
   /**Called when the level is lost by Domain*/
   public static void loseLevel() {
-    currentGame.getSoundEffect().playSound("Death");
+    SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level is lost! Restarting the level"
@@ -206,7 +208,7 @@ to be loaded
 
   /** Called when the user runs out of time on a level*/
   public static void timeOutLevel() {
-    currentGame.getSoundEffect().playSound("Death");
+    SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level is lost! Your time has run out. Restarting the level"

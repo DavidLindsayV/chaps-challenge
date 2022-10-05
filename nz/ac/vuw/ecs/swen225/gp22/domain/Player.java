@@ -3,6 +3,8 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 /**
  * Represents the player on the game.
  * 
@@ -67,6 +69,7 @@ public class Player implements Printable {
      * @param key The colour of the key.
      */
     public void removeKey(AuthenticationColour key) {
+        
         if (keyWallet.containsKey(key)) {
             keyWallet.put(key, keyWallet.get(key) - 1);
             if (keyWallet.get(key) <= 0) {

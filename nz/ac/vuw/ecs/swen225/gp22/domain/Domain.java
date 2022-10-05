@@ -13,8 +13,7 @@ public class Domain {
   private List<Enemy> enemies;
   private int requiredTreasureCount;
   private boolean playing;
-  private SoundEffects soundEffects;
-
+  
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
 
   /**
@@ -27,7 +26,6 @@ public class Domain {
     this.enemies = enemies;
     this.gameState = gameState;
     this.playing = true;
-    this.soundEffects = new SoundEffects();
     countTreasures();
   }
 
@@ -137,13 +135,6 @@ public class Domain {
   public void moveActors() {
     enemies.stream().forEach(e -> e.move());
     checkIfPlayerKilledByEnemies();
-  }
-
-  /**
-   * Getter for sound effect returns a soundeffect class
-   */
-  public SoundEffects getSoundEffect() {
-    return soundEffects;
   }
 
   /**
