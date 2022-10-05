@@ -52,7 +52,7 @@ public class ReplayGui extends Renderer {
     setUpGUIReplay();
     setLayout(new BorderLayout());
 
-    activateSpeedSlider();
+    runStepByStep();
 
     //Make exiting, saving and showing rules menu items
     menuBar = new JMenuBar();
@@ -69,8 +69,9 @@ public class ReplayGui extends Renderer {
     menu.add(exit);
 
     
-    // autoPlay.addActionListener(e -> ReplayListener.autoPlay());
-    // stepByStep.addActionListener(e -> ReplayListener.stepByStep());
+    autoPlay.addActionListener(e -> runAutoPlay());
+
+    stepByStep.addActionListener(e -> runStepByStep());
     exit.addActionListener(e -> ReplayListener.exitGame());
     desc.addActionListener(e -> showDesc());
 
@@ -117,7 +118,7 @@ public class ReplayGui extends Renderer {
     );
   }
 
-  private void activatePauseButton(){
+  private void actPauseButton(){
     //Make a JButton pauseButton
     pauseButton = new JButton("⏸");
     pauseButton.setPreferredSize(new Dimension(40, 40));
@@ -140,36 +141,72 @@ public class ReplayGui extends Renderer {
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
   }
+  private void delPauseButton(){
+    if(pauseButton != null){
+      panel.remove(pauseButton);
+    }
+  }
 
-  private void activateStepButton(){
-    //Make a JButton pauseButton
+  private void actStepButton(){
     stepButton = new JButton("Next Tick!");
-    stepButton.setPreferredSize(new Dimension(40, 40));
+    stepButton.setPreferredSize(new Dimension(100, 40));
     stepButton.addActionListener( e -> ReplayListener.nextMove() );
     panel.setLayout(null);
     stepButton.setFont(
-      new Font(stepButton.getFont().getName(), Font.PLAIN, 40)
+      new Font(stepButton.getFont().getName(), Font.PLAIN, 20)
     );
     stepButton.setMargin(new Insets(0, 0, 0, 0));
-    stepButton.setBounds(900, 50, 50, 50);
+    stepButton.setBounds(800, 50, 100, 50);
     panel.add(stepButton);
   }
+  private void delStepButton(){
+    if(stepButton != null){
+      panel.remove(stepButton);
+    }
+  }
 
-  private void activateSpeedSlider(){
-    
+  private void actSpeedSlider(){
     sliderLabel = new JLabel();
-
     speedSlider = new JSlider(0,10,5);
-
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
+
+    panel.setLayout(null);
+
+    speedSlider.setBounds(400, 50, 200, 50);
 
     panel.add(sliderLabel);
     panel.add(speedSlider);
-
+  }
+  private void delSpeedSlider(){
+    if(sliderLabel != null){
+      panel.remove(sliderLabel);
+    }
+    if(speedSlider != null){
+      panel.remove(speedSlider);
+    }
   }
 
-  public void updateSlider(ChangeEvent e) {
+  private void updateSlider(ChangeEvent e) {
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
+  }
+
+  private void runAutoPlay(){
+
+    System.out.println("Running autoplay");
+
+    delStepButton();
+
+    actSpeedSlider();
+    actPauseButton();
+    ReplayListener.setAutoPlay();
+  }
+
+  private void runStepByStep(){
+    delSpeedSlider();
+    delPauseButton();
+
+    actStepButton();
+    ReplayListener.setStepByStep();
   }
 
   public static void closeAll() {

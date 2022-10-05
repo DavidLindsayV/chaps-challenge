@@ -19,6 +19,8 @@ public class ReplayListener implements KeyListener {
   public static boolean paused = false;
   public static String currentLevel;
 
+  public static boolean isAutoPlay = false;
+
   //The current index for the move we are on
   private static int index;
   //The list of moves
@@ -103,7 +105,6 @@ public class ReplayListener implements KeyListener {
     try {
       currentGame = Parser.loadLevel(currentLevel);
       System.out.println("DRAFT: Parser has parsed a level file!");
-  
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
@@ -115,10 +116,8 @@ public class ReplayListener implements KeyListener {
    */
   public static void nextMove() {
     currentGame.moveActors();
-
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
-      ReplayGui.drawText(ReplayGui.instance.panel.getGraphics());
       MainRecorder.gui.panel.repaint();
     }
     if(index<moves.size()-1){
@@ -127,6 +126,29 @@ public class ReplayListener implements KeyListener {
       System.out.println("Tick number: "+index+" Move: "+move.name());
       index++;
     }else System.out.println("All the moves have been completed");    
+  }
+
+
+  public static void setAutoPlay(){
+    isAutoPlay = true;
+
+    //TODO: FIX FOR FUCK SAKE
+
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      MainRecorder.gui.panel.repaint();
+    }
+  }
+
+  public static void setStepByStep(){
+    isAutoPlay = false;
+
+    //TODO: PLEASE FOR THE lOVE OF GOD
+
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      MainRecorder.gui.panel.repaint();
+    }
   }
 
   /**
