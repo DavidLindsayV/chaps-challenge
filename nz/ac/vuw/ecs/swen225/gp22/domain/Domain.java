@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 
 public class Domain {
 
@@ -12,6 +13,7 @@ public class Domain {
   private List<Enemy> enemies;
   private int requiredTreasureCount;
   private boolean playing;
+  private SoundEffects soundEffects;
 
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
 
@@ -25,6 +27,7 @@ public class Domain {
     this.enemies = enemies;
     this.gameState = gameState;
     this.playing = true;
+    this.soundEffects = new SoundEffects();
     countTreasures();
   }
 
@@ -105,7 +108,6 @@ public class Domain {
     if (playing == false) {
       return;
     }
-
     System.out.println("BREAKPOINT: Domain! Key press propagated");
 
     Point pos = player.getPosition();
@@ -135,6 +137,13 @@ public class Domain {
   public void moveActors() {
     enemies.stream().forEach(e -> e.move());
     checkIfPlayerKilledByEnemies();
+  }
+
+  /**
+   * Getter for sound effect returns a soundeffect class
+   */
+  public SoundEffects getSoundEffect() {
+    return soundEffects;
   }
 
   /**
@@ -173,6 +182,8 @@ public class Domain {
    * This function will be called when the level is lost.
    */
   public void loseLevel() {
+    System.out.println("PlayingSound");
+    soundEffects.playSound("Death");
     this.playing = false;
     // UserListener.loseLevel();
   }
