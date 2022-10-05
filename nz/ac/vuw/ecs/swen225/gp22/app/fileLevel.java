@@ -1,18 +1,14 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
-import javax.lang.model.element.Element;
 import javax.swing.JFileChooser;
-import javax.swing.text.Document;
 import org.dom4j.DocumentException;
 
 public class fileLevel {
