@@ -9,13 +9,13 @@ import java.util.List;
  * Initial height and width does not need to be provided
  * It will AUTODETECT this.
  * Remember to call .make() to crystalise the object.
- * 
+ *
  * Every domain must have
  * - Exactly one player.
  * - At least one exit.
- * 
+ *
  * Example usage:
- * 
+ *
  * DomainBuilder db = new DomainBuilder();
  * Domain d = db
  * .wall(1, 2)
@@ -25,9 +25,9 @@ import java.util.List;
  * .player(0, 1)
  * .exit(5, 5)
  * .make()
- * 
+ *
  * toString() -->
- * 
+ *
  * |_|P|_|_|_|_|
  * |_|_|#|#|#|_|
  * |_|_|_|_|#|_|
@@ -76,7 +76,7 @@ public class DomainBuilder {
 
     /**
      * Creates an player given row and column.
-     * 
+     *
      * @param row Row of the tile.
      * @param col Column of the tile.
      * @return Domain builder object.
@@ -96,7 +96,7 @@ public class DomainBuilder {
 
     /**
      * Creates an enemy given a row and column, and it's path, set
-     * 
+     *
      * @param row
      * @param col
      * @return
@@ -126,7 +126,7 @@ public class DomainBuilder {
 
     /**
      * Creates an empty tile at given row and column.
-     * 
+     *
      * @param row Row of the tile.
      * @param col Column of the tile.
      * @return Domain builder object.
@@ -143,7 +143,7 @@ public class DomainBuilder {
      * Creates a wall tile at the given location.
      * !! NOTE, this really shouldn't be used often.
      * As all default tiles are rows.
-     * 
+     *
      * @param row Row of the wall tile.
      * @param col Column of the wall tile.
      * @return Domain builder object.
@@ -158,7 +158,7 @@ public class DomainBuilder {
 
     /**
      * Creates a exit tile at the given location.
-     * 
+     *
      * @param row Row of the exit tile.
      * @param col Column of the exit tile.
      * @return Domain builder object.
@@ -174,7 +174,7 @@ public class DomainBuilder {
 
     /**
      * Creates a treasure tile at the given location.
-     * 
+     *
      * @param row Row of the treasure.
      * @param col Column of the treasure.
      * @return Domain builder object.
@@ -189,7 +189,7 @@ public class DomainBuilder {
 
     /**
      * Creates a key tile at the given location.
-     * 
+     *
      * @param row    Row of the key.
      * @param col    Column of the key.
      * @param colour String representation in ALL CAPS of the colour .. PINK e.g
@@ -206,7 +206,7 @@ public class DomainBuilder {
 
     /**
      * Creates a door tile at the given location, with a specific colour.
-     * 
+     *
      * @param row Row of the door.
      * @param col Column of the door.
      * @return Domain builder object.
@@ -222,7 +222,7 @@ public class DomainBuilder {
 
     /**
      * Creates a info tile at the given location.
-     * 
+     *
      * @param row Row of the info.
      * @param col Column of the info.
      * @return Domain builder object.
@@ -237,7 +237,7 @@ public class DomainBuilder {
 
     /**
      * Creates an exit lock tile at the given location.
-     * 
+     *
      * @param row Row of the lock.
      * @param col Column of the lock.
      * @return Domain builder object.
@@ -253,7 +253,7 @@ public class DomainBuilder {
     /**
      * Returns the constructed domain object.
      * with a nested player (that is linked to the domain).
-     * 
+     *
      * @return Built domain object.
      */
     public Domain make() {
@@ -292,8 +292,8 @@ public class DomainBuilder {
     /**
      * Auto detects the boundaries of the board.
      * and updates them.
-     * 
-     * 
+     *
+     *
      * @param row
      * @param col
      * @return
@@ -305,7 +305,7 @@ public class DomainBuilder {
 
     /**
      * Checks if the (row, col) is within the maximum bounds.
-     * 
+     *
      * @param row
      * @param col
      * @return
@@ -328,7 +328,7 @@ public class DomainBuilder {
     /**
      * Checks if the (row, col) is within the relative bounds.
      * This is called when paths of enemies move outside of the map.
-     * 
+     *
      * @param row
      * @param col
      * @return
@@ -340,11 +340,17 @@ public class DomainBuilder {
         if (col < 0) {
             throw new IllegalArgumentException("Col cannot be less than 0.");
         }
+        if (row >= domainHeight) {
+            throw new IllegalArgumentException("Row cannot be greater than " + domainHeight);
+        }
+        if (col >= domainWidth) {
+            throw new IllegalArgumentException("Col cannot be greater than " + domainWidth);
+        }
     }
 
     /**
      * Ensures there is no player at the position.
-     * 
+     *
      * @param row
      * @param col
      * @return
