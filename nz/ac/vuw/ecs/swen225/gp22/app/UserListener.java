@@ -2,13 +2,13 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
-
 import org.dom4j.DocumentException;
 
 /**
@@ -130,10 +130,10 @@ to be loaded
   public static void loadSavedGame() {
     try {
       currentLevel = fileLevel.getLevelFilename();
-      loadLevel();
-    } catch (Exception e) {
+    } catch (MalformedURLException | DocumentException e) {
       System.out.println("Level loading failed");
     }
+    loadLevel();
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
