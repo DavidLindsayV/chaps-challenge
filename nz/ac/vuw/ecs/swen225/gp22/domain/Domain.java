@@ -183,7 +183,6 @@ public class Domain {
    */
   public void loseLevel() {
     System.out.println("PlayingSound");
-    soundEffects.playSound("Death");
     this.playing = false;
     // UserListener.loseLevel();
   }
