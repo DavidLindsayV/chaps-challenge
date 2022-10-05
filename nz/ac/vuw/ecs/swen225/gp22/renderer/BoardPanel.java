@@ -103,9 +103,11 @@ public class BoardPanel extends JPanel {
       for (int x = p.col() - 5; x < p.col() + 6; x++) {
         int newX = x - (p.col() - 5);
         int newY = y - (p.row() - 5);
-        //if (y > t.length || y < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
-        //if (x > t[y].length || x < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
-        //System.out.println("x: "+ x + "     y: " + y);
+
+        // if out of bounds then draw floorsprite and continue
+        if (y >= t.length || y < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
+        if (x >= t.length || x < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
+
         if (t[y][x].name().equals("wall")) {
           drawImg(Img.WallSprite.image, newX, newY, g);
         } else if (t[y][x].name().equals("treasure")) {
