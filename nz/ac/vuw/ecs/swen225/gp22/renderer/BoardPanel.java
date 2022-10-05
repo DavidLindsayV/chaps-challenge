@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
@@ -15,12 +16,6 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
-
-  public Domain domain;
-
-  BoardPanel(Domain domain) {
-    this.domain = domain;
-  }
 
   private static final long serialVersionUID = 1L;
   static final int cols = 11;
@@ -47,7 +42,7 @@ public class BoardPanel extends JPanel {
     g.setColor(new Color(46, 39, 82));
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
-    updateGrid(domain, g);
+    updateGrid(UserListener.currentGame, g);
     GUI.drawText(g);
   }
 
@@ -105,8 +100,14 @@ public class BoardPanel extends JPanel {
         int newY = y - (p.row() - 5);
 
         // if out of bounds then draw floorsprite and continue
-        if (y >= t.length || y < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
-        if (x >= t.length || x < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
+        if (y >= t.length || y < 0) {
+          drawImg(Img.FloorSprite.image, newX, newY, g);
+          continue;
+        }
+        if (x >= t.length || x < 0) {
+          drawImg(Img.FloorSprite.image, newX, newY, g);
+          continue;
+        }
 
         if (t[y][x].name().equals("wall")) {
           drawImg(Img.WallSprite.image, newX, newY, g);
