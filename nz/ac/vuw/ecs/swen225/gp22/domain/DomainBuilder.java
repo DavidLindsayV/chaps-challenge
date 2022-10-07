@@ -125,6 +125,23 @@ public class DomainBuilder {
     }
 
     /**
+     * Creates an enemy given a row and column, and it's path, set
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
+    public DomainBuilder enemy(Enemy e) {
+        int row = e.getPosition().row();
+        int col = e.getPosition().col();
+        checkWithinAbsoluteLimits(row, col);
+        checkNoPlayerHere(row, col);
+        domainEnemies.add(e);
+        detectBoundaries(row, col);
+        return this;
+    }
+
+    /**
      * Creates an empty tile at given row and column.
      *
      * @param row Row of the tile.
