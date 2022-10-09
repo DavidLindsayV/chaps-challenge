@@ -49,7 +49,7 @@ public class ReplayGui extends Renderer {
     System.out.println("REPLAY GUI: Creating user listener....");
     rl = new ReplayListener();
 
-    setUpGUIReplay();
+    setUpGUI();
     setLayout(new BorderLayout());
 
     runStepByStep();

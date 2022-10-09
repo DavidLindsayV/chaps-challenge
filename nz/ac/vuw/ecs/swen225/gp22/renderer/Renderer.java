@@ -27,16 +27,4 @@ public class Renderer extends JFrame {
     add(panel);
     setVisible(true);
   }
-
-  public void setUpGUIReplay() {
-    System.out.println("BREAKPOINT: Renderer has set up the GUI.");
-    setSize(width, height);
-    setTitle("Test Title");
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    panel = new BoardPanel(ReplayListener.currentGame);
-    add(panel);
-    setVisible(true);
-  }
-
 }
