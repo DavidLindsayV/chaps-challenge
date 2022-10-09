@@ -1,10 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.List;
-
-
 import nz.ac.vuw.ecs.swen225.gp22.app.fileLevel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
@@ -18,21 +15,16 @@ public class ReplayListener implements KeyListener {
 
   //Stores the Domain of the current level
   public static Domain currentGame;
-  
-  //The direction the player will move next
   public static Direction move;
-  
-  //Whether the game is paused, false by default
   public static boolean paused = false;
-  
-  //The current level being played
   public static String currentLevel;
+
+  public static boolean isAutoPlay = false;
 
   //The current index for the move we are on
   private static int index;
-
   //The list of moves
-  private List<Direction> moves;
+  private static List<Direction> moves;
 
   public ReplayListener() {
     moves = Recorder.load();
@@ -113,7 +105,6 @@ public class ReplayListener implements KeyListener {
     try {
       currentGame = Parser.loadLevel(currentLevel);
       System.out.println("DRAFT: Parser has parsed a level file!");
-  
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
@@ -123,12 +114,10 @@ public class ReplayListener implements KeyListener {
   /**
    * Go to the next move
    */
-  public void nextMove() {
+  public static void nextMove() {
     currentGame.moveActors();
-
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
-      ReplayGui.drawText(ReplayGui.instance.panel.getGraphics());
       MainRecorder.gui.panel.repaint();
     }
     if(index<moves.size()-1){
@@ -137,6 +126,29 @@ public class ReplayListener implements KeyListener {
       System.out.println("Tick number: "+index+" Move: "+move.name());
       index++;
     }else System.out.println("All the moves have been completed");    
+  }
+
+
+  public static void setAutoPlay(){
+    isAutoPlay = true;
+
+    //TODO: FIX FOR FUCK SAKE
+
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      MainRecorder.gui.panel.repaint();
+    }
+  }
+
+  public static void setStepByStep(){
+    isAutoPlay = false;
+
+    //TODO: PLEASE FOR THE lOVE OF GOD
+
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      MainRecorder.gui.panel.repaint();
+    }
   }
 
   /**
