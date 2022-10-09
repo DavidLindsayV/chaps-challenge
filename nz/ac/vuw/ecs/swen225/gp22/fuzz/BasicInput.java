@@ -21,9 +21,9 @@ public class BasicInput {
         (u)->{u.up(); System.out.println("UP");/* moveup */},
         (u)->{u.down(); System.out.println("DOWN");/* movedown */},
         (u)->{u.left(); System.out.println("LEFT");/* moveleft */},
-        (u)->{u.right(); System.out.println("RIGHT");/* moveright */}//,
-        //()->{System.out.println("Paused");/* pause */},
-        //()->{System.out.println("Unpaused");/* unpause */},
+        (u)->{u.right(); System.out.println("RIGHT");/* moveright */}
+        //(u)->{u.pauseGame(); System.out.println("PAUSE");/* pause */},
+        //(u)->{u.resumeGame(); System.out.println("RESUME");/* unpause */}
         //()->{System.out.println("Other Input");/* more types of input (mouse click?) */}
     );
 

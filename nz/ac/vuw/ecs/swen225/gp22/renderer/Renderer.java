@@ -23,7 +23,7 @@ public class Renderer extends JFrame {
     setTitle("Test Title");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    panel = new BoardPanel(UserListener.currentGame);
+    panel = new BoardPanel();
     add(panel);
     setVisible(true);
   }

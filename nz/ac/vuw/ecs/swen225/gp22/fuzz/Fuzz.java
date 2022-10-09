@@ -36,18 +36,12 @@ public class Fuzz{
     @Test
     public void test1Random(){
         // create new app, open app, load in level 1
-    	/*SwingUtilities.invokeLater(
-    	        () -> {
-    	          System.out.println("BREAKPOINT: Creating GUI....");
-    	          gui = new GUI();
-    	        });
-    	  }*/
-
     	GUI g = new GUI();
     	Main.gui = g;
-        playGame(g);
-        // until level is complete or time runs out keep going
+    	UserListener u = (UserListener) g.listener;
 
+        // until level is complete or time runs out keep going
+        playGame(g, u);
     }
 
     /**
@@ -56,22 +50,25 @@ public class Fuzz{
     //@Test
     public void test2Random(){
         // create new app, open app, load in level 2
+    	GUI g = new GUI();
+    	Main.gui = g;
+        UserListener u = (UserListener) g.listener;
+        u.nextLevel();
 
-        // until level is complete or time runs out keep going
-    	//playGame(/*...*/);
+    	// until level is complete or time runs out keep going
+        playGame(g, u);
     }
 
     /**
      * Plays the game when given an app (that is currently in a level)
      */
-    public void playGame(GUI g){
+    public void playGame(GUI g, UserListener u){
         InputGenerator ig = generateRandomInput();
-        UserListener u = new UserListener();
-        g.addKeyListener(u);
+
         try {
         	// timeout after 60 seconds
 	        assertTimeoutPreemptively(Duration.ofSeconds(60), ()->{
-	        	while (ig.playNext(u)) {/* do something? */}
+	        	while (ig.playNext(u)) {}
 	        });
         }
 
@@ -79,6 +76,7 @@ public class Fuzz{
         catch (AssertionFailedError e) {
         	System.out.println("STOPPED RUNNING, TIMEOUT!");
         	ig.finish();
+        	return;
         }
 
         // if exception is caught, stop running and print exception (and where it is?)

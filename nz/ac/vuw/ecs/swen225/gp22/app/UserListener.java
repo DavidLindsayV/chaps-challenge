@@ -1,20 +1,20 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
-import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.net.MalformedURLException;
+import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 import org.dom4j.DocumentException;
 
 /**
  * This class listens and reacts to keypresses of the user
  */
-public class UserListener implements Listener {
+public class UserListener implements KeyListener {
 
   //Stores the Domain of the current level
   public static Domain currentGame;
@@ -23,9 +23,9 @@ public class UserListener implements Listener {
   //Whether the game is paused
   public static boolean paused = false;
   //The current level being played
-  static String currentLevel;
+  public static String currentLevel;
   //The timer that calls ping
-  static pingTimer timer;
+  private static pingTimer timer;
 
   public UserListener() {
     //Sets up new recorder
@@ -46,15 +46,19 @@ public class UserListener implements Listener {
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
+        SoundEffects.playSound("Step");
         up();
         break;
       case KeyEvent.VK_DOWN:
+        SoundEffects.playSound("Step");
         down();
         break;
       case KeyEvent.VK_LEFT:
+        SoundEffects.playSound("Step");
         left();
         break;
       case KeyEvent.VK_RIGHT:
+        SoundEffects.playSound("Step");
         right();
         break;
     }
@@ -75,7 +79,7 @@ public class UserListener implements Listener {
     }
   }
 
-  public void ctrlCommands(KeyEvent e) {
+  private void ctrlCommands(KeyEvent e) {
     if (e.isControlDown()) {
       switch (e.getKeyCode()) {
         case KeyEvent.VK_X:
@@ -126,28 +130,36 @@ to be loaded
   public static void loadSavedGame() {
     try {
       currentLevel = fileLevel.getLevelFilename();
-      loadLevel();
-    } catch (Exception e) {
+    } catch (MalformedURLException | DocumentException e) {
       System.out.println("Level loading failed");
     }
+    loadLevel();
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
   public static void pauseGame() {
-    System.out.println("The game is paused");
-    paused = true;
-    timer.cancel();
+    if (!paused) {
+      System.out.println("The game is paused");
+      paused = true;
+      timer.cancel();
+      JOptionPane.showMessageDialog(GUI.instance, "The game is Paused");
+    }
   }
 
   /**Removed "Game is paused" dialog, resumes game */
   public static void resumeGame() {
-    System.out.println("The game has resumed");
-    paused = false;
-    timer = new pingTimer(timer);
+    if (paused) {
+      System.out.println("The game has resumed");
+      paused = false;
+      timer = new pingTimer(timer);
+      JOptionPane.getRootFrame().dispose();
+    }
   }
 
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
+    Recorder.setUp();
+    move = Direction.NONE;
     try {
       currentGame = Parser.loadLevel(currentLevel);
       System.out.println("BREAKPOINT: Parser has parsed a level file!");
@@ -161,38 +173,55 @@ to be loaded
   /**
    * Creates the timer for a level
    */
-  public static void loadTimer() {
+  private static void loadTimer() {
     System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
     timer = new pingTimer();
   }
 
   /**Move Chap in a direction */
-  public void up() {
+  private void up() {
     move = Direction.UP;
   }
 
-  public void down() {
+  private void down() {
     move = Direction.DOWN;
   }
 
-  public void left() {
+  private void left() {
     move = Direction.LEFT;
   }
 
-  public void right() {
+  private void right() {
     move = Direction.RIGHT;
   }
 
-  /**Called when the level is lost */
+  /**Called when the level is lost by Domain*/
   public static void loseLevel() {
-    System.out.println(
-      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
+    SoundEffects.playSound("Death");
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "The level is lost! Restarting the level"
     );
+    loadLevel();
+  }
+
+  /** Called when the user runs out of time on a level*/
+  public static void timeOutLevel() {
+    SoundEffects.playSound("Death");
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "The level is lost! Your time has run out. Restarting the level"
+    );
+    loadLevel();
   }
 
   /**Loads the next level in the game */
   public static void nextLevel() {
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "The level " + currentLevel + " is won! Now starting level 2"
+    );
     currentLevel = "level2.xml";
     loadLevel();
   }

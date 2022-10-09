@@ -21,12 +21,6 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
 
-  public Domain domain;
-
-  BoardPanel(Domain domain) {
-    this.domain = domain;
-  }
-
   private static final long serialVersionUID = 1L;
   static final int cols = 11;
   static final int rows = 11;
@@ -110,49 +104,61 @@ public class BoardPanel extends JPanel {
   public void TileParser(Domain d, Graphics g) {
     Tile[][] t = d.getGraphicalState();
     Point p = d.getPlayerGraphicalPosition();
-    for (int x = p.row() - 5; x < p.row() + 6; x++) {
-      for (int y = p.col() - 5; y < p.col() + 6; y++) {
-        int newX = x - (p.row() - 5);
-        int newY = y - (p.col() - 5);
-        if (t[x][y].name().equals("wall")) {
+
+    for (int y = p.row() - 5; y < p.row() + 6; y++) {
+      for (int x = p.col() - 5; x < p.col() + 6; x++) {
+        int newX = x - (p.col() - 5);
+        int newY = y - (p.row() - 5);
+
+        // if out of bounds then draw floorsprite and continue
+        if (y >= t.length || y < 0) {
+          drawImg(Img.FloorSprite.image, newX, newY, g);
+          continue;
+        }
+        if (x >= t.length || x < 0) {
+          drawImg(Img.FloorSprite.image, newX, newY, g);
+          continue;
+        }
+
+        if (t[y][x].name().equals("wall")) {
           drawImg(Img.WallSprite.image, newX, newY, g);
-        } else if (t[x][y].name().equals("treasure")) {
+        } else if (t[y][x].name().equals("treasure")) {
           drawImg(Img.Treasure.image, newX, newY, g);
-        } else if (t[x][y].name().equals("exitLock")) {
+        } else if (t[y][x].name().equals("exitLock")) {
           drawImg(Img.ExitLock.image, newX, newY, g);
-        } else if (t[x][y].name().equals("exit")) {
+        } else if (t[y][x].name().equals("exit")) {
           drawImg(Img.Exit.image, newX, newY, g);
-        } else if (t[x][y].name().equals("info")) {
+        } else if (t[y][x].name().equals("info")) {
           drawImg(Img.InfoField.image, newX, newY, g);
-        } else if (t[x][y].name().equals("key")) {
-          if (t[x][y].colour().equals("PINK")) {
+        } else if (t[y][x].name().equals("key")) {
+          if (t[y][x].colour().equals("PINK")) {
             drawImg(Img.RedKey.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("GREEN")) {
+          } else if (t[y][x].colour().equals("GREEN")) {
             drawImg(Img.GreenKey.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("PURPLE")) {
+          } else if (t[y][x].colour().equals("PURPLE")) {
             drawImg(Img.PurpleKey.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("BLUE")) {
+          } else if (t[y][x].colour().equals("BLUE")) {
             drawImg(Img.BlueKey.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("YELLOW")) {
+          } else if (t[y][x].colour().equals("YELLOW")) {
             drawImg(Img.YellowKey.image, newX, newY, g);
           } else {
             drawImg(Img.Empty.image, newX, newY, g);
           }
-        } else if (t[x][y].name().equals("door")) {
-          if (t[x][y].colour().equals("PINK")) {
+        } else if (t[y][x].name().equals("door")) {
+          if (t[y][x].colour().equals("PINK")) {
             drawImg(Img.RedDoor.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("GREEN")) {
+          } else if (t[y][x].colour().equals("GREEN")) {
             drawImg(Img.GreenDoor.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("Purple")) {
+          } else if (t[y][x].colour().equals("Purple")) {
             drawImg(Img.PurpleDoor.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("BLUE")) {
+          } else if (t[y][x].colour().equals("BLUE")) {
             drawImg(Img.BlueDoor.image, newX, newY, g);
-          } else if (t[x][y].colour().equals("YELLOW")) {
+          } else if (t[y][x].colour().equals("YELLOW")) {
             drawImg(Img.YellowDoor.image, newX, newY, g);
           } else {
             drawImg(Img.Empty.image, newX, newY, g);
           }
-        } else if (t[x][y].name().equals("empty")) {
+        } else if (t[y][x].name().equals("empty")) {
           drawImg(Img.FloorSprite.image, newX, newY, g);
         } else {
           drawImg(Img.Empty.image, newX, newY, g);

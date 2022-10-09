@@ -7,8 +7,10 @@ import org.junit.*;
 import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 //import java.util.stream.*;
 
 interface FailTest{
@@ -784,7 +786,7 @@ public class DomainTests {
 		// test enemy cant function with list of null points
 		checkFailed(()->{
 			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
-					.enemy(1, 1, List.of(null, null)).make();
+					.enemy(1, 1, Arrays.stream(new Point[] {null, null}).collect(Collectors.toList())).make();
 		});
 	}
 
@@ -899,12 +901,6 @@ public class DomainTests {
 
 	@Test
 	public void failingTest27() {
-		// check cannot put an exit on a player
-		checkFailed(()->{});
-	}
-
-	@Test
-	public void failingTest28() {
 		// test for enemy branch coverage
 		checkFailed(()->{Enemy e = new Enemy((List<Point>) null);});
 	}
@@ -1016,7 +1012,7 @@ public class DomainTests {
 	@Test
 	public void otherTest08() {
 		// test domain can get the enemies
-		Domain d = new DomainBuilder()
+		Domain d = new DomainBuilder().empty(2, 2)
 				.enemy(0, 0, List.of(new Point(0, 0)))
 				.enemy(0, 0, List.of(new Point(0, 1)))
 				.enemy(0, 0, List.of(new Point(1, 0))).player(1, 1).exit(2, 2).make();
