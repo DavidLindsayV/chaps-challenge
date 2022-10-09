@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.Main;
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
@@ -14,6 +15,7 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.WallTile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.MainRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
@@ -50,12 +52,13 @@ public class BoardPanel extends JPanel {
     g.setColor(new Color(46, 39, 82));
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
-    updateGrid(domain, g);
 
     if (Main.gui != null ) {
+      updateGrid(UserListener.currentGame, g);
       GUI.drawText(g);
     }
     if(MainRecorder.gui !=null){
+      updateGrid(ReplayListener.currentGame, g);
       ReplayGui.drawText(g);
     }
   }
