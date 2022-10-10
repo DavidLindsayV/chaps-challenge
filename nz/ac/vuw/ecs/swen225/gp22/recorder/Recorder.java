@@ -18,16 +18,17 @@ public class Recorder {
     private static RecordWriter recWriter;
     private static Document document;
     private static final Class<Direction> clazz = Direction.class;
+    private static String level = "level1";
 
     /**
      * Called when a new level is created.
      * 
      * Creates the dom4j document and record writer, for a new level
      */
-    public static void setUp(){
-        System.out.println("BREAKPOINT: Recorder has been setup.");
+    public static void setUp(String level){
+        System.out.println("RECORDER: Recorder has been setup.");
         document = DocumentHelper.createDocument();
-        recWriter = new RecordWriter(document);
+        recWriter = new RecordWriter(document, level);
     }
 
     /**
@@ -41,11 +42,10 @@ public class Recorder {
      * Saves a recorded game to an xml file.
      */
     public static void save(String directory) {
-        System.out.println("BREAKPOINT: Recorder has saved.");
+        System.out.println("RECORDER: Recorder has saved.");
         try {
             recWriter.save(directory);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -55,9 +55,9 @@ public class Recorder {
      */
     public static void loadPartial() {
         try {
-            RecordReader.loadPartial(clazz);     
+            RecordReader.loadPartial(clazz);
+
         } catch (MalformedURLException | DocumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -68,6 +68,7 @@ public class Recorder {
     public static List<Direction> load() {
         try {
             return RecordReader.loadDoc(clazz);
+
         } catch (MalformedURLException | DocumentException e) {
             System.out.println("Load failed: "+e);
             return List.of();
@@ -86,6 +87,19 @@ public class Recorder {
      */
     public static void setDocument(Document doc){
         document = doc;
+    }
+
+    /**
+     * Gets the level
+     */
+    public static String getLevel(){ 
+        return Recorder.level; 
+    }
+    /**
+     * Sets the level
+     */
+    public static void setLevel(String levelToSet){ 
+        Recorder.level = levelToSet; 
     }
 
 }

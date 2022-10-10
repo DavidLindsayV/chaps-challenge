@@ -30,11 +30,13 @@ public class ReplayListener implements KeyListener {
     moves = Recorder.load();
     index = 0;
     move = moves.get(index);
-    currentLevel = fileLevel.getStartingFileName();
-    System.out.println("DRAFT: starting file name is " + currentLevel);
-    System.out.println("DRAFT: Loading level...");
+
+    currentLevel = Recorder.getLevel();
+
+    System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
+    System.out.println("REPLAY LISTENER: Loading level...");
     loadLevel();
-    System.out.println("DRAFT: Loaded level.");
+    System.out.println("REPLAY LISTENER: Loaded level.");
   }
 
   @Override
@@ -53,10 +55,10 @@ public class ReplayListener implements KeyListener {
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
-        pauseGame();
+        // pauseGame();
         break;
       case KeyEvent.VK_ESCAPE:
-        resumeGame();
+        // resumeGame();
         break;
     }
   }
@@ -69,34 +71,24 @@ public class ReplayListener implements KeyListener {
     System.exit(0);
   }
 
-  /**
-   * resume a saved game -- this will pop up a file selector to select a saved game
-   * to be loaded
-   */
-  public static void loadReplay() {
-    try {
-      currentLevel = fileLevel.getLevelFilename();
-      loadLevel();
-    } catch (Exception e) {
-      System.out.println("Level loading failed");
-    }
-  }
 
-  /**
-   * Pauses game, displays a "Game is paused" dialog
-   */
-  public static void pauseGame() {
-    System.out.println("The game is paused");
-    paused = true;
-  }
+  // TODO: Pause and play for auto play
 
-  /**
-   * Removed "Game is paused" dialog, resumes game 
-   */
-  public static void resumeGame() {
-    System.out.println("The game has resumed");
-    paused = false;
-  }
+  // /**
+  //  * Pauses game, displays a "Game is paused" dialog
+  //  */
+  // public static void pauseGame() {
+  //   System.out.println("The game is paused");
+  //   paused = true;
+  // }
+
+  // /**
+  //  * Removed "Game is paused" dialog, resumes game 
+  //  */
+  // public static void resumeGame() {
+  //   System.out.println("The game has resumed");
+  //   paused = false;
+  // }
 
   /**
    * Starts the level of the game based on currentLevel string
@@ -104,7 +96,7 @@ public class ReplayListener implements KeyListener {
   public static void loadLevel() {
     try {
       currentGame = Parser.loadLevel(currentLevel);
-      System.out.println("DRAFT: Parser has parsed a level file!");
+      System.out.println("REPLAY LISTENER: Parser has parsed a level file!");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
@@ -116,16 +108,16 @@ public class ReplayListener implements KeyListener {
    */
   public static void nextMove() {
     currentGame.moveActors();
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
-    }
     if(index<moves.size()-1){
       move = moves.get(index);
       currentGame.movePlayer(move);
       System.out.println("Tick number: "+index+" Move: "+move.name());
       index++;
-    }else System.out.println("All the moves have been completed");    
+    }else System.out.println("All the moves have been completed"); 
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      MainRecorder.gui.panel.repaint();
+    }   
   }
 
 

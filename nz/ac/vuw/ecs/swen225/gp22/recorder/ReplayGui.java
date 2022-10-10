@@ -80,7 +80,7 @@ public class ReplayGui extends Renderer {
     //Add keylistener to JFrame
     this.addKeyListener(rl);
     this.setFocusable(true);
-    System.out.println("BREAKPOINT: Keys are listening...");
+    System.out.println("REPLAY GUI: Keys are listening...");
   }
 
   /**
@@ -125,10 +125,10 @@ public class ReplayGui extends Renderer {
     pauseButton.addActionListener(
       e -> {
         if (!ReplayListener.paused) {
-          ReplayListener.pauseGame();
+          // ReplayListener.pauseGame();
           pauseButton.setText("▶");
         } else {
-          ReplayListener.resumeGame();
+          // ReplayListener.resumeGame();
           pauseButton.setText("⏸");
         }
       }
@@ -141,6 +141,7 @@ public class ReplayGui extends Renderer {
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
   }
+
   private void delPauseButton(){
     if(pauseButton != null){
       panel.remove(pauseButton);
@@ -204,7 +205,6 @@ public class ReplayGui extends Renderer {
   private void runStepByStep(){
     delSpeedSlider();
     delPauseButton();
-
     actStepButton();
     ReplayListener.setStepByStep();
   }

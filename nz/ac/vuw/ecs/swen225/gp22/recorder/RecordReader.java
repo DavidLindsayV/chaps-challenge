@@ -54,7 +54,7 @@ public class RecordReader {
         List<E> actionList = loadDoc(clazz);
 
         //Set writer first to change the writer
-        Recorder.setWriter(new RecordWriter(doc));
+        Recorder.setWriter(new RecordWriter(doc, Recorder.getLevel()));
         for(E action : actionList){
             Recorder.tick(action);
         }
@@ -78,6 +78,13 @@ public class RecordReader {
         List<E> moves = new ArrayList<E>();
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
+
+            //TODO: getting level
+            if(tick.getName().equals("level")){
+                Recorder.setLevel(tick.getText());
+                tick = it.next();
+            }
+
             if(!(tick.node(1) instanceof Element))  {
                 throw new XmlFormatException("tick.node(1) is not an element!");
             }
