@@ -17,6 +17,8 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+
 public class RecordReader {
 
     /**

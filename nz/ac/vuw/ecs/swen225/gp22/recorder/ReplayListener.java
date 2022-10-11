@@ -37,6 +37,9 @@ public class ReplayListener implements KeyListener {
   public ReplayListener() {
     isAutoPlay = false;
     moves = Recorder.load();
+
+    if(moves.isEmpty()) moves = List.of(Direction.NONE);
+
     index = 0;
     move = moves.get(index);
     currentLevel = Recorder.getLevel();

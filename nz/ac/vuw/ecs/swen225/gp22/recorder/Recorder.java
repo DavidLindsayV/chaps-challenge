@@ -18,7 +18,8 @@ public class Recorder {
     private static RecordWriter recWriter;
     private static Document document;
     private static final Class<Direction> clazz = Direction.class;
-    private static String level = "level1";
+    private static String level;
+
 
     /**
      * Called when a new level is created.
@@ -56,7 +57,6 @@ public class Recorder {
     public static void loadPartial() {
         try {
             RecordReader.loadPartial(clazz);
-
         } catch (MalformedURLException | DocumentException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,6 @@ public class Recorder {
     public static List<Direction> load() {
         try {
             return RecordReader.loadDoc(clazz);
-
         } catch (MalformedURLException | DocumentException e) {
             System.out.println("Load failed: "+e);
             return List.of();
@@ -93,6 +92,7 @@ public class Recorder {
      * Gets the level
      */
     public static String getLevel(){ 
+        if(level == null) return "level1.xml";
         return Recorder.level; 
     }
     /**
