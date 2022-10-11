@@ -101,5 +101,4 @@ public class Recorder {
     public static void setLevel(String levelToSet){ 
         Recorder.level = levelToSet; 
     }
-
 }
