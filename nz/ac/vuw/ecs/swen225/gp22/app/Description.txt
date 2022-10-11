@@ -33,7 +33,8 @@ Graphical user interfaces are notoriously difficult to test, so no unit tests ar
 package. Testing is to be done manually.
 
 TASKS LEFT:
-- Check displaying time left to play, current level, keys collected, treasures needing collecting all works
-- Update instructions for the game
-- Make GUI button to play recorded levels
-- Fix error with loading new levels not working correctly (rabbit won't move)
+- Testing
+- Showing tool tips
+- Making rules better
+- Removing printlns
+- updating text printed to screen to say "carrots" not "treasures"

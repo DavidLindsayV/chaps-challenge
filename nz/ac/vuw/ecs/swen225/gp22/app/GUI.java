@@ -121,6 +121,14 @@ public class GUI extends Renderer {
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
+  public void showToolTip(String toolTip) {
+    JOptionPane.showMessageDialog(this, toolTip);
+  }
+
+  public void removeToolTip() {
+    JOptionPane.getRootFrame().dispose();
+  }
+
   /**A function that draws various texts, such as current level and keys collected, on the JPanel */
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
@@ -136,7 +144,7 @@ public class GUI extends Renderer {
     );
     g.setColor(Color.BLUE);
     g.drawString(
-      "Treasures left: " + UserListener.currentGame.treasuresLeft(),
+      "Carrots left: " + UserListener.currentGame.treasuresLeft(),
       50,
       110
     );
