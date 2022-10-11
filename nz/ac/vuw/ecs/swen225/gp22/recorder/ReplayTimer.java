@@ -6,7 +6,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 public class ReplayTimer extends pingTimer{
     
-    private int apPingRate = 200; // The autoplay ping rate
+    private final int  apPingRate = 200; // The autoplay ping rate
 
     //The timerTask that will run ping() each time the timer triggers
     private final TimerTask t = new TimerTask() {
@@ -21,6 +21,10 @@ public class ReplayTimer extends pingTimer{
     }
     public ReplayTimer(pingTimer p){
         super(p);
+        this.scheduleAtFixedRate(t, 0, (long) apPingRate);
+    }
+
+    public void changeSpeed(int speed){
         this.scheduleAtFixedRate(t, 0, (long) apPingRate);
     }
 

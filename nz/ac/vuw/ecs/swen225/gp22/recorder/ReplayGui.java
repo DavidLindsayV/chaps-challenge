@@ -182,7 +182,6 @@ public class ReplayGui extends Renderer {
       panel.remove(speedSlider);
     }
   }
-
   private void updateSlider(ChangeEvent e) {
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
   }

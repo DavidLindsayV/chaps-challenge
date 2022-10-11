@@ -54,13 +54,7 @@ public class ReplayListener implements KeyListener {
   public void keyTyped(KeyEvent e) {}
 
   @Override
-  public void keyPressed(KeyEvent e) {
-    switch (e.getKeyCode()) {
-      case KeyEvent.VK_RIGHT:
-        nextMove();
-        break;
-    }
-  }
+  public void keyPressed(KeyEvent e) { }
 
   @Override
   public void keyReleased(KeyEvent e) {
@@ -81,9 +75,6 @@ public class ReplayListener implements KeyListener {
     ReplayGui.closeAll();
     System.exit(0);
   }
-
-
-  // TODO: Pause and play for auto play
 
   /**
    * Pauses game, displays a "Game is paused" dialog
@@ -149,9 +140,6 @@ public class ReplayListener implements KeyListener {
 
   public static void setAutoPlay(){
     isAutoPlay = true;
-
-    //TODO: FIX FOR FUCK SAKE
-
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
       MainRecorder.gui.panel.repaint();
@@ -160,9 +148,6 @@ public class ReplayListener implements KeyListener {
 
   public static void setStepByStep(){
     isAutoPlay = false;
-
-    //TODO: PLEASE FOR THE lOVE OF GOD
-
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
       MainRecorder.gui.panel.repaint();
