@@ -20,10 +20,11 @@ import org.dom4j.io.XMLWriter;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
+
+import org.actor.Enemy;
 
 public class Parser {
 
@@ -95,7 +96,6 @@ public class Parser {
         Path path = Paths.get(directory);
         Files.createDirectory(path);
 
-        
         Recorder.save(directory + "/");
 
         FileWriter fileWriter = new FileWriter(
