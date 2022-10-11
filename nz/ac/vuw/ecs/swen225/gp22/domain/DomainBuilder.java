@@ -340,12 +340,7 @@ public class DomainBuilder {
         if (col < 0) {
             throw new IllegalArgumentException("Col cannot be less than 0.");
         }
-        if (row >= domainHeight) {
-            throw new IllegalArgumentException("Row cannot be greater than " + domainHeight);
-        }
-        if (col >= domainWidth) {
-            throw new IllegalArgumentException("Col cannot be greater than " + domainWidth);
-        }
+
     }
 
     /**
