@@ -166,7 +166,7 @@ public class Domain {
    */
   public void nextLevel() {
     this.playing = false;
-    // UserListener.nextLevel();
+    UserListener.nextLevel();
   }
 
   /**
@@ -175,7 +175,7 @@ public class Domain {
   public void loseLevel() {
     System.out.println("PlayingSound");
     this.playing = false;
-    // UserListener.loseLevel();
+    UserListener.loseLevel();
   }
 
   /**

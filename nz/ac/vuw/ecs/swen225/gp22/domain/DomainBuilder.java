@@ -116,7 +116,7 @@ public class DomainBuilder {
         checkNoPlayerHere(row, col);
         path.stream().forEach(p -> {
             checkWithinAbsoluteLimits(p.row(), p.col());
-            checkWithinRelativeLimits(p.row(), p.col());
+            // checkWithinRelativeLimits(p.row(), p.col());
         });
 
         domainEnemies.add(new Enemy(path));
@@ -299,6 +299,7 @@ public class DomainBuilder {
         d.setPlayerPosition(domainPlayerPosition);
 
         System.out.println("BREAKPOINT: Domainbuilder preconditions passed - domain returned.");
+        System.out.println(d);
         return d;
     }
 
