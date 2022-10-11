@@ -71,7 +71,9 @@ public class Parser {
         }
 
         System.out.println("BREAKPOINT: Domain object created.");
-        return builder.make();
+        Domain d = builder.make();
+        assert d != null;
+        return d;
     }
 
     /**
@@ -87,23 +89,35 @@ public class Parser {
 
         Document document = createLevelDocument(levelLayout, player, domain.getEnemies());
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
-        LocalDateTime now = LocalDateTime.now();
-        String nowStr = dtf.format(now);
+        String nowStr = getCurrentTime();
 
+        // Create directory
         String directory = "saved_game_" + nowStr;
         Path path = Paths.get(directory);
         Files.createDirectory(path);
 
-        
         Recorder.save(directory + "/");
 
+        // Save level file
         FileWriter fileWriter = new FileWriter(
                 directory + "/saved_game_level" + lastLoadedLevel + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();
         XMLWriter writer = new XMLWriter(fileWriter, format);
         writer.write(document);
         writer.close();
+    }
+
+    /**
+     * Find and return the current date and time as a string in the format
+     * dd-MM-yyyy-HHmmss
+     * 
+     * @return current time
+     */
+    public static String getCurrentTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
+        LocalDateTime now = LocalDateTime.now();
+        String nowStr = dtf.format(now);
+        return nowStr;
     }
 
     /**
@@ -121,27 +135,40 @@ public class Parser {
             if (playerPos.row() == row) {
                 currRow.addElement("player").addAttribute("c", "" + playerPos.col());
             }
-            for (Enemy e : enemies) {
-                if (e.getPosition().row() == row) {
-                    Element enemyElem = currRow.addElement("enemy").addAttribute("c", "" + e.getPosition().col());
-                    e.getPath().stream().forEach(p -> {
-                        enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-                                + p.col());
-                    });
-                }
-            }
-            for (int col = 0; col < levelLayout[0].length; col++) {
-                Tile t = levelLayout[row][col];
-                String name = t.name();
-                if (!name.equals("empty")) {
-                    Element tile = currRow.addElement(name).addAttribute("c", "" + col);
-                    if (name.equals("door") || name.equals("key")) {
-                        tile.addAttribute("colour", t.colour());
-                    }
+            currRow = addEnemies(currRow, enemies, row);
+            currRow = addTiles(levelLayout, row, currRow);
+        }
+        return document;
+    }
+
+    private static Element addTiles(Tile[][] levelLayout, int row, Element currRow) {
+        for (int col = 0; col < levelLayout[0].length; col++) {
+            Tile t = levelLayout[row][col];
+            String name = t.name();
+            if (!name.equals("empty")) {
+                Element tile = currRow.addElement(name).addAttribute("c", "" + col);
+                if (name.equals("door") || name.equals("key")) {
+                    tile.addAttribute("colour", t.colour());
                 }
             }
         }
-        return document;
+        return currRow;
+    }
+
+    private static Element addEnemies(Element currRow, List<Enemy> enemies, int row) {
+        if (enemies.isEmpty()) {
+            return currRow;
+        }
+        for (Enemy e : enemies) {
+            if (e.getPosition().row() == row) {
+                Element enemyElem = currRow.addElement("enemy").addAttribute("c", "" + e.getPosition().col());
+                e.getPath().stream().forEach(p -> {
+                    enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+                            + p.col());
+                });
+            }
+        }
+        return currRow;
     }
 
     /**
