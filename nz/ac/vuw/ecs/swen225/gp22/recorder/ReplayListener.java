@@ -2,11 +2,14 @@ package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
 import java.awt.event.*;
 import java.util.List;
-import nz.ac.vuw.ecs.swen225.gp22.app.fileLevel;
+
+import javax.swing.JOptionPane;
+
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import org.dom4j.DocumentException;
+import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 /**
  * This class listens and reacts to keypresses of the user
@@ -19,6 +22,11 @@ public class ReplayListener implements KeyListener {
   public static boolean paused = false;
   public static String currentLevel;
 
+  public static int displayTime;
+
+  //The timer for when the game is in autoPlay
+  private static ReplayTimer timer;
+
   public static boolean isAutoPlay = false;
 
   //The current index for the move we are on
@@ -27,12 +35,15 @@ public class ReplayListener implements KeyListener {
   private static List<Direction> moves;
 
   public ReplayListener() {
+    isAutoPlay = false;
     moves = Recorder.load();
     index = 0;
     move = moves.get(index);
-
     currentLevel = Recorder.getLevel();
 
+    displayTime =  60 * 1000 * pingTimer.getLevelNum(currentLevel);
+
+    timer = new ReplayTimer(currentLevel);
     System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
     System.out.println("REPLAY LISTENER: Loading level...");
     loadLevel();
@@ -55,10 +66,10 @@ public class ReplayListener implements KeyListener {
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
-        // pauseGame();
+        pauseGame();
         break;
       case KeyEvent.VK_ESCAPE:
-        // resumeGame();
+        resumeGame();
         break;
     }
   }
@@ -74,21 +85,25 @@ public class ReplayListener implements KeyListener {
 
   // TODO: Pause and play for auto play
 
-  // /**
-  //  * Pauses game, displays a "Game is paused" dialog
-  //  */
-  // public static void pauseGame() {
-  //   System.out.println("The game is paused");
-  //   paused = true;
-  // }
+  /**
+   * Pauses game, displays a "Game is paused" dialog
+   */
+  public static void pauseGame() {
+    System.out.println("The game is paused");
+    paused = true;
+    timer.cancel();
+    JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
+  }
 
-  // /**
-  //  * Removed "Game is paused" dialog, resumes game 
-  //  */
-  // public static void resumeGame() {
-  //   System.out.println("The game has resumed");
-  //   paused = false;
-  // }
+  /**
+   * Removed "Game is paused" dialog, resumes game 
+   */
+  public static void resumeGame() {
+    System.out.println("The game has resumed");
+    paused = false;
+    timer = new ReplayTimer(timer);
+    JOptionPane.getRootFrame().dispose();
+  }
 
   /**
    * Starts the level of the game based on currentLevel string
@@ -101,18 +116,29 @@ public class ReplayListener implements KeyListener {
       System.out.println("Exception loading a level");
       exitGame();
     }
+    loadTimer();
+  }
+
+  /**
+   * Creates the timer for a level
+   */
+  private static void loadTimer() {
+    System.out.println("BREAKPOINT: Ping timer is loaded.");
+    timer.cancel();
+    timer = new ReplayTimer(currentLevel);
   }
 
   /**
    * Go to the next move
    */
   public static void nextMove() {
-    currentGame.moveActors();
     if(index<moves.size()-1){
+      currentGame.moveActors();
       move = moves.get(index);
       currentGame.movePlayer(move);
       System.out.println("Tick number: "+index+" Move: "+move.name());
       index++;
+      displayTime -= 200;
     }else System.out.println("All the moves have been completed"); 
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
@@ -141,14 +167,5 @@ public class ReplayListener implements KeyListener {
       MainRecorder.gui.panel.revalidate();
       MainRecorder.gui.panel.repaint();
     }
-  }
-
-  /**
-   * Called when the level is lost 
-   */
-  public static void loseLevel() {
-    System.out.println(
-      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
-    );
   }
 }

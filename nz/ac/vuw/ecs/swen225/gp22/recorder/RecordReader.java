@@ -79,7 +79,6 @@ public class RecordReader {
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
 
-            //TODO: getting level
             if(tick.getName().equals("level")){
                 Recorder.setLevel(tick.getText());
                 tick = it.next();

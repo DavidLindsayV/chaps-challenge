@@ -70,7 +70,6 @@ public class ReplayGui extends Renderer {
 
     
     autoPlay.addActionListener(e -> runAutoPlay());
-
     stepByStep.addActionListener(e -> runStepByStep());
     exit.addActionListener(e -> ReplayListener.exitGame());
     desc.addActionListener(e -> showDesc());
@@ -103,7 +102,7 @@ public class ReplayGui extends Renderer {
     g.setColor(Color.RED);
     g.drawString("Current level: " + ReplayListener.currentLevel, 50, 70);
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: FIX LATER", 50, 90);
+    g.drawString("Time left: "+ReplayListener.displayTime , 50, 90);
     g.setColor(Color.GREEN);
     g.drawString(
       "Keys collected: " + ReplayListener.currentGame.keysCollected(),
@@ -125,10 +124,10 @@ public class ReplayGui extends Renderer {
     pauseButton.addActionListener(
       e -> {
         if (!ReplayListener.paused) {
-          // ReplayListener.pauseGame();
+          ReplayListener.pauseGame();
           pauseButton.setText("▶");
         } else {
-          // ReplayListener.resumeGame();
+          ReplayListener.resumeGame();
           pauseButton.setText("⏸");
         }
       }
@@ -168,13 +167,10 @@ public class ReplayGui extends Renderer {
 
   private void actSpeedSlider(){
     sliderLabel = new JLabel();
-    speedSlider = new JSlider(0,10,5);
+    speedSlider = new JSlider(0,400,200);
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
-
     panel.setLayout(null);
-
     speedSlider.setBounds(400, 50, 200, 50);
-
     panel.add(sliderLabel);
     panel.add(speedSlider);
   }
@@ -192,17 +188,15 @@ public class ReplayGui extends Renderer {
   }
 
   private void runAutoPlay(){
-
     System.out.println("Running autoplay");
-
     delStepButton();
-
     actSpeedSlider();
     actPauseButton();
     ReplayListener.setAutoPlay();
   }
 
   private void runStepByStep(){
+    System.out.println("Running step by step");
     delSpeedSlider();
     delPauseButton();
     actStepButton();
