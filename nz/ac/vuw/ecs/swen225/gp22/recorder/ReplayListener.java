@@ -130,7 +130,12 @@ public class ReplayListener implements KeyListener {
       System.out.println("Tick number: "+index+" Move: "+move.name());
       index++;
       displayTime -= 200;
-    }else System.out.println("All the moves have been completed"); 
+    }else {
+      System.out.println("The replay is over!");
+      paused = true;
+      timer.cancel();
+      MainRecorder.gui.endOfReplay();
+    }; 
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
       MainRecorder.gui.panel.repaint();
@@ -153,4 +158,9 @@ public class ReplayListener implements KeyListener {
       MainRecorder.gui.panel.repaint();
     }
   }
+
+  public static void changeTimerSpeed(int speed){
+    timer.changeSpeed(speed);
+  }
+
 }

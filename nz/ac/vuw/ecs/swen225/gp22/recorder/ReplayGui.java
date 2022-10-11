@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
@@ -68,7 +69,6 @@ public class ReplayGui extends Renderer {
     menu.add(desc);
     menu.add(exit);
 
-    
     autoPlay.addActionListener(e -> runAutoPlay());
     stepByStep.addActionListener(e -> runStepByStep());
     exit.addActionListener(e -> ReplayListener.exitGame());
@@ -80,6 +80,13 @@ public class ReplayGui extends Renderer {
     this.addKeyListener(rl);
     this.setFocusable(true);
     System.out.println("REPLAY GUI: Keys are listening...");
+  }
+
+  public void endOfReplay(){
+    JOptionPane.showMessageDialog(frame, "The replay has been completed!");
+    this.delPauseButton();
+    this.delSpeedSlider();
+    this.delStepButton();
   }
 
   /**
@@ -171,6 +178,12 @@ public class ReplayGui extends Renderer {
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
     panel.setLayout(null);
     speedSlider.setBounds(400, 50, 200, 50);
+    speedSlider.addChangeListener(new ChangeListener() {
+      public void stateChanged(ChangeEvent ce) {
+        repaint();
+        ReplayListener.changeTimerSpeed(speedSlider.getValue());
+      }
+   });
     panel.add(sliderLabel);
     panel.add(speedSlider);
   }
@@ -188,6 +201,8 @@ public class ReplayGui extends Renderer {
 
   private void runAutoPlay(){
     System.out.println("Running autoplay");
+    delSpeedSlider();
+    delPauseButton();
     delStepButton();
     actSpeedSlider();
     actPauseButton();
@@ -198,6 +213,7 @@ public class ReplayGui extends Renderer {
     System.out.println("Running step by step");
     delSpeedSlider();
     delPauseButton();
+    delStepButton();
     actStepButton();
     ReplayListener.setStepByStep();
   }
@@ -206,5 +222,4 @@ public class ReplayGui extends Renderer {
     frame.dispose();
     instance.dispose();
   }
-
 }
