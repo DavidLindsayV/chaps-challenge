@@ -35,6 +35,8 @@
         <wall c="2" />
         <wall c="5" />
         <wall c="9" />
+        <key c="10" />
+        <treasure c="14" />
         <wall c="15" />
     </row>
     <row r="5">
