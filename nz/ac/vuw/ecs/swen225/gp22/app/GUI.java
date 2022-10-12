@@ -182,7 +182,7 @@ public class GUI extends Renderer {
     instance.dispose();
   }
 
-  private static String shortenLevelName(String levelName) {
+  public static String shortenLevelName(String levelName) {
     return levelName.substring(
       Math.max(0, levelName.lastIndexOf("/") + 1),
       levelName.length() - 4

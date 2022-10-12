@@ -13,7 +13,7 @@ public class pingTimer extends Timer {
 
   public static int timeLeftToPlay = 0; //time left to play current level in milliseconds
   private final int pingRate = 200; //the timer will refresh every 200 ms
-  
+
   //The timerTask that will run ping() each time the timer triggers
   private final TimerTask t = new TimerTask() {
     public void run() {
@@ -44,7 +44,7 @@ public class pingTimer extends Timer {
   }
 
   /**
-   * Function that runs whenever the timer triggers 
+   * Function that runs whenever the timer triggers
    */
   protected void ping() {
     //Advance the timer
