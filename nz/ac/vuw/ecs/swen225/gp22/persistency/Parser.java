@@ -24,8 +24,6 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
-import org.actor.Enemy;
-
 public class Parser {
 
     private static int lastLoadedLevel;
