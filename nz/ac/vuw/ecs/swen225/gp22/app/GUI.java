@@ -17,6 +17,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 /**
  * This class extends the Renderer's JFrame class and adds a menu and buttons
  * to allow pausing, resuming, saving, loading, and rules displaying
+ * @author David Lindsay 300584648
  */
 @SuppressWarnings("serial")
 public class GUI extends Renderer {

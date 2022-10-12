@@ -8,6 +8,7 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 /**
  * This class creates a timer that calls ping() every 200ms
  * And resets the level if the player runs out of time on the current level
+ * @author David Lindsay 300584648
  */
 public class pingTimer extends Timer {
 

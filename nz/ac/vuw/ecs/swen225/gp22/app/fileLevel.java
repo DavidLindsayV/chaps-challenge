@@ -11,6 +11,10 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 import org.dom4j.DocumentException;
 
+/**
+ * A class for dealing with reading/writing files for level loading, saving and selecting
+ * @author David Lindsay 300584648
+ */
 public class fileLevel {
 
   public static String getLevelFilename()

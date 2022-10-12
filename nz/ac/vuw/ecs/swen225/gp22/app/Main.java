@@ -5,6 +5,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 
 /**
  * An executable class which starts the game
+ * @author David Lindsay 300584648
  */
 public class Main {
 

@@ -13,6 +13,7 @@ import org.dom4j.DocumentException;
 
 /**
  * This class listens and reacts to keypresses of the user
+ * @author David Lindsay
  */
 public class UserListener implements KeyListener {
 
