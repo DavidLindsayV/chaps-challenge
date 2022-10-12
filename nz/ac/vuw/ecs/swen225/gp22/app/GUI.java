@@ -146,7 +146,7 @@ public class GUI extends Renderer {
     g.setColor(Color.RED);
     g.drawString("Current level: " + UserListener.currentLevel, 50, 50);
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: " + pingTimer.timeLeftToPlay, 50, 70);
+    g.drawString("Time left: " + pingTimer.timeLeftToPlay / 1000, 50, 70);
     g.setColor(Color.GREEN);
     g.drawString(
       "Keys collected: " + UserListener.currentGame.keysCollected(),

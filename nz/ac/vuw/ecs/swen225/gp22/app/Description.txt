@@ -36,6 +36,5 @@ TASKS LEFT:
 - Testing
 - Making rules better
 - Removing printlns
-- Make timer end at t=0 not t=200 (repaint the GUI)
-- Make loading of levels work
 - Made beating level 2 print out a different message
+- Test loading of saved games works
