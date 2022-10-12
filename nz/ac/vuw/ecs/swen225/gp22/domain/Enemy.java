@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.List;
+
 /**
  * This class represents an enemy that moves in a predetermined path.
  * If the player moves into this enemy, it will DIE.
@@ -8,6 +10,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 public abstract class Enemy {
     /**
      * Returns the current position of the enemy.
+     * 
      * @return Point object.
      */
     public abstract Point getPosition();
@@ -19,12 +22,20 @@ public abstract class Enemy {
     public abstract void move();
 
     /**
+     * Returns the path
+     * 
+     * @return
+     */
+    public abstract List<Point> getPath();
+
+    /**
      * String representation of the enemy
      */
     public abstract String toString();
 
     /**
      * Returns the position of the enemy
+     * 
      * @return Point object.
      */
     public Point getGraphicalPosition() {
