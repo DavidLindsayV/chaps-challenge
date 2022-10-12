@@ -99,7 +99,7 @@ public class Parser {
 
     String nowStr = getCurrentTime();
 
-    String directory = "saved_game_" + nowStr;
+    String directory = "nz/ac/vuw/ecs/swen225/gp22/levels/saved_games/saved_game_" + nowStr;
     Path path = Paths.get(directory);
     Files.createDirectory(path);
 
