@@ -2,11 +2,14 @@ package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
 import java.awt.event.*;
 import java.util.List;
-import nz.ac.vuw.ecs.swen225.gp22.app.fileLevel;
+
+import javax.swing.JOptionPane;
+
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import org.dom4j.DocumentException;
+import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 /**
  * This class listens and reacts to keypresses of the user
@@ -19,6 +22,11 @@ public class ReplayListener implements KeyListener {
   public static boolean paused = false;
   public static String currentLevel;
 
+  public static int displayTime;
+
+  //The timer for when the game is in autoPlay
+  private static ReplayTimer timer;
+
   public static boolean isAutoPlay = false;
 
   //The current index for the move we are on
@@ -27,27 +35,29 @@ public class ReplayListener implements KeyListener {
   private static List<Direction> moves;
 
   public ReplayListener() {
+    isAutoPlay = false;
     moves = Recorder.load();
+
+    if(moves.isEmpty()) moves = List.of(Direction.NONE);
+
     index = 0;
     move = moves.get(index);
-    currentLevel = fileLevel.getStartingFileName();
-    System.out.println("DRAFT: starting file name is " + currentLevel);
-    System.out.println("DRAFT: Loading level...");
+    currentLevel = Recorder.getLevel();
+
+    displayTime =  60 * 1000 * pingTimer.getLevelNum(currentLevel);
+
+    timer = new ReplayTimer(currentLevel);
+    System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
+    System.out.println("REPLAY LISTENER: Loading level...");
     loadLevel();
-    System.out.println("DRAFT: Loaded level.");
+    System.out.println("REPLAY LISTENER: Loaded level.");
   }
 
   @Override
   public void keyTyped(KeyEvent e) {}
 
   @Override
-  public void keyPressed(KeyEvent e) {
-    switch (e.getKeyCode()) {
-      case KeyEvent.VK_RIGHT:
-        nextMove();
-        break;
-    }
-  }
+  public void keyPressed(KeyEvent e) { }
 
   @Override
   public void keyReleased(KeyEvent e) {
@@ -70,24 +80,13 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * resume a saved game -- this will pop up a file selector to select a saved game
-   * to be loaded
-   */
-  public static void loadReplay() {
-    try {
-      currentLevel = fileLevel.getLevelFilename();
-      loadLevel();
-    } catch (Exception e) {
-      System.out.println("Level loading failed");
-    }
-  }
-
-  /**
    * Pauses game, displays a "Game is paused" dialog
    */
   public static void pauseGame() {
     System.out.println("The game is paused");
     paused = true;
+    timer.cancel();
+    JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
   }
 
   /**
@@ -96,6 +95,8 @@ public class ReplayListener implements KeyListener {
   public static void resumeGame() {
     System.out.println("The game has resumed");
     paused = false;
+    timer = new ReplayTimer(timer);
+    JOptionPane.getRootFrame().dispose();
   }
 
   /**
@@ -104,36 +105,49 @@ public class ReplayListener implements KeyListener {
   public static void loadLevel() {
     try {
       currentGame = Parser.loadLevel(currentLevel);
-      System.out.println("DRAFT: Parser has parsed a level file!");
+      System.out.println("REPLAY LISTENER: Parser has parsed a level file!");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
     }
+    loadTimer();
+  }
+
+  /**
+   * Creates the timer for a level
+   */
+  private static void loadTimer() {
+    System.out.println("BREAKPOINT: Ping timer is loaded.");
+    timer.cancel();
+    timer = new ReplayTimer(currentLevel);
   }
 
   /**
    * Go to the next move
    */
   public static void nextMove() {
-    currentGame.moveActors();
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
-    }
     if(index<moves.size()-1){
+      currentGame.moveActors();
       move = moves.get(index);
       currentGame.movePlayer(move);
       System.out.println("Tick number: "+index+" Move: "+move.name());
       index++;
-    }else System.out.println("All the moves have been completed");    
+      displayTime -= 200;
+    }else {
+      System.out.println("The replay is over!");
+      paused = true;
+      timer.cancel();
+      MainRecorder.gui.endOfReplay();
+    }; 
+    if (MainRecorder.gui != null) {
+      MainRecorder.gui.panel.revalidate();
+      MainRecorder.gui.panel.repaint();
+    }   
   }
 
 
   public static void setAutoPlay(){
     isAutoPlay = true;
-
-    //TODO: FIX FOR FUCK SAKE
-
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
       MainRecorder.gui.panel.repaint();
@@ -142,21 +156,14 @@ public class ReplayListener implements KeyListener {
 
   public static void setStepByStep(){
     isAutoPlay = false;
-
-    //TODO: PLEASE FOR THE lOVE OF GOD
-
     if (MainRecorder.gui != null) {
       MainRecorder.gui.panel.revalidate();
       MainRecorder.gui.panel.repaint();
     }
   }
 
-  /**
-   * Called when the level is lost 
-   */
-  public static void loseLevel() {
-    System.out.println(
-      "The level is lost! Hark, the faithless have risen and the worlds have fallen! Behold the end of days!"
-    );
+  public static void changeTimerSpeed(int speed){
+    timer.changeSpeed(speed);
   }
+
 }

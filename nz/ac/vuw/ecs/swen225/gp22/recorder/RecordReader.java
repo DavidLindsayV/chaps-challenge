@@ -17,6 +17,8 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+
 public class RecordReader {
 
     /**
@@ -54,7 +56,7 @@ public class RecordReader {
         List<E> actionList = loadDoc(clazz);
 
         //Set writer first to change the writer
-        Recorder.setWriter(new RecordWriter(doc));
+        Recorder.setWriter(new RecordWriter(doc, Recorder.getLevel()));
         for(E action : actionList){
             Recorder.tick(action);
         }
@@ -78,6 +80,12 @@ public class RecordReader {
         List<E> moves = new ArrayList<E>();
         for(Iterator<Element> it = e.elementIterator(); it.hasNext();){
             Element tick = it.next();
+
+            if(tick.getName().equals("level")){
+                Recorder.setLevel(tick.getText());
+                tick = it.next();
+            }
+
             if(!(tick.node(1) instanceof Element))  {
                 throw new XmlFormatException("tick.node(1) is not an element!");
             }

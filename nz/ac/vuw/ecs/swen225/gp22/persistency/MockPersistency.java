@@ -14,7 +14,7 @@ public class MockPersistency {
    */
   public static void run() {
     try {
-      Recorder.setUp();
+      Recorder.setUp("level2.xml");
       for (int i = 0; i < 10; i++) {
         Recorder.tick(MockRecorder.randomEnum(Direction.class));
       }

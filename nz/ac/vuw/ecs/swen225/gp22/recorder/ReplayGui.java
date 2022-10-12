@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
@@ -68,9 +69,7 @@ public class ReplayGui extends Renderer {
     menu.add(desc);
     menu.add(exit);
 
-    
     autoPlay.addActionListener(e -> runAutoPlay());
-
     stepByStep.addActionListener(e -> runStepByStep());
     exit.addActionListener(e -> ReplayListener.exitGame());
     desc.addActionListener(e -> showDesc());
@@ -80,7 +79,14 @@ public class ReplayGui extends Renderer {
     //Add keylistener to JFrame
     this.addKeyListener(rl);
     this.setFocusable(true);
-    System.out.println("BREAKPOINT: Keys are listening...");
+    System.out.println("REPLAY GUI: Keys are listening...");
+  }
+
+  public void endOfReplay(){
+    JOptionPane.showMessageDialog(frame, "The replay has been completed!");
+    this.delPauseButton();
+    this.delSpeedSlider();
+    this.delStepButton();
   }
 
   /**
@@ -103,7 +109,7 @@ public class ReplayGui extends Renderer {
     g.setColor(Color.RED);
     g.drawString("Current level: " + ReplayListener.currentLevel, 50, 70);
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: FIX LATER", 50, 90);
+    g.drawString("Time left: "+ReplayListener.displayTime , 50, 90);
     g.setColor(Color.GREEN);
     g.drawString(
       "Keys collected: " + ReplayListener.currentGame.keysCollected(),
@@ -141,6 +147,7 @@ public class ReplayGui extends Renderer {
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
   }
+
   private void delPauseButton(){
     if(pauseButton != null){
       panel.remove(pauseButton);
@@ -167,13 +174,16 @@ public class ReplayGui extends Renderer {
 
   private void actSpeedSlider(){
     sliderLabel = new JLabel();
-    speedSlider = new JSlider(0,10,5);
+    speedSlider = new JSlider(0,400,200);
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
-
     panel.setLayout(null);
-
     speedSlider.setBounds(400, 50, 200, 50);
-
+    speedSlider.addChangeListener(new ChangeListener() {
+      public void stateChanged(ChangeEvent ce) {
+        repaint();
+        ReplayListener.changeTimerSpeed(speedSlider.getValue());
+      }
+   });
     panel.add(sliderLabel);
     panel.add(speedSlider);
   }
@@ -185,26 +195,25 @@ public class ReplayGui extends Renderer {
       panel.remove(speedSlider);
     }
   }
-
   private void updateSlider(ChangeEvent e) {
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
   }
 
   private void runAutoPlay(){
-
     System.out.println("Running autoplay");
-
+    delSpeedSlider();
+    delPauseButton();
     delStepButton();
-
     actSpeedSlider();
     actPauseButton();
     ReplayListener.setAutoPlay();
   }
 
   private void runStepByStep(){
+    System.out.println("Running step by step");
     delSpeedSlider();
     delPauseButton();
-
+    delStepButton();
     actStepButton();
     ReplayListener.setStepByStep();
   }
@@ -213,5 +222,4 @@ public class ReplayGui extends Renderer {
     frame.dispose();
     instance.dispose();
   }
-
 }
