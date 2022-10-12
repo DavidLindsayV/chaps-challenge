@@ -33,7 +33,10 @@ Graphical user interfaces are notoriously difficult to test, so no unit tests ar
 package. Testing is to be done manually.
 
 TASKS LEFT:
-- Check displaying time left to play, current level, keys collected, treasures needing collecting all works
-- Update instructions for the game
-- Make GUI button to play recorded levels
-- Fix error with loading new levels not working correctly (rabbit won't move)
+- Testing
+- Making rules better
+- Removing printlns
+- Made beating level 2 print out a different message
+- Test loading of saved games works
+- Make sure you used at least 1 coding pattern
+- To add in to Parser: "nz/ac/vuw/ecs/swen225/gp22/levels/saved_games/saved_game_" + nowStr;

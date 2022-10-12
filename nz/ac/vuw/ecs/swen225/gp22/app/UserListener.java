@@ -117,10 +117,11 @@ public class UserListener implements KeyListener {
 application will be started
    */
   public static void saveGame() {
+    JOptionPane.showMessageDialog(GUI.instance, "Saving current game");
     try {
       Parser.saveLevel(currentGame);
     } catch (IOException e) {
-      System.out.println("Error occurred saving game");
+      System.out.println("Error occurred while saving game");
     }
     fileLevel.saveStartingFileName(currentLevel);
     exitGame();
@@ -141,7 +142,6 @@ to be loaded
   /**Pauses game, displays a "Game is paused" dialog */
   public static void pauseGame() {
     if (!paused) {
-      System.out.println("The game is paused");
       paused = true;
       timer.cancel();
       JOptionPane.showMessageDialog(GUI.instance, "The game is Paused");
@@ -151,7 +151,6 @@ to be loaded
   /**Removed "Game is paused" dialog, resumes game */
   public static void resumeGame() {
     if (paused) {
-      System.out.println("The game has resumed");
       paused = false;
       timer = new pingTimer(timer);
       JOptionPane.getRootFrame().dispose();
@@ -222,9 +221,10 @@ to be loaded
   public static void nextLevel() {
     JOptionPane.showMessageDialog(
       GUI.instance,
-      "The level " + currentLevel + " is won! Now starting level 2"
+      "The level " +
+      GUI.shortenLevelName(currentLevel) +
+      " is won! \n Restarting current level."
     );
-    currentLevel = "level2.xml";
     loadLevel();
   }
 }

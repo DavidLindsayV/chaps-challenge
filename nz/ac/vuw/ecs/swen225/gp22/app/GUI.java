@@ -40,6 +40,7 @@ public class GUI extends Renderer {
   //The rules text
   String rulesText =
     "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
+    "\n" +
     "Controls:" +
     "- Up, down, left and right arrow keys move the rabbit\n" +
     "- Ctrl-X exits the game\n" +
@@ -47,7 +48,12 @@ public class GUI extends Renderer {
     "- Ctrl-R resumes a saved game\n" +
     "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
     "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
-    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n";
+    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
+    "\n" +
+    "Core game mechanics:\n" +
+    "- Collect all the carrots and walk down the rabbit hole to win\n" +
+    "- Collect keys to open doors of their respective colours\n" +
+    "- Avoid colliding with enemies\n";
 
   //A field to store the JFrame for replaying recorded levels
   ReplayGUI replayGUI;
@@ -86,14 +92,19 @@ public class GUI extends Renderer {
     rulesItem = new JMenuItem("Show rules");
     exitItem = new JMenuItem("Exit Game");
     recordPlayerItem = new JMenuItem("Play recorded game");
-    playSavedItem = new JMenuItem("Resume playing saved game");
+    playSavedItem = new JMenuItem("Load saved game");
     menu.add(exitItem);
     menu.add(saveItem);
     menu.add(rulesItem);
     menu.add(recordPlayerItem);
     menu.add(playSavedItem);
     exitItem.addActionListener(e -> UserListener.exitGame());
-    saveItem.addActionListener(e -> UserListener.saveGame());
+    saveItem.addActionListener(
+      e -> {
+        pauseGame();
+        UserListener.saveGame();
+      }
+    );
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(e -> playRecord());
     playSavedItem.addActionListener(e -> UserListener.loadSavedGame());
@@ -121,13 +132,25 @@ public class GUI extends Renderer {
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
+  public static void showToolTip(String toolTip) {
+    JOptionPane.showMessageDialog(GUI.instance, toolTip);
+  }
+
+  public static void removeToolTip() {
+    JOptionPane.getRootFrame().dispose();
+  }
+
   /**A function that draws various texts, such as current level and keys collected, on the JPanel */
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
-    g.drawString("Current level: " + UserListener.currentLevel, 50, 50);
+    g.drawString(
+      "Current level: " + shortenLevelName(UserListener.currentLevel),
+      50,
+      50
+    );
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: " + pingTimer.timeLeftToPlay, 50, 70);
+    g.drawString("Time left: " + pingTimer.timeLeftToPlay / 1000, 50, 70);
     g.setColor(Color.GREEN);
     g.drawString(
       "Keys collected: " + UserListener.currentGame.keysCollected(),
@@ -136,7 +159,7 @@ public class GUI extends Renderer {
     );
     g.setColor(Color.BLUE);
     g.drawString(
-      "Treasures left: " + UserListener.currentGame.treasuresLeft(),
+      "Carrots left: " + UserListener.currentGame.treasuresLeft(),
       50,
       110
     );
@@ -157,5 +180,12 @@ public class GUI extends Renderer {
   /**A function to close all the JFrames */
   public static void closeAll() {
     instance.dispose();
+  }
+
+  private static String shortenLevelName(String levelName) {
+    return levelName.substring(
+      Math.max(0, levelName.lastIndexOf("/") + 1),
+      levelName.length() - 4
+    );
   }
 }

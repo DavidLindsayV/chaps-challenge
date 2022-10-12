@@ -26,7 +26,6 @@ public class fileLevel {
         new File(fileChooser.getSelectedFile().getAbsolutePath())
           .toURI()
           .toURL();
-      System.out.println(url);
       return url
         .toString()
         .substring(
