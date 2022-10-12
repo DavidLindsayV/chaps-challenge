@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
-import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 
 public class Domain {
 
@@ -15,6 +14,10 @@ public class Domain {
   private boolean playing;
   
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
+  public static final String TOOLTIP_STRING = 
+  """
+      play the game.
+  """;
 
   /**
    * Raw constructor.
@@ -103,20 +106,22 @@ public class Domain {
    * @param direction Direction enum (UP, LEFT, RIGHT, DOWN)
    */
   public void movePlayer(Direction direction) {
-    if (playing == false) {
+    if (playing == false || direction == Direction.NONE) {
       return;
     }
-    System.out.println("BREAKPOINT: Domain! Key press propagated");
 
     Point pos = player.getPosition();
-    pos = pos.translate(direction.dr, direction.dc);
 
+    // Special case to check if the player is exiting a tool tip
+    Tile initialTile = gameState[(int) pos.row()][(int) pos.col()];
+    if (initialTile.name().equals("info")) { Domain.hideToolTip(); }
+
+    pos = pos.translate(direction.dr, direction.dc);
     // If this doesn't move the player out of the domain.
     if (withinDomain(pos)) {
       // Interact with the tile.
       Tile target = gameState[(int) pos.row()][(int) pos.col()];
       target.acceptPlayer(player);
-
       // Then move it in, iff it's not a wall.
       if (!target.isWall()) {
         player.setPosition(pos);
@@ -176,6 +181,19 @@ public class Domain {
     System.out.println("PlayingSound");
     this.playing = false;
     UserListener.loseLevel();
+  }
+
+  /**
+   * This function will be called when the player steps on the info tile.
+   */
+  public static void showToolTip() {
+    // GUI.showToolTip(TOOLTIP_STRING);
+    System.out.println("showing tooltip");
+  }
+
+  public static void hideToolTip() {
+    // GUI.hideToolTip();
+    System.out.println("hide tool tip");
   }
 
   /**

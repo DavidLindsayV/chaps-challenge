@@ -1,17 +1,13 @@
 //package Tests;
 package nz.ac.vuw.ecs.swen225.gp22.domain;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.*;
-
-import nz.ac.vuw.ecs.swen225.gp22.domain.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-//import java.util.stream.*;
 
 interface FailTest{
 	public void execute();

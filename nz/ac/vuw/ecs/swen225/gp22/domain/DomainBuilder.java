@@ -299,7 +299,6 @@ public class DomainBuilder {
         d.setPlayerPosition(domainPlayerPosition);
 
         System.out.println("BREAKPOINT: Domainbuilder preconditions passed - domain returned.");
-        System.out.println(d);
         return d;
     }
 
@@ -340,29 +339,6 @@ public class DomainBuilder {
         }
         if (col >= MAX_WIDTH) {
             throw new IllegalArgumentException("Col cannot be greater than 999.");
-        }
-    }
-
-    /**
-     * Checks if the (row, col) is within the relative bounds.
-     * This is called when paths of enemies move outside of the map.
-     *
-     * @param row
-     * @param col
-     * @return
-     */
-    private void checkWithinRelativeLimits(int row, int col) {
-        if (row < 0) {
-            throw new IllegalArgumentException("Row cannot be less than 0.");
-        }
-        if (col < 0) {
-            throw new IllegalArgumentException("Col cannot be less than 0.");
-        }
-        if (row >= domainHeight) {
-            throw new IllegalArgumentException("Row cannot be greater than " + domainHeight);
-        }
-        if (col >= domainWidth) {
-            throw new IllegalArgumentException("Col cannot be greater than " + domainWidth);
         }
     }
 
