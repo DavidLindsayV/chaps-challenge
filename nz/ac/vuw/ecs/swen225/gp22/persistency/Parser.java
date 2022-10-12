@@ -14,6 +14,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
+import java.util.function.Consumer;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -29,7 +31,7 @@ public class Parser {
 
   /**
    * Load the level layout from an xml file and use it to construct the domain
-   *
+   * 
    * @param levelNum the level number being parsed
    * @return a Domain object representing the level
    */
@@ -47,56 +49,28 @@ public class Parser {
         throw new NullPointerException("No row number specified");
       }
       int rowNumInt = rowNum.intValue();
-      parseStandardNode(
-        rowNumInt,
-        row.elements("wall"),
-        (r, c) -> builder.wall(r, c)
-      );
-      parseStandardNode(
-        rowNumInt,
-        row.elements("exitLock"),
-        (r, c) -> builder.lock(r, c)
-      );
-      parseStandardNode(
-        rowNumInt,
-        row.elements("player"),
-        (r, c) -> builder.player(r, c)
-      );
-      parseStandardNode(
-        rowNumInt,
-        row.elements("treasure"),
-        (r, c) -> builder.treasure(r, c)
-      );
-      parseStandardNode(
-        rowNumInt,
-        row.elements("exit"),
-        (r, c) -> builder.exit(r, c)
-      );
-      parseStandardNode(
-        rowNumInt,
-        row.elements("info"),
-        (r, c) -> builder.info(r, c)
-      );
+      parseStandardNode(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c));
+      parseStandardNode(rowNumInt, row.elements("exitLock"),
+          (r, c) -> builder.lock(r, c));
+      parseStandardNode(rowNumInt, row.elements("player"),
+          (r, c) -> builder.player(r, c));
+      parseStandardNode(rowNumInt, row.elements("treasure"),
+          (r, c) -> builder.treasure(r, c));
+      parseStandardNode(rowNumInt, row.elements("exit"),
+          (r, c) -> builder.exit(r, c));
+      parseStandardNode(rowNumInt, row.elements("info"),
+          (r, c) -> builder.info(r, c));
 
-      parseColourElement(
-        rowNumInt,
-        row.elements("key"),
-        (r, c, colour) -> builder.key(r, c, colour.toUpperCase())
-      );
-      parseColourElement(
-        rowNumInt,
-        row.elements("door"),
-        (r, c, colour) -> builder.door(r, c, colour.toUpperCase())
-      );
-      parsePathElement(
-        rowNumInt,
-        row.elements("enemy"),
-        (r, c, path) -> builder.enemy(r.intValue(), c.intValue(), path)
-      );
+      parseColourElement(rowNumInt, row.elements("key"),
+          (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
+      parseColourElement(rowNumInt, row.elements("door"),
+          (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
+      parsePathElement(rowNumInt, row.elements("enemy"),
+          (e) -> builder.enemy(e));
     }
-
     System.out.println("BREAKPOINT: Domain object created.");
     return builder.make();
+
   }
 
   /**
@@ -111,25 +85,22 @@ public class Parser {
     Point player = domain.getPlayerPosition();
 
     Document document = createLevelDocument(
-      levelLayout,
-      player,
-      domain.getEnemies()
-    );
+        levelLayout,
+        player,
+        domain.getEnemies());
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
     LocalDateTime now = LocalDateTime.now();
     String nowStr = dtf.format(now);
 
-    String directory =
-      "nz/ac/vuw/ecs/swen225/gp22/levels/saved_games/saved_game_" + nowStr;
+    String directory = "nz/ac/vuw/ecs/swen225/gp22/levels/saved_games/saved_game_" + nowStr;
     Path path = Paths.get(directory);
     Files.createDirectory(path);
 
     Recorder.save(directory + "/");
 
     FileWriter fileWriter = new FileWriter(
-      directory + "/saved_game_level" + lastLoadedLevel + ".xml"
-    );
+        directory + "/saved_game_level" + lastLoadedLevel + ".xml");
     OutputFormat format = OutputFormat.createPrettyPrint();
     XMLWriter writer = new XMLWriter(fileWriter, format);
     writer.write(document);
@@ -143,14 +114,13 @@ public class Parser {
    * @return Document representing the current level
    */
   private static Document createLevelDocument(
-    Tile[][] levelLayout,
-    Point playerPos,
-    List<Enemy> enemies
-  ) {
+      Tile[][] levelLayout,
+      Point playerPos,
+      List<Enemy> enemies) {
     Document document = DocumentHelper.createDocument();
     Element level = document
-      .addElement("level")
-      .addAttribute("levelNum", "" + lastLoadedLevel);
+        .addElement("level")
+        .addAttribute("levelNum", "" + lastLoadedLevel);
 
     for (int row = 0; row < levelLayout.length; row++) {
       Element currRow = level.addElement("row").addAttribute("r", "" + row);
@@ -160,19 +130,18 @@ public class Parser {
       for (Enemy e : enemies) {
         if (e.getPosition().row() == row) {
           Element enemyElem = currRow
-            .addElement("enemy")
-            .addAttribute("c", "" + e.getPosition().col());
+              .addElement("enemy")
+              .addAttribute("c", "" + e.getPosition().col());
           e
-            .getPath()
-            .stream()
-            .forEach(
-              p -> {
-                enemyElem
-                  .addElement("path")
-                  .addAttribute("r", "" + p.row())
-                  .addAttribute("c", "" + p.col());
-              }
-            );
+              .getPath()
+              .stream()
+              .forEach(
+                  p -> {
+                    enemyElem
+                        .addElement("path")
+                        .addAttribute("r", "" + p.row())
+                        .addAttribute("c", "" + p.col());
+                  });
         }
       }
       for (int col = 0; col < levelLayout[0].length; col++) {
@@ -197,10 +166,9 @@ public class Parser {
    * @param consumer the consumer to build the tile which takes the row and column
    */
   private static void parseStandardNode(
-    int rowNum,
-    List<Element> elems,
-    BiConsumer<Integer, Integer> consumer
-  ) {
+      int rowNum,
+      List<Element> elems,
+      BiConsumer<Integer, Integer> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (colNum == null) {
@@ -219,10 +187,9 @@ public class Parser {
    *                 colour
    */
   private static void parseColourElement(
-    int rowNum,
-    List<Element> elems,
-    TriConsumer<Integer, Integer, String> consumer
-  ) {
+      int rowNum,
+      List<Element> elems,
+      TriConsumer<Integer, Integer, String> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (colNum == null) {
@@ -238,17 +205,21 @@ public class Parser {
 
   /**
    * Parse a node tile type which has a path i.e an enemy
-   *
+   * 
    * @param rowNum   the current row number
    * @param elems    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row, column
    *                 and the path
    */
-  private static void parsePathElement(
-    int rowNum,
-    List<Element> elems,
-    TriConsumer<Integer, Integer, List<Point>> consumer
-  ) {
+  private static void parsePathElement(int rowNum, List<Element> elems,
+      Consumer<Enemy> consumer) {
+    Class<?> basicEnemyClass = ActorLoader
+        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+            "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
+    if (basicEnemyClass == null) {
+      throw new NullPointerException("No BasicEnemy class found");
+    }
+
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (colNum == null) {
@@ -263,7 +234,13 @@ public class Parser {
         }
         path.add(new Point(pathRow.intValue(), pathCol.intValue()));
       }
-      consumer.accept(rowNum, colNum.intValue(), path);
+      try {
+        Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
+        consumer.accept(enemy);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+
     }
   }
 }

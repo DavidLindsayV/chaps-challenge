@@ -1,8 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import nz.ac.vuw.ecs.swen225.gp22.persistency.ActorLoader;
 
 /**
  * Fluent Builder API for creating a Domain object.
@@ -116,10 +119,19 @@ public class DomainBuilder {
         checkNoPlayerHere(row, col);
         path.stream().forEach(p -> {
             checkWithinAbsoluteLimits(p.row(), p.col());
-            // checkWithinRelativeLimits(p.row(), p.col());
         });
 
-        domainEnemies.add(new Enemy(path));
+        try {
+            Class<?> basicEnemyClass = ActorLoader
+                    .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+                            "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
+
+            Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
+            domainEnemies.add(enemy);
+        } catch (Exception e) {
+            System.out.println("Enemy class loader not found.");
+        }
+
         detectBoundaries(row, col);
         return this;
     }
