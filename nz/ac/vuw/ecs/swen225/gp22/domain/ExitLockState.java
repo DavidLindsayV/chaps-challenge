@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 /**
  * Represents an exit lock, which acts as a wall.
  * If the player carrys ALL TREASURES,
@@ -17,6 +19,7 @@ public class ExitLockState implements FreeTileState {
         // If the player has all the treasures, let him pass.
         if (p.hasAllTreasures()) {
             tile.changeState(EmptyState.of());
+            SoundEffects.playSound("Lock");
         }
     }
 

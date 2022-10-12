@@ -6,21 +6,20 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
+import nz.ac.vuw.ecs.swen225.gp22.app.Main;
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.WallTile;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.MainRecorder;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
+import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
-
-  public Domain domain;
-
-  BoardPanel(Domain domain) {
-    this.domain = domain;
-  }
 
   private static final long serialVersionUID = 1L;
   static final int cols = 11;
@@ -47,8 +46,15 @@ public class BoardPanel extends JPanel {
     g.setColor(new Color(46, 39, 82));
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
-    updateGrid(domain, g);
-    GUI.drawText(g);
+
+    if (Main.gui != null ) {
+      updateGrid(UserListener.currentGame, g);
+      GUI.drawText(g);
+    }
+    if(MainRecorder.gui !=null){
+      updateGrid(ReplayListener.currentGame, g);
+      ReplayGui.drawText(g);
+    }
   }
 
   private void createGrid(Graphics g) {
@@ -103,9 +109,17 @@ public class BoardPanel extends JPanel {
       for (int x = p.col() - 5; x < p.col() + 6; x++) {
         int newX = x - (p.col() - 5);
         int newY = y - (p.row() - 5);
-        //if (y > t.length || y < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
-        //if (x > t[y].length || x < 0) {drawImg(Img.FloorSprite.image, newX, newY, g); continue;}
-        //System.out.println("x: "+ x + "     y: " + y);
+
+        // if out of bounds then draw floorsprite and continue
+        if (y >= t.length || y < 0) {
+          drawImg(Img.FloorSprite.image, newX, newY, g);
+          continue;
+        }
+        if (x >= t.length || x < 0) {
+          drawImg(Img.FloorSprite.image, newX, newY, g);
+          continue;
+        }
+
         if (t[y][x].name().equals("wall")) {
           drawImg(Img.WallSprite.image, newX, newY, g);
         } else if (t[y][x].name().equals("treasure")) {

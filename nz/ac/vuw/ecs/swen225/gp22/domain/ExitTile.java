@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 /**
  * Represents the exit tile.
  * Upon stepping on this tile, it will move the player to the next level.
@@ -16,6 +18,7 @@ public class ExitTile implements Tile {
 
     @Override
     public void acceptPlayer(Player player) {
+        SoundEffects.playSound("Win");
         player.nextLevel();
     }
 

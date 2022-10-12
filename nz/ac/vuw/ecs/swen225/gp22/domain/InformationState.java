@@ -9,7 +9,7 @@ public class InformationState implements FreeTileState {
 
     @Override
     public void performAction(Player p, FreeTile tile) {
-        // Show the information tool tip.
+        Domain.showToolTip();
         return;        
     }
 

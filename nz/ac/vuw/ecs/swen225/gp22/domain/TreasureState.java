@@ -1,5 +1,9 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.net.Socket;
+
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+
 /**
  * Represents treasure.
  * Can pass through.
@@ -15,6 +19,7 @@ public class TreasureState implements FreeTileState {
     @Override
     public void performAction(Player p, FreeTile tile) {
         p.pickUpTreasure();
+        SoundEffects.playSound("Treasure");
         tile.changeState(EmptyState.of());
     }
 

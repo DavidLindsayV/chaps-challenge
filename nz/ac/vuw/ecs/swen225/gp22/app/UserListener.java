@@ -2,11 +2,13 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 import org.dom4j.DocumentException;
 
 /**
@@ -26,12 +28,14 @@ public class UserListener implements KeyListener {
   private static pingTimer timer;
 
   public UserListener() {
-    //Sets up new recorder
-    Recorder.setUp();
     move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
+
+    //Sets up new recorder
+    Recorder.setUp(currentLevel);
+
     System.out.println("starting file name is " + currentLevel);
-    timer = new pingTimer();
+    timer = new pingTimer(currentLevel);
     System.out.println("BREAKPOINT: Loading level...");
     loadLevel();
     System.out.println("BREAKPOINT: Loaded level.");
@@ -44,15 +48,19 @@ public class UserListener implements KeyListener {
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
+        SoundEffects.playSound("Step");
         up();
         break;
       case KeyEvent.VK_DOWN:
+        SoundEffects.playSound("Step");
         down();
         break;
       case KeyEvent.VK_LEFT:
+        SoundEffects.playSound("Step");
         left();
         break;
       case KeyEvent.VK_RIGHT:
+        SoundEffects.playSound("Step");
         right();
         break;
     }
@@ -124,10 +132,10 @@ to be loaded
   public static void loadSavedGame() {
     try {
       currentLevel = fileLevel.getLevelFilename();
-      loadLevel();
-    } catch (Exception e) {
+    } catch (MalformedURLException | DocumentException e) {
       System.out.println("Level loading failed");
     }
+    loadLevel();
   }
 
   /**Pauses game, displays a "Game is paused" dialog */
@@ -152,7 +160,7 @@ to be loaded
 
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
-    Recorder.setUp();
+    Recorder.setUp(currentLevel);
     move = Direction.NONE;
     try {
       currentGame = Parser.loadLevel(currentLevel);
@@ -170,7 +178,7 @@ to be loaded
   private static void loadTimer() {
     System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
-    timer = new pingTimer();
+    timer = new pingTimer(currentLevel);
   }
 
   /**Move Chap in a direction */
@@ -192,6 +200,7 @@ to be loaded
 
   /**Called when the level is lost by Domain*/
   public static void loseLevel() {
+    SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level is lost! Restarting the level"
@@ -201,6 +210,7 @@ to be loaded
 
   /** Called when the user runs out of time on a level*/
   public static void timeOutLevel() {
+    SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level is lost! Your time has run out. Restarting the level"

@@ -13,6 +13,7 @@ public class pingTimer extends Timer {
 
   public static int timeLeftToPlay = 0; //time left to play current level in milliseconds
   private final int pingRate = 200; //the timer will refresh every 200 ms
+  
   //The timerTask that will run ping() each time the timer triggers
   private final TimerTask t = new TimerTask() {
     public void run() {
@@ -20,9 +21,9 @@ public class pingTimer extends Timer {
     }
   };
 
-  public pingTimer() {
+  public pingTimer(String level) {
     super();
-    timeLeftToPlay = 60 * 1000 * getLevelNum(UserListener.currentLevel);
+    timeLeftToPlay = 60 * 1000 * getLevelNum(level);
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
@@ -31,7 +32,7 @@ public class pingTimer extends Timer {
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
-  private int getLevelNum(String level) {
+  public static int getLevelNum(String level) {
     try {
       return Integer.parseInt(
         Character.toString(level.charAt(level.indexOf("level") + 5))
@@ -42,8 +43,10 @@ public class pingTimer extends Timer {
     return 1;
   }
 
-  /**Function that runs whenever the timer triggers */
-  private void ping() {
+  /**
+   * Function that runs whenever the timer triggers 
+   */
+  protected void ping() {
     //Advance the timer
     timeLeftToPlay -= pingRate;
     //If out of time, reload level

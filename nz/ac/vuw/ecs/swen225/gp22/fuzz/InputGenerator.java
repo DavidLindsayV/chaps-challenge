@@ -30,6 +30,8 @@ public class InputGenerator {
      */
     public boolean playNext(UserListener ul){
         inputs.get(index).play(ul);
+
+        // wait for the input to be registered
         try {TimeUnit.MILLISECONDS.sleep(200);}catch(Exception e) {}
         //if (index == 3) { throw new IllegalArgumentException();}				// comment this out to test exceptions
         return (++index < inputs.size());
@@ -39,8 +41,6 @@ public class InputGenerator {
      * set index to the end
      */
     public void finish(){this.index = inputs.size();}
-
-    public void playAll() {} // do this instead ?
 
     /**
      * set current index to certain bit
