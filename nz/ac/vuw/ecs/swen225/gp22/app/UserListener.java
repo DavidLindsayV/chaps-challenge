@@ -32,7 +32,6 @@ public class UserListener implements KeyListener {
     Recorder.setUp();
     move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
-    System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer();
     System.out.println("BREAKPOINT: Loading level...");
     loadLevel();
@@ -140,7 +139,6 @@ to be loaded
   /**Pauses game, displays a "Game is paused" dialog */
   public static void pauseGame() {
     if (!paused) {
-      System.out.println("The game is paused");
       paused = true;
       timer.cancel();
       JOptionPane.showMessageDialog(GUI.instance, "The game is Paused");
@@ -150,7 +148,6 @@ to be loaded
   /**Removed "Game is paused" dialog, resumes game */
   public static void resumeGame() {
     if (paused) {
-      System.out.println("The game has resumed");
       paused = false;
       timer = new pingTimer(timer);
       JOptionPane.getRootFrame().dispose();
