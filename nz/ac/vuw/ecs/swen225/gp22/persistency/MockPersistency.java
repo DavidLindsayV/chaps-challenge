@@ -12,14 +12,14 @@ public class MockPersistency {
   /**
    * Runs a simulation of a game
    */
-  public static void run() {
+  public static void run(String filename) {
     try {
-      Recorder.setUp("level2.xml");
+      Recorder.setUp(filename);
       for (int i = 0; i < 10; i++) {
         Recorder.tick(MockRecorder.randomEnum(Direction.class));
       }
 
-      Domain d = Parser.loadLevel("level1.xml");
+      Domain d = Parser.loadLevel(filename);
       Parser.saveLevel(d);
     } catch (IOException e) {
       e.printStackTrace();

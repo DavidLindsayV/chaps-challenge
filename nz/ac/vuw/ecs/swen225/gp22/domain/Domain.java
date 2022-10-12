@@ -14,10 +14,7 @@ public class Domain {
   private boolean playing;
   
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
-  public static final String TOOLTIP_STRING = 
-  """
-      play the game.
-  """;
+  public static final String TOOLTIP_STRING = "play the game.";
 
   /**
    * Raw constructor.

@@ -20,18 +20,31 @@ import javax.swing.event.ChangeListener;
 
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
+
+/**
+ * This class is similar to the APP GUI, and the structure of it is based around it.
+ * The class extends the Renderer's JFrame class and adds a menu and buttons
+ * to allow display a Replay of a recorded game.
+ * 
+ * It has the replay options of autoplay, and step by step.
+ * 
+ * @author Kalani Sheridan - ID: 300527652
+ */
 public class ReplayGui extends Renderer {
 
+  /**
+   * Public fields.
+   */
   public static ReplayGui instance;
-
   public ReplayListener rl;
 
+  /**
+   * Private fields.
+   */
   private JButton pauseButton;
   private JButton stepButton;
-
   private JSlider speedSlider;
   private JLabel sliderLabel;
-
   private JMenuBar menuBar;
   private JMenu menu;
   private JMenuItem stepByStep;
@@ -82,6 +95,9 @@ public class ReplayGui extends Renderer {
     System.out.println("REPLAY GUI: Keys are listening...");
   }
 
+  /**
+   * Ends the replay, and removes the buttons to continue the replay.
+   */
   public void endOfReplay(){
     JOptionPane.showMessageDialog(frame, "The replay has been completed!");
     this.delPauseButton();
@@ -100,7 +116,7 @@ public class ReplayGui extends Renderer {
   }
 
   /**
-   * Shows the description of replay
+   * Draws game information on the top left, like in the regular gui.
    */
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
@@ -124,6 +140,9 @@ public class ReplayGui extends Renderer {
     );
   }
 
+  /**
+   * Creates a new pause button.
+   */
   private void actPauseButton(){
     //Make a JButton pauseButton
     pauseButton = new JButton("⏸");
@@ -148,12 +167,18 @@ public class ReplayGui extends Renderer {
     panel.add(pauseButton);
   }
 
+  /**
+   * Deletes a pause button if one exists.
+   */
   private void delPauseButton(){
     if(pauseButton != null){
       panel.remove(pauseButton);
     }
   }
 
+  /**
+   * Creates a new step/next-tick button.
+   */
   private void actStepButton(){
     stepButton = new JButton("Next Tick!");
     stepButton.setPreferredSize(new Dimension(100, 40));
@@ -166,12 +191,19 @@ public class ReplayGui extends Renderer {
     stepButton.setBounds(800, 50, 100, 50);
     panel.add(stepButton);
   }
+
+  /**
+   * Deletes a step/next-tick button if one exists.
+   */
   private void delStepButton(){
     if(stepButton != null){
       panel.remove(stepButton);
     }
   }
 
+  /**
+   * Creates a new autoplay speed slider.
+   */
   private void actSpeedSlider(){
     sliderLabel = new JLabel();
     speedSlider = new JSlider(0,400,200);
@@ -187,6 +219,10 @@ public class ReplayGui extends Renderer {
     panel.add(sliderLabel);
     panel.add(speedSlider);
   }
+
+  /**
+   * Deletes a autoplay speed slider if one exists.
+   */
   private void delSpeedSlider(){
     if(sliderLabel != null){
       panel.remove(sliderLabel);
@@ -195,10 +231,17 @@ public class ReplayGui extends Renderer {
       panel.remove(speedSlider);
     }
   }
+
+  /**
+   * TODO: SPEED SLIDER CHANGE NOW
+   */
   private void updateSlider(ChangeEvent e) {
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
   }
 
+  /**
+   * Sets the replay to be autoplay.
+   */
   private void runAutoPlay(){
     System.out.println("Running autoplay");
     delSpeedSlider();
@@ -209,6 +252,9 @@ public class ReplayGui extends Renderer {
     ReplayListener.setAutoPlay();
   }
 
+  /**
+   * Sets the replay to be step by step.
+   */
   private void runStepByStep(){
     System.out.println("Running step by step");
     delSpeedSlider();
@@ -218,6 +264,9 @@ public class ReplayGui extends Renderer {
     ReplayListener.setStepByStep();
   }
 
+  /**
+   * Closes the replay GUI.
+   */
   public static void closeAll() {
     frame.dispose();
     instance.dispose();

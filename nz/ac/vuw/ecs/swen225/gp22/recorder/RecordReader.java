@@ -17,17 +17,19 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
-
+/**
+ * This is the class we will be using to read the saved xml files
+ */
 public class RecordReader {
 
     /**
-     * Loads a recorded game xml document
+     * Loads a recorded game xml document.
      * 
+     * @param <E> - The generic enum.
+     * @param clazz - The class access for the enum.
+     * @return - A list of enum of moves.
      * @throws MalformedURLException
      * @throws DocumentException
-     * 
-     * @return List<E> Where E is an enum
      */
     public static <E extends Enum<E>> List<E> loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
         URL url;
@@ -44,11 +46,14 @@ public class RecordReader {
         return List.of();
     }
 
+
     /**
      * Load a partially completed game for saving again.
      * 
-     * @throws DocumentException
+     * @param <E> - The generic enum.
+     * @param clazz - The class access for the enum.
      * @throws MalformedURLException
+     * @throws DocumentException
      */
     public static <E extends Enum<E>> void loadPartial(Class<E> clazz) throws MalformedURLException, DocumentException {
         
@@ -63,8 +68,13 @@ public class RecordReader {
         Recorder.setDocument(doc);
     }
     
+
     /**
-     * Parses the xml file
+     * Parses the xml file.
+     * 
+     * @param url - The url of the document we are reading.
+     * @return - A dom4j document from the file.
+     * @throws DocumentException
      */
     private static Document parse(URL url) throws DocumentException{
         SAXReader reader = new SAXReader();
@@ -72,8 +82,15 @@ public class RecordReader {
         return document;
     }
 
+
     /**
      * Method to read the xml file and turn it into an action list.
+     * 
+     * @param <E> - The generic enum.
+     * @param clazz - The class access for the enum.
+     * @param doc - A dom4j document we are going to turn into a list.
+     * @return - A list of enum of moves.
+     * @throws XmlFormatException
      */
     private static <E extends Enum<E>> List<E> actionList(Class<E> clazz, Document doc) throws XmlFormatException {
         Element e = doc.getRootElement();
