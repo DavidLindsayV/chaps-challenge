@@ -8,10 +8,10 @@ public class MockRecorder {
 
     /**
      * Get random enum clas for testing, not my method.
-     * 
      * Found here: https://stackoverflow.com/questions/1972392/pick-a-random-value-from-an-enum
      * 
-     * @param Class<T>
+     * @param <T>  - Generic enum type
+     * @param clazz  - The enum class
      * @return
      */
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){

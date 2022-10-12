@@ -10,6 +10,9 @@ import org.dom4j.DocumentHelper;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
+/** 
+ * The Recorder class, the place where every other class will access Recorder/Replay functions/methods. 
+ */
 public class Recorder {
 
     /** 
@@ -21,10 +24,13 @@ public class Recorder {
     private static String level;
 
 
+
     /**
-     * Called when a new level is created.
+     * Called when a new level is created/started.
      * 
      * Creates the dom4j document and record writer, for a new level
+     * 
+     * @param level - The level xml name
      */
     public static void setUp(String level){
         System.out.println("RECORDER: Recorder has been setup.");
@@ -33,14 +39,20 @@ public class Recorder {
     }
 
     /**
-     * Record a given tick
+     * Record a given tick.
+     * 
+     * @param <E> - Generic enum class
+     * @param move - The move enum
      */
     public static <E extends Enum<E>> void tick(E move){
         recWriter.tick(move);
     }
 
+
     /**
      * Saves a recorded game to an xml file.
+     * 
+     * @param directory - The directory of where to save the game
      */
     public static void save(String directory) {
         System.out.println("RECORDER: Recorder has saved.");
@@ -74,29 +86,39 @@ public class Recorder {
         }
     }
 
-    /** 
-     * Sets a new record writer.
+    /**
+     * Sets a new record writer. 
+     *
+     * @param writer - The new writer to set.
      */
     public static void setWriter(RecordWriter writer){
         recWriter = writer;
     }
-    
-    /** 
+
+
+    /**
      * Sets a new Document.
+     * 
+     * @param doc - The new document to set
      */
     public static void setDocument(Document doc){
         document = doc;
     }
 
+
     /**
-     * Gets the level
+     * Gets the level.
      */
     public static String getLevel(){ 
         if(level == null) return "level1.xml";
         return Recorder.level; 
     }
+
+
     /**
-     * Sets the level
+     * Sets the level.
+     * 
+     * @param levelToSet
      */
     public static void setLevel(String levelToSet){ 
         Recorder.level = levelToSet; 

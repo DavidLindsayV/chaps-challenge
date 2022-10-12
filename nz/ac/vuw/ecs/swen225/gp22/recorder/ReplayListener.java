@@ -12,28 +12,35 @@ import org.dom4j.DocumentException;
 import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 /**
- * This class listens and reacts to keypresses of the user
+ * This class listens to player input for the replay and does actions based on that.
+ * This class is based on the structure of APPS UserListener as it does similar things to it,
+ * and the other classes are made based around its structure.
+ * 
+ * @author Kalani Sheridan - ID: 300527652
  */
 public class ReplayListener implements KeyListener {
 
-  //Stores the Domain of the current level
+  /**
+   * Public fields.
+   */
   public static Domain currentGame;
   public static Direction move;
   public static boolean paused = false;
   public static String currentLevel;
-
+  public static boolean isAutoPlay = false;
   public static int displayTime;
 
-  //The timer for when the game is in autoPlay
+  /**
+   * Private fields.
+   */
   private static ReplayTimer timer;
-
-  public static boolean isAutoPlay = false;
-
-  //The current index for the move we are on
   private static int index;
-  //The list of moves
   private static List<Direction> moves;
 
+
+  /**
+   * The contructor of a new ReplayListener.
+   */
   public ReplayListener() {
     isAutoPlay = false;
     moves = Recorder.load();
@@ -53,12 +60,21 @@ public class ReplayListener implements KeyListener {
     System.out.println("REPLAY LISTENER: Loaded level.");
   }
 
+  /**
+   * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyTyped(KeyEvent e) {}
 
+  /**
+   * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyPressed(KeyEvent e) { }
 
+  /**
+   * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
@@ -72,7 +88,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Exits the replay GUI
+   * Exits the replay GUI.
    */
   public static void exitGame() {
     ReplayGui.closeAll();
@@ -80,7 +96,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Pauses game, displays a "Game is paused" dialog
+   * Pauses game.
    */
   public static void pauseGame() {
     System.out.println("The game is paused");
@@ -90,7 +106,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Removed "Game is paused" dialog, resumes game 
+   * Resumes game 
    */
   public static void resumeGame() {
     System.out.println("The game has resumed");
@@ -100,7 +116,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Starts the level of the game based on currentLevel string
+   * Starts the level of the game based on currentLevel string.
    */
   public static void loadLevel() {
     try {
@@ -114,7 +130,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Creates the timer for a level
+   * Creates the Replay timer for a level
    */
   private static void loadTimer() {
     System.out.println("BREAKPOINT: Ping timer is loaded.");
@@ -123,7 +139,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Go to the next move
+   * Do the next step in the game.
    */
   public static void nextMove() {
     if(index<moves.size()-1){
@@ -145,7 +161,9 @@ public class ReplayListener implements KeyListener {
     }   
   }
 
-
+  /**
+   * Sets the ReplayListener to do autoplay.
+   */
   public static void setAutoPlay(){
     isAutoPlay = true;
     if (MainRecorder.gui != null) {
@@ -154,6 +172,9 @@ public class ReplayListener implements KeyListener {
     }
   }
 
+  /**
+   * Sets the ReplayListener to do Step-By-Step.
+   */
   public static void setStepByStep(){
     isAutoPlay = false;
     if (MainRecorder.gui != null) {
@@ -162,6 +183,11 @@ public class ReplayListener implements KeyListener {
     }
   }
 
+  /**
+   * Change the speed for the timer.
+   * 
+   * @param speed - The speed of the timer we are changing too.
+   */
   public static void changeTimerSpeed(int speed){
     timer.changeSpeed(speed);
   }
