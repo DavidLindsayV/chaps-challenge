@@ -9,9 +9,6 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
  */
 public class Main {
 
-  //A field which stores the JFrame the game runs/displays through
-  public static GUI gui;
-
   /** Starts the game
    * @param args
    */
@@ -20,7 +17,7 @@ public class Main {
     SwingUtilities.invokeLater(
       () -> {
         System.out.println("BREAKPOINT: Creating GUI....");
-        gui = new GUI();
+        new GUI();
       }
     );
   }
