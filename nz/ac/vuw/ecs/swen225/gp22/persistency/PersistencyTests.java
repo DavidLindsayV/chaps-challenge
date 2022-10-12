@@ -77,7 +77,6 @@ public class PersistencyTests {
     public void testLoadingLevel2() {
         try {
             Domain d = Parser.loadLevel("level2.xml");
-            System.out.println(d.toString());
             assertEquals(d.toString(), level2Layout);
         } catch (DocumentException e) {
             assert false : e.getMessage();
@@ -178,6 +177,64 @@ public class PersistencyTests {
         } catch (NullPointerException e) {
             assert true;
         }
+    }
+    
+//    @Test
+//    public void testNoTreasure() {
+//        try {
+//            Parser.loadLevel("tests/noTreasure.xml");
+//            fail("Failed to detect no treasure");
+//        } catch (DocumentException e) {
+//            assert false : e.getMessage();
+//        } catch (NullPointerException e) {
+//            assert true;
+//        }
+//    }
+    
+    @Test
+    public void testColourNodeWithNoCol() {
+    	try {
+            Parser.loadLevel("tests/keyWithNoCol.xml");
+            fail("Failed to detect no col");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
+        }
+    }
+    
+    @Test
+    public void testIncorrectFilename() {
+    	try {
+            Parser.loadLevel("blah");
+            fail("Failed to detect bad filename");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+    }
+    
+    @Test
+    public void testNullFilename() {
+    	try {
+            Parser.loadLevel(null);
+            fail("Failed to detect null filename");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+    }
+    
+    @Test
+    public void testLoadingAndSavingLevel1() {
+    	MockPersistency.run("level1.xml");
+    }
+    
+    @Test
+    public void testLoadingAndSavingLevel2() {
+    	MockPersistency.run("level2.xml");
     }
 
     @Test
