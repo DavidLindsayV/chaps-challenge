@@ -36,10 +36,10 @@ public class Parser {
    * @return a Domain object representing the level
    */
   public static Domain loadLevel(String filename) throws DocumentException {
-	if(filename == null || !filename.endsWith(".xml")) {
-		throw new IllegalArgumentException("Incorrect filename given");
-	}
-	
+    if (filename == null || !filename.endsWith(".xml")) {
+      throw new IllegalArgumentException("Incorrect filename given");
+    }
+
     SAXReader reader = new SAXReader();
     File levelFile = new File("nz/ac/vuw/ecs/swen225/gp22/levels/" + filename);
     Document document = reader.read(levelFile);
@@ -246,7 +246,7 @@ public class Parser {
   private static void parsePathElement(int rowNum, List<Element> elems,
       Consumer<Enemy> consumer) {
     Class<?> basicEnemyClass = ActorLoader
-        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
             "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");

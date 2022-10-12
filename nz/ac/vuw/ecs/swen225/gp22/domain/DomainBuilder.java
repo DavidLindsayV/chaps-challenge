@@ -123,7 +123,7 @@ public class DomainBuilder {
 
         try {
             Class<?> basicEnemyClass = ActorLoader
-                    .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+                    .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
                             "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
 
             Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
