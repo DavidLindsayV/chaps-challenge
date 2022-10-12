@@ -28,12 +28,14 @@ public class UserListener implements KeyListener {
   private static pingTimer timer;
 
   public UserListener() {
-    //Sets up new recorder
-    Recorder.setUp();
     move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
+
+    //Sets up new recorder
+    Recorder.setUp(currentLevel);
+
     System.out.println("starting file name is " + currentLevel);
-    timer = new pingTimer();
+    timer = new pingTimer(currentLevel);
     System.out.println("BREAKPOINT: Loading level...");
     loadLevel();
     System.out.println("BREAKPOINT: Loaded level.");
@@ -158,7 +160,7 @@ to be loaded
 
   /**Starts the level of the game based on currentLevel string*/
   public static void loadLevel() {
-    Recorder.setUp();
+    Recorder.setUp(currentLevel);
     move = Direction.NONE;
     try {
       currentGame = Parser.loadLevel(currentLevel);
@@ -176,7 +178,7 @@ to be loaded
   private static void loadTimer() {
     System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
-    timer = new pingTimer();
+    timer = new pingTimer(currentLevel);
   }
 
   /**Move Chap in a direction */

@@ -21,9 +21,11 @@ public class RecordWriter {
     /**
      * Recorder constructor, writing to a given org.dom4j.Document.
      */
-    public RecordWriter(Document document) {
+    public RecordWriter(Document document, String level) {
         this.document = document;
         this.game = this.document.addElement("game");
+        this.game.addElement("level")
+                 .addText(level);
         this.tickNum = 0;
     }
 
