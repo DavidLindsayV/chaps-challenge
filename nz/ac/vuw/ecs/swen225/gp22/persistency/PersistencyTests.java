@@ -87,17 +87,43 @@ public class PersistencyTests {
     @Test
     public void testNoRowNumber() {
         try {
-            Domain d = Parser.loadLevel("tests/noRowNumber.xml");
-            assertThrows(NullPointerException.class, () -> System.out.println("No row number not detected"));
+            Parser.loadLevel("tests/noRowNumber.xml");
+            fail("Failed to detect no row number specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
+        }
+    }
+
+    @Test
+    public void testNoColNumber() {
+        try {
+            Parser.loadLevel("tests/noColNumber.xml");
+            fail("Failed to detect no col number specified");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
+        }
+    }
+
+    @Test
+    public void testNoLevelNumber() {
+        try {
+            Parser.loadLevel("tests/noLevelNumber.xml");
+            fail("Failed to detect no level number specified");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
         }
     }
 
     @Test
     public void testNoKeyColourSpecified() {
         try {
-            Domain d = Parser.loadLevel("tests/keyWithNoColour.xml");
+            Parser.loadLevel("tests/keyWithNoColour.xml");
             fail("Failed to detect no colour specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
@@ -109,7 +135,7 @@ public class PersistencyTests {
     @Test
     public void testNoPlayerPosition() {
         try {
-            Domain d = Parser.loadLevel("tests/noPlayer.xml");
+            Parser.loadLevel("tests/noPlayer.xml");
             fail("Failed to detect no player specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
@@ -121,7 +147,7 @@ public class PersistencyTests {
     @Test
     public void testNoExitPosition() {
         try {
-            Domain d = Parser.loadLevel("tests/noExit.xml");
+            Parser.loadLevel("tests/noExit.xml");
             fail("Failed to detect no exit specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
@@ -133,7 +159,7 @@ public class PersistencyTests {
     @Test
     public void testNoDoorColourSpecified() {
         try {
-            Domain d = Parser.loadLevel("tests/doorWithNoColour.xml");
+            Parser.loadLevel("tests/doorWithNoColour.xml");
             fail("Failed to detect no colour specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
@@ -145,7 +171,7 @@ public class PersistencyTests {
     @Test
     public void testNoEnemyPathSpecified() {
         try {
-            Domain d = Parser.loadLevel("tests/enemyWithNoPath.xml");
+            Parser.loadLevel("tests/enemyWithNoPath.xml");
             fail("Failed to detect no path specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
