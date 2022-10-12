@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -20,6 +21,7 @@ import org.dom4j.io.XMLWriter;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
@@ -65,7 +67,7 @@ public class Parser {
             parseColourElement(rowNumInt, row.elements("door"),
                     (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
             parsePathElement(rowNumInt, row.elements("enemy"),
-                    (r, c, path) -> builder.enemy(r.intValue(), c.intValue(), path));
+                    (e) -> builder.enemy(e));
 
         }
 
@@ -191,7 +193,14 @@ public class Parser {
      *                 and the path
      */
     private static void parsePathElement(int rowNum, List<Element> elems,
-            TriConsumer<Integer, Integer, List<Point>> consumer) {
+            Consumer<Enemy> consumer) {
+        Class<?> basicEnemyClass = ActorLoader
+                .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+                        "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
+        if (basicEnemyClass == null) {
+            throw new NullPointerException("No BasicEnemy class found");
+        }
+
         for (Element e : elems) {
             Number colNum = e.numberValueOf("@c");
             if (colNum == null) {
@@ -206,7 +215,13 @@ public class Parser {
                 }
                 path.add(new Point(pathRow.intValue(), pathCol.intValue()));
             }
-            consumer.accept(rowNum, colNum.intValue(), path);
+            try {
+                Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
+                consumer.accept(enemy);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
         }
     }
 }
