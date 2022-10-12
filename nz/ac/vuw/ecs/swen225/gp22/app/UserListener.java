@@ -115,10 +115,11 @@ public class UserListener implements KeyListener {
 application will be started
    */
   public static void saveGame() {
+    JOptionPane.showMessageDialog(GUI.instance, "Saving current game");
     try {
       Parser.saveLevel(currentGame);
     } catch (IOException e) {
-      System.out.println("Error occurred saving game");
+      System.out.println("Error occurred while saving game");
     }
     fileLevel.saveStartingFileName(currentLevel);
     exitGame();
