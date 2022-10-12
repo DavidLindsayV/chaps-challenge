@@ -67,15 +67,19 @@ public class Parser {
           (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
       parsePathElement(rowNumInt, row.elements("enemy"),
           (e) -> builder.enemy(e));
+
     }
+
     System.out.println("BREAKPOINT: Domain object created.");
-    return builder.make();
+    Domain d = builder.make();
+    assert d != null;
+    return d;
 
   }
 
   /**
    * Save the current level state to an xml file so that it can be loaded later
-   *
+   * 
    * @param domain the current game domain
    * @throws IOException
    */
@@ -84,16 +88,11 @@ public class Parser {
     Tile[][] levelLayout = domain.getInnerState();
     Point player = domain.getPlayerPosition();
 
-    Document document = createLevelDocument(
-        levelLayout,
-        player,
-        domain.getEnemies());
+    Document document = createLevelDocument(levelLayout, player, domain.getEnemies());
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
-    LocalDateTime now = LocalDateTime.now();
-    String nowStr = dtf.format(now);
+    String nowStr = getCurrentTime();
 
-    String directory = "nz/ac/vuw/ecs/swen225/gp22/levels/saved_games/saved_game_" + nowStr;
+    String directory = "saved_game_" + nowStr;
     Path path = Paths.get(directory);
     Files.createDirectory(path);
 
@@ -108,67 +107,95 @@ public class Parser {
   }
 
   /**
+   * Find and return the current date and time as a string in the format
+   * dd-MM-yyyy-HHmmss
+   * 
+   * @return current time
+   */
+  public static String getCurrentTime() {
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
+    LocalDateTime now = LocalDateTime.now();
+    String nowStr = dtf.format(now);
+    return nowStr;
+  }
+
+  /**
    * Create a Document representation of the current level layout
-   *
+   * 
    * @param levelLayout 2D array of the positions of tiles on the current level
    * @return Document representing the current level
    */
-  private static Document createLevelDocument(
-      Tile[][] levelLayout,
-      Point playerPos,
-      List<Enemy> enemies) {
+  private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies) {
     Document document = DocumentHelper.createDocument();
-    Element level = document
-        .addElement("level")
-        .addAttribute("levelNum", "" + lastLoadedLevel);
+    Element level = document.addElement("level").addAttribute("levelNum", "" + lastLoadedLevel);
 
     for (int row = 0; row < levelLayout.length; row++) {
       Element currRow = level.addElement("row").addAttribute("r", "" + row);
       if (playerPos.row() == row) {
         currRow.addElement("player").addAttribute("c", "" + playerPos.col());
       }
-      for (Enemy e : enemies) {
-        if (e.getPosition().row() == row) {
-          Element enemyElem = currRow
-              .addElement("enemy")
-              .addAttribute("c", "" + e.getPosition().col());
-          e
-              .getPath()
-              .stream()
-              .forEach(
-                  p -> {
-                    enemyElem
-                        .addElement("path")
-                        .addAttribute("r", "" + p.row())
-                        .addAttribute("c", "" + p.col());
-                  });
-        }
-      }
-      for (int col = 0; col < levelLayout[0].length; col++) {
-        Tile t = levelLayout[row][col];
-        String name = t.name();
-        if (!name.equals("empty")) {
-          Element tile = currRow.addElement(name).addAttribute("c", "" + col);
-          if (name.equals("door") || name.equals("key")) {
-            tile.addAttribute("colour", t.colour());
-          }
-        }
-      }
+      currRow = addEnemies(currRow, enemies, row);
+      currRow = addTiles(levelLayout, row, currRow);
     }
     return document;
   }
 
   /**
+   * Add all standard tile to the level document
+   * 
+   * @param levelLayout the current tile layout
+   * @param row         current row number
+   * @param currRow     the element representing the row we are constructing for
+   *                    the document
+   * @return the updated row element
+   */
+  private static Element addTiles(Tile[][] levelLayout, int row, Element currRow) {
+    for (int col = 0; col < levelLayout[0].length; col++) {
+      Tile t = levelLayout[row][col];
+      String name = t.name();
+      if (!name.equals("empty")) {
+        Element tile = currRow.addElement(name).addAttribute("c", "" + col);
+        if (name.equals("door") || name.equals("key")) {
+          tile.addAttribute("colour", t.colour());
+        }
+      }
+    }
+    return currRow;
+  }
+
+  /**
+   * Add all enemies to the level document
+   * 
+   * @param currRow the element representing the row we are constructing for
+   *                the document
+   * @param enemies list of all the enemies on the current level
+   * @param row     the current row number
+   * @return the updated row element
+   */
+  private static Element addEnemies(Element currRow, List<Enemy> enemies, int row) {
+    if (enemies.isEmpty()) {
+      return currRow;
+    }
+    for (Enemy e : enemies) {
+      if (e.getPosition().row() == row) {
+        Element enemyElem = currRow.addElement("enemy").addAttribute("c", "" + e.getPosition().col());
+        e.getPath().stream().forEach(p -> {
+          enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
+              + p.col());
+        });
+      }
+    }
+    return currRow;
+  }
+
+  /**
    * Parse a standard node which only has a column attribute e.g wall
-   *
+   * 
    * @param rowNum   the current row number
    * @param nodes    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row and column
    */
-  private static void parseStandardNode(
-      int rowNum,
-      List<Element> elems,
-      BiConsumer<Integer, Integer> consumer) {
+  private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (colNum == null) {
@@ -180,15 +207,13 @@ public class Parser {
 
   /**
    * Parse a node tile type which has a colour attribute e.g door, key
-   *
+   * 
    * @param rowNum   the current row number
    * @param elems    the tile elements being parsed
    * @param consumer the consumer to build the tile which take row, column and the
    *                 colour
    */
-  private static void parseColourElement(
-      int rowNum,
-      List<Element> elems,
+  private static void parseColourElement(int rowNum, List<Element> elems,
       TriConsumer<Integer, Integer, String> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
