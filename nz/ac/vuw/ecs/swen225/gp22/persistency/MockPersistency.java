@@ -19,7 +19,7 @@ public class MockPersistency {
         Recorder.tick(MockRecorder.randomEnum(Direction.class));
       }
 
-      Domain d = Parser.loadLevel("level2.xml");
+      Domain d = Parser.loadLevel("level1.xml");
       Parser.saveLevel(d);
     } catch (IOException e) {
       e.printStackTrace();

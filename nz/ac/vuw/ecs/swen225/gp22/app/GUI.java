@@ -132,11 +132,11 @@ public class GUI extends Renderer {
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
-  public void showToolTip(String toolTip) {
-    JOptionPane.showMessageDialog(this, toolTip);
+  public static void showToolTip(String toolTip) {
+    JOptionPane.showMessageDialog(GUI.instance, toolTip);
   }
 
-  public void removeToolTip() {
+  public static void removeToolTip() {
     JOptionPane.getRootFrame().dispose();
   }
 
@@ -144,7 +144,11 @@ public class GUI extends Renderer {
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
-    g.drawString("Current level: " + UserListener.currentLevel, 50, 50);
+    g.drawString(
+      "Current level: " + shortenLevelName(UserListener.currentLevel),
+      50,
+      50
+    );
     g.setColor(Color.YELLOW);
     g.drawString("Time left: " + pingTimer.timeLeftToPlay / 1000, 50, 70);
     g.setColor(Color.GREEN);
@@ -176,5 +180,12 @@ public class GUI extends Renderer {
   /**A function to close all the JFrames */
   public static void closeAll() {
     instance.dispose();
+  }
+
+  private static String shortenLevelName(String levelName) {
+    return levelName.substring(
+      Math.max(0, levelName.lastIndexOf("/") + 1),
+      levelName.length() - 4
+    );
   }
 }
