@@ -7,10 +7,11 @@ import java.net.URLClassLoader;
 
 public class ActorLoader {
 
-     /** 
+    /**
      * Get the class from a specified jar file
-     * @param jarFile  the jar file with the class in it
-     * @param className    the name of the class to be found
+     * 
+     * @param jarFile   the jar file with the class in it
+     * @param className the name of the class to be found
      * @return the class object
      */
     public static Class<?> getClass(File jarFile, String className) {
@@ -25,10 +26,3 @@ public class ActorLoader {
         return null;
     }
 }
-
-//
-//
-
-//
-
-//
