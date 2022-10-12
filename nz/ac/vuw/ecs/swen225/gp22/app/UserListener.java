@@ -218,9 +218,10 @@ to be loaded
   public static void nextLevel() {
     JOptionPane.showMessageDialog(
       GUI.instance,
-      "The level " + currentLevel + " is won! Now starting level 2"
+      "The level " +
+      GUI.shortenLevelName(currentLevel) +
+      " is won! \n Restarting current level."
     );
-    currentLevel = "level2.xml";
     loadLevel();
   }
 }
