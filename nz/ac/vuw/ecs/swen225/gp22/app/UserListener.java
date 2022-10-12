@@ -28,6 +28,9 @@ public class UserListener implements KeyListener {
   //The timer that calls ping
   private static pingTimer timer;
 
+  /**
+   * Constructor for UserListener
+   */
   public UserListener() {
     move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
@@ -35,6 +38,7 @@ public class UserListener implements KeyListener {
     //Sets up new recorder
     Recorder.setUp(currentLevel);
 
+    //Create new timer and load level
     System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer(currentLevel);
     System.out.println("BREAKPOINT: Loading level...");
@@ -42,9 +46,15 @@ public class UserListener implements KeyListener {
     System.out.println("BREAKPOINT: Loaded level.");
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyTyped(KeyEvent e) {}
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
@@ -67,6 +77,9 @@ public class UserListener implements KeyListener {
     }
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
@@ -82,6 +95,9 @@ public class UserListener implements KeyListener {
     }
   }
 
+  /** Runs the commands accessed by Ctrl (eg ctrl-1, ctrl-2, ctrl-x)
+   * @param e
+   */
   private void ctrlCommands(KeyEvent e) {
     if (e.isControlDown()) {
       switch (e.getKeyCode()) {
@@ -181,19 +197,22 @@ to be loaded
     timer = new pingTimer(currentLevel);
   }
 
-  /**Move Chap in a direction */
+  /**Move up */
   private void up() {
     move = Direction.UP;
   }
 
+  /**Move down */
   private void down() {
     move = Direction.DOWN;
   }
 
+  /**Move left */
   private void left() {
     move = Direction.LEFT;
   }
 
+  /**Move right */
   private void right() {
     move = Direction.RIGHT;
   }
@@ -227,5 +246,12 @@ to be loaded
       " is won! \n Restarting current level."
     );
     loadLevel();
+  }
+
+  /**
+   * @return the listeners pingTmer
+   */
+  public static pingTimer timer() {
+    return timer;
   }
 }

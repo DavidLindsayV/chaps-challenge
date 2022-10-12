@@ -9,8 +9,12 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
  */
 public class Main {
 
+  //A field which stores the JFrame the game runs/displays through
   public static GUI gui;
 
+  /** Starts the game
+   * @param args
+   */
   public static void main(String[] args) {
     SoundEffects.playSound("music");
     SwingUtilities.invokeLater(

@@ -38,3 +38,7 @@ TASKS LEFT:
 - Made beating level 2 print out a different message
 - Test loading of saved games works
 - Make sure you used at least 1 coding pattern
+
+code changes I would like to Make
+- pingTimers second constructor, make it not take in an argument
+- Remove Main.gui and just use GUI.instanceF

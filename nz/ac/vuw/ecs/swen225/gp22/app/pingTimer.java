@@ -12,7 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
  */
 public class pingTimer extends Timer {
 
-  public static int timeLeftToPlay = 0; //time left to play current level in milliseconds
+  private int timeLeftToPlay = 0; //time left to play current level in milliseconds
   private final int pingRate = 200; //the timer will refresh every 200 ms
 
   //The timerTask that will run ping() each time the timer triggers
@@ -22,17 +22,28 @@ public class pingTimer extends Timer {
     }
   };
 
+  /** Creates a new pingTimer
+   * @param level
+   */
   public pingTimer(String level) {
     super();
     timeLeftToPlay = 60 * 1000 * getLevelNum(level);
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
+  /** Creates a new pingTimer with timeLeftToPlay copied from other pingTimer
+   * @param p
+   */
   public pingTimer(pingTimer p) {
     super();
+    this.timeLeftToPlay = p.timeLeftToPlay;
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
+  /** Extracts the level number from the level name
+   * @param level
+   * @return the number of the level (1 or 2)
+   */
   public static int getLevelNum(String level) {
     try {
       return Integer.parseInt(
@@ -46,6 +57,7 @@ public class pingTimer extends Timer {
 
   /**
    * Function that runs whenever the timer triggers
+   * Redraws the GUI, moves the player, and updates the time left to play
    */
   protected void ping() {
     //Advance the timer
@@ -68,10 +80,20 @@ public class pingTimer extends Timer {
     redrawJFrame();
   }
 
+  /**
+   * Redraws the JFrame of GUI
+   */
   private void redrawJFrame() {
-    if (Main.gui != null) {
-      Main.gui.panel.revalidate();
-      Main.gui.panel.repaint();
+    if (GUI.instance != null) {
+      GUI.instance.panel.revalidate();
+      GUI.instance.panel.repaint();
     }
+  }
+
+  /**Getter for timeLeftToPlay
+   * @return timeLeftToPlay
+   */
+  public int timeLeftToPlay() {
+    return this.timeLeftToPlay;
   }
 }
