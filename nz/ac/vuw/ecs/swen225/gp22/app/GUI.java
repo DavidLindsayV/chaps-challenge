@@ -57,24 +57,24 @@ public class GUI extends Renderer {
     "- Avoid colliding with enemies\n";
 
   //A field to store the JFrame for replaying recorded levels
-  ReplayGUI replayGUI;
+  private ReplayGUI replayGUI;
 
   /**
    * Adds the key listener, creates the buttons and creates the JMenu
    */
   public GUI() {
     super(1000, 1000);
+    setUpGUI();
     instance = this;
     System.out.println("BREAKPOINT: Creating user listener....");
     listener = new UserListener();
-    setUpGUI();
     setLayout(new BorderLayout());
     //Make a JButton pauseButton
     pauseButton = new JButton("⏸");
     pauseButton.setPreferredSize(new Dimension(40, 40));
     pauseButton.addActionListener(
       e -> {
-        if (!UserListener.paused) {
+        if (!UserListener.paused()) {
           pauseGame();
         } else {
           resumeGame();
@@ -156,7 +156,7 @@ public class GUI extends Renderer {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
     g.drawString(
-      "Current level: " + shortenLevelName(UserListener.currentLevel),
+      "Current level: " + shortenLevelName(UserListener.currentLevel()),
       50,
       50
     );

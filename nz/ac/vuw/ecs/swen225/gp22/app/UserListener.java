@@ -20,11 +20,11 @@ public class UserListener implements KeyListener {
   //Stores the Domain of the current level
   public static Domain currentGame;
   //The direction the player will move this ping
-  public static Direction move;
+  private static Direction move;
   //Whether the game is paused
-  public static boolean paused = false;
+  private static boolean paused = false;
   //The current level being played
-  public static String currentLevel;
+  private static String currentLevel;
   //The timer that calls ping
   private static pingTimer timer;
 
@@ -253,5 +253,33 @@ to be loaded
    */
   public static pingTimer timer() {
     return timer;
+  }
+
+  /**
+   * @return move
+   */
+  public static Direction move() {
+    return move;
+  }
+
+  /**Sets the move
+   * @param move
+   */
+  public static void setMove(Direction move) {
+    UserListener.move = move;
+  }
+
+  /**
+   * @return paused
+   */
+  public static boolean paused() {
+    return paused;
+  }
+
+  /**
+   * @return currentLevel
+   */
+  public static String currentLevel() {
+    return currentLevel;
   }
 }
