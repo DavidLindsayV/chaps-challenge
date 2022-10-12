@@ -165,5 +165,7 @@ public class BoardPanel extends JPanel {
         }
       }
     }
+    
+    d.getEnemies().stream().forEach(e -> drawImage(Img.Enemy.image, e.getPosition().col(), e.getPosition.row(), g));
   }
 }
