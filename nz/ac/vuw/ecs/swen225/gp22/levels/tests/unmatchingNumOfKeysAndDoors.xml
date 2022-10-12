@@ -1,0 +1,20 @@
+<level levelNum="1">
+    <row r="0" />
+        <key c="1" colour="green" />
+        <door c="2" colour="green" />
+    <row r="1" />
+        <key c="1" colour="pink" />
+    <row r="2">
+        <treasure c="3" />
+        <player c="4" />
+    </row>
+    <row r="3">
+        <wall c="3" />
+        <wall c="4" />
+        <wall c="5" />
+        <exitLock c="2" />
+    </row>
+    <row r="4">
+        <exit c="2" />
+    </row>
+</level>

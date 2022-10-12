@@ -36,16 +36,23 @@ public class Parser {
    * @return a Domain object representing the level
    */
   public static Domain loadLevel(String filename) throws DocumentException {
+    if (filename == null || !filename.endsWith(".xml")) {
+      throw new IllegalArgumentException("Incorrect filename given");
+    }
+
     SAXReader reader = new SAXReader();
     File levelFile = new File("nz/ac/vuw/ecs/swen225/gp22/levels/" + filename);
     Document document = reader.read(levelFile);
 
     Element levelElement = document.getRootElement();
+    if (((Double) levelElement.numberValueOf("@levelNum")).isNaN()) {
+      throw new NullPointerException("No level number specified");
+    }
     lastLoadedLevel = levelElement.numberValueOf("@levelNum").intValue();
     DomainBuilder builder = new DomainBuilder();
     for (Element row : levelElement.elements("row")) {
       Number rowNum = row.numberValueOf("@r");
-      if (rowNum == null) {
+      if (((Double) rowNum).isNaN()) {
         throw new NullPointerException("No row number specified");
       }
       int rowNumInt = rowNum.intValue();
@@ -198,7 +205,7 @@ public class Parser {
   private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
-      if (colNum == null) {
+      if (((Double) colNum).isNaN()) {
         throw new NullPointerException("No col number specified");
       }
       consumer.accept(rowNum, colNum.intValue());
@@ -217,12 +224,12 @@ public class Parser {
       TriConsumer<Integer, Integer, String> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
-      if (colNum == null) {
+      if (((Double) colNum).isNaN()) {
         throw new NullPointerException("No col number specified");
       }
       String colour = e.valueOf("@colour");
       if (colour.isEmpty()) {
-        throw new IllegalArgumentException("No colour specified");
+        throw new NullPointerException("No colour specified");
       }
       consumer.accept(rowNum, colNum.intValue(), colour);
     }
@@ -239,7 +246,7 @@ public class Parser {
   private static void parsePathElement(int rowNum, List<Element> elems,
       Consumer<Enemy> consumer) {
     Class<?> basicEnemyClass = ActorLoader
-        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
             "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");
@@ -247,17 +254,20 @@ public class Parser {
 
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
-      if (colNum == null) {
+      if (((Double) colNum).isNaN()) {
         throw new NullPointerException("No col number specified");
       }
       List<Point> path = new ArrayList<Point>();
       for (Node pathStep : e.elements("path")) {
         Number pathRow = pathStep.numberValueOf("@r");
         Number pathCol = pathStep.numberValueOf("@c");
-        if (pathRow == null || pathCol == null) {
+        if (((Double) pathRow).isNaN() || ((Double) pathCol).isNaN()) {
           throw new NullPointerException("Path point has not been specified");
         }
         path.add(new Point(pathRow.intValue(), pathCol.intValue()));
+      }
+      if (path.isEmpty()) {
+        throw new NullPointerException("Path has not been specified");
       }
       try {
         Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);

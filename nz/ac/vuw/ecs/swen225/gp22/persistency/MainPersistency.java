@@ -8,6 +8,6 @@ public class MainPersistency {
      */
     public static void main(String[] args) {
 
-        MockPersistency.run();
+        MockPersistency.run("level1.xml");
     }
 }

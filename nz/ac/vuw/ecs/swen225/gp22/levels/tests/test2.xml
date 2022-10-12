@@ -1,0 +1,21 @@
+<level levelNum="1">
+    <row r="0" />
+    <row r="1" />
+    <row r="2">
+        <treasure c="3" />
+        <player c="4" />
+        <enemy c="5">
+            <path r="2" c="5" />
+            <path r="1" c="5" />
+        </enemy>
+    </row>
+    <row r="3">
+        <wall c="3" />
+        <wall c="4" />
+        <wall c="5" />
+        <exitLock c="2" />
+    </row>
+    <row r="4">
+        <exit c="2" />
+    </row>
+</level>

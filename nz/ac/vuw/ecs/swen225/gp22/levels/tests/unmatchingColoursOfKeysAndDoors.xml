@@ -1,5 +1,7 @@
-<level>
+<level levelNum="1">
     <row r="0" />
+        <key c="1" colour="green" />
+        <door c="2" colour="pink" />
     <row r="1" />
     <row r="2">
         <treasure c="3" />
