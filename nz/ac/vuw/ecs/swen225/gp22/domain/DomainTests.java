@@ -895,12 +895,6 @@ public class DomainTests {
 		});
 	}
 
-	@Test
-	public void failingTest27() {
-		// test for enemy branch coverage
-		checkFailed(()->{Enemy e = new Enemy((List<Point>) null);});
-	}
-
 	// ####################################################
 	// 						OTHER TESTS
 	// ####################################################

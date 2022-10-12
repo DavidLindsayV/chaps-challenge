@@ -116,7 +116,6 @@ public class DomainBuilder {
         checkNoPlayerHere(row, col);
         path.stream().forEach(p -> {
             checkWithinAbsoluteLimits(p.row(), p.col());
-            // checkWithinRelativeLimits(p.row(), p.col());
         });
 
         domainEnemies.add(new Enemy(path));
