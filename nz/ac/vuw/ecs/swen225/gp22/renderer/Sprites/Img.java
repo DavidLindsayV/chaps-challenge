@@ -22,6 +22,7 @@ public enum Img {
     ExitLock,
     Treasure,
     InfoField,
+    Enemy,
     Empty,
     Chap;
 
