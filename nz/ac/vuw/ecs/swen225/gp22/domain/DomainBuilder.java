@@ -101,27 +101,27 @@ public class DomainBuilder {
      * @param col
      * @return
      */
-    public DomainBuilder enemy(int row, int col, List<Point> path) {
-        if (path == null) {
-            throw new IllegalArgumentException("Null path disallowed.");
-        }
-        if (path.isEmpty()) {
-            throw new IllegalArgumentException("Empty path disallowed.");
-        }
-        if (path.stream().anyMatch(p -> p == null)) {
-            throw new IllegalArgumentException("Cannot have null points in path.");
-        }
+    // public DomainBuilder enemy(int row, int col, List<Point> path) {
+    // if (path == null) {
+    // throw new IllegalArgumentException("Null path disallowed.");
+    // }
+    // if (path.isEmpty()) {
+    // throw new IllegalArgumentException("Empty path disallowed.");
+    // }
+    // if (path.stream().anyMatch(p -> p == null)) {
+    // throw new IllegalArgumentException("Cannot have null points in path.");
+    // }
 
-        checkWithinAbsoluteLimits(row, col);
-        checkNoPlayerHere(row, col);
-        path.stream().forEach(p -> {
-            checkWithinAbsoluteLimits(p.row(), p.col());
-        });
+    // checkWithinAbsoluteLimits(row, col);
+    // checkNoPlayerHere(row, col);
+    // path.stream().forEach(p -> {
+    // checkWithinAbsoluteLimits(p.row(), p.col());
+    // });
 
-        domainEnemies.add(new Enemy(path));
-        detectBoundaries(row, col);
-        return this;
-    }
+    // domainEnemies.add(new Enemy(path));
+    // detectBoundaries(row, col);
+    // return this;
+    // }
 
     /**
      * Creates an enemy given a row and column, and it's path, set

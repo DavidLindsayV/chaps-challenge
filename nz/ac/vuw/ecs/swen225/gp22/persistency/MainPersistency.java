@@ -9,7 +9,8 @@ public class MainPersistency {
 
         List<Point> p = List.of(new Point(0, 0));
         Class<?> c = ActorLoader
-                .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"), "Enemy");
+                .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/Enemy.jar"),
+                        "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
         try {
             Object e = c.getDeclaredConstructor(List.class).newInstance(p);
 
