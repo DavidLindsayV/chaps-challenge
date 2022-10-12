@@ -1,0 +1,3006 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <level>level1.xml</level>
+  <tick tick="0">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="1">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="2">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="3">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="4">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="5">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="6">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="7">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="8">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="9">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="10">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="11">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="12">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="13">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="14">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="15">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="16">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="17">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="18">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="19">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="20">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="21">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="22">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="23">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="24">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="25">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="26">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="27">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="28">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="29">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="30">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="31">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="32">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="33">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="34">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="35">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="36">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="37">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="38">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="39">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="40">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="41">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="42">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="43">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="44">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="45">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="46">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="47">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="48">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="49">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="50">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="51">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="52">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="53">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="54">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="55">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="56">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="57">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="58">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="59">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="60">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="61">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="62">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="63">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="64">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="65">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="66">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="67">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="68">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="69">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="70">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="71">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="72">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="73">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="74">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="75">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="76">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="77">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="78">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="79">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="80">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="81">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="82">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="83">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="84">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="85">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="86">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="87">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="88">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="89">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="90">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="91">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="92">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="93">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="94">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="95">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="96">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="97">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="98">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="99">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="100">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="101">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="102">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="103">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="104">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="105">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="106">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="107">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="108">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="109">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="110">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="111">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="112">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="113">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="114">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="115">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="116">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="117">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="118">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="119">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="120">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="121">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="122">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="123">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="124">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="125">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="126">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="127">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="128">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="129">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="130">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="131">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="132">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="133">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="134">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="135">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="136">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="137">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="138">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="139">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="140">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="141">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="142">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="143">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="144">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="145">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="146">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="147">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="148">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="149">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="150">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="151">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="152">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="153">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="154">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="155">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="156">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="157">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="158">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="159">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="160">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="161">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="162">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="163">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="164">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="165">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="166">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="167">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="168">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="169">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="170">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="171">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="172">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="173">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="174">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="175">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="176">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="177">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="178">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="179">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="180">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="181">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="182">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="183">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="184">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="185">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="186">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="187">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="188">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="189">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="190">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="191">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="192">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="193">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="194">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="195">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="196">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="197">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="198">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="199">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="200">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="201">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="202">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="203">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="204">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="205">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="206">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="207">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="208">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="209">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="210">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="211">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="212">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="213">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="214">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="215">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="216">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="217">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="218">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="219">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="220">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="221">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="222">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="223">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="224">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="225">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="226">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="227">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="228">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="229">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="230">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="231">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="232">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="233">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="234">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="235">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="236">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="237">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="238">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="239">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="240">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="241">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="242">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="243">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="244">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="245">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="246">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="247">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="248">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="249">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="250">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="251">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="252">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="253">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="254">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="255">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="256">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="257">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="258">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="259">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="260">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="261">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="262">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="263">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="264">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="265">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="266">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="267">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="268">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="269">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="270">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="271">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="272">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="273">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="274">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="275">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="276">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="277">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="278">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="279">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="280">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="281">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="282">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="283">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="284">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="285">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="286">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="287">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="288">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="289">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="290">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="291">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="292">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="293">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="294">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="295">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="296">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="297">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="298">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="299">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="300">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="301">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="302">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="303">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="304">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="305">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="306">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="307">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="308">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="309">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="310">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="311">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="312">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="313">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="314">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="315">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="316">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="317">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="318">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="319">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="320">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="321">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="322">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="323">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="324">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="325">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="326">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="327">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="328">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="329">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="330">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="331">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="332">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="333">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="334">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="335">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="336">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="337">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="338">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="339">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="340">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="341">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="342">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="343">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="344">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="345">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="346">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="347">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="348">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="349">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="350">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="351">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="352">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="353">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="354">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="355">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="356">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="357">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="358">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="359">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="360">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="361">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="362">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="363">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="364">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="365">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="366">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="367">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="368">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="369">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="370">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="371">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="372">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="373">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="374">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="375">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="376">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="377">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="378">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="379">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="380">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="381">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="382">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="383">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="384">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="385">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="386">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="387">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="388">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="389">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="390">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="391">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="392">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="393">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="394">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="395">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="396">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="397">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="398">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="399">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="400">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="401">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="402">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="403">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="404">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="405">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="406">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="407">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="408">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="409">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="410">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="411">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="412">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="413">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="414">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="415">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="416">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="417">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="418">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="419">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="420">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="421">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="422">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="423">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="424">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="425">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="426">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="427">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="428">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="429">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="430">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="431">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="432">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="433">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="434">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="435">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="436">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="437">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="438">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="439">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="440">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="441">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="442">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="443">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="444">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="445">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="446">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="447">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="448">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="449">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="450">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="451">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="452">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="453">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="454">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="455">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="456">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="457">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="458">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="459">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="460">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="461">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="462">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="463">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="464">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="465">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="466">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="467">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="468">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="469">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="470">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="471">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="472">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="473">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="474">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="475">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="476">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="477">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="478">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="479">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="480">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="481">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="482">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="483">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="484">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="485">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="486">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="487">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="488">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="489">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="490">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="491">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="492">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="493">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="494">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="495">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="496">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="497">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="498">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="499">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="500">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="501">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="502">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="503">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="504">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="505">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="506">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="507">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="508">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="509">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="510">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="511">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="512">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="513">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="514">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="515">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="516">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="517">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="518">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="519">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="520">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="521">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="522">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="523">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="524">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="525">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="526">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="527">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="528">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="529">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="530">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="531">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="532">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="533">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="534">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="535">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="536">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="537">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="538">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="539">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="540">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="541">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="542">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="543">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="544">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="545">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="546">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="547">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="548">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="549">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="550">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="551">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="552">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="553">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="554">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="555">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="556">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="557">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="558">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="559">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="560">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="561">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="562">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="563">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="564">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="565">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="566">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="567">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="568">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="569">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="570">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="571">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="572">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="573">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="574">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="575">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="576">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="577">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="578">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="579">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="580">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="581">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="582">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="583">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="584">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="585">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="586">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="587">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="588">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="589">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="590">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="591">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="592">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="593">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="594">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="595">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="596">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="597">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="598">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="599">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="600">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="601">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="602">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="603">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="604">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="605">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="606">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="607">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="608">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="609">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="610">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="611">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="612">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="613">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="614">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="615">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="616">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="617">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="618">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="619">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="620">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="621">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="622">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="623">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="624">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="625">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="626">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="627">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="628">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="629">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="630">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="631">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="632">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="633">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="634">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="635">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="636">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="637">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="638">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="639">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="640">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="641">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="642">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="643">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="644">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="645">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="646">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="647">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="648">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="649">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="650">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="651">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="652">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="653">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="654">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="655">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="656">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="657">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="658">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="659">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="660">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="661">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="662">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="663">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="664">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="665">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="666">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="667">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="668">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="669">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="670">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="671">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="672">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="673">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="674">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="675">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="676">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="677">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="678">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="679">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="680">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="681">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="682">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="683">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="684">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="685">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="686">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="687">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="688">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="689">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="690">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="691">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="692">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="693">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="694">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="695">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="696">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="697">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="698">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="699">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="700">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="701">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="702">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="703">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="704">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="705">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="706">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="707">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="708">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="709">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="710">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="711">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="712">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="713">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="714">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="715">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="716">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="717">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="718">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="719">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="720">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="721">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="722">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="723">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="724">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="725">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="726">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="727">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="728">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="729">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="730">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="731">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="732">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="733">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="734">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="735">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="736">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="737">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="738">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="739">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="740">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="741">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="742">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="743">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="744">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="745">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="746">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="747">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="748">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="749">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="750">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="751">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="752">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="753">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="754">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="755">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="756">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="757">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="758">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="759">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="760">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="761">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="762">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="763">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="764">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="765">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="766">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="767">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="768">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="769">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="770">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="771">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="772">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="773">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="774">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="775">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="776">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="777">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="778">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="779">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="780">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="781">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="782">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="783">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="784">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="785">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="786">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="787">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="788">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="789">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="790">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="791">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="792">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="793">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="794">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="795">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="796">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="797">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="798">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="799">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="800">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="801">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="802">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="803">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="804">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="805">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="806">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="807">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="808">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="809">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="810">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="811">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="812">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="813">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="814">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="815">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="816">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="817">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="818">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="819">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="820">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="821">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="822">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="823">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="824">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="825">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="826">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="827">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="828">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="829">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="830">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="831">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="832">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="833">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="834">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="835">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="836">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="837">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="838">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="839">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="840">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="841">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="842">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="843">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="844">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="845">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="846">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="847">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="848">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="849">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="850">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="851">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="852">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="853">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="854">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="855">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="856">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="857">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="858">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="859">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="860">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="861">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="862">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="863">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="864">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="865">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="866">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="867">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="868">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="869">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="870">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="871">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="872">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="873">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="874">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="875">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="876">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="877">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="878">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="879">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="880">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="881">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="882">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="883">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="884">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="885">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="886">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="887">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="888">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="889">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="890">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="891">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="892">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="893">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="894">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="895">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="896">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="897">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="898">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="899">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="900">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="901">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="902">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="903">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="904">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="905">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="906">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="907">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="908">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="909">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="910">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="911">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="912">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="913">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="914">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="915">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="916">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="917">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="918">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="919">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="920">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="921">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="922">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="923">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="924">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="925">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="926">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="927">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="928">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="929">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="930">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="931">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="932">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="933">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="934">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="935">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="936">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="937">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="938">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="939">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="940">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="941">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="942">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="943">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="944">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="945">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="946">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="947">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="948">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="949">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="950">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="951">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="952">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="953">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="954">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="955">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="956">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="957">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="958">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="959">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="960">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="961">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="962">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="963">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="964">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="965">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="966">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="967">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="968">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="969">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="970">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="971">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="972">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="973">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="974">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="975">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="976">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="977">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="978">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="979">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="980">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="981">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="982">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="983">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="984">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="985">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="986">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="987">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="988">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="989">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="990">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="991">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="992">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="993">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="994">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="995">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="996">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="997">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="998">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="999">
+    <move actor="player">LEFT</move>
+  </tick>
+</game>
+<!--13-10-2022-120359-->

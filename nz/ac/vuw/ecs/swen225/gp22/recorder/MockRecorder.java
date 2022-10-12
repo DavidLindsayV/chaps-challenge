@@ -24,7 +24,7 @@ public class MockRecorder {
      */
     public static void run() {
         Recorder.setUp("level1.xml");
-        for(int i=0; i<100; i++){
+        for(int i=0; i<1000; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
         

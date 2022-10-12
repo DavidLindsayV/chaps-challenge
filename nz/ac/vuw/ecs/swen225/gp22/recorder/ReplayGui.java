@@ -103,6 +103,7 @@ public class ReplayGui extends Renderer {
     this.delPauseButton();
     this.delSpeedSlider();
     this.delStepButton();
+    closeAll();
   }
 
   /**
@@ -206,15 +207,17 @@ public class ReplayGui extends Renderer {
    */
   private void actSpeedSlider(){
     sliderLabel = new JLabel();
-    speedSlider = new JSlider(0,400,200);
+    speedSlider = new JSlider(100,300,200);
     sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
     panel.setLayout(null);
     speedSlider.setBounds(400, 50, 200, 50);
     speedSlider.addChangeListener(new ChangeListener() {
+      
       public void stateChanged(ChangeEvent ce) {
-        repaint();
         ReplayListener.changeTimerSpeed(speedSlider.getValue());
+        repaint();
       }
+
    });
     panel.add(sliderLabel);
     panel.add(speedSlider);
@@ -230,13 +233,6 @@ public class ReplayGui extends Renderer {
     if(speedSlider != null){
       panel.remove(speedSlider);
     }
-  }
-
-  /**
-   * TODO: SPEED SLIDER CHANGE NOW
-   */
-  private void updateSlider(ChangeEvent e) {
-    sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
   }
 
   /**
@@ -268,6 +264,7 @@ public class ReplayGui extends Renderer {
    * Closes the replay GUI.
    */
   public static void closeAll() {
+    ReplayListener.exitGame();
     frame.dispose();
     instance.dispose();
   }
