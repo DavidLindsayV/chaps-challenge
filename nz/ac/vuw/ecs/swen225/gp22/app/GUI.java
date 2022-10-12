@@ -47,7 +47,11 @@ public class GUI extends Renderer {
     "- Ctrl-R resumes a saved game\n" +
     "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
     "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
-    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n";
+    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
+    "Core game mechanics:\n" +
+    "- Collect all the carrots and walk down the rabbit hole to win\n" +
+    "- Collect keys to open doors of their respective colours\n" +
+    "- Avoid colliding with enemies\n";
 
   //A field to store the JFrame for replaying recorded levels
   ReplayGUI replayGUI;
@@ -86,7 +90,7 @@ public class GUI extends Renderer {
     rulesItem = new JMenuItem("Show rules");
     exitItem = new JMenuItem("Exit Game");
     recordPlayerItem = new JMenuItem("Play recorded game");
-    playSavedItem = new JMenuItem("Resume playing saved game");
+    playSavedItem = new JMenuItem("Load saved game");
     menu.add(exitItem);
     menu.add(saveItem);
     menu.add(rulesItem);

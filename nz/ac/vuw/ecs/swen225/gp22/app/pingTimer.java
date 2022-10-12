@@ -48,6 +48,7 @@ public class pingTimer extends Timer {
     timeLeftToPlay -= pingRate;
     //If out of time, reload level
     if (timeLeftToPlay == 0) {
+      redrawJFrame();
       UserListener.timeOutLevel();
     }
     //Record the move with the Recorder
@@ -60,6 +61,10 @@ public class pingTimer extends Timer {
     }
     UserListener.move = Direction.NONE;
     //Repaint the GUI
+    redrawJFrame();
+  }
+
+  private void redrawJFrame() {
     if (Main.gui != null) {
       Main.gui.panel.revalidate();
       Main.gui.panel.repaint();

@@ -34,7 +34,8 @@ package. Testing is to be done manually.
 
 TASKS LEFT:
 - Testing
-- Showing tool tips
 - Making rules better
 - Removing printlns
-- updating text printed to screen to say "carrots" not "treasures"
+- Make timer end at t=0 not t=200 (repaint the GUI)
+- Make loading of levels work
+- Made beating level 2 print out a different message
