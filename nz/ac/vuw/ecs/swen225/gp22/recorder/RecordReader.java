@@ -18,7 +18,9 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 /**
- * This is the class we will be using to read the saved xml files
+ * This is the class we will be using to read the saved xml files.
+ * 
+ * @author Kalani Sheridan - ID: 300527652  
  */
 public class RecordReader {
 

@@ -11,6 +11,11 @@ import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+/**
+ * This is the class we will be using to write (save) xml files
+ * 
+ * @author Kalani Sheridan - ID: 300527652  
+ */
 public class RecordWriter {
 
     /* 

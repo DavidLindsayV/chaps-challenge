@@ -12,6 +12,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
 /** 
  * The Recorder class, the place where every other class will access Recorder/Replay functions/methods. 
+ * 
+ * @author Kalani Sheridan - ID: 300527652   
  */
 public class Recorder {
 
@@ -22,8 +24,6 @@ public class Recorder {
     private static Document document;
     private static final Class<Direction> clazz = Direction.class;
     private static String level;
-
-
 
     /**
      * Called when a new level is created/started.
