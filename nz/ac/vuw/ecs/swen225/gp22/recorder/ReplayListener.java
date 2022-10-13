@@ -93,20 +93,24 @@ public class ReplayListener implements KeyListener {
    * Pauses game.
    */
   public static void pauseGame() {
-    System.out.println("The game is paused");
-    paused = true;
-    timer.cancel();
-    JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
+    if(isAutoPlay){
+      System.out.println("The game is paused");
+      paused = true;
+      timer.cancel();
+      JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
+    }
   }
 
   /**
    * Public resumes game for ReplayGui.
    */
   public static void resumeGame(int speed) {
-    System.out.println("The game has resumed");
-    paused = false;
-    timer = new ReplayTimer(speed);
-    JOptionPane.getRootFrame().dispose();
+    if(isAutoPlay){
+      System.out.println("The game has resumed");
+      paused = false;
+      timer = new ReplayTimer(speed);
+      JOptionPane.getRootFrame().dispose();
+    }
   }
 
   /**
