@@ -122,7 +122,7 @@ public class BoardPanel extends JPanel {
           drawImg(Img.FloorSprite.image, newX, newY, g);
           continue;
         }
-        if (x >= t.length || x < 0) {
+        if (x >= t[0].length || x < 0) {
           drawImg(Img.FloorSprite.image, newX, newY, g);
           continue;
         }
@@ -172,7 +172,18 @@ public class BoardPanel extends JPanel {
         }
       }
     }
+    /*
+    for(Enemy e: d.getEnemies()){
+      int newX = e.getPosition().col() - (p.col() - 6);
+      int newY = e.getPosition().row() - (p.row() - 6);
+      if(e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 12 && newY = e.getPosition().row() - (p.row() - 6) > -1 && newY = e.getPosition().row() - (p.row() - 6) < 12){
+        drawImg(Img.Enemy.image, newX, newY,g);
+      }
+    }
+    */
 
-    d.getEnemies().stream().forEach(e -> drawImg(Img.Enemy.image, e.getPosition().col(), e.getPosition().row(),g));
+    d.getEnemies().stream()
+      .filter(e -> e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 12 && e.getPosition().row() - (p.row() - 6) > -1 && e.getPosition().row() - (p.row() - 6) < 12)
+      .forEach(e -> drawImg(Img.Enemy.image, e.getPosition().col() - (p.col() - 6), e.getPosition().row() - (p.row() - 6),g));
   }
 }
