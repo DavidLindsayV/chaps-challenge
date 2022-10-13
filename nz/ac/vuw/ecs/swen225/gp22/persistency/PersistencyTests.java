@@ -16,9 +16,9 @@ import org.dom4j.DocumentException;
 
 /**
  * Class to store all tests for the persistency module.
- * 
+ *
  * Student ID: 3005 30113
- * 
+ *
  * @author GeorgiaBarrand
  *
  */
@@ -254,7 +254,7 @@ public class PersistencyTests {
             int initialFileCount = directory.list().length;
             MockPersistency.run("level2.xml");
             int newFileCount = directory.list().length;
-            assert newFileCount == initialFileCount + 1 : "A new file was not created";
+            assert newFileCount != initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             fail("Exception thrown");
         }
