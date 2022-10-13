@@ -25,32 +25,33 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 /**
- * This class extends the Renderer's JFrame class and adds a menu and buttons
- * to allow pausing, resuming, saving, loading, and rules displaying
+ * This class extends the Renderer's JFrame class and adds a menu and buttons to
+ * allow pausing, resuming, saving, loading, and rules displaying
+ *
  * @author David Lindsay 300584648
  */
 @SuppressWarnings("serial")
 public class GUI extends Renderer {
 
-  //Is a Singleton to allow static access to this gui
+  // Is a Singleton to allow static access to this gui
   public static GUI instance;
-  //Is the KeyListener of the user which will listen and react to keypresses
+  // Is the KeyListener of the user which will listen and react to keypresses
   public UserListener listener;
 
-  //A button for pausing the game
+  // A button for pausing the game
   private JButton pauseButton;
-  //The menu and its elements
+  // The menu and its elements
   private JMenuBar menuBar;
   private JMenu menu;
-  private JMenuItem exitItem; //The menu item that will exit the game
-  private JMenuItem saveItem; //the menu item that will save the game
-  private JMenuItem rulesItem; //the menu item that will display the rules
-  private JMenuItem recordPlayerItem; //the menu item that will play a recorded game
-  private JMenuItem playSavedItem; //the menu item that will play a saved game
+  private JMenuItem exitItem; // The menu item that will exit the game
+  private JMenuItem saveItem; // the menu item that will save the game
+  private JMenuItem rulesItem; // the menu item that will display the rules
+  private JMenuItem recordPlayerItem; // the menu item that will play a recorded game
+  private JMenuItem playSavedItem; // the menu item that will play a saved game
 
   MetalLookAndFeel metal;
 
-  //The rules text
+  // The rules text
   private String rulesText =
     "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
     "\n" +
@@ -68,7 +69,7 @@ public class GUI extends Renderer {
     "- Collect keys to open doors of their respective colours\n" +
     "- Avoid colliding with enemies\n";
 
-  //A field to store the JFrame for replaying recorded levels
+  // A field to store the JFrame for replaying recorded levels
   private static ReplayGui replayGUI;
 
   /**
@@ -85,10 +86,9 @@ public class GUI extends Renderer {
     } catch (UnsupportedLookAndFeelException e) {
       e.printStackTrace();
     }
-    System.out.println("BREAKPOINT: Creating user listener....");
     listener = new UserListener();
     setLayout(new BorderLayout());
-    //Make a JButton pauseButton
+    // Make a JButton pauseButton
     pauseButton = new JButton("⏸");
     pauseButton.setPreferredSize(new Dimension(40, 40));
     pauseButton.addActionListener(
@@ -107,7 +107,7 @@ public class GUI extends Renderer {
     pauseButton.setMargin(new Insets(0, 0, 0, 0));
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
-    //Make exiting, saving showing rules and record playing menu items
+    // Make exiting, saving showing rules and record playing menu items
     menuBar = new JMenuBar();
     menuBar.setBorder(
       BorderFactory.createCompoundBorder(
@@ -144,13 +144,12 @@ public class GUI extends Renderer {
     );
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
-    //Add keylistener to JFrame
+    // Add keylistener to JFrame
     this.addKeyListener(listener);
     this.setFocusable(true);
-    System.out.println("BREAKPOINT: Keys are listening...");
   }
 
-  /**Plays a recorded game */
+  /** Plays a recorded game */
   private void playRecord() {
     pauseGame();
     SwingUtilities.invokeLater(
@@ -160,13 +159,15 @@ public class GUI extends Renderer {
     );
   }
 
-  /**Show the rules panel */
+  /** Show the rules panel */
   private void showRules() {
     pauseGame();
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
-  /** Used by Domain to show tool tips
+  /**
+   * Used by Domain to show tool tips
+   *
    * @param toolTip
    */
   public static void showToolTip(String toolTip) {
@@ -180,7 +181,10 @@ public class GUI extends Renderer {
     JOptionPane.getRootFrame().dispose();
   }
 
-  /** A function that draws various texts, such as current level and keys collected, on the JPanel
+  /**
+   * A function that draws various texts, such as current level and keys
+   * collected, on the JPanel
+   *
    * @param g
    */
   public static void drawText(Graphics g) {
@@ -247,25 +251,33 @@ public class GUI extends Renderer {
     );
   }
 
-  /**A function to change the text of the pause/play button before calling pauseGame in UserListener */
+  /**
+   * A function to change the text of the pause/play button before calling
+   * pauseGame in UserListener
+   */
   private void pauseGame() {
     pauseButton.setText("▶");
     UserListener.pauseGame();
   }
 
-  /**A function to change the text of the pause/play button before calling resumeGame in UserListener */
+  /**
+   * A function to change the text of the pause/play button before calling
+   * resumeGame in UserListener
+   */
   private void resumeGame() {
     pauseButton.setText("⏸");
     UserListener.resumeGame();
     this.requestFocus();
   }
 
-  /**A function to close all the JFrames */
+  /** A function to close all the JFrames */
   public static void closeAll() {
     instance.dispose();
   }
 
-  /** A function that processes the level file path, shortening it for displaying
+  /**
+   * A function that processes the level file path, shortening it for displaying
+   *
    * @param levelName
    * @return shortened level name
    */
@@ -280,7 +292,9 @@ public class GUI extends Renderer {
     }
   }
 
-  /** Getter for replayGui
+  /**
+   * Getter for replayGui
+   *
    * @return replayGui
    */
   public static ReplayGui replayGui() {

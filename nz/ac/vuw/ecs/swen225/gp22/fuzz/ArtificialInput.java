@@ -20,7 +20,7 @@ interface ArtificialInput {
  */
 public class BasicInput {
 	// list of inputs only contain up, down, left and right
-    private static List<ArtificialInput> inputTypes = List.of(
+public static List<ArtificialInput> inputTypes = List.of(
         (b)->{b.keyPress(KeyEvent.VK_UP); b.keyRelease(KeyEvent.VK_UP);},
         (b)->{b.keyPress(KeyEvent.VK_DOWN); b.keyRelease(KeyEvent.VK_DOWN);},
         (b)->{b.keyPress(KeyEvent.VK_LEFT); b.keyRelease(KeyEvent.VK_LEFT);},

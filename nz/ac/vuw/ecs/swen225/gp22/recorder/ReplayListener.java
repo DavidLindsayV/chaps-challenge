@@ -14,9 +14,10 @@ import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 /**
- * This class listens to player input for the replay and does actions based on that.
- * This class is based on the structure of APPS UserListener as it does similar things to it,
- * and the other classes are made based around its structure.
+ * This class listens to player input for the replay and does actions based on
+ * that. This class is based on the structure of APPS UserListener as it does
+ * similar things to it, and the other classes are made based around its
+ * structure.
  * 
  * @author Kalani Sheridan - ID: 300527652
  */
@@ -39,7 +40,6 @@ public class ReplayListener implements KeyListener {
   private static int index;
   private static List<Direction> moves;
 
-
   /**
    * The contructor of a new ReplayListener.
    */
@@ -47,13 +47,14 @@ public class ReplayListener implements KeyListener {
     isAutoPlay = false;
     moves = Recorder.load();
 
-    if(moves.isEmpty()) moves = List.of(Direction.NONE);
+    if (moves.isEmpty())
+      moves = List.of(Direction.NONE);
 
     index = 0;
     move = moves.get(index);
     currentLevel = Recorder.getLevel();
 
-    displayTime =  60 * 1000 * pingTimer.getLevelNum(currentLevel);
+    displayTime = 60 * 1000 * pingTimer.getLevelNum(currentLevel);
 
     timer = new ReplayTimer(200);
     System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
@@ -66,13 +67,15 @@ public class ReplayListener implements KeyListener {
    * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
    */
   @Override
-  public void keyTyped(KeyEvent e) {}
+  public void keyTyped(KeyEvent e) {
+  }
 
   /**
    * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
    */
   @Override
-  public void keyPressed(KeyEvent e) { }
+  public void keyPressed(KeyEvent e) {
+  }
 
   /**
    * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
@@ -80,12 +83,12 @@ public class ReplayListener implements KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
-      case KeyEvent.VK_SPACE:
-        pauseGame();
-        break;
-      case KeyEvent.VK_ESCAPE:
-        resumeGame();
-        break;
+    case KeyEvent.VK_SPACE:
+      pauseGame();
+      break;
+    case KeyEvent.VK_ESCAPE:
+      resumeGame();
+      break;
     }
   }
 
@@ -93,7 +96,7 @@ public class ReplayListener implements KeyListener {
    * Pauses game.
    */
   public static void pauseGame() {
-    if(isAutoPlay){
+    if (isAutoPlay) {
       System.out.println("The game is paused");
       paused = true;
       timer.cancel();
@@ -105,7 +108,7 @@ public class ReplayListener implements KeyListener {
    * Public resumes game for ReplayGui.
    */
   public static void resumeGame(int speed) {
-    if(isAutoPlay){
+    if (isAutoPlay) {
       System.out.println("The game has resumed");
       paused = false;
       timer = new ReplayTimer(speed);
@@ -116,7 +119,7 @@ public class ReplayListener implements KeyListener {
   /**
    * Private resumes game for the key listener.
    */
-  private static void resumeGame(){
+  private static void resumeGame() {
     System.out.println("The game has resumed");
     paused = false;
     timer = new ReplayTimer(timer);
@@ -141,7 +144,6 @@ public class ReplayListener implements KeyListener {
    * Creates the Replay timer for a level
    */
   private static void loadTimer() {
-    System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
     timer = new ReplayTimer(timer);
   }
@@ -151,28 +153,29 @@ public class ReplayListener implements KeyListener {
    */
   public static void nextMove() {
     if (GUI.replayGui() != null) {
-      if(index<moves.size()-1){
+      if (index < moves.size() - 1) {
         currentGame.moveActors();
         move = moves.get(index);
         currentGame.movePlayer(move);
-        System.out.println("Tick number: "+index+" Move: "+move.name());
+        System.out.println("Tick number: " + index + " Move: " + move.name());
         index++;
         displayTime -= 200;
         GUI.replayGui().panel.revalidate();
         GUI.replayGui().panel.repaint();
-      }else {
+      } else {
         System.out.println("The replay is over!");
         paused = true;
         timer.cancel();
         GUI.replayGui().endOfReplay();
-      };
-    } 
+      }
+      ;
+    }
   }
 
   /**
    * Sets the ReplayListener to do autoplay.
    */
-  public static void setAutoPlay(){
+  public static void setAutoPlay() {
     isAutoPlay = true;
     if (GUI.replayGui() != null) {
       GUI.replayGui().panel.revalidate();
@@ -183,7 +186,7 @@ public class ReplayListener implements KeyListener {
   /**
    * Sets the ReplayListener to do Step-By-Step.
    */
-  public static void setStepByStep(){
+  public static void setStepByStep() {
     isAutoPlay = false;
     if (GUI.replayGui() != null) {
       GUI.replayGui().panel.revalidate();
@@ -196,8 +199,8 @@ public class ReplayListener implements KeyListener {
    * 
    * @param speed - The speed of the timer we are changing too.
    */
-  public static void changeTimerSpeed(int speed){
-    if(!paused){
+  public static void changeTimerSpeed(int speed) {
+    if (!paused) {
       timer.cancel();
       timer = new ReplayTimer(speed);
     }
@@ -206,7 +209,7 @@ public class ReplayListener implements KeyListener {
   /**
    * Stops the timer for the game.
    */
-  public static void stopTimer(){
+  public static void stopTimer() {
     timer.cancel();
   }
 
