@@ -139,6 +139,9 @@ public class Parser {
    * Create a Document representation of the current level layout.
    * 
    * @param levelLayout 2D array of the positions of tiles on the current level
+   * @param playerPos   current player position
+   * @param enemies     list of enemies
+   * @param d           current domain
    * @return Document representing the current level
    */
   private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies, Domain d) {
