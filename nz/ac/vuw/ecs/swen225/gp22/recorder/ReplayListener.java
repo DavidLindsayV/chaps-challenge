@@ -158,14 +158,14 @@ public class ReplayListener implements KeyListener {
         System.out.println("Tick number: "+index+" Move: "+move.name());
         index++;
         displayTime -= 200;
+        GUI.replayGui().panel.revalidate();
+        GUI.replayGui().panel.repaint();
       }else {
         System.out.println("The replay is over!");
         paused = true;
         timer.cancel();
         GUI.replayGui().endOfReplay();
       };
-      GUI.replayGui().panel.revalidate();
-      GUI.replayGui().panel.repaint();
     } 
   }
 
