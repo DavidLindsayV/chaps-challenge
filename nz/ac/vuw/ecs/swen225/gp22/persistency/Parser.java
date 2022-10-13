@@ -1,21 +1,23 @@
 package nz.ac.vuw.ecs.swen225.gp22.persistency;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
-import java.util.function.Consumer;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -25,6 +27,14 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+/**
+ * Class to both load and save the level layout from or to xml files.
+ * 
+ * Student ID: 3005 30113
+ * 
+ * @author GeorgiaBarrand
+ *
+ */
 public class Parser {
 
   private static int lastLoadedLevel;
@@ -32,7 +42,7 @@ public class Parser {
   /**
    * Load the level layout from an xml file and use it to construct the domain
    * 
-   * @param levelNum the level number being parsed
+   * @param filename the name of the file being parsed
    * @return a Domain object representing the level
    */
   public static Domain loadLevel(String filename) throws DocumentException {
@@ -50,6 +60,8 @@ public class Parser {
     }
     lastLoadedLevel = levelElement.numberValueOf("@levelNum").intValue();
     DomainBuilder builder = new DomainBuilder();
+
+    // Go through each row and load each tile
     for (Element row : levelElement.elements("row")) {
       Number rowNum = row.numberValueOf("@r");
       if (((Double) rowNum).isNaN()) {
@@ -77,7 +89,6 @@ public class Parser {
 
     }
 
-    System.out.println("BREAKPOINT: Domain object created.");
     Domain d = builder.make();
     assert d != null;
     return d;
@@ -85,13 +96,12 @@ public class Parser {
   }
 
   /**
-   * Save the current level state to an xml file so that it can be loaded later
+   * Save the current level state to an xml file so that it can be loaded later.
    * 
    * @param domain the current game domain
    * @throws IOException
    */
   public static void saveLevel(Domain domain) throws IOException {
-    System.out.println("BREAKPOINT: Persistency is saving the level file.");
     Tile[][] levelLayout = domain.getInnerState();
     Point player = domain.getPlayerPosition();
 
@@ -115,7 +125,7 @@ public class Parser {
 
   /**
    * Find and return the current date and time as a string in the format
-   * dd-MM-yyyy-HHmmss
+   * dd-MM-yyyy-HHmmss.
    * 
    * @return current time
    */
@@ -127,7 +137,7 @@ public class Parser {
   }
 
   /**
-   * Create a Document representation of the current level layout
+   * Create a Document representation of the current level layout.
    * 
    * @param levelLayout 2D array of the positions of tiles on the current level
    * @return Document representing the current level
@@ -171,7 +181,7 @@ public class Parser {
   }
 
   /**
-   * Add all enemies to the level document
+   * Add all enemies to the level document.
    * 
    * @param currRow the element representing the row we are constructing for
    *                the document
@@ -196,7 +206,7 @@ public class Parser {
   }
 
   /**
-   * Parse a standard node which only has a column attribute e.g wall
+   * Parse a standard node which only has a column attribute e.g wall.
    * 
    * @param rowNum   the current row number
    * @param nodes    the tile elements being parsed
