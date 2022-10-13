@@ -14,9 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
+import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
@@ -83,29 +87,27 @@ public class Parser {
         throw new NullPointerException("No row number specified");
       }
       int rowNumInt = rowNum.intValue();
-      parseStandardNode(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c), "wall");
-      parseStandardNode(rowNumInt, row.elements("exitLock"),
-          (r, c) -> builder.lock(r, c), "exitLock");
-      parseStandardNode(rowNumInt, row.elements("player"),
-          (r, c) -> builder.player(r, c), "player");
-      parseStandardNode(rowNumInt, row.elements("treasure"),
-          (r, c) -> builder.treasure(r, c), "treasure");
-      parseStandardNode(rowNumInt, row.elements("exit"),
-          (r, c) -> builder.exit(r, c), "exit");
-      parseStandardNode(rowNumInt, row.elements("info"),
-          (r, c) -> builder.info(r, c), "info");
-      parseColourElement(rowNumInt, row.elements("key"),
-          (r, c, colour) -> builder.key(r, c, colour.toUpperCase()), "key");
-      parseColourElement(rowNumInt, row.elements("door"),
-          (r, c, colour) -> builder.door(r, c, colour.toUpperCase()), "door");
-      parsePathElement(rowNumInt, row.elements("enemy"),
-          (e) -> builder.enemy(e));
+      parseStandardElement(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c), "wall");
+      parseStandardElement(rowNumInt, row.elements("exitLock"), (r, c) -> builder.lock(r, c), "exitLock");
+      parseStandardElement(rowNumInt, row.elements("player"), (r, c) -> builder.player(r, c), "player");
+      parseStandardElement(rowNumInt, row.elements("treasure"), (r, c) -> builder.treasure(r, c), "treasure");
+      parseStandardElement(rowNumInt, row.elements("exit"), (r, c) -> builder.exit(r, c), "exit");
+      parseStandardElement(rowNumInt, row.elements("info"), (r, c) -> builder.info(r, c), "info");
+      parseColourElement(rowNumInt, row.elements("key"), (r, c, colour) -> builder.key(r, c, colour.toUpperCase()),
+          "key");
+      parseColourElement(rowNumInt, row.elements("door"), (r, c, colour) -> builder.door(r, c, colour.toUpperCase()),
+          "door");
+      parsePathElement(rowNumInt, row.elements("enemy"), (e) -> builder.enemy(e));
 
     }
     checkValidDomain();
 
     Domain d = builder.make();
-    assert d != null;
+    // Load any prior collected items
+    if (filename.contains("saved_game")) {
+      loadItems(d, levelElement.element("items"));
+    }
+    assert d != null : "Domain is null";
     return d;
 
   }
@@ -120,7 +122,7 @@ public class Parser {
     Tile[][] levelLayout = domain.getInnerState();
     Point player = domain.getPlayerPosition();
 
-    Document document = createLevelDocument(levelLayout, player, domain.getEnemies());
+    Document document = createLevelDocument(levelLayout, player, domain.getEnemies(), domain);
 
     String nowStr = getCurrentTime();
 
@@ -130,8 +132,7 @@ public class Parser {
 
     Recorder.save(directory + "/");
 
-    FileWriter fileWriter = new FileWriter(
-        directory + "/saved_game_level" + lastLoadedLevel + ".xml");
+    FileWriter fileWriter = new FileWriter(directory + "/saved_game_level" + lastLoadedLevel + ".xml");
     OutputFormat format = OutputFormat.createPrettyPrint();
     XMLWriter writer = new XMLWriter(fileWriter, format);
     writer.write(document);
@@ -154,9 +155,6 @@ public class Parser {
     if (tileTypesLoaded.get("treasure") < 1) {
       throw new IllegalArgumentException("No treasure provided in xml file");
     }
-    if (tileTypesLoaded.get("key") != tileTypesLoaded.get("door")) {
-      throw new IllegalArgumentException("Number of doors and keys loaded do not match");
-    }
   }
 
   /**
@@ -176,9 +174,12 @@ public class Parser {
    * Create a Document representation of the current level layout.
    * 
    * @param levelLayout 2D array of the positions of tiles on the current level
+   * @param playerPos   current player position
+   * @param enemies     list of enemies
+   * @param d           current domain
    * @return Document representing the current level
    */
-  private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies) {
+  private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies, Domain d) {
     Document document = DocumentHelper.createDocument();
     Element level = document.addElement("level").addAttribute("levelNum", "" + lastLoadedLevel);
 
@@ -190,7 +191,39 @@ public class Parser {
       currRow = addEnemies(currRow, enemies, row);
       currRow = addTiles(levelLayout, row, currRow);
     }
+    Element items = level.addElement("items");
+    items = addItems(items, d);
     return document;
+  }
+
+  /**
+   * Add any collected items to the saved file
+   * 
+   * @param items the items Element
+   * @param d     the current domain
+   * @return the items Element with added items
+   */
+  private static Element addItems(Element items, Domain d) {
+    Player p = d.getPlayer();
+    Map<AuthenticationColour, Integer> keys = p.getKeysCollected();
+
+    items.addAttribute("initialTreasureCount", "" + d.requiredTreasureCount());
+
+    // Save keys
+    for (AuthenticationColour colour : keys.keySet()) {
+      for (int i = 0; i < keys.get(colour); i++) {
+        items.addElement("key").addAttribute("colour", colour.toString());
+      }
+    }
+
+    // Save treasures
+    for (int i = 0; i < p.getTreasureCount(); i++) {
+      items.addElement("treasure");
+    }
+
+    // Save time
+    items.addElement("time").addAttribute("ms", "" + UserListener.getTimeLeft());
+    return items;
   }
 
   /**
@@ -219,8 +252,8 @@ public class Parser {
   /**
    * Add all enemies to the level document.
    * 
-   * @param currRow the element representing the row we are constructing for
-   *                the document
+   * @param currRow the element representing the row we are constructing for the
+   *                document
    * @param enemies list of all the enemies on the current level
    * @param row     the current row number
    * @return the updated row element
@@ -233,8 +266,7 @@ public class Parser {
       if (e.getPosition().row() == row) {
         Element enemyElem = currRow.addElement("enemy").addAttribute("c", "" + e.getPosition().col());
         e.getPath().stream().forEach(p -> {
-          enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-              + p.col());
+          enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", "" + p.col());
         });
       }
     }
@@ -248,7 +280,8 @@ public class Parser {
    * @param nodes    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row and column
    */
-  private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer,
+
+  private static void parseStandardElement(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer,
       String tileName) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
@@ -296,11 +329,9 @@ public class Parser {
    * @param consumer the consumer to build the tile which takes the row, column
    *                 and the path
    */
-  private static void parsePathElement(int rowNum, List<Element> elems,
-      Consumer<Enemy> consumer) {
-    Class<?> basicEnemyClass = ActorLoader
-        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
-            "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
+  private static void parsePathElement(int rowNum, List<Element> elems, Consumer<Enemy> consumer) {
+    Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
+        "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");
     }
@@ -331,4 +362,44 @@ public class Parser {
 
     }
   }
+
+  /**
+   * Load any items collected in a previously played game
+   * 
+   * @param d
+   * @param items
+   */
+  private static Domain loadItems(Domain d, Element items) {
+    if (items == null) {
+      return d;
+    }
+    Number treasureCount = items.numberValueOf("@initialTreasureCount");
+    // Get initial treasure count
+    if (((Double) treasureCount).isNaN()) {
+      throw new NullPointerException("Treasure count has not been specified");
+    }
+    d.overrideInitialTreasureCount(treasureCount.intValue());
+
+    Player p = d.getPlayer();
+    for (int i = 0; i < items.elements("treasure").size(); i++) {
+      p.pickUpTreasure();
+    }
+
+    for (Element key : items.elements("key")) {
+      String colour = key.valueOf("@colour");
+      if (colour.isEmpty()) {
+        throw new NullPointerException("No colour specified");
+      }
+      p.addKey(AuthenticationColour.valueOf(colour.toUpperCase()));
+    }
+
+    Element time = items.element("time");
+    if (((Double) time.numberValueOf("@ms")).isNaN()) {
+      throw new NullPointerException("No time specified");
+    }
+    int msRemaining = time.numberValueOf("@ms").intValue();
+    UserListener.loadTimer(msRemaining);
+    return d;
+  }
+
 }

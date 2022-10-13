@@ -16,8 +16,7 @@ public class Main {
     SoundEffects.playSound("music");
     SwingUtilities.invokeLater(
       () -> {
-        System.out.println("BREAKPOINT: Creating GUI....");
-        new GUI();
+        new TitleScreen();
       }
     );
   }

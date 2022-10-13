@@ -17,8 +17,6 @@
         <wall c="7" />
         <wall c="8" />
         <wall c="12" />
-        <treasure c="5" />
-        <treasure c="9" />
     </row>
     <row r="2">
         <wall c="2" />
@@ -140,4 +138,9 @@
         <wall c="9" />
         <wall c="10" />
     </row>
+    <items initialTreasureCount="9">
+        <key colour="blue"/>
+        <treasure />
+        <time ms="1600" />
+    </items>
 </level>
