@@ -221,11 +221,19 @@ public class UserListener implements KeyListener {
     timer = new pingTimer(currentLevel);
   }
 
+  /**
+   * Loads a new timer with the time left passed in
+   * 
+   * @param timeLeftToPlay
+   */
   public static void loadTimer(int timeLeftToPlay) {
     timer.cancel();
     timer = new pingTimer(timeLeftToPlay);
   }
 
+  /**
+   * @return the time left for the ping timer
+   */
   public static int getTimeLeft() {
     return timer.timeLeftToPlay();
   }
@@ -271,6 +279,9 @@ public class UserListener implements KeyListener {
    * just loads level 2 level1 goes to level2, level2 also loads level 2
    */
   public static void nextLevel() {
+
+    Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
+
     timer.redrawJFrame();
     JOptionPane.showMessageDialog(GUI.instance,
         "The level " + GUI.shortenLevelName(currentLevel) + " is won! \n Now starting level 2");

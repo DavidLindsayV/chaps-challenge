@@ -138,9 +138,9 @@
         <wall c="9" />
         <wall c="10" />
     </row>
-     <items>
-    <key colour="blue"/>
-    <treasure />
-    <time ms="1600" />
-</items>
+    <items initialTreasureCount="9">
+        <key colour="blue"/>
+        <treasure />
+        <time ms="1600" />
+    </items>
 </level>

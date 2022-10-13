@@ -29,6 +29,7 @@ public enum Img {
     InfoField,
     Enemy,
     Empty,
+    Title,
     ChapL,
     ChapR;
 
