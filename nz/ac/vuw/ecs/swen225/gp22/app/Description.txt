@@ -48,3 +48,4 @@ Bugs with loading saved levels
 - pause button shows triangle
 - timer is not correct
 - collected keys and carrots not correct
+- domain doesn't think you have the keys that you do, so can't open doors

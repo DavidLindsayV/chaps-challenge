@@ -234,6 +234,7 @@ to be loaded
 
   /**Called when the level is lost by Domain*/
   public static void loseLevel() {
+    timer.redrawJFrame();
     SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
@@ -244,6 +245,7 @@ to be loaded
 
   /** Called when the user runs out of time on a level*/
   public static void timeOutLevel() {
+    timer.redrawJFrame();
     SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
@@ -257,6 +259,7 @@ to be loaded
    * level1 goes to level2, level2 also loads level 2
    */
   public static void nextLevel() {
+    timer.redrawJFrame();
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level " +
