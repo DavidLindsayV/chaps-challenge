@@ -111,7 +111,12 @@ public class GUI extends Renderer {
     );
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(e -> playRecord());
-    playSavedItem.addActionListener(e -> UserListener.loadSavedGame());
+    playSavedItem.addActionListener(
+      e -> {
+        pauseGame();
+        UserListener.loadSavedGame();
+      }
+    );
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
     //Add keylistener to JFrame

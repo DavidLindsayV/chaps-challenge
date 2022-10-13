@@ -40,3 +40,11 @@ TASKS LEFT:
 code changes I would like to Make
 - make gui's userlistener have a getter and not be public
 - have userlisteners currentGame not be public
+
+- JDialogPanes for loading levels
+- Auto save recordings at end of level
+
+Bugs with loading saved levels
+- pause button shows triangle
+- timer is not correct
+- collected keys and carrots not correct

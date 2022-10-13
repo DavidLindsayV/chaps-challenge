@@ -148,6 +148,10 @@ application will be started
 to be loaded
  */
   public static void loadSavedGame() {
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\""
+    );
     try {
       currentLevel = fileLevel.getLevelFilename();
     } catch (MalformedURLException | DocumentException e) {
