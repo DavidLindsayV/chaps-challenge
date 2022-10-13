@@ -243,6 +243,14 @@ public class Domain {
     return graphicalGameState;
   }
 
+  /**
+   * Only use for persistency, no where else please.
+   * This will set the initial treasureCount
+   */
+  public void overrideInitialTreasureCount(int treasureCount) {
+    this.requiredTreasureCount = treasureCount;
+  }
+
   /** ---------------------PRIVATE FUNCTIONS------------------------------- */
 
   /**
