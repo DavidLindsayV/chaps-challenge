@@ -13,7 +13,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.*;
  */
 public class InputGenerator {
     private final List<ArtificialInput> inputs = new ArrayList<ArtificialInput>();
-    private int index = 0; // do i need this
+    private int index = 0;
 
     /**
      * Generates n number of inputs for this generator
@@ -26,15 +26,13 @@ public class InputGenerator {
     /**
      * performs the next move in the sequence of inputs,
      * returns false if the end of the list is reached
-     * @param app
+     * takes a robot as a parameter to perform inputs
+     *
+     * @param b
      * @return
      */
-    public boolean playNext(Robot b/*UserListener ul*/){
+    public boolean playNext(Robot b){
         inputs.get(index).play(b);
-
-        // wait for the input to be registered
-        //try {TimeUnit.MILLISECONDS.sleep(200);}catch(Exception e) {}
-        //if (index == 3) { throw new IllegalArgumentException();}				// comment this out to test exceptions
         return (++index < inputs.size());
     }
 
@@ -60,6 +58,4 @@ public class InputGenerator {
      * @return
      */
     public List<ArtificialInput> getInputsList(){return Collections.unmodifiableList(inputs);}
-
-
 }

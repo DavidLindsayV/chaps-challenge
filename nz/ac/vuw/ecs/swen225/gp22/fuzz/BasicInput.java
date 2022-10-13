@@ -20,10 +20,10 @@ interface ArtificialInput {
  */
 public class BasicInput {
     private static List<ArtificialInput> inputTypes = List.of(
-        (b)->{b.keyPress(KeyEvent.VK_UP); b.keyRelease(KeyEvent.VK_UP); System.out.println("UP");/* moveup */},
-        (b)->{b.keyPress(KeyEvent.VK_DOWN); b.keyRelease(KeyEvent.VK_DOWN); System.out.println("DOWN");/* movedown */},
-        (b)->{b.keyPress(KeyEvent.VK_LEFT); b.keyRelease(KeyEvent.VK_LEFT); System.out.println("LEFT");/* moveleft */},
-        (b)->{b.keyPress(KeyEvent.VK_RIGHT); b.keyRelease(KeyEvent.VK_RIGHT); System.out.println("RIGHT");/* moveright */}
+        (b)->{b.keyPress(KeyEvent.VK_UP); b.keyRelease(KeyEvent.VK_UP);},// System.out.println("UP");/* moveup */},
+        (b)->{b.keyPress(KeyEvent.VK_DOWN); b.keyRelease(KeyEvent.VK_DOWN);},// System.out.println("DOWN");/* movedown */},
+        (b)->{b.keyPress(KeyEvent.VK_LEFT); b.keyRelease(KeyEvent.VK_LEFT);},// System.out.println("LEFT");/* moveleft */},
+        (b)->{b.keyPress(KeyEvent.VK_RIGHT); b.keyRelease(KeyEvent.VK_RIGHT);}// System.out.println("RIGHT");/* moveright */}
         //(u)->{u.pauseGame(); System.out.println("PAUSE");/* pause */},
         //(u)->{u.resumeGame(); System.out.println("RESUME");/* unpause */}
         //()->{System.out.println("Other Input");/* more types of input (mouse click?) */}

@@ -1,25 +1,19 @@
 package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
-import java.rmi.RemoteException;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
-import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.opentest4j.AssertionFailedError;
 import nz.ac.vuw.ecs.swen225.gp22.app.*;
 
-import static org.junit.jupiter.api.Assertions.assertTimeout;
-
 public class Fuzz{
+	private static final int ROBOT_DELAY = 40;
 
     /**
      * Generates movement input for tests
@@ -42,35 +36,57 @@ public class Fuzz{
     	UserListener u = (UserListener) g.listener;
 
         // until level is complete or time runs out keep going
-        playGame(g, u);
+        playGame(KeyEvent.VK_1);
     }
 
     /**
      * Performs a 1 minute random fuzz test (for level 2)
      */
-    //@Test
+    @Test
     public void test2Random(){
         // create new app, open app, load in level 2
     	GUI g = new GUI();
         UserListener u = (UserListener) g.listener;
-        u.nextLevel();
 
     	// until level is complete or time runs out keep going
-        playGame(g, u);
+        playGame(KeyEvent.VK_2);
     }
 
     /**
      * Plays the game when given an app (that is currently in a level)
      */
-    public void playGame(GUI g, UserListener u){
+    public void playGame(int level){
         InputGenerator ig = generateRandomInput();
 
         try {
         	// timeout after 60 seconds
 	        assertTimeoutPreemptively(Duration.ofSeconds(60), ()->{
+
+
 	        	Robot bot = new Robot();
-	        	bot.setAutoDelay(100);
-	        	while (ig.playNext(bot)) {}
+
+	        	// load the level with robot key presses
+	        	/*bot.setAutoDelay(200);
+	        	bot.keyPress(KeyEvent.VK_CONTROL);
+	        	bot.keyPress(level);
+	        	bot.keyRelease(level);
+	        	bot.keyRelease(KeyEvent.VK_CONTROL);*/
+
+	        	// java robot sucks and wont release the keys
+	        	bot.keyPress(KeyEvent.VK_CONTROL);
+	        	bot.keyPress(level);
+	        	bot.delay(500);
+	        	bot.keyRelease(level);
+	        	bot.keyRelease(KeyEvent.VK_CONTROL);
+
+	        	bot.setAutoDelay(ROBOT_DELAY);
+
+	        	System.out.println("IT IS TIME");
+
+	        	while (ig.playNext(bot)) {
+	        		bot.keyPress(KeyEvent.VK_ENTER);
+		        	bot.keyRelease(KeyEvent.VK_ENTER);
+	        	}
 	        });
         }
 
@@ -78,6 +94,8 @@ public class Fuzz{
         catch (AssertionFailedError e) {
         	System.out.println("STOPPED RUNNING, TIMEOUT!");
         	ig.finish();
+        	GUI.instance.closeAll();
+        	GUI.instance = null;
         	return;
         }
 
@@ -85,8 +103,12 @@ public class Fuzz{
 	    catch (Exception e) {
 	    	System.out.println("EXCEPTION OCCURRED TIMEOUT! " + e);
 	    	ig.finish();
+	    	GUI.instance.closeAll();
+	    	GUI.instance = null;
 	    	assert false;
+	    	return;
 	    }
+
 
         System.out.println("ALL INPUTS CONSUMED");
     }
