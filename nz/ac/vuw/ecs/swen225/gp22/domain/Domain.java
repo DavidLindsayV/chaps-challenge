@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
@@ -76,6 +77,14 @@ public class Domain {
    */
   public int keysCollected() {
     return player.getTotalKeysCollected();
+  }
+
+  /**
+   * Returns the colour of keys
+   * @return 
+   */
+  public Map<AuthenticationColour, Integer> keys() {
+    return player.getKeys();
   }
 
   /**
