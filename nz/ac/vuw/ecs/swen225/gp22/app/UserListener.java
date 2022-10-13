@@ -275,6 +275,9 @@ to be loaded
    * level1 goes to level2, level2 also loads level 2
    */
   public static void nextLevel() {
+
+    Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
+
     timer.redrawJFrame();
     JOptionPane.showMessageDialog(
       GUI.instance,
