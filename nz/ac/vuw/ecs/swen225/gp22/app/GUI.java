@@ -219,11 +219,17 @@ public class GUI extends Renderer {
     }
   }
 
-  public static ReplayGui replayGui() {
+  /** Getter for replayGui
+ * @return replayGui
+ */
+public static ReplayGui replayGui() {
     return replayGUI;
   }
 
-  public static void closeReplayGui() {
+  /**
+ * 
+ */
+public static void closeReplayGui() {
     replayGUI = null;
   }
 }
