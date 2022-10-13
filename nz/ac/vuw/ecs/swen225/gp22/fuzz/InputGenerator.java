@@ -2,14 +2,15 @@ package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Collections;
-import nz.ac.vuw.ecs.swen225.gp22.app.*;
 
 /**
  * Class for generating input and playing the input
+ *
+ * @author Maximus De Leon deleomaxi 300566351
+ *
  */
 public class InputGenerator {
     private final List<ArtificialInput> inputs = new ArrayList<ArtificialInput>();
