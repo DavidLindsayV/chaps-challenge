@@ -6,6 +6,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
+/**
+ * A class that allows the ability to play audio. 
+ * @author Adam Goodyear 300575240
+ */
 public class SoundEffects {
     public static void playSound(String filename) {
         try {

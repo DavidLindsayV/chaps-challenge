@@ -21,13 +21,21 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
+/**
+ * class which renders the board and
+ * supplies functions to locate positions on the board.
+ * @author Adam Goodyear 300575240
+ */
+
 public class BoardPanel extends JPanel {
 
+  //sets up known variables
   private static final long serialVersionUID = 1L;
   static final int cols = 11;
   static final int rows = 11;
   public static boolean chapDirection = true;
 
+  //funny maths stuff
   static int originX = 200;
   static int originY = 200;
   static int xSpacing = (1000 - (originX * 2)) / cols;
@@ -35,6 +43,9 @@ public class BoardPanel extends JPanel {
   static int xEndPoint = originX + xSpacing * 11;
   static int yEndPoint = originY + ySpacing * 11;
 
+  /**
+  * paint component. beins drawing the simple elements
+  */
   @Override
   protected void paintComponent(Graphics g) {
     g.setColor(new Color(85, 73, 148));
@@ -175,7 +186,7 @@ public class BoardPanel extends JPanel {
     }
 
     d.getEnemies().stream()
-      .filter(e -> e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 12 && e.getPosition().row() - (p.row() - 6) > -1 && e.getPosition().row() - (p.row() - 6) < 12)
+      .filter(e -> e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 11 && e.getPosition().row() - (p.row() - 6) > -1 && e.getPosition().row() - (p.row() - 6) < 11)
       .forEach(e -> drawImg(Img.Enemy.image, e.getPosition().col() - (p.col() - 6), e.getPosition().row() - (p.row() - 6),g));
   }
 }

@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
+/**
+ * A class that allows access to the different sprites.
+ * @author Adam Goodyear 300575240
+ */
+
 public enum Img {
     WallSprite,
     FloorSprite,
