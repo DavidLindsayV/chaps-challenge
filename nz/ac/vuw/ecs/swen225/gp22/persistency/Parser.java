@@ -155,9 +155,6 @@ public class Parser {
     if (tileTypesLoaded.get("treasure") < 1) {
       throw new IllegalArgumentException("No treasure provided in xml file");
     }
-    if (tileTypesLoaded.get("key") != tileTypesLoaded.get("door")) {
-      throw new IllegalArgumentException("Number of doors and keys loaded do not match");
-    }
   }
 
   /**
@@ -209,6 +206,8 @@ public class Parser {
   private static Element addItems(Element items, Domain d) {
     Player p = d.getPlayer();
     Map<AuthenticationColour, Integer> keys = p.getKeysCollected();
+
+    items.addAttribute("initialTreasureCount", d.requiredTreasureCount());
 
     // Save keys
     for (AuthenticationColour colour : keys.keySet()) {
@@ -374,6 +373,13 @@ public class Parser {
     if (items == null) {
       return d;
     }
+    Number treasureCount = items.numberValueOf("@initialTreasureCount");
+    // Get initial treasure count
+    if (((Double) treasureCount).isNaN()) {
+      throw new NullPointerException("Treasure count has not been specified");
+    }
+    d.overrideInitialTreasureCount(treasureCount.intValue());
+
     Player p = d.getPlayer();
     for (int i = 0; i < items.elements("treasure").size(); i++) {
       p.pickUpTreasure();
