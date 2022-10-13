@@ -17,7 +17,7 @@ import org.dom4j.DocumentException;
 
 /**
  * This class listens and reacts to keypresses of the user
- * 
+ *
  * @author David Lindsay
  */
 public class UserListener implements KeyListener {
@@ -32,7 +32,7 @@ public class UserListener implements KeyListener {
   private static String currentLevel;
   // The timer that calls ping
   private static pingTimer timer;
-  // Time already spent when starting the level
+  // Time remaing when starting the level
   public static int timeRemaining;
 
   /**
@@ -53,7 +53,7 @@ public class UserListener implements KeyListener {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
    */
   @Override
@@ -62,7 +62,7 @@ public class UserListener implements KeyListener {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
    */
   @Override
@@ -90,7 +90,7 @@ public class UserListener implements KeyListener {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
    */
   @Override
@@ -110,7 +110,7 @@ public class UserListener implements KeyListener {
 
   /**
    * Runs the commands accessed by Ctrl (eg ctrl-1, ctrl-2, ctrl-x)
-   * 
+   *
    * @param e
    */
   private void ctrlCommands(KeyEvent e) {
@@ -227,7 +227,7 @@ public class UserListener implements KeyListener {
 
   /**
    * Loads a new timer with the time left passed in
-   * 
+   *
    * @param timeLeftToPlay
    */
   public static void loadTimer(int timeLeftToPlay) {
@@ -308,7 +308,7 @@ public class UserListener implements KeyListener {
 
   /**
    * Sets the move
-   * 
+   *
    * @param move
    */
   public static void setMove(Direction move) {

@@ -189,7 +189,7 @@ public class GUI extends Renderer {
    */
   public static void drawText(Graphics g) {
     g.setColor(new Color(50, 50, 50));
-    g.fillRect(200, 25, 435, 110);
+    g.fillRect(200, 25, 600, 110);
     g.setFont(new Font("Roboto", Font.BOLD, 30));
     g.setColor(Color.RED);
     g.drawString(

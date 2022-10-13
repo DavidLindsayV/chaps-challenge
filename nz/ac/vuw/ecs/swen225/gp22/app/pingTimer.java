@@ -73,7 +73,7 @@ public class pingTimer extends Timer {
     //Advance the timer
     timeLeftToPlay -= pingRate;
     //If out of time, reload level
-    if (timeLeftToPlay == 0) {
+    if (timeLeftToPlay <= 0) {
       redrawJFrame();
       UserListener.timeOutLevel();
     }
