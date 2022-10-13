@@ -28,6 +28,7 @@ public class Player implements Printable {
         this.position = new Point(0, 0);
         this.domain = d;
         this.keyWallet = new HashMap<AuthenticationColour, Integer>();
+        this.keyHistory = new HashMap<AuthenticationColour, Integer>();
         this.totalKeysCollected = 0;
     }
 

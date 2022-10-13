@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <level>level1.xml</level>
+  <tick tick="0">
+    <move actor="player">NONE</move>
+  </tick>
+</game>
+<!--13-10-2022-220555-->
