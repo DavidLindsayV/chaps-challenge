@@ -5,18 +5,33 @@ import javax.swing.JFrame;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
 
+/**
+ * sets up the GUI and regins rendering.
+ * @author Adam Goodyear 300575240
+ */
+
+
 public class Renderer extends JFrame {
 
   private int width;
   private int height;
   public BoardPanel panel;
 
+  /**
+  * constructor for renderer
+  * 
+  * @param width renderer width
+  * @param width renderer height
+  */
   public Renderer(int w, int h) {
     System.out.println("BREAKPOINT: Renderer created");
     width = w;
     height = h;
   }
 
+  /**
+  * Set up function sets up the GUI
+  */
   public void setUpGUI() {
     System.out.println("BREAKPOINT: Renderer has set up the GUI.");
     setSize(width, height);

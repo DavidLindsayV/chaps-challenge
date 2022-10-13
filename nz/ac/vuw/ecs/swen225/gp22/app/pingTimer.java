@@ -27,7 +27,7 @@ public class pingTimer extends Timer {
    */
   public pingTimer(String level) {
     super();
-    timeLeftToPlay = 60 * 1000 * getLevelNum(level); 
+    timeLeftToPlay = 60 * 1000 * getLevelNum(level);
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
@@ -37,6 +37,12 @@ public class pingTimer extends Timer {
   public pingTimer(pingTimer p) {
     super();
     this.timeLeftToPlay = p.timeLeftToPlay;
+    this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
+  }
+
+  public pingTimer(String level, int timePlayed) {
+    super();
+    timeLeftToPlay = 60 * 1000 * getLevelNum(level) - timePlayed;
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
@@ -83,7 +89,7 @@ public class pingTimer extends Timer {
   /**
    * Redraws the JFrame of GUI
    */
-  private void redrawJFrame() {
+  public void redrawJFrame() {
     if (GUI.instance != null) {
       GUI.instance.panel.revalidate();
       GUI.instance.panel.repaint();

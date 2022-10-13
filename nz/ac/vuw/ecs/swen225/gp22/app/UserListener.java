@@ -150,6 +150,10 @@ application will be started
 to be loaded
  */
   public static void loadSavedGame() {
+    JOptionPane.showMessageDialog(
+      GUI.instance,
+      "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\""
+    );
     try {
       
       JOptionPane.showMessageDialog(GUI.instance, "Choose a level to load!");
@@ -230,6 +234,7 @@ to be loaded
 
   /**Called when the level is lost by Domain*/
   public static void loseLevel() {
+    timer.redrawJFrame();
     SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
@@ -240,6 +245,7 @@ to be loaded
 
   /** Called when the user runs out of time on a level*/
   public static void timeOutLevel() {
+    timer.redrawJFrame();
     SoundEffects.playSound("Death");
     JOptionPane.showMessageDialog(
       GUI.instance,
@@ -253,6 +259,7 @@ to be loaded
    * level1 goes to level2, level2 also loads level 2
    */
   public static void nextLevel() {
+    timer.redrawJFrame();
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level " +

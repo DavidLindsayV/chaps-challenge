@@ -111,7 +111,12 @@ public class GUI extends Renderer {
     );
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(e -> playRecord());
-    playSavedItem.addActionListener(e -> UserListener.loadSavedGame());
+    playSavedItem.addActionListener(
+      e -> {
+        pauseGame();
+        UserListener.loadSavedGame();
+      }
+    );
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
     //Add keylistener to JFrame
@@ -204,18 +209,27 @@ public class GUI extends Renderer {
    * @return shortened level name
    */
   public static String shortenLevelName(String levelName) {
-	if (levelName == null) {return "";}
-    return levelName.substring(
-      Math.max(0, levelName.lastIndexOf("/") + 1),
-      levelName.length() - 4
-    );
+    if (levelName != null) {
+      return levelName.substring(
+        Math.max(0, levelName.lastIndexOf("/") + 1),
+        levelName.length() - 4
+      );
+    } else {
+      return "";
+    }
   }
 
-  public static ReplayGui replayGui() {
+  /** Getter for replayGui
+ * @return replayGui
+ */
+public static ReplayGui replayGui() {
     return replayGUI;
   }
 
-  public static void closeReplayGui() {
+  /**
+ * 
+ */
+public static void closeReplayGui() {
     replayGUI = null;
   }
 }

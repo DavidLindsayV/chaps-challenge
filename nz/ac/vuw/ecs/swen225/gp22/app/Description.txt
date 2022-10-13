@@ -33,10 +33,14 @@ Graphical user interfaces are notoriously difficult to test, so no unit tests ar
 package. Testing is to be done manually.
 
 TASKS LEFT:
-- Testing
-- Made beating level 2 print out a different message
-- Test loading of saved games works
+- Auto save recordings at end of level
 
 code changes I would like to Make
 - make gui's userlistener have a getter and not be public
 - have userlisteners currentGame not be public
+
+Bugs with loading saved levels
+- pause button shows triangle
+- timer is not correct
+- collected keys and carrots not correct
+- domain doesn't think you have the keys that you do, so can't open doors
