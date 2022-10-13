@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
-import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.MockRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
@@ -12,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.dom4j.DocumentException;
 
@@ -179,6 +177,18 @@ public class PersistencyTests {
     }
 
     @Test
+    public void testEnemyWithNoCol() {
+        try {
+            Parser.loadLevel("tests/enemyWithNoCol.xml");
+            fail("Failed to detect no col specified");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
+        }
+    }
+
+    @Test
     public void testNoEnemyPathSpecified() {
         try {
             Parser.loadLevel("tests/enemyWithNoPath.xml");
@@ -191,16 +201,15 @@ public class PersistencyTests {
     }
 
     @Test
-    public void testNoTreasure() {
+    public void testBadPathSpecified() {
         try {
-            Parser.loadLevel("tests/noTreasure.xml");
-            fail("Failed to detect no treasure");
+            Parser.loadLevel("tests/enemyWithBadPath.xml");
+            fail("Failed to detect bad path specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             assert true;
         }
-
     }
 
     @Test
@@ -240,19 +249,6 @@ public class PersistencyTests {
     }
 
     @Test
-    public void testLoadingAndSavingLevel1() {
-        try {
-            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
-            int initialFileCount = directory.list().length;
-            MockPersistency.run("level1.xml");
-            int newFileCount = directory.list().length;
-            assert newFileCount == initialFileCount + 1 : "A new file was not created";
-        } catch (Exception e) {
-            fail("Exception thrown");
-        }
-    }
-
-    @Test
     public void testLoadingAndSavingLevel2() {
         try {
             File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
@@ -262,25 +258,6 @@ public class PersistencyTests {
             assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             fail("Exception thrown");
-        }
-    }
-
-    @Test
-    public void testSavingGame() {
-        runRecorder();
-        DomainBuilder db = new DomainBuilder();
-        db.info(1, 2).wall(2, 2).exit(2, 3).player(3, 3);
-
-        Domain d = db.make();
-
-        try {
-            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
-            int initialFileCount = directory.list().length;
-            Parser.saveLevel(d);
-            int newFileCount = directory.list().length;
-            assert newFileCount == initialFileCount + 1 : "A new file was not created";
-        } catch (IOException e) {
-            assert false : e.getMessage();
         }
     }
 

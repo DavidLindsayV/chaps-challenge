@@ -17,7 +17,6 @@ public class ActorLoader {
     /**
      * Get the class from a specified jar file.
      * 
-      
      * @param jarFile   the jar file with the class in it
      * @param className the name of the class to be found
      * @return the class object
