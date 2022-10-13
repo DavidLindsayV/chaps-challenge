@@ -172,15 +172,6 @@ public class BoardPanel extends JPanel {
         }
       }
     }
-    /*
-    for(Enemy e: d.getEnemies()){
-      int newX = e.getPosition().col() - (p.col() - 6);
-      int newY = e.getPosition().row() - (p.row() - 6);
-      if(e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 12 && newY = e.getPosition().row() - (p.row() - 6) > -1 && newY = e.getPosition().row() - (p.row() - 6) < 12){
-        drawImg(Img.Enemy.image, newX, newY,g);
-      }
-    }
-    */
 
     d.getEnemies().stream()
       .filter(e -> e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 12 && e.getPosition().row() - (p.row() - 6) > -1 && e.getPosition().row() - (p.row() - 6) < 12)
