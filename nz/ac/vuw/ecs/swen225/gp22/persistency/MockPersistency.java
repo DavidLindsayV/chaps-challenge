@@ -7,10 +7,18 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.MockRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 import org.dom4j.DocumentException;
 
+/**
+ * Class to create a mock of the persistency loading and saving files
+ *  for testing purposes.
+ *  
+ *  Student ID: 3005 30113
+ * @author GeorgiaBarrand
+ *
+ */
 public class MockPersistency {
 
   /**
-   * Runs a simulation of a game
+   * Runs a simulation of a game.
    */
   public static void run(String filename) {
     try {
