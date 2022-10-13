@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
+import java.util.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,6 +18,7 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.MainRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
@@ -166,6 +168,10 @@ public class BoardPanel extends JPanel {
       }
     }
     
-    d.getEnemies().stream().forEach(e -> drawImage(Img.Enemy.image, e.getPosition().col(), e.getPosition.row(), g));
+    /*for(Enemy e: d.getEnemies){
+      drawImage(Img.Enemy.image, e.getPosition().col(),e.getPosition().row(),g);
+    }*/
+
+    d.getEnemies().stream().forEach(e -> drawImg(Img.Enemy.image, e.getPosition().col(), e.getPosition().row(),g));
   }
 }
