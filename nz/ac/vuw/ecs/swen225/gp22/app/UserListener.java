@@ -218,6 +218,10 @@ to be loaded
     timer = new pingTimer(timeLeftToPlay);
   }
 
+  public static int getTimeLeft(){
+    return timer.timeLeftToPlay();
+  }
+
   /**Move up */
   private void up() {
     move = Direction.UP;
