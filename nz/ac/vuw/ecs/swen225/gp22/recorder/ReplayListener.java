@@ -100,9 +100,19 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Resumes game 
+   * Public resumes game for ReplayGui.
    */
-  public static void resumeGame() {
+  public static void resumeGame(int speed) {
+    System.out.println("The game has resumed");
+    paused = false;
+    timer = new ReplayTimer(speed);
+    JOptionPane.getRootFrame().dispose();
+  }
+
+  /**
+   * Private resumes game for the key listener.
+   */
+  private static void resumeGame(){
     System.out.println("The game has resumed");
     paused = false;
     timer = new ReplayTimer(timer);
@@ -194,9 +204,9 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Stops the game on the listeners end.
+   * Stops the timer for the game.
    */
-  public static void stopGame(){
+  public static void stopTimer(){
     timer.cancel();
   }
 

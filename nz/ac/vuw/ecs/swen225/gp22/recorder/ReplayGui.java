@@ -155,7 +155,7 @@ public class ReplayGui extends Renderer {
           ReplayListener.pauseGame();
           pauseButton.setText("▶");
         } else {
-          ReplayListener.resumeGame();
+          ReplayListener.resumeGame(speedSlider.getValue());
           pauseButton.setText("⏸");
         }
       }
@@ -270,6 +270,7 @@ public class ReplayGui extends Renderer {
   public static void closeReplay() {
     frame.dispose();
     instance.dispose();
+    ReplayListener.stopTimer();
     GUI.closeReplayGui();
   }
 }
