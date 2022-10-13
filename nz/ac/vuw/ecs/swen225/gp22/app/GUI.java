@@ -204,10 +204,14 @@ public class GUI extends Renderer {
    * @return shortened level name
    */
   public static String shortenLevelName(String levelName) {
-    return levelName.substring(
-      Math.max(0, levelName.lastIndexOf("/") + 1),
-      levelName.length() - 4
-    );
+    if (levelName != null) {
+      return levelName.substring(
+        Math.max(0, levelName.lastIndexOf("/") + 1),
+        levelName.length() - 4
+      );
+    } else {
+      return "";
+    }
   }
 
   public static ReplayGui replayGui() {
