@@ -1,14 +1,15 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
-import java.net.Socket;
-
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 
 /**
- * Represents treasure.
- * Can pass through.
- * When passing through, the player acquires +1 treasures.
- * And the tile becomes empty.
+ * TreasureState represents treasure.
+ * Player can pass through.
+ * When the player passes through, it acquires +1 treasures.
+ * The parent tile becomes empty. 
+ * 
+ * @author Brandon Ru 300562436
+ *
  */
 public class TreasureState implements FreeTileState {
     @Override

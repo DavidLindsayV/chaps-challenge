@@ -202,6 +202,7 @@ public class GUI extends Renderer {
    * @return shortened level name
    */
   public static String shortenLevelName(String levelName) {
+	if (levelName == null) {return "";}
     return levelName.substring(
       Math.max(0, levelName.lastIndexOf("/") + 1),
       levelName.length() - 4

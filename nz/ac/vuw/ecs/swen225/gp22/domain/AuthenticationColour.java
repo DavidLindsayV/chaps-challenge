@@ -1,7 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 /**
- * The colours of doors and keys avaliable in Chap's challenge.
+ * The colors of doors and keys available in Chap's challenge.
  */
 public enum AuthenticationColour {
     PINK,
@@ -9,4 +9,4 @@ public enum AuthenticationColour {
     YELLOW,
     GREEN,
     NULL
-}
+}	

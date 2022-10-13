@@ -3,8 +3,17 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 
+/**
+ * The domain represents the internal state of the game.
+ * It handles all the logic between tiles, players, and actors.
+ * 
+ * @author Brandon Ru 300562436
+ *
+ */
 public class Domain {
 
   private Tile[][] gameState;
@@ -14,12 +23,23 @@ public class Domain {
   private boolean playing;
   
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
-  public static final String TOOLTIP_STRING = "play the game.";
+  public static final String TOOLTIP_STRING = "1. CTRL-X - exit the game, the current game state will be lost, the next time the game is\n"
+	+ "started, it will resume from the last unfinished level\n"
+	+ "2. CTRL-S - exit the game, saves the game state, game will resume next time the\n"
+	+ "application will be started\n"
+	+ "3. CTRL-R - resume a saved game -- this will pop up a file selector to select a saved game\n"
+	+ "to be loaded\n"
+	+ "4. CTRL-1 - start a new game at level 1\n"
+	+ "5. CTRL-2 - start a new game at level 2\n"
+	+ "6. SPACE - pause the game and display a “game is paused” dialog\n"
+	+ "7. ESC - close the “game is paused” dialog and resume the game\n"
+	+ "8. UP, DOWN, LEFT, RIGHT ARROWS -- move Chap within the maze";
 
   /**
    * Raw constructor.
-   * Use of the DomainBuilder is highly advised.
-   * @param gameState
+   * Do not use. Use the builder please.
+   * @param gameState 2D array of tiles.
+   * @param enemies List of enemies.
    */
   public Domain(Tile[][] gameState, List<Enemy> enemies) {
     this.player = new Player(this);
@@ -74,7 +94,6 @@ public class Domain {
 
   /**
    * Get the player position
-   * Adam: Use this for getting player position.
    * @param pos The position of the player.
    */
   public Point getPlayerPosition() {
@@ -83,7 +102,6 @@ public class Domain {
 
   /**
    * Get the player position
-   * Adam: Use this for getting player position.
    * @param pos The position of the player.
    */
   public Point getPlayerGraphicalPosition() {
@@ -91,8 +109,8 @@ public class Domain {
   }
 
   /**
-   * Get the enemies
-   * @param direction
+   * Returns the enemies.
+   * @return List of enemies.
    */
   public List<Enemy> getEnemies() {
     return Collections.unmodifiableList(enemies);
@@ -108,12 +126,8 @@ public class Domain {
     }
 
     Point pos = player.getPosition();
-
-    // Special case to check if the player is exiting a tool tip
-    Tile initialTile = gameState[(int) pos.row()][(int) pos.col()];
-    if (initialTile.name().equals("info")) { Domain.hideToolTip(); }
-
     pos = pos.translate(direction.dr, direction.dc);
+    
     // If this doesn't move the player out of the domain.
     if (withinDomain(pos)) {
       // Interact with the tile.
@@ -184,18 +198,12 @@ public class Domain {
    * This function will be called when the player steps on the info tile.
    */
   public static void showToolTip() {
-    // GUI.showToolTip(TOOLTIP_STRING);
+    GUI.showToolTip(TOOLTIP_STRING);
     System.out.println("showing tooltip");
-  }
-
-  public static void hideToolTip() {
-    // GUI.hideToolTip();
-    System.out.println("hide tool tip");
   }
 
   /**
    * Returns a 2D clone of the internal view of the domain.
-   * Use this Georgia.
    */
   public Tile[][] getInnerState() {
     return Arrays.stream(gameState).map(Tile[]::clone).toArray(Tile[][]::new);
@@ -203,7 +211,6 @@ public class Domain {
 
   /**
    * Returns a padded 2D clone of the internal view of the domain.
-   * Use this Adam.
    */
   public Tile[][] getGraphicalState() {
     int domainHeight = gameState.length;
