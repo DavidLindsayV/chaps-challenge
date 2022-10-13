@@ -24,7 +24,6 @@ public class Renderer extends JFrame {
   * @param width renderer height
   */
   public Renderer(int w, int h) {
-    System.out.println("BREAKPOINT: Renderer created");
     width = w;
     height = h;
   }
@@ -33,7 +32,6 @@ public class Renderer extends JFrame {
   * Set up function sets up the GUI
   */
   public void setUpGUI() {
-    System.out.println("BREAKPOINT: Renderer has set up the GUI.");
     setSize(width, height);
     setTitle("Test Title");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
