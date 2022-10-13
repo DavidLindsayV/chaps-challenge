@@ -103,6 +103,7 @@ public class ReplayGui extends Renderer {
     this.delPauseButton();
     this.delSpeedSlider();
     this.delStepButton();
+    closeAll();
   }
 
   /**
@@ -116,7 +117,7 @@ public class ReplayGui extends Renderer {
   }
 
   /**
-   * Draws game information on the top left, like in the regular gui.
+   * Draws game information on the top left, like in the regular APP gui.
    */
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
@@ -206,14 +207,17 @@ public class ReplayGui extends Renderer {
    */
   private void actSpeedSlider(){
     sliderLabel = new JLabel();
-    speedSlider = new JSlider(0,400,200);
-    sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
+    speedSlider = new JSlider(100,500,200);
+    sliderLabel.setText("Ticks delay in milliseconds = " + speedSlider.getValue());
     panel.setLayout(null);
-    speedSlider.setBounds(400, 50, 200, 50);
+
+    sliderLabel.setBounds(400, 25, 200, 50);
+    speedSlider.setBounds(400, 75, 200, 50);
     speedSlider.addChangeListener(new ChangeListener() {
       public void stateChanged(ChangeEvent ce) {
-        repaint();
         ReplayListener.changeTimerSpeed(speedSlider.getValue());
+        sliderLabel.setText("Ticks delay in milliseconds = " + speedSlider.getValue());
+        repaint();
       }
    });
     panel.add(sliderLabel);
@@ -233,13 +237,6 @@ public class ReplayGui extends Renderer {
   }
 
   /**
-   * TODO: SPEED SLIDER CHANGE NOW
-   */
-  private void updateSlider(ChangeEvent e) {
-    sliderLabel.setText("Ticks per second = " + speedSlider.getValue());
-  }
-
-  /**
    * Sets the replay to be autoplay.
    */
   private void runAutoPlay(){
@@ -249,6 +246,8 @@ public class ReplayGui extends Renderer {
     delStepButton();
     actSpeedSlider();
     actPauseButton();
+    ReplayListener.pauseGame();
+    pauseButton.setText("▶");
     ReplayListener.setAutoPlay();
   }
 
@@ -268,6 +267,7 @@ public class ReplayGui extends Renderer {
    * Closes the replay GUI.
    */
   public static void closeAll() {
+    ReplayListener.exitGame();
     frame.dispose();
     instance.dispose();
   }

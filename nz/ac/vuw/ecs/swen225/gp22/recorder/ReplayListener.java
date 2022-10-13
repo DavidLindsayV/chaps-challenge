@@ -53,7 +53,7 @@ public class ReplayListener implements KeyListener {
 
     displayTime =  60 * 1000 * pingTimer.getLevelNum(currentLevel);
 
-    timer = new ReplayTimer(currentLevel);
+    timer = new ReplayTimer(200);
     System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
     System.out.println("REPLAY LISTENER: Loading level...");
     loadLevel();
@@ -135,7 +135,7 @@ public class ReplayListener implements KeyListener {
   private static void loadTimer() {
     System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
-    timer = new ReplayTimer(currentLevel);
+    timer = new ReplayTimer(timer);
   }
 
   /**
@@ -189,7 +189,15 @@ public class ReplayListener implements KeyListener {
    * @param speed - The speed of the timer we are changing too.
    */
   public static void changeTimerSpeed(int speed){
-    timer.changeSpeed(speed);
+    timer.cancel();
+    timer = new ReplayTimer(speed);
+  }
+
+  /**
+   * Stops the game on the listeners end.
+   */
+  public static void stopGame(){
+    timer.cancel();
   }
 
 }
