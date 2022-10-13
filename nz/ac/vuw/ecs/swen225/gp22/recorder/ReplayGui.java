@@ -207,7 +207,7 @@ public class ReplayGui extends Renderer {
    */
   private void actSpeedSlider(){
     sliderLabel = new JLabel();
-    speedSlider = new JSlider(100,300,200);
+    speedSlider = new JSlider(100,500,200);
     sliderLabel.setText("Ticks delay in milliseconds = " + speedSlider.getValue());
     panel.setLayout(null);
 
@@ -246,6 +246,8 @@ public class ReplayGui extends Renderer {
     delStepButton();
     actSpeedSlider();
     actPauseButton();
+    ReplayListener.pauseGame();
+    pauseButton.setText("▶");
     ReplayListener.setAutoPlay();
   }
 

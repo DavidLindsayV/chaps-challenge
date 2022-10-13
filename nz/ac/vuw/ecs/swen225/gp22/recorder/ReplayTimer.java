@@ -27,7 +27,7 @@ public class ReplayTimer extends Timer{
     /**
      * The timer construcor.
      * 
-     * @param level - The level xml we are recording.
+     * @param speed - The speed we are setting.
      */
     public ReplayTimer(int speed){
         super();
@@ -40,7 +40,7 @@ public class ReplayTimer extends Timer{
     /**
      * The timer constructor when working off another timer.
      * 
-     * @param p - The previous timer.
+     * @param timer - The previous timer.
      */
     public ReplayTimer(ReplayTimer timer){
         super();
