@@ -60,21 +60,17 @@ public class UserListener implements KeyListener {
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
-        SoundEffects.playSound("Step");
         up();
         break;
       case KeyEvent.VK_DOWN:
-        SoundEffects.playSound("Step");
         down();
         break;
       case KeyEvent.VK_LEFT:
         BoardPanel.chapDirection = true;
-        SoundEffects.playSound("Step");
         left();
         break;
       case KeyEvent.VK_RIGHT:
         BoardPanel.chapDirection = false;
-        SoundEffects.playSound("Step");
         right();
         break;
       case KeyEvent.VK_F:
