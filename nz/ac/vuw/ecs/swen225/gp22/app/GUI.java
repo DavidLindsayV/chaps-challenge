@@ -6,12 +6,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
@@ -38,6 +43,8 @@ public class GUI extends Renderer {
   private JMenuItem rulesItem; //the menu item that will display the rules
   private JMenuItem recordPlayerItem; //the menu item that will play a recorded game
   private JMenuItem playSavedItem; //the menu item that will play a saved game
+
+  MetalLookAndFeel metal;
 
   //The rules text
   private String rulesText =
@@ -67,6 +74,13 @@ public class GUI extends Renderer {
     super(1000, 1000);
     setUpGUI();
     instance = this;
+    metal = new MetalLookAndFeel();
+    MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+    try {
+      UIManager.setLookAndFeel(metal);
+    } catch (UnsupportedLookAndFeelException e) {
+      e.printStackTrace();
+    }
     System.out.println("BREAKPOINT: Creating user listener....");
     listener = new UserListener();
     setLayout(new BorderLayout());
@@ -91,7 +105,14 @@ public class GUI extends Renderer {
     panel.add(pauseButton);
     //Make exiting, saving showing rules and record playing menu items
     menuBar = new JMenuBar();
-    menu = new JMenu("Other Options");
+    menuBar.setBorder(
+      BorderFactory.createCompoundBorder(
+        menuBar.getBorder(),
+        BorderFactory.createEmptyBorder(0, 0, 0, 0)
+      )
+    );
+    menu = new JMenu("Menu Items");
+    menu.setFont(new Font("Roboto", Font.BOLD, 20));
     saveItem = new JMenuItem("Save Level");
     rulesItem = new JMenuItem("Show rules");
     exitItem = new JMenuItem("Exit Game");
@@ -159,6 +180,8 @@ public class GUI extends Renderer {
    * @param g
    */
   public static void drawText(Graphics g) {
+    g.setColor(new Color(50, 50, 50));
+    g.fillRect(40, 25, 200, 95);
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
     g.drawString(
@@ -220,16 +243,16 @@ public class GUI extends Renderer {
   }
 
   /** Getter for replayGui
- * @return replayGui
- */
-public static ReplayGui replayGui() {
+   * @return replayGui
+   */
+  public static ReplayGui replayGui() {
     return replayGUI;
   }
 
   /**
- * 
- */
-public static void closeReplayGui() {
+   * Close the replay gui
+   */
+  public static void closeReplayGui() {
     replayGUI = null;
   }
 }
