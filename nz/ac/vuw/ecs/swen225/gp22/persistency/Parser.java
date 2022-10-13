@@ -9,7 +9,9 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
@@ -38,6 +40,19 @@ import org.dom4j.io.XMLWriter;
 public class Parser {
 
   private static int lastLoadedLevel;
+  private static Map<String, Integer> tileTypesLoaded = new HashMap<String, Integer>() {
+    {
+      put("wall", 0);
+      put("exitLock", 0);
+      put("exit", 0);
+      put("player", 0);
+      put("treasure", 0);
+      put("enemy", 0);
+      put("info", 0);
+      put("key", 0);
+      put("door", 0);
+    }
+  };
 
   /**
    * Load the level layout from an xml file and use it to construct the domain
@@ -68,26 +83,26 @@ public class Parser {
         throw new NullPointerException("No row number specified");
       }
       int rowNumInt = rowNum.intValue();
-      parseStandardNode(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c));
+      parseStandardNode(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c), "wall");
       parseStandardNode(rowNumInt, row.elements("exitLock"),
-          (r, c) -> builder.lock(r, c));
+          (r, c) -> builder.lock(r, c), "exitLock");
       parseStandardNode(rowNumInt, row.elements("player"),
-          (r, c) -> builder.player(r, c));
+          (r, c) -> builder.player(r, c), "player");
       parseStandardNode(rowNumInt, row.elements("treasure"),
-          (r, c) -> builder.treasure(r, c));
+          (r, c) -> builder.treasure(r, c), "treasure");
       parseStandardNode(rowNumInt, row.elements("exit"),
-          (r, c) -> builder.exit(r, c));
+          (r, c) -> builder.exit(r, c), "exit");
       parseStandardNode(rowNumInt, row.elements("info"),
-          (r, c) -> builder.info(r, c));
-
+          (r, c) -> builder.info(r, c), "info");
       parseColourElement(rowNumInt, row.elements("key"),
-          (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
+          (r, c, colour) -> builder.key(r, c, colour.toUpperCase()), "key");
       parseColourElement(rowNumInt, row.elements("door"),
-          (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
+          (r, c, colour) -> builder.door(r, c, colour.toUpperCase()), "door");
       parsePathElement(rowNumInt, row.elements("enemy"),
           (e) -> builder.enemy(e));
 
     }
+    checkValidDomain();
 
     Domain d = builder.make();
     assert d != null;
@@ -124,12 +139,33 @@ public class Parser {
   }
 
   /**
+   * Check that the level file loaded has provided all the required tiles
+   */
+  private static void checkValidDomain() {
+    if (tileTypesLoaded.get("player") < 1) {
+      throw new IllegalArgumentException("No player provided in xml file");
+    }
+    if (tileTypesLoaded.get("exit") < 1) {
+      throw new IllegalArgumentException("No exit provided in xml file");
+    }
+    if (tileTypesLoaded.get("exitLock") < 1) {
+      throw new IllegalArgumentException("No exitLock provided in xml file");
+    }
+    if (tileTypesLoaded.get("treasure") < 1) {
+      throw new IllegalArgumentException("No treasure provided in xml file");
+    }
+    if (tileTypesLoaded.get("key") != tileTypesLoaded.get("door")) {
+      throw new IllegalArgumentException("Number of doors and keys loaded do not match");
+    }
+  }
+
+  /**
    * Find and return the current date and time as a string in the format
    * dd-MM-yyyy-HHmmss.
    * 
    * @return current time
    */
-  public static String getCurrentTime() {
+  private static String getCurrentTime() {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
     LocalDateTime now = LocalDateTime.now();
     String nowStr = dtf.format(now);
@@ -212,13 +248,16 @@ public class Parser {
    * @param nodes    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row and column
    */
-  private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
+  private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer,
+      String tileName) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (((Double) colNum).isNaN()) {
         throw new NullPointerException("No col number specified");
       }
+      tileTypesLoaded.put(tileName, tileTypesLoaded.get(tileName) + 1);
       consumer.accept(rowNum, colNum.intValue());
+
     }
   }
 
@@ -231,7 +270,7 @@ public class Parser {
    *                 colour
    */
   private static void parseColourElement(int rowNum, List<Element> elems,
-      TriConsumer<Integer, Integer, String> consumer) {
+      TriConsumer<Integer, Integer, String> consumer, String tileName) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (((Double) colNum).isNaN()) {
@@ -241,7 +280,11 @@ public class Parser {
       if (colour.isEmpty()) {
         throw new NullPointerException("No colour specified");
       }
+
+      tileTypesLoaded.put(tileName, tileTypesLoaded.get(tileName) + 1);
+
       consumer.accept(rowNum, colNum.intValue(), colour);
+
     }
   }
 

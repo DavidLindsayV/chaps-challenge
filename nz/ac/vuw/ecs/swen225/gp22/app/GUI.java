@@ -227,7 +227,7 @@ public static ReplayGui replayGui() {
   }
 
   /**
- * 
+ * Close the replay gui
  */
 public static void closeReplayGui() {
     replayGUI = null;

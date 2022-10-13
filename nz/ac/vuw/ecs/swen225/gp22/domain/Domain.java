@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
@@ -77,6 +78,15 @@ public class Domain {
   public int keysCollected() {
     return player.getTotalKeysCollected();
   }
+
+  /**
+   * Exposes the player outside of the domain.
+   * @return Player
+   */
+  public Player getPlayer() {
+    return player;
+  }
+
 
   /**
    * Sets the player position.

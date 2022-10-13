@@ -34,6 +34,7 @@ package. Testing is to be done manually.
 
 TASKS LEFT:
 - Auto save recordings at end of level
+- Remove breakpoint printlns
 
 code changes I would like to Make
 - make gui's userlistener have a getter and not be public
