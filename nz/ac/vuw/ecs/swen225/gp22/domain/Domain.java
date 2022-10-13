@@ -80,6 +80,14 @@ public class Domain {
   }
 
   /**
+   * Returns the total keys, and their colors
+   * @returns The number of keys left in a hashmap
+   */
+  public Map<AuthenticationColour, Integer> keysHistory() {
+    return player.getTotalKeyHistory();
+  }
+
+  /**
    * Exposes the player outside of the domain.
    * @return Player
    */

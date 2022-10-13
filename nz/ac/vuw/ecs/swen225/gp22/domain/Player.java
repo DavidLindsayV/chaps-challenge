@@ -22,6 +22,7 @@ public class Player implements Printable {
     private Domain                              domain;
     private int                                 treasureCount;
     private Map<AuthenticationColour, Integer>  keyWallet;
+    private Map<AuthenticationColour, Integer>  keyHistory;
     private int                                 totalKeysCollected;
 
     /**
@@ -66,7 +67,9 @@ public class Player implements Printable {
     public void addKey(AuthenticationColour key) {
         if (!keyWallet.containsKey(key)) {
             keyWallet.put(key, 0);
+            keyHistory.put(key, 0);
         } keyWallet.put(key, keyWallet.get(key) + 1);
+        keyHistory.put(key, keyHistory.get(key) + 1);
         totalKeysCollected++;
     }
 
@@ -118,6 +121,14 @@ public class Player implements Printable {
      */
     public int getTotalKeysCollected() {
         return totalKeysCollected;
+    }
+
+    /**
+     * Get key history 
+     * @return Keys collected but their specifics
+     */
+    public Map<AuthenticationColour, Integer> getTotalKeyHistory() {
+        return keyHistory;
     }
 
     /**
