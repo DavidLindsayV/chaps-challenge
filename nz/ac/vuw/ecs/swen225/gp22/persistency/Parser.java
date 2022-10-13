@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -95,34 +96,6 @@ public class Parser {
   }
 
   /**
-   * Load any items collected in a previously played game
-   * 
-   * @param d
-   * @param items
-   */
-  private static void loadItems(Domain d, Element items) {
-    Player p = d.getPlayer();
-    for (Element treasure : items.elements("treasure")) {
-      p.pickUpTreasure();
-    }
-
-    for (Element key : items.elements("key")) {
-      String colour = key.valueOf("@colour");
-      if (colour.isEmpty()) {
-        throw new NullPointerException("No colour specified");
-      }
-      p.addKey(AuthenticationColour.valueOf(colour.toUpperCase()));
-    }
-
-    Element time = items.element("time");
-    if (((Double) time.numberValueOf("@ms")).isNaN()) {
-      throw new NullPointerException("No time specified");
-    }
-    int msRemaining = time.numberValueOf("@ms").intValue();
-    UserListener.setTime(msRemaining);
-  }
-
-  /**
    * Save the current level state to an xml file so that it can be loaded later.
    * 
    * @param domain the current game domain
@@ -132,7 +105,7 @@ public class Parser {
     Tile[][] levelLayout = domain.getInnerState();
     Point player = domain.getPlayerPosition();
 
-    Document document = createLevelDocument(levelLayout, player, domain.getEnemies());
+    Document document = createLevelDocument(levelLayout, player, domain.getEnemies(), domain);
 
     String nowStr = getCurrentTime();
 
@@ -168,7 +141,7 @@ public class Parser {
    * @param levelLayout 2D array of the positions of tiles on the current level
    * @return Document representing the current level
    */
-  private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies) {
+  private static Document createLevelDocument(Tile[][] levelLayout, Point playerPos, List<Enemy> enemies, Domain d) {
     Document document = DocumentHelper.createDocument();
     Element level = document.addElement("level").addAttribute("levelNum", "" + lastLoadedLevel);
 
@@ -180,7 +153,37 @@ public class Parser {
       currRow = addEnemies(currRow, enemies, row);
       currRow = addTiles(levelLayout, row, currRow);
     }
+    Element items = document.addElement("items");
+    items = addItems(items, d);
     return document;
+  }
+
+  /**
+   * Add any collected items to the saved file
+   * 
+   * @param items the items Element
+   * @param d     the current domain
+   * @return the items Element with added items
+   */
+  private static Element addItems(Element items, Domain d) {
+    Player p = d.getPlayer();
+    Map<AuthenticationColour, Integer> keys = p.getKeysCollected();
+
+    // Save keys
+    for (AuthenticationColour colour : keys.keySet()) {
+      for (int i = 0; i < keys.get(colour); i++) {
+        items.addElement("key").addAttribute("colour", colour.toString());
+      }
+    }
+
+    // Save treasures
+    for (int i = 0; i < p.getTreasureCount(); i++) {
+      items.addElement("treasure");
+    }
+
+    // Save time
+    items.addElement("time").addAttribute("ms", UserListener.getTime());
+    return items;
   }
 
   /**
@@ -310,5 +313,33 @@ public class Parser {
       }
 
     }
+  }
+
+  /**
+   * Load any items collected in a previously played game
+   * 
+   * @param d
+   * @param items
+   */
+  private static void loadItems(Domain d, Element items) {
+    Player p = d.getPlayer();
+    for (Element treasure : items.elements("treasure")) {
+      p.pickUpTreasure();
+    }
+
+    for (Element key : items.elements("key")) {
+      String colour = key.valueOf("@colour");
+      if (colour.isEmpty()) {
+        throw new NullPointerException("No colour specified");
+      }
+      p.addKey(AuthenticationColour.valueOf(colour.toUpperCase()));
+    }
+
+    Element time = items.element("time");
+    if (((Double) time.numberValueOf("@ms")).isNaN()) {
+      throw new NullPointerException("No time specified");
+    }
+    int msRemaining = time.numberValueOf("@ms").intValue();
+    UserListener.setTime(msRemaining);
   }
 }

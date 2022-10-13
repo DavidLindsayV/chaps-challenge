@@ -8,22 +8,21 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 /**
  * Represents the player on the game.
  * 
- * The player keeps track of
- *      - How many treasures it has.
- *      - What keys it has on it's wallet.
- *      - It's current position
- *      
- *  @author Brandon Ru 300562436
+ * The player keeps track of - How many treasures it has. - What keys it has on
+ * it's wallet. - It's current position
+ * 
+ * @author Brandon Ru 300562436
  */
 public class Player implements Printable {
-    private Point                               position;
-    private Domain                              domain;
-    private int                                 treasureCount;
-    private Map<AuthenticationColour, Integer>  keyWallet;
-    private int                                 totalKeysCollected;
+    private Point position;
+    private Domain domain;
+    private int treasureCount;
+    private Map<AuthenticationColour, Integer> keyWallet;
+    private int totalKeysCollected;
 
     /**
      * Creates a player linked to a domain, at position (0, 0)
+     * 
      * @param d Domain the player is linked to.
      */
     public Player(Domain d) {
@@ -35,6 +34,7 @@ public class Player implements Printable {
 
     /**
      * Sets the position of the player.
+     * 
      * @param pos Position to move player.
      */
     public void setPosition(Point pos) {
@@ -43,7 +43,8 @@ public class Player implements Printable {
 
     /**
      * Returns the current position of the player.
-     * @return 
+     * 
+     * @return
      */
     public Point getPosition() {
         return this.position;
@@ -51,6 +52,7 @@ public class Player implements Printable {
 
     /**
      * Returns the current graphical position of the player.
+     * 
      * @return
      */
     public Point getGraphicalPosition() {
@@ -58,37 +60,48 @@ public class Player implements Printable {
     }
 
     /**
-     * Adds a key to the wallet 
+     * Returns the current key wallet
+     * 
+     * @param key
+     */
+    public Map<AuthenticationColour, Integer> getKeysCollected() {
+        return keyWallet;
+    }
+
+    /**
+     * Adds a key to the wallet
+     * 
      * @param key The colour of the key.
      */
     public void addKey(AuthenticationColour key) {
         if (!keyWallet.containsKey(key)) {
             keyWallet.put(key, 0);
-        } keyWallet.put(key, keyWallet.get(key) + 1);
+        }
+        keyWallet.put(key, keyWallet.get(key) + 1);
         totalKeysCollected++;
     }
 
     /**
-     * Removes a key to the wallet 
+     * Removes a key to the wallet
+     * 
      * @param key The colour of the key.
      */
     public void removeKey(AuthenticationColour key) {
-        
+
         if (keyWallet.containsKey(key)) {
             keyWallet.put(key, keyWallet.get(key) - 1);
             if (keyWallet.get(key) <= 0) {
                 keyWallet.remove(key);
             }
-        } 
+        }
     }
 
     /**
-     * Does the wallet contain this colour key? 
-     * If so: return TRUE
-     * Else:  return False
+     * Does the wallet contain this colour key? If so: return TRUE Else: return
+     * False
      * 
-     * This handles multiple keys, as if there are no keys,
-     * removeKey removes the entry.
+     * This handles multiple keys, as if there are no keys, removeKey removes the
+     * entry.
      * 
      * @param colour The colour of the lock.
      * @return The privileges of the user.
@@ -104,7 +117,7 @@ public class Player implements Printable {
         treasureCount++;
     }
 
-    /** 
+    /**
      * Returns the number of treasures collected
      */
     public int getTreasureCount() {
@@ -113,15 +126,16 @@ public class Player implements Printable {
 
     /**
      * Get total keys collected over time.
+     * 
      * @return
      */
     public int getTotalKeysCollected() {
         return totalKeysCollected;
     }
 
-
     /**
      * Checks if the player has all treasures.
+     * 
      * @return Boolean
      */
     public boolean hasAllTreasures() {
