@@ -222,6 +222,7 @@ public class UserListener implements KeyListener {
   }
 
   public static void loadTimer(int timeLeftToPlay) {
+    timer.cancel();
     timer = new pingTimer(timeLeftToPlay);
   }
 

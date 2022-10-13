@@ -155,9 +155,6 @@ public class Parser {
     if (tileTypesLoaded.get("treasure") < 1) {
       throw new IllegalArgumentException("No treasure provided in xml file");
     }
-    if (tileTypesLoaded.get("key") != tileTypesLoaded.get("door")) {
-      throw new IllegalArgumentException("Number of doors and keys loaded do not match");
-    }
   }
 
   /**
