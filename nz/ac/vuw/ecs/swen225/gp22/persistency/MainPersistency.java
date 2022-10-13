@@ -17,7 +17,6 @@ public class MainPersistency {
 	 * @param args arguments passed to main
 	 */
 	public static void main(String[] args) {
-
-		MockPersistency.run("tests/test_saved_game.xml");
+		MockPersistency.run("level1.xml");
 	}
 }

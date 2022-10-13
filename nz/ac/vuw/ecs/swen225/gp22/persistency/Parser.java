@@ -103,9 +103,10 @@ public class Parser {
     checkValidDomain();
 
     Domain d = builder.make();
-
-    // Load an prior collected items
-    loadItems(d, levelElement.element("items"));
+    // Load any prior collected items
+    if (filename.contains("saved_game")) {
+      loadItems(d, levelElement.element("items"));
+    }
     assert d != null : "Domain is null";
     return d;
 
