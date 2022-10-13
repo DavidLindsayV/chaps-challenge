@@ -398,7 +398,7 @@ public class Parser {
       throw new NullPointerException("No time specified");
     }
     int msRemaining = time.numberValueOf("@ms").intValue();
-    UserListener.timeSpent = msRemaining;
+    UserListener.timeRemaining = msRemaining;
     return d;
   }
 

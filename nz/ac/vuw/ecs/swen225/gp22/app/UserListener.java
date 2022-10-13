@@ -32,8 +32,8 @@ public class UserListener implements KeyListener {
   private static String currentLevel;
   // The timer that calls ping
   private static pingTimer timer;
-  //Time already spent when starting the level
-  public static int timeSpent; 
+  // Time already spent when starting the level
+  public static int timeRemaining;
 
   /**
    * Constructor for UserListener
@@ -182,7 +182,7 @@ public class UserListener implements KeyListener {
     }
     loadLevel();
     timer.cancel();
-    timer = new pingTimer(timeSpent);
+    timer = new pingTimer(timeRemaining);
   }
 
   /** Pauses game, displays a "Game is paused" dialog */
