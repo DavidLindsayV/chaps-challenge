@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.BoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -56,10 +57,12 @@ public class UserListener implements KeyListener {
         down();
         break;
       case KeyEvent.VK_LEFT:
+        BoardPanel.chapDirection = true;
         SoundEffects.playSound("Step");
         left();
         break;
       case KeyEvent.VK_RIGHT:
+        BoardPanel.chapDirection = false;
         SoundEffects.playSound("Step");
         right();
         break;

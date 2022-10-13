@@ -26,6 +26,7 @@ public class BoardPanel extends JPanel {
   private static final long serialVersionUID = 1L;
   static final int cols = 11;
   static final int rows = 11;
+  public static boolean chapDirection = true;
 
   static int originX = 200;
   static int originY = 200;
@@ -100,7 +101,11 @@ public class BoardPanel extends JPanel {
 
   public void updateGrid(Domain d, Graphics g) {
     TileParser(d, g);
-    drawImg(Img.Chap.image, 5, 5, g);
+    if(chapDirection){
+      drawImg(Img.ChapL.image, 5, 5, g);
+    } else {
+      drawImg(Img.ChapR.image, 5, 5, g);
+    }
   }
 
   public void TileParser(Domain d, Graphics g) {

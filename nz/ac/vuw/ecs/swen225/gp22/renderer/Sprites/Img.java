@@ -24,7 +24,8 @@ public enum Img {
     InfoField,
     Enemy,
     Empty,
-    Chap;
+    ChapL,
+    ChapR;
 
 
     public final BufferedImage image;
