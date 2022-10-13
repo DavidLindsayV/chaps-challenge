@@ -211,4 +211,6 @@ public class GUI extends Renderer {
   }
 
   public static ReplayGui replayGui(){ return replayGUI; }
+
+  public static void closeReplayGui(){ replayGUI = null; }
 }

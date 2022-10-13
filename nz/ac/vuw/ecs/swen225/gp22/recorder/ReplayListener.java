@@ -90,14 +90,6 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Exits the replay GUI.
-   */
-  public static void exitGame() {
-    ReplayGui.closeAll();
-    System.exit(0);
-  }
-
-  /**
    * Pauses game.
    */
   public static void pauseGame() {
@@ -126,7 +118,7 @@ public class ReplayListener implements KeyListener {
       System.out.println("REPLAY LISTENER: Parser has parsed a level file!");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
-      exitGame();
+      ReplayGui.closeReplay();
     }
     loadTimer();
   }

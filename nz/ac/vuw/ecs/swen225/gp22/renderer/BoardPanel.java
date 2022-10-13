@@ -47,13 +47,13 @@ public class BoardPanel extends JPanel {
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
 
-    if (GUI.instance != null) {
-      updateGrid(UserListener.currentGame, g);
-      GUI.drawText(g);
-    }
     if(GUI.replayGui() !=null){
       updateGrid(ReplayListener.currentGame, g);
       ReplayGui.drawText(g);
+    }
+    else if (GUI.instance != null) {
+      updateGrid(UserListener.currentGame, g);
+      GUI.drawText(g);
     }
   }
 

@@ -18,6 +18,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 
@@ -84,7 +85,7 @@ public class ReplayGui extends Renderer {
 
     autoPlay.addActionListener(e -> runAutoPlay());
     stepByStep.addActionListener(e -> runStepByStep());
-    exit.addActionListener(e -> ReplayListener.exitGame());
+    exit.addActionListener(e -> closeReplay());
     desc.addActionListener(e -> showDesc());
 
     menuBar.add(menu);
@@ -103,7 +104,7 @@ public class ReplayGui extends Renderer {
     this.delPauseButton();
     this.delSpeedSlider();
     this.delStepButton();
-    closeAll();
+    closeReplay();
   }
 
   /**
@@ -266,9 +267,9 @@ public class ReplayGui extends Renderer {
   /**
    * Closes the replay GUI.
    */
-  public static void closeAll() {
-    ReplayListener.exitGame();
+  public static void closeReplay() {
     frame.dispose();
     instance.dispose();
+    GUI.closeReplayGui();
   }
 }
