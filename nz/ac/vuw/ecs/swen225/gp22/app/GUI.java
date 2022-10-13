@@ -21,50 +21,43 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 /**
- * This class extends the Renderer's JFrame class and adds a menu and buttons
- * to allow pausing, resuming, saving, loading, and rules displaying
+ * This class extends the Renderer's JFrame class and adds a menu and buttons to
+ * allow pausing, resuming, saving, loading, and rules displaying
+ * 
  * @author David Lindsay 300584648
  */
 @SuppressWarnings("serial")
 public class GUI extends Renderer {
 
-  //Is a Singleton to allow static access to this gui
+  // Is a Singleton to allow static access to this gui
   public static GUI instance;
-  //Is the KeyListener of the user which will listen and react to keypresses
+  // Is the KeyListener of the user which will listen and react to keypresses
   public UserListener listener;
 
-  //A button for pausing the game
+  // A button for pausing the game
   private JButton pauseButton;
-  //The menu and its elements
+  // The menu and its elements
   private JMenuBar menuBar;
   private JMenu menu;
-  private JMenuItem exitItem; //The menu item that will exit the game
-  private JMenuItem saveItem; //the menu item that will save the game
-  private JMenuItem rulesItem; //the menu item that will display the rules
-  private JMenuItem recordPlayerItem; //the menu item that will play a recorded game
-  private JMenuItem playSavedItem; //the menu item that will play a saved game
+  private JMenuItem exitItem; // The menu item that will exit the game
+  private JMenuItem saveItem; // the menu item that will save the game
+  private JMenuItem rulesItem; // the menu item that will display the rules
+  private JMenuItem recordPlayerItem; // the menu item that will play a recorded game
+  private JMenuItem playSavedItem; // the menu item that will play a saved game
 
   MetalLookAndFeel metal;
 
-  //The rules text
-  private String rulesText =
-    "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
-    "\n" +
-    "Controls:" +
-    "- Up, down, left and right arrow keys move the rabbit\n" +
-    "- Ctrl-X exits the game\n" +
-    "- Ctrl-S saves and exits the game\n" +
-    "- Ctrl-R resumes a saved game\n" +
-    "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
-    "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
-    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
-    "\n" +
-    "Core game mechanics:\n" +
-    "- Collect all the carrots and walk down the rabbit hole to win\n" +
-    "- Collect keys to open doors of their respective colours\n" +
-    "- Avoid colliding with enemies\n";
+  // The rules text
+  private String rulesText = "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n"
+      + "\n" + "Controls:" + "- Up, down, left and right arrow keys move the rabbit\n" + "- Ctrl-X exits the game\n"
+      + "- Ctrl-S saves and exits the game\n" + "- Ctrl-R resumes a saved game\n"
+      + "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n"
+      + "- Space to Pause game, Esc to Play game (as well as the pause/play button\n"
+      + "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" + "\n"
+      + "Core game mechanics:\n" + "- Collect all the carrots and walk down the rabbit hole to win\n"
+      + "- Collect keys to open doors of their respective colours\n" + "- Avoid colliding with enemies\n";
 
-  //A field to store the JFrame for replaying recorded levels
+  // A field to store the JFrame for replaying recorded levels
   private static ReplayGui replayGUI;
 
   /**
@@ -81,36 +74,27 @@ public class GUI extends Renderer {
     } catch (UnsupportedLookAndFeelException e) {
       e.printStackTrace();
     }
-    System.out.println("BREAKPOINT: Creating user listener....");
     listener = new UserListener();
     setLayout(new BorderLayout());
-    //Make a JButton pauseButton
+    // Make a JButton pauseButton
     pauseButton = new JButton("⏸");
     pauseButton.setPreferredSize(new Dimension(40, 40));
-    pauseButton.addActionListener(
-      e -> {
-        if (!UserListener.paused()) {
-          pauseGame();
-        } else {
-          resumeGame();
-        }
+    pauseButton.addActionListener(e -> {
+      if (!UserListener.paused()) {
+        pauseGame();
+      } else {
+        resumeGame();
       }
-    );
+    });
     panel.setLayout(null);
-    pauseButton.setFont(
-      new Font(pauseButton.getFont().getName(), Font.PLAIN, 40)
-    );
+    pauseButton.setFont(new Font(pauseButton.getFont().getName(), Font.PLAIN, 40));
     pauseButton.setMargin(new Insets(0, 0, 0, 0));
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
-    //Make exiting, saving showing rules and record playing menu items
+    // Make exiting, saving showing rules and record playing menu items
     menuBar = new JMenuBar();
     menuBar.setBorder(
-      BorderFactory.createCompoundBorder(
-        menuBar.getBorder(),
-        BorderFactory.createEmptyBorder(0, 0, 0, 0)
-      )
-    );
+        BorderFactory.createCompoundBorder(menuBar.getBorder(), BorderFactory.createEmptyBorder(0, 0, 0, 0)));
     menu = new JMenu("Menu Items");
     menu.setFont(new Font("Roboto", Font.BOLD, 20));
     saveItem = new JMenuItem("Save Level");
@@ -124,45 +108,40 @@ public class GUI extends Renderer {
     menu.add(recordPlayerItem);
     menu.add(playSavedItem);
     exitItem.addActionListener(e -> UserListener.exitGame());
-    saveItem.addActionListener(
-      e -> {
-        pauseGame();
-        UserListener.saveGame();
-      }
-    );
+    saveItem.addActionListener(e -> {
+      pauseGame();
+      UserListener.saveGame();
+    });
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(e -> playRecord());
-    playSavedItem.addActionListener(
-      e -> {
-        pauseGame();
-        UserListener.loadSavedGame();
-      }
-    );
+    playSavedItem.addActionListener(e -> {
+      pauseGame();
+      UserListener.loadSavedGame();
+    });
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
-    //Add keylistener to JFrame
+    // Add keylistener to JFrame
     this.addKeyListener(listener);
     this.setFocusable(true);
-    System.out.println("BREAKPOINT: Keys are listening...");
   }
 
-  /**Plays a recorded game */
+  /** Plays a recorded game */
   private void playRecord() {
     pauseGame();
-    SwingUtilities.invokeLater(
-      () -> {
-        replayGUI = new ReplayGui();
-      }
-    );
+    SwingUtilities.invokeLater(() -> {
+      replayGUI = new ReplayGui();
+    });
   }
 
-  /**Show the rules panel */
+  /** Show the rules panel */
   private void showRules() {
     pauseGame();
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
-  /** Used by Domain to show tool tips
+  /**
+   * Used by Domain to show tool tips
+   * 
    * @param toolTip
    */
   public static void showToolTip(String toolTip) {
@@ -176,7 +155,10 @@ public class GUI extends Renderer {
     JOptionPane.getRootFrame().dispose();
   }
 
-  /** A function that draws various texts, such as current level and keys collected, on the JPanel
+  /**
+   * A function that draws various texts, such as current level and keys
+   * collected, on the JPanel
+   * 
    * @param g
    */
   public static void drawText(Graphics g) {
@@ -184,65 +166,56 @@ public class GUI extends Renderer {
     g.fillRect(40, 25, 200, 95);
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
-    g.drawString(
-      "Current level: " + shortenLevelName(UserListener.currentLevel()),
-      50,
-      50
-    );
+    g.drawString("Current level: " + shortenLevelName(UserListener.currentLevel()), 50, 50);
     g.setColor(Color.YELLOW);
-    g.drawString(
-      "Time left: " + UserListener.timer().timeLeftToPlay() / 1000,
-      50,
-      70
-    );
+    g.drawString("Time left: " + UserListener.timer().timeLeftToPlay() / 1000, 50, 70);
     g.setColor(Color.GREEN);
-    g.drawString(
-      "Keys collected: " + UserListener.currentGame.keysCollected(),
-      50,
-      90
-    );
+    g.drawString("Keys collected: " + UserListener.currentGame.keysCollected(), 50, 90);
     g.setColor(Color.BLUE);
-    g.drawString(
-      "Carrots left: " + UserListener.currentGame.treasuresLeft(),
-      50,
-      110
-    );
+    g.drawString("Carrots left: " + UserListener.currentGame.treasuresLeft(), 50, 110);
   }
 
-  /**A function to change the text of the pause/play button before calling pauseGame in UserListener */
+  /**
+   * A function to change the text of the pause/play button before calling
+   * pauseGame in UserListener
+   */
   private void pauseGame() {
     pauseButton.setText("▶");
     UserListener.pauseGame();
   }
 
-  /**A function to change the text of the pause/play button before calling resumeGame in UserListener */
+  /**
+   * A function to change the text of the pause/play button before calling
+   * resumeGame in UserListener
+   */
   private void resumeGame() {
     pauseButton.setText("⏸");
     UserListener.resumeGame();
     this.requestFocus();
   }
 
-  /**A function to close all the JFrames */
+  /** A function to close all the JFrames */
   public static void closeAll() {
     instance.dispose();
   }
 
-  /** A function that processes the level file path, shortening it for displaying
+  /**
+   * A function that processes the level file path, shortening it for displaying
+   * 
    * @param levelName
    * @return shortened level name
    */
   public static String shortenLevelName(String levelName) {
     if (levelName != null) {
-      return levelName.substring(
-        Math.max(0, levelName.lastIndexOf("/") + 1),
-        levelName.length() - 4
-      );
+      return levelName.substring(Math.max(0, levelName.lastIndexOf("/") + 1), levelName.length() - 4);
     } else {
       return "";
     }
   }
 
-  /** Getter for replayGui
+  /**
+   * Getter for replayGui
+   * 
    * @return replayGui
    */
   public static ReplayGui replayGui() {

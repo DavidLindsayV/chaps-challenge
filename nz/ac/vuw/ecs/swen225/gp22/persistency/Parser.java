@@ -106,8 +106,7 @@ public class Parser {
 
     // Load an prior collected items
     loadItems(d, levelElement.element("items"));
-    System.out.println(d);
-    // assert d != null;
+    assert d != null : "Domain is null";
     return d;
 
   }
@@ -207,7 +206,7 @@ public class Parser {
     Player p = d.getPlayer();
     Map<AuthenticationColour, Integer> keys = p.getKeysCollected();
 
-    items.addAttribute("initialTreasureCount", d.requiredTreasureCount());
+    items.addAttribute("initialTreasureCount", "" + d.requiredTreasureCount());
 
     // Save keys
     for (AuthenticationColour colour : keys.keySet()) {

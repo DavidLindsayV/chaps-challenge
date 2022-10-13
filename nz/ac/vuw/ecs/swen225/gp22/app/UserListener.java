@@ -43,9 +43,7 @@ public class UserListener implements KeyListener {
     // Create new timer and load level
     System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer(currentLevel);
-    System.out.println("BREAKPOINT: Loading level...");
     loadLevel();
-    System.out.println("BREAKPOINT: Loaded level.");
   }
 
   /*
@@ -204,7 +202,6 @@ public class UserListener implements KeyListener {
     move = Direction.NONE;
     try {
       currentGame = Parser.loadLevel(currentLevel);
-      System.out.println("BREAKPOINT: Parser has parsed a level file!");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       exitGame();
