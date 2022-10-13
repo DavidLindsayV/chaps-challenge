@@ -80,12 +80,13 @@ public class Domain {
   }
 
   /**
-   * Returns the colour of keys
-   * @return 
+   * Exposes the player outside of the domain.
+   * @return Player
    */
-  public Map<AuthenticationColour, Integer> keys() {
-    return player.getKeys();
+  public Player getPlayer() {
+    return player;
   }
+
 
   /**
    * Sets the player position.

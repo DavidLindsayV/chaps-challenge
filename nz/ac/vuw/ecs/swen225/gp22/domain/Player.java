@@ -121,14 +121,6 @@ public class Player implements Printable {
     }
 
     /**
-     * Get total keys collected over time.
-     * @return Keys collected
-     */
-    public Map<AuthenticationColour, Integer> getKeys() {
-        return keyWallet;
-    }
-
-    /**
      * Checks if the player has all treasures.
      * @return Boolean
      */
