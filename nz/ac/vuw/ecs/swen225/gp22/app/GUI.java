@@ -12,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
+import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 /**
@@ -57,7 +59,7 @@ public class GUI extends Renderer {
     "- Avoid colliding with enemies\n";
 
   //A field to store the JFrame for replaying recorded levels
-  private ReplayGUI replayGUI;
+  private static ReplayGui replayGUI;
 
   /**
    * Adds the key listener, creates the buttons and creates the JMenu
@@ -124,7 +126,7 @@ public class GUI extends Renderer {
     pauseGame();
     SwingUtilities.invokeLater(
       () -> {
-        replayGUI = new ReplayGUI();
+        replayGUI = new ReplayGui();
       }
     );
   }
@@ -207,4 +209,6 @@ public class GUI extends Renderer {
       levelName.length() - 4
     );
   }
+
+  public static ReplayGui replayGui(){ return replayGUI; }
 }

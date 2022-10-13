@@ -9,6 +9,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import org.dom4j.DocumentException;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 /**
@@ -153,11 +155,15 @@ public class ReplayListener implements KeyListener {
       System.out.println("The replay is over!");
       paused = true;
       timer.cancel();
-      MainRecorder.gui.endOfReplay();
+      if (GUI.replayGui() != null) {
+        GUI.replayGui().panel.revalidate();
+        GUI.replayGui().panel.repaint();
+      }   
+      GUI.replayGui().endOfReplay();
     }; 
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
+    if (GUI.replayGui() != null) {
+      GUI.replayGui().panel.revalidate();
+      GUI.replayGui().panel.repaint();
     }   
   }
 
@@ -166,9 +172,9 @@ public class ReplayListener implements KeyListener {
    */
   public static void setAutoPlay(){
     isAutoPlay = true;
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
+    if (GUI.replayGui() != null) {
+      GUI.replayGui().panel.revalidate();
+      GUI.replayGui().panel.repaint();
     }
   }
 
@@ -177,9 +183,9 @@ public class ReplayListener implements KeyListener {
    */
   public static void setStepByStep(){
     isAutoPlay = false;
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
+    if (GUI.replayGui() != null) {
+      GUI.replayGui().panel.revalidate();
+      GUI.replayGui().panel.repaint();
     }
   }
 
@@ -189,8 +195,10 @@ public class ReplayListener implements KeyListener {
    * @param speed - The speed of the timer we are changing too.
    */
   public static void changeTimerSpeed(int speed){
-    timer.cancel();
-    timer = new ReplayTimer(speed);
+    if(!paused){
+      timer.cancel();
+      timer = new ReplayTimer(speed);
+    }
   }
 
   /**

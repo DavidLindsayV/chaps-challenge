@@ -257,6 +257,5 @@ public class PersistencyTests {
         for (int i = 0; i < 10; i++) {
             Recorder.tick(MockRecorder.randomEnum(Direction.class));
         }
-
     }
 }
