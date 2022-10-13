@@ -4,16 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
-import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.MockRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.File;
 
 import org.dom4j.DocumentException;
 
@@ -21,6 +18,7 @@ import org.dom4j.DocumentException;
  * Class to store all tests for the persistency module.
  * 
  * Student ID: 3005 30113
+ * 
  * @author GeorgiaBarrand
  *
  */
@@ -145,6 +143,8 @@ public class PersistencyTests {
             fail("Failed to detect no player specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
+        } catch (IllegalArgumentException e) {
+            assert true;
         } catch (IllegalStateException e) {
             assert true;
         }
@@ -157,6 +157,8 @@ public class PersistencyTests {
             fail("Failed to detect no exit specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
+        } catch (IllegalArgumentException e) {
+            assert true;
         } catch (IllegalStateException e) {
             assert true;
         }
@@ -167,6 +169,18 @@ public class PersistencyTests {
         try {
             Parser.loadLevel("tests/doorWithNoColour.xml");
             fail("Failed to detect no colour specified");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
+        }
+    }
+
+    @Test
+    public void testEnemyWithNoCol() {
+        try {
+            Parser.loadLevel("tests/enemyWithNoCol.xml");
+            fail("Failed to detect no col specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
         } catch (NullPointerException e) {
@@ -186,17 +200,17 @@ public class PersistencyTests {
         }
     }
 
-    // @Test
-    // public void testNoTreasure() {
-    // try {
-    // Parser.loadLevel("tests/noTreasure.xml");
-    // fail("Failed to detect no treasure");
-    // } catch (DocumentException e) {
-    // assert false : e.getMessage();
-    // } catch (NullPointerException e) {
-    // assert true;
-    // }
-    // }
+    @Test
+    public void testBadPathSpecified() {
+        try {
+            Parser.loadLevel("tests/enemyWithBadPath.xml");
+            fail("Failed to detect bad path specified");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (NullPointerException e) {
+            assert true;
+        }
+    }
 
     @Test
     public void testColourNodeWithNoCol() {
@@ -235,38 +249,18 @@ public class PersistencyTests {
     }
 
     @Test
-    public void testLoadingAndSavingLevel1() {
-        try {
-            MockPersistency.run("level1.xml");
-        } catch (Exception e) {
-            fail("Exception thrown");
-        }
-    }
-
-    @Test
     public void testLoadingAndSavingLevel2() {
         try {
+            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
+            int initialFileCount = directory.list().length;
             MockPersistency.run("level2.xml");
+            int newFileCount = directory.list().length;
+            assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             fail("Exception thrown");
         }
     }
 
-    @Test
-    public void testSavingGame() {
-        runRecorder();
-        DomainBuilder db = new DomainBuilder();
-        db.info(1, 2).wall(2, 2).exit(2, 3).player(3, 3);
-
-        Domain d = db.make();
-
-        try {
-            Parser.saveLevel(d);
-        } catch (IOException e) {
-            assert false : e.getMessage();
-        }
-    }
-    
     /**
      * Method to run the mock recorder so that the parser
      * can successfully save.
