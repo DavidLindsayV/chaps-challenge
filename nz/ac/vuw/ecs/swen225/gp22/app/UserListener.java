@@ -66,7 +66,7 @@ public class UserListener implements KeyListener {
         SoundEffects.playSound("Step");
         right();
         break;
-      case KeyEvent.F:
+      case KeyEvent.VK_F:
         SoundEffects.playSound("Test");
         break;
     }
