@@ -45,6 +45,7 @@ public class BoardPanel extends JPanel {
 
   /**
   * paint component. beins drawing the simple elements
+  * @param g takes a graphics component
   */
   @Override
   protected void paintComponent(Graphics g) {
@@ -71,6 +72,10 @@ public class BoardPanel extends JPanel {
     }
   }
 
+  /**
+  * creates a base grid to base measurements off.
+  * @param g takes a graphics component
+  */
   private void createGrid(Graphics g) {
     g.setColor(new Color(255, 204, 179));
     int tempOriginX = originX;
@@ -88,6 +93,13 @@ public class BoardPanel extends JPanel {
     originY = tempOriginY;
   }
 
+  /**
+  * draws an image using the Graphics draw image function built to fit into the grid.
+  * @param img the buffered image that will be drawn
+  * @param x X position of image
+  * @param y Y position of image
+  * @param g graphics class used
+  */
   public void drawImg(BufferedImage img, int x, int y, Graphics g) {
     g.drawImage(
       img,
@@ -103,14 +115,29 @@ public class BoardPanel extends JPanel {
     );
   }
 
+  /**
+  * Figures out the new X position of a value when placed into the grid
+  * @param x
+  * @return Returns the new X position
+  */
   public int getXPos(int x) {
     return originX + (xSpacing * x);
   }
 
+  /**
+  * Figures out the new Y position of a value when placed into the grid
+  * @param y
+  * @return Returns the new Y position
+  */
   public int getYPos(int y) {
     return originY + (ySpacing * y);
   }
 
+  /**
+  * Updates the Grid
+  * @param d The domain that will be passed to tileParser
+  * @param g Graphics class used
+  */
   public void updateGrid(Domain d, Graphics g) {
     TileParser(d, g);
     if(chapDirection){
@@ -120,6 +147,11 @@ public class BoardPanel extends JPanel {
     }
   }
 
+  /**
+  * loops through all tiles around the player to draw them on the screen then draws enemies if needed.
+  * @param d The domain for getting player position and tiles
+  * @param g Graphics class used
+  */
   public void TileParser(Domain d, Graphics g) {
     Tile[][] t = d.getGraphicalState();
     Point p = d.getPlayerGraphicalPosition();

@@ -11,6 +11,11 @@ import javax.swing.JOptionPane;
  * @author Adam Goodyear 300575240
  */
 public class SoundEffects {
+
+    /**
+    * Loads a sound based on the filename inputted and plays it.
+    * @param filename takes the name of a sound effect file
+    */
     public static void playSound(String filename) {
         try {
             File soundPath = new File("nz/ac/vuw/ecs/swen225/gp22/renderer/Sounds/" + filename + ".wav");
@@ -27,6 +32,10 @@ public class SoundEffects {
         }
     }
 
+    /**
+    * Loads a sound based on the filename inputted and plays it on loop.
+    * @param filename takes the name of a sound effect file
+    */
     public static void loopSound(String filename) {
         try {
             File soundPath = new File("nz/ac/vuw/ecs/swen225/gp22/renderer/Sounds/" + filename + ".wav");

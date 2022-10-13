@@ -34,11 +34,20 @@ public enum Img {
 
 
     public final BufferedImage image;
-
+    
+    /**
+    * Constructor for Image. 
+    * sets the image. 
+    */
     Img() {
         image = loadImage(this.name());
     }
 
+    /**
+    * Loads the image by finding it inside the Sprites folder and returning it. 
+    * @return Buffered Image based on the name inputted. 
+    * @param name takes the name of the image.
+    */
     static private BufferedImage loadImage(String name) {
         URL imagePath = Img.class.getResource(name + ".png");
         try {
