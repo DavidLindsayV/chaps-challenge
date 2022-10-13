@@ -12,9 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
+import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
@@ -68,31 +72,54 @@ public class Parser {
         throw new NullPointerException("No row number specified");
       }
       int rowNumInt = rowNum.intValue();
-      parseStandardNode(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c));
-      parseStandardNode(rowNumInt, row.elements("exitLock"),
-          (r, c) -> builder.lock(r, c));
-      parseStandardNode(rowNumInt, row.elements("player"),
-          (r, c) -> builder.player(r, c));
-      parseStandardNode(rowNumInt, row.elements("treasure"),
-          (r, c) -> builder.treasure(r, c));
-      parseStandardNode(rowNumInt, row.elements("exit"),
-          (r, c) -> builder.exit(r, c));
-      parseStandardNode(rowNumInt, row.elements("info"),
-          (r, c) -> builder.info(r, c));
+      parseStandardElement(rowNumInt, row.elements("wall"), (r, c) -> builder.wall(r, c));
+      parseStandardElement(rowNumInt, row.elements("exitLock"), (r, c) -> builder.lock(r, c));
+      parseStandardElement(rowNumInt, row.elements("player"), (r, c) -> builder.player(r, c));
+      parseStandardElement(rowNumInt, row.elements("treasure"), (r, c) -> builder.treasure(r, c));
+      parseStandardElement(rowNumInt, row.elements("exit"), (r, c) -> builder.exit(r, c));
+      parseStandardElement(rowNumInt, row.elements("info"), (r, c) -> builder.info(r, c));
 
-      parseColourElement(rowNumInt, row.elements("key"),
-          (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
-      parseColourElement(rowNumInt, row.elements("door"),
-          (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
-      parsePathElement(rowNumInt, row.elements("enemy"),
-          (e) -> builder.enemy(e));
+      parseColourElement(rowNumInt, row.elements("key"), (r, c, colour) -> builder.key(r, c, colour.toUpperCase()));
+      parseColourElement(rowNumInt, row.elements("door"), (r, c, colour) -> builder.door(r, c, colour.toUpperCase()));
+      parsePathElement(rowNumInt, row.elements("enemy"), (e) -> builder.enemy(e));
 
     }
 
     Domain d = builder.make();
+
+    // Load an prior collected items
+    loadItems(d, levelElement.element("items"));
     assert d != null;
     return d;
 
+  }
+
+  /**
+   * Load any items collected in a previously played game
+   * 
+   * @param d
+   * @param items
+   */
+  private static void loadItems(Domain d, Element items) {
+    Player p = d.getPlayer();
+    for (Element treasure : items.elements("treasure")) {
+      p.pickUpTreasure();
+    }
+
+    for (Element key : items.elements("key")) {
+      String colour = key.valueOf("@colour");
+      if (colour.isEmpty()) {
+        throw new NullPointerException("No colour specified");
+      }
+      p.addKey(AuthenticationColour.valueOf(colour.toUpperCase()));
+    }
+
+    Element time = items.element("time");
+    if (((Double) time.numberValueOf("@ms")).isNaN()) {
+      throw new NullPointerException("No time specified");
+    }
+    int msRemaining = time.numberValueOf("@ms").intValue();
+    UserListener.setTime(msRemaining);
   }
 
   /**
@@ -115,8 +142,7 @@ public class Parser {
 
     Recorder.save(directory + "/");
 
-    FileWriter fileWriter = new FileWriter(
-        directory + "/saved_game_level" + lastLoadedLevel + ".xml");
+    FileWriter fileWriter = new FileWriter(directory + "/saved_game_level" + lastLoadedLevel + ".xml");
     OutputFormat format = OutputFormat.createPrettyPrint();
     XMLWriter writer = new XMLWriter(fileWriter, format);
     writer.write(document);
@@ -183,8 +209,8 @@ public class Parser {
   /**
    * Add all enemies to the level document.
    * 
-   * @param currRow the element representing the row we are constructing for
-   *                the document
+   * @param currRow the element representing the row we are constructing for the
+   *                document
    * @param enemies list of all the enemies on the current level
    * @param row     the current row number
    * @return the updated row element
@@ -197,8 +223,7 @@ public class Parser {
       if (e.getPosition().row() == row) {
         Element enemyElem = currRow.addElement("enemy").addAttribute("c", "" + e.getPosition().col());
         e.getPath().stream().forEach(p -> {
-          enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", ""
-              + p.col());
+          enemyElem.addElement("path").addAttribute("r", "" + p.row()).addAttribute("c", "" + p.col());
         });
       }
     }
@@ -212,7 +237,7 @@ public class Parser {
    * @param nodes    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row and column
    */
-  private static void parseStandardNode(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
+  private static void parseStandardElement(int rowNum, List<Element> elems, BiConsumer<Integer, Integer> consumer) {
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (((Double) colNum).isNaN()) {
@@ -253,11 +278,9 @@ public class Parser {
    * @param consumer the consumer to build the tile which takes the row, column
    *                 and the path
    */
-  private static void parsePathElement(int rowNum, List<Element> elems,
-      Consumer<Enemy> consumer) {
-    Class<?> basicEnemyClass = ActorLoader
-        .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
-            "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
+  private static void parsePathElement(int rowNum, List<Element> elems, Consumer<Enemy> consumer) {
+    Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
+        "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");
     }
