@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.renderer;
 
+import java.util.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,6 +17,8 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.WallTile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Enemy;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
@@ -23,6 +26,7 @@ public class BoardPanel extends JPanel {
   private static final long serialVersionUID = 1L;
   static final int cols = 11;
   static final int rows = 11;
+  public static boolean chapDirection = true;
 
   static int originX = 200;
   static int originY = 200;
@@ -98,7 +102,11 @@ public class BoardPanel extends JPanel {
 
   public void updateGrid(Domain d, Graphics g) {
     TileParser(d, g);
-    drawImg(Img.Chap.image, 5, 5, g);
+    if(chapDirection){
+      drawImg(Img.ChapL.image, 5, 5, g);
+    } else {
+      drawImg(Img.ChapR.image, 5, 5, g);
+    }
   }
 
   public void TileParser(Domain d, Graphics g) {
@@ -165,5 +173,9 @@ public class BoardPanel extends JPanel {
         }
       }
     }
+
+    d.getEnemies().stream()
+      .filter(e -> e.getPosition().col() - (p.col() - 6) > -1 && e.getPosition().col() - (p.col() - 6) < 12 && e.getPosition().row() - (p.row() - 6) > -1 && e.getPosition().row() - (p.row() - 6) < 12)
+      .forEach(e -> drawImg(Img.Enemy.image, e.getPosition().col() - (p.col() - 6), e.getPosition().row() - (p.row() - 6),g));
   }
 }
