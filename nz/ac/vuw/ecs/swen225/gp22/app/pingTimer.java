@@ -41,7 +41,6 @@ public class pingTimer extends Timer {
   }
 
   /**Creates a ping timer with a certain amount of time played
-   * @param level
    * @param timePlayed
    */
   public pingTimer(int timeLeftToPlay) {

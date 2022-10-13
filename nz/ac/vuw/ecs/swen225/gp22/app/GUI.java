@@ -49,6 +49,7 @@ public class GUI extends Renderer {
   private JMenuItem recordPlayerItem; // the menu item that will play a recorded game
   private JMenuItem playSavedItem; // the menu item that will play a saved game
 
+  //Metal loook for the jmenubar
   MetalLookAndFeel metal;
 
   // The rules text
@@ -229,7 +230,11 @@ public class GUI extends Renderer {
     }
   }
 
-  private static BufferedImage keyToImg(AuthenticationColour c) {
+  /**Converts from key colour to corresponding image
+ * @param c
+ * @return
+ */
+private static BufferedImage keyToImg(AuthenticationColour c) {
     if (c == AuthenticationColour.PINK) {
       return Img.RedKeyT.image;
     } else if (c == AuthenticationColour.BLUE) {
@@ -241,7 +246,13 @@ public class GUI extends Renderer {
     }
   }
 
-  private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
+  /**Draws an image on the jframe
+ * @param img
+ * @param x
+ * @param y
+ * @param g
+ */
+private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
     g.drawImage(
       img,
       x,

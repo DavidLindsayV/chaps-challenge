@@ -3,8 +3,6 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
@@ -12,7 +10,6 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.BoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
-import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 import org.dom4j.DocumentException;
 
 /**
