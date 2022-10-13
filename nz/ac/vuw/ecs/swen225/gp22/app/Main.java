@@ -17,7 +17,7 @@ public class Main {
     SwingUtilities.invokeLater(
       () -> {
         System.out.println("BREAKPOINT: Creating GUI....");
-        new GUI();
+        new TitleScreen();
       }
     );
   }
