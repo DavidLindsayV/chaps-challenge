@@ -106,7 +106,8 @@ public class Parser {
 
     // Load an prior collected items
     loadItems(d, levelElement.element("items"));
-    assert d != null;
+    System.out.println(d);
+    // assert d != null;
     return d;
 
   }
@@ -193,7 +194,7 @@ public class Parser {
       currRow = addEnemies(currRow, enemies, row);
       currRow = addTiles(levelLayout, row, currRow);
     }
-    Element items = document.addElement("items");
+    Element items = level.addElement("items");
     items = addItems(items, d);
     return document;
   }
@@ -222,7 +223,7 @@ public class Parser {
     }
 
     // Save time
-    items.addElement("time").addAttribute("ms", UserListener.getTime());
+    items.addElement("time").addAttribute("ms", "" + UserListener.getTimeLeft());
     return items;
   }
 
@@ -369,9 +370,12 @@ public class Parser {
    * @param d
    * @param items
    */
-  private static void loadItems(Domain d, Element items) {
+  private static Domain loadItems(Domain d, Element items) {
+    if (items == null) {
+      return d;
+    }
     Player p = d.getPlayer();
-    for (Element treasure : items.elements("treasure")) {
+    for (int i = 0; i < items.elements("treasure").size(); i++) {
       p.pickUpTreasure();
     }
 
@@ -388,6 +392,8 @@ public class Parser {
       throw new NullPointerException("No time specified");
     }
     int msRemaining = time.numberValueOf("@ms").intValue();
-    UserListener.setTime(msRemaining);
+    UserListener.loadTimer(msRemaining);
+    return d;
   }
+
 }

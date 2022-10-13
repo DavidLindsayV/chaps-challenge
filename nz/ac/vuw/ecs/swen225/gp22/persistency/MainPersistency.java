@@ -18,6 +18,6 @@ public class MainPersistency {
 	 */
 	public static void main(String[] args) {
 
-		MockPersistency.run("level1.xml");
+		MockPersistency.run("tests/test_saved_game.xml");
 	}
 }

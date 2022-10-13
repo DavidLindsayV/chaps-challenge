@@ -8,34 +8,20 @@ import java.util.List;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.ActorLoader;
 
 /**
- * Fluent Builder API for creating a Domain object.
- * Initial height and width does not need to be provided
- * It will AUTODETECT this.
- * Remember to call .make() to crystalise the object.
+ * Fluent Builder API for creating a Domain object. Initial height and width
+ * does not need to be provided It will AUTODETECT this. Remember to call
+ * .make() to crystalise the object.
  *
- * Every domain must have
- * - Exactly one player.
- * - At least one exit.
+ * Every domain must have - Exactly one player. - At least one exit.
  *
  * Example usage:
  *
- * DomainBuilder db = new DomainBuilder();
- * Domain d = db
- * .wall(1, 2)
- * .wall(1, 3)
- * .wall(1, 4)
- * .wall(2, 4)
- * .player(0, 1)
- * .exit(5, 5)
- * .make()
+ * DomainBuilder db = new DomainBuilder(); Domain d = db .wall(1, 2) .wall(1, 3)
+ * .wall(1, 4) .wall(2, 4) .player(0, 1) .exit(5, 5) .make()
  *
  * toString() -->
  *
- * |_|P|_|_|_|_|
- * |_|_|#|#|#|_|
- * |_|_|_|_|#|_|
- * |_|_|_|_|_|_|
- * |_|_|_|_|_|E|
+ * |_|P|_|_|_|_| |_|_|#|#|#|_| |_|_|_|_|#|_| |_|_|_|_|_|_| |_|_|_|_|_|E|
  * 
  * @author Brandon Ru 300562436
  */
@@ -63,8 +49,7 @@ public class DomainBuilder {
      */
 
     /**
-     * Resets the state of the builder
-     * All tiles are free tiles by default.
+     * Resets the state of the builder All tiles are free tiles by default.
      */
     public void reset() {
         domainExitLocation = null;
@@ -124,9 +109,8 @@ public class DomainBuilder {
         });
 
         try {
-            Class<?> basicEnemyClass = ActorLoader
-                    .getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
-                            "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
+            Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
+                    "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
 
             Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
             domainEnemies.add(enemy);
@@ -140,6 +124,7 @@ public class DomainBuilder {
 
     /**
      * Adds an enemy to the domain.
+     * 
      * @param e Enemy.
      * @return DomainBuilder reference.
      */
@@ -169,8 +154,7 @@ public class DomainBuilder {
     }
 
     /**
-     * Creates a wall tile at the given location.
-     * As all default tiles are rows.
+     * Creates a wall tile at the given location. As all default tiles are rows.
      *
      * @param row Row of the wall tile.
      * @param col Column of the wall tile.
@@ -226,8 +210,7 @@ public class DomainBuilder {
     public DomainBuilder key(int row, int col, String colour) {
         checkWithinAbsoluteLimits(row, col);
         checkNoPlayerHere(row, col);
-        domainContent[row][col] = FreeTile.key(
-                AuthenticationColour.valueOf(colour));
+        domainContent[row][col] = FreeTile.key(AuthenticationColour.valueOf(colour));
         detectBoundaries(row, col);
         return this;
     }
@@ -242,8 +225,7 @@ public class DomainBuilder {
     public DomainBuilder door(int row, int col, String colour) {
         checkWithinAbsoluteLimits(row, col);
         checkNoPlayerHere(row, col);
-        domainContent[row][col] = FreeTile.door(
-                AuthenticationColour.valueOf(colour));
+        domainContent[row][col] = FreeTile.door(AuthenticationColour.valueOf(colour));
         detectBoundaries(row, col);
         return this;
     }
@@ -279,8 +261,8 @@ public class DomainBuilder {
     }
 
     /**
-     * Returns the constructed domain object.
-     * with a nested player (that is linked to the domain).
+     * Returns the constructed domain object. with a nested player (that is linked
+     * to the domain).
      *
      * @return Built domain object.
      */
@@ -318,8 +300,7 @@ public class DomainBuilder {
      */
 
     /**
-     * Auto detects the boundaries of the board.
-     * and updates them.
+     * Auto detects the boundaries of the board. and updates them.
      *
      * @param row Row position
      * @param col Col position
