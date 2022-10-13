@@ -11,30 +11,31 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.BoardPanel;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class TitleScreen extends JFrame {
 
   private JButton startGameButton;
-  private JPanel panel;
+  private BoardPanel panel;
 
   public TitleScreen() {
     this.setFocusable(true);
     setSize(1000, 1000);
-    final BufferedImage image;
-    try {
-      image =
-        ImageIO.read(
-          new File("nz/ac/vuw/ecs/swen225/gp22/renderer/Sprites/Title.png")
-        );
-      panel =
-        new JPanel() {
-          @Override
-          protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(image, 0, 0, null);
-          }
-        };
-    } catch (IOException e) {}
+    panel
+      .getGraphics()
+      .drawImage(
+        Img.Title.image,
+        0,
+        0,
+        1000,
+        1000,
+        0,
+        0,
+        Img.Title.image.getWidth(),
+        Img.Title.image.getHeight(),
+        null
+      );
     setTitle("Title Screen");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
