@@ -13,13 +13,19 @@ import org.dom4j.io.XMLWriter;
 
 public class RecordWriter {
 
-    /* Fields. */
+    /* 
+     * Fields. 
+     */
     private Document document;
     private Element game;
     private int tickNum;
 
+
     /**
-     * Recorder constructor, writing to a given org.dom4j.Document.
+     * Recorder constructor.
+     * 
+     * @param document - The dom4j document we are writing too.
+     * @param level - The level xml name.
      */
     public RecordWriter(Document document, String level) {
         this.document = document;
@@ -29,12 +35,12 @@ public class RecordWriter {
         this.tickNum = 0;
     }
 
+
     /**
      * Records a tick and what happens within the tick.
      * 
-     * The move map is <Actor name/id, move>, we can change this later from move to
-     * action, if we need to add more actions.
-     * 
+     * @param <E> - The generic enum we are using.
+     * @param move - The move that is being recorded.
      */
     public <E extends Enum<E>> void tick(E move) {
         Element tick = this.game.addElement("tick")
@@ -44,8 +50,13 @@ public class RecordWriter {
         tickNum++;
     }
 
+
     /**
-     * Record a given move
+     * Record a given move.
+     *
+     * @param tick - The dom4j element we have formatted to be the tick.
+     * @param actor - The actor that is doing the move.
+     * @param move - The move that is being recorded in this tick.
      */
     private void move(Element tick, String actor, String move) {
         tick.addElement("move")
@@ -53,8 +64,12 @@ public class RecordWriter {
                 .addText(move);
     }
 
+
     /**
      * Saves the recorded game.
+     * 
+     * @param dir - THe directory of where we are saving the game.
+     * @throws IOException
      */
     public void save(String dir) throws IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");

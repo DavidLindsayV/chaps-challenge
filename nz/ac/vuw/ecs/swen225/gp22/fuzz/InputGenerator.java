@@ -3,6 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Collections;
 import nz.ac.vuw.ecs.swen225.gp22.app.*;
@@ -28,11 +29,11 @@ public class InputGenerator {
      * @param app
      * @return
      */
-    public boolean playNext(UserListener ul){
-        inputs.get(index).play(ul);
+    public boolean playNext(Robot b/*UserListener ul*/){
+        inputs.get(index).play(b);
 
         // wait for the input to be registered
-        try {TimeUnit.MILLISECONDS.sleep(200);}catch(Exception e) {}
+        //try {TimeUnit.MILLISECONDS.sleep(200);}catch(Exception e) {}
         //if (index == 3) { throw new IllegalArgumentException();}				// comment this out to test exceptions
         return (++index < inputs.size());
     }

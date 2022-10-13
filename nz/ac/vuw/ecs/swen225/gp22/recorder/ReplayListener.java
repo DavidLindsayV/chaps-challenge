@@ -9,31 +9,40 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import org.dom4j.DocumentException;
+
+import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.pingTimer;
 
 /**
- * This class listens and reacts to keypresses of the user
+ * This class listens to player input for the replay and does actions based on that.
+ * This class is based on the structure of APPS UserListener as it does similar things to it,
+ * and the other classes are made based around its structure.
+ * 
+ * @author Kalani Sheridan - ID: 300527652
  */
 public class ReplayListener implements KeyListener {
 
-  //Stores the Domain of the current level
+  /**
+   * Public fields.
+   */
   public static Domain currentGame;
   public static Direction move;
   public static boolean paused = false;
   public static String currentLevel;
-
+  public static boolean isAutoPlay = false;
   public static int displayTime;
 
-  //The timer for when the game is in autoPlay
+  /**
+   * Private fields.
+   */
   private static ReplayTimer timer;
-
-  public static boolean isAutoPlay = false;
-
-  //The current index for the move we are on
   private static int index;
-  //The list of moves
   private static List<Direction> moves;
 
+
+  /**
+   * The contructor of a new ReplayListener.
+   */
   public ReplayListener() {
     isAutoPlay = false;
     moves = Recorder.load();
@@ -46,19 +55,28 @@ public class ReplayListener implements KeyListener {
 
     displayTime =  60 * 1000 * pingTimer.getLevelNum(currentLevel);
 
-    timer = new ReplayTimer(currentLevel);
+    timer = new ReplayTimer(200);
     System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
     System.out.println("REPLAY LISTENER: Loading level...");
     loadLevel();
     System.out.println("REPLAY LISTENER: Loaded level.");
   }
 
+  /**
+   * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyTyped(KeyEvent e) {}
 
+  /**
+   * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyPressed(KeyEvent e) { }
 
+  /**
+   * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
@@ -72,27 +90,33 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Exits the replay GUI
-   */
-  public static void exitGame() {
-    ReplayGui.closeAll();
-    System.exit(0);
-  }
-
-  /**
-   * Pauses game, displays a "Game is paused" dialog
+   * Pauses game.
    */
   public static void pauseGame() {
-    System.out.println("The game is paused");
-    paused = true;
-    timer.cancel();
-    JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
+    if(isAutoPlay){
+      System.out.println("The game is paused");
+      paused = true;
+      timer.cancel();
+      JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
+    }
   }
 
   /**
-   * Removed "Game is paused" dialog, resumes game 
+   * Public resumes game for ReplayGui.
    */
-  public static void resumeGame() {
+  public static void resumeGame(int speed) {
+    if(isAutoPlay){
+      System.out.println("The game has resumed");
+      paused = false;
+      timer = new ReplayTimer(speed);
+      JOptionPane.getRootFrame().dispose();
+    }
+  }
+
+  /**
+   * Private resumes game for the key listener.
+   */
+  private static void resumeGame(){
     System.out.println("The game has resumed");
     paused = false;
     timer = new ReplayTimer(timer);
@@ -100,7 +124,7 @@ public class ReplayListener implements KeyListener {
   }
 
   /**
-   * Starts the level of the game based on currentLevel string
+   * Starts the level of the game based on currentLevel string.
    */
   public static void loadLevel() {
     try {
@@ -108,62 +132,82 @@ public class ReplayListener implements KeyListener {
       System.out.println("REPLAY LISTENER: Parser has parsed a level file!");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
-      exitGame();
+      ReplayGui.closeReplay();
     }
     loadTimer();
   }
 
   /**
-   * Creates the timer for a level
+   * Creates the Replay timer for a level
    */
   private static void loadTimer() {
     System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
-    timer = new ReplayTimer(currentLevel);
+    timer = new ReplayTimer(timer);
   }
 
   /**
-   * Go to the next move
+   * Do the next step in the game.
    */
   public static void nextMove() {
-    if(index<moves.size()-1){
-      currentGame.moveActors();
-      move = moves.get(index);
-      currentGame.movePlayer(move);
-      System.out.println("Tick number: "+index+" Move: "+move.name());
-      index++;
-      displayTime -= 200;
-    }else {
-      System.out.println("The replay is over!");
-      paused = true;
-      timer.cancel();
-      MainRecorder.gui.endOfReplay();
-    }; 
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
-    }   
+    if (GUI.replayGui() != null) {
+      if(index<moves.size()-1){
+        currentGame.moveActors();
+        move = moves.get(index);
+        currentGame.movePlayer(move);
+        System.out.println("Tick number: "+index+" Move: "+move.name());
+        index++;
+        displayTime -= 200;
+      }else {
+        System.out.println("The replay is over!");
+        paused = true;
+        timer.cancel();
+        GUI.replayGui().endOfReplay();
+      };
+      GUI.replayGui().panel.revalidate();
+      GUI.replayGui().panel.repaint();
+    } 
   }
 
-
+  /**
+   * Sets the ReplayListener to do autoplay.
+   */
   public static void setAutoPlay(){
     isAutoPlay = true;
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
+    if (GUI.replayGui() != null) {
+      GUI.replayGui().panel.revalidate();
+      GUI.replayGui().panel.repaint();
     }
   }
 
+  /**
+   * Sets the ReplayListener to do Step-By-Step.
+   */
   public static void setStepByStep(){
     isAutoPlay = false;
-    if (MainRecorder.gui != null) {
-      MainRecorder.gui.panel.revalidate();
-      MainRecorder.gui.panel.repaint();
+    if (GUI.replayGui() != null) {
+      GUI.replayGui().panel.revalidate();
+      GUI.replayGui().panel.repaint();
     }
   }
 
+  /**
+   * Change the speed for the timer.
+   * 
+   * @param speed - The speed of the timer we are changing too.
+   */
   public static void changeTimerSpeed(int speed){
-    timer.changeSpeed(speed);
+    if(!paused){
+      timer.cancel();
+      timer = new ReplayTimer(speed);
+    }
+  }
+
+  /**
+   * Stops the timer for the game.
+   */
+  public static void stopTimer(){
+    timer.cancel();
   }
 
 }

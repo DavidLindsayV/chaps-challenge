@@ -4,13 +4,15 @@ import java.util.Random;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.*;
 
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 /**
  * Lambda-able interface for easy stuff
  */
 interface ArtificialInput {
-    public void play(UserListener u);
+    public void play(Robot b);
 }
 
 /**
@@ -18,10 +20,10 @@ interface ArtificialInput {
  */
 public class BasicInput {
     private static List<ArtificialInput> inputTypes = List.of(
-        // (u)->{u.up(); System.out.println("UP");/* moveup */},
-        // (u)->{u.down(); System.out.println("DOWN");/* movedown */},
-        // (u)->{u.left(); System.out.println("LEFT");/* moveleft */},
-        // (u)->{u.right(); System.out.println("RIGHT");/* moveright */}
+        (b)->{b.keyPress(KeyEvent.VK_UP); b.keyRelease(KeyEvent.VK_UP); System.out.println("UP");/* moveup */},
+        (b)->{b.keyPress(KeyEvent.VK_DOWN); b.keyRelease(KeyEvent.VK_DOWN); System.out.println("DOWN");/* movedown */},
+        (b)->{b.keyPress(KeyEvent.VK_LEFT); b.keyRelease(KeyEvent.VK_LEFT); System.out.println("LEFT");/* moveleft */},
+        (b)->{b.keyPress(KeyEvent.VK_RIGHT); b.keyRelease(KeyEvent.VK_RIGHT); System.out.println("RIGHT");/* moveright */}
         //(u)->{u.pauseGame(); System.out.println("PAUSE");/* pause */},
         //(u)->{u.resumeGame(); System.out.println("RESUME");/* unpause */}
         //()->{System.out.println("Other Input");/* more types of input (mouse click?) */}

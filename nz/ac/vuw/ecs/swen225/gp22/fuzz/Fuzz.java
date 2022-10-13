@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import javax.swing.SwingUtilities;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,7 +39,6 @@ public class Fuzz{
     public void test1Random(){
         // create new app, open app, load in level 1
     	GUI g = new GUI();
-    	Main.gui = g;
     	UserListener u = (UserListener) g.listener;
 
         // until level is complete or time runs out keep going
@@ -51,7 +52,6 @@ public class Fuzz{
     public void test2Random(){
         // create new app, open app, load in level 2
     	GUI g = new GUI();
-    	Main.gui = g;
         UserListener u = (UserListener) g.listener;
         u.nextLevel();
 
@@ -68,7 +68,9 @@ public class Fuzz{
         try {
         	// timeout after 60 seconds
 	        assertTimeoutPreemptively(Duration.ofSeconds(60), ()->{
-	        	while (ig.playNext(u)) {}
+	        	Robot bot = new Robot();
+	        	bot.setAutoDelay(100);
+	        	while (ig.playNext(bot)) {}
 	        });
         }
 

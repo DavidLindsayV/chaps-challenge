@@ -12,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
+import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
 /**
@@ -28,18 +30,18 @@ public class GUI extends Renderer {
   public UserListener listener;
 
   //A button for pausing the game
-  JButton pauseButton;
+  private JButton pauseButton;
   //The menu and its elements
-  JMenuBar menuBar;
-  JMenu menu;
-  JMenuItem exitItem;
-  JMenuItem saveItem;
-  JMenuItem rulesItem;
-  JMenuItem recordPlayerItem;
-  JMenuItem playSavedItem;
+  private JMenuBar menuBar;
+  private JMenu menu;
+  private JMenuItem exitItem; //The menu item that will exit the game
+  private JMenuItem saveItem; //the menu item that will save the game
+  private JMenuItem rulesItem; //the menu item that will display the rules
+  private JMenuItem recordPlayerItem; //the menu item that will play a recorded game
+  private JMenuItem playSavedItem; //the menu item that will play a saved game
 
   //The rules text
-  String rulesText =
+  private String rulesText =
     "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
     "\n" +
     "Controls:" +
@@ -57,22 +59,24 @@ public class GUI extends Renderer {
     "- Avoid colliding with enemies\n";
 
   //A field to store the JFrame for replaying recorded levels
-  ReplayGUI replayGUI;
+  private static ReplayGui replayGUI;
 
-  /**Makes the GUI for saving, loading, pausing and other functionality */
+  /**
+   * Adds the key listener, creates the buttons and creates the JMenu
+   */
   public GUI() {
     super(1000, 1000);
+    setUpGUI();
     instance = this;
     System.out.println("BREAKPOINT: Creating user listener....");
     listener = new UserListener();
-    setUpGUI();
     setLayout(new BorderLayout());
     //Make a JButton pauseButton
     pauseButton = new JButton("⏸");
     pauseButton.setPreferredSize(new Dimension(40, 40));
     pauseButton.addActionListener(
       e -> {
-        if (!UserListener.paused) {
+        if (!UserListener.paused()) {
           pauseGame();
         } else {
           resumeGame();
@@ -122,7 +126,7 @@ public class GUI extends Renderer {
     pauseGame();
     SwingUtilities.invokeLater(
       () -> {
-        replayGUI = new ReplayGUI();
+        replayGUI = new ReplayGui();
       }
     );
   }
@@ -133,25 +137,37 @@ public class GUI extends Renderer {
     JOptionPane.showMessageDialog(this, rulesText);
   }
 
+  /** Used by Domain to show tool tips
+   * @param toolTip
+   */
   public static void showToolTip(String toolTip) {
     JOptionPane.showMessageDialog(GUI.instance, toolTip);
   }
 
+  /**
+   * Removes all existing tool tips
+   */
   public static void removeToolTip() {
     JOptionPane.getRootFrame().dispose();
   }
 
-  /**A function that draws various texts, such as current level and keys collected, on the JPanel */
+  /** A function that draws various texts, such as current level and keys collected, on the JPanel
+   * @param g
+   */
   public static void drawText(Graphics g) {
     g.setFont(new Font("Roboto", Font.BOLD, 20));
     g.setColor(Color.RED);
     g.drawString(
-      "Current level: " + shortenLevelName(UserListener.currentLevel),
+      "Current level: " + shortenLevelName(UserListener.currentLevel()),
       50,
       50
     );
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: " + pingTimer.timeLeftToPlay / 1000, 50, 70);
+    g.drawString(
+      "Time left: " + UserListener.timer().timeLeftToPlay() / 1000,
+      50,
+      70
+    );
     g.setColor(Color.GREEN);
     g.drawString(
       "Keys collected: " + UserListener.currentGame.keysCollected(),
@@ -183,10 +199,18 @@ public class GUI extends Renderer {
     instance.dispose();
   }
 
+  /** A function that processes the level file path, shortening it for displaying
+   * @param levelName
+   * @return shortened level name
+   */
   public static String shortenLevelName(String levelName) {
     return levelName.substring(
       Math.max(0, levelName.lastIndexOf("/") + 1),
       levelName.length() - 4
     );
   }
+
+  public static ReplayGui replayGui(){ return replayGUI; }
+
+  public static void closeReplayGui(){ replayGUI = null; }
 }

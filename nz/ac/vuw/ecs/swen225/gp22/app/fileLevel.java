@@ -17,6 +17,12 @@ import org.dom4j.DocumentException;
  */
 public class fileLevel {
 
+  /**
+   * A method to allow the user to select the xml file for a level to load
+   * @return shortened URL of selected level 
+   * @throws MalformedURLException
+   * @throws DocumentException
+   */
   public static String getLevelFilename()
     throws MalformedURLException, DocumentException {
     URL url;
@@ -40,6 +46,10 @@ public class fileLevel {
     throw new MalformedURLException();
   }
 
+  /**
+   * Reads the name of the starting level file from initlevel.txt
+   * @return Contents of initlevel.txt
+   */
   public static String getStartingFileName() {
     try {
       Scanner s = new Scanner(
@@ -52,6 +62,10 @@ public class fileLevel {
     return "";
   }
 
+  /**
+   * Saves the current level file in the file initlevel.txt
+   * @param initLevel, the name of the level the next game will be initialised on
+   */
   public static void saveStartingFileName(String initLevel) {
     try {
       Files.writeString(

@@ -8,10 +8,10 @@ public class MockRecorder {
 
     /**
      * Get random enum clas for testing, not my method.
-     * 
      * Found here: https://stackoverflow.com/questions/1972392/pick-a-random-value-from-an-enum
      * 
-     * @param Class<T>
+     * @param <T>  - Generic enum type
+     * @param clazz  - The enum class
      * @return
      */
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
@@ -20,14 +20,13 @@ public class MockRecorder {
     }
 
     /**
-     * Runs a simulation of a game
+     * Runs a mock simulation of a game.
      */
     public static void run() {
         Recorder.setUp("level1.xml");
-        for(int i=0; i<100; i++){
+        for(int i=0; i<1000; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
-        
         Recorder.save("recorded_games/");
     }
 

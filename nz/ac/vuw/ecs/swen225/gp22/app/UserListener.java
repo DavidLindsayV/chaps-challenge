@@ -20,14 +20,17 @@ public class UserListener implements KeyListener {
   //Stores the Domain of the current level
   public static Domain currentGame;
   //The direction the player will move this ping
-  public static Direction move;
+  private static Direction move;
   //Whether the game is paused
-  public static boolean paused = false;
+  private static boolean paused = false;
   //The current level being played
-  public static String currentLevel;
+  private static String currentLevel;
   //The timer that calls ping
   private static pingTimer timer;
 
+  /**
+   * Constructor for UserListener
+   */
   public UserListener() {
     move = Direction.NONE;
     currentLevel = fileLevel.getStartingFileName();
@@ -35,6 +38,7 @@ public class UserListener implements KeyListener {
     //Sets up new recorder
     Recorder.setUp(currentLevel);
 
+    //Create new timer and load level
     System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer(currentLevel);
     System.out.println("BREAKPOINT: Loading level...");
@@ -42,9 +46,15 @@ public class UserListener implements KeyListener {
     System.out.println("BREAKPOINT: Loaded level.");
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyTyped(KeyEvent e) {}
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
@@ -67,6 +77,9 @@ public class UserListener implements KeyListener {
     }
   }
 
+  /* (non-Javadoc)
+   * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+   */
   @Override
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
@@ -82,6 +95,9 @@ public class UserListener implements KeyListener {
     }
   }
 
+  /** Runs the commands accessed by Ctrl (eg ctrl-1, ctrl-2, ctrl-x)
+   * @param e
+   */
   private void ctrlCommands(KeyEvent e) {
     if (e.isControlDown()) {
       switch (e.getKeyCode()) {
@@ -181,19 +197,22 @@ to be loaded
     timer = new pingTimer(currentLevel);
   }
 
-  /**Move Chap in a direction */
+  /**Move up */
   private void up() {
     move = Direction.UP;
   }
 
+  /**Move down */
   private void down() {
     move = Direction.DOWN;
   }
 
+  /**Move left */
   private void left() {
     move = Direction.LEFT;
   }
 
+  /**Move right */
   private void right() {
     move = Direction.RIGHT;
   }
@@ -218,14 +237,53 @@ to be loaded
     loadLevel();
   }
 
-  /**Loads the next level in the game */
+  /**Loads the next level in the game
+   * Since there are only 2 levels, nextLevel just loads level 2
+   * level1 goes to level2, level2 also loads level 2
+   */
   public static void nextLevel() {
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level " +
       GUI.shortenLevelName(currentLevel) +
-      " is won! \n Restarting current level."
+      " is won! \n Now starting level 2"
     );
+    currentLevel = "level2.xml";
     loadLevel();
+  }
+
+  /**
+   * @return the listeners pingTmer
+   */
+  public static pingTimer timer() {
+    return timer;
+  }
+
+  /**
+   * @return move
+   */
+  public static Direction move() {
+    return move;
+  }
+
+  /**Sets the move
+   * @param move
+   */
+  public static void setMove(Direction move) {
+    UserListener.move = move;
+  }
+
+  /**
+   * @return paused
+   */
+  public static boolean paused() {
+    return paused;
+  }
+
+  /**
+   * @return currentLevel
+   */
+  public static String currentLevel() {
+    return currentLevel;
   }
 }
