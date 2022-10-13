@@ -150,27 +150,23 @@ public class ReplayListener implements KeyListener {
    * Do the next step in the game.
    */
   public static void nextMove() {
-    if(index<moves.size()-1){
-      currentGame.moveActors();
-      move = moves.get(index);
-      currentGame.movePlayer(move);
-      System.out.println("Tick number: "+index+" Move: "+move.name());
-      index++;
-      displayTime -= 200;
-    }else {
-      System.out.println("The replay is over!");
-      paused = true;
-      timer.cancel();
-      if (GUI.replayGui() != null) {
-        GUI.replayGui().panel.revalidate();
-        GUI.replayGui().panel.repaint();
-      }   
-      GUI.replayGui().endOfReplay();
-    }; 
     if (GUI.replayGui() != null) {
+      if(index<moves.size()-1){
+        currentGame.moveActors();
+        move = moves.get(index);
+        currentGame.movePlayer(move);
+        System.out.println("Tick number: "+index+" Move: "+move.name());
+        index++;
+        displayTime -= 200;
+      }else {
+        System.out.println("The replay is over!");
+        paused = true;
+        timer.cancel();
+        GUI.replayGui().endOfReplay();
+      };
       GUI.replayGui().panel.revalidate();
       GUI.replayGui().panel.repaint();
-    }   
+    } 
   }
 
   /**
