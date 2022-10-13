@@ -45,3 +45,9 @@ Bugs with loading saved levels
 - timer is not correct
 - collected keys and carrots not correct
 - domain doesn't think you have the keys that you do, so can't open doors
+
+make it look better
+- title screen button
+- make rules + quit button on title screen
+- replace joptionpanes
+- make sure all documented and commented

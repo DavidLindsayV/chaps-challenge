@@ -34,6 +34,7 @@ public class Player implements Printable {
         this.domain = d;
         this.keyWallet = new HashMap<AuthenticationColour, Integer>();
         this.totalKeysCollected = 0;
+        this.keyHistory = new HashMap<AuthenticationColour, Integer>();
     }
 
     /**

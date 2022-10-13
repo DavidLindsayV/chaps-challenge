@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -18,6 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
+import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
@@ -183,7 +185,7 @@ public class GUI extends Renderer {
    */
   public static void drawText(Graphics g) {
     g.setColor(new Color(50, 50, 50));
-    g.fillRect(200, 25, 400, 110);
+    g.fillRect(200, 25, 435, 110);
     g.setFont(new Font("Roboto", Font.BOLD, 30));
     g.setColor(Color.RED);
     g.drawString(
@@ -198,17 +200,35 @@ public class GUI extends Renderer {
       75
     );
     g.setColor(Color.GREEN);
-    g.drawString(
-      "Keys collected: " + UserListener.currentGame.keysCollected(),
-      200,
-      100
-    );
+    g.drawString("Keys collected: ", 200, 100);
+    Map<AuthenticationColour, Integer> keyMap = UserListener.currentGame.keysHistory();
+    int x = 430;
+    if (keyMap != null) {
+      for (AuthenticationColour c : keyMap.keySet()) {
+        for (int i = 0; i < keyMap.get(c); i++) {
+          drawImage(keyToImg(c), x, 75, g);
+          x += 25;
+        }
+      }
+    }
     g.setColor(Color.BLUE);
     g.drawString("Carrots left: ", 200, 125);
-    int x = 370;
+    x = 370;
     for (int i = 0; i < UserListener.currentGame.treasuresLeft(); i++) {
       drawImage(Img.TreasureT.image, x, 105, g);
       x += 25;
+    }
+  }
+
+  private static BufferedImage keyToImg(AuthenticationColour c) {
+    if (c == AuthenticationColour.PINK) {
+      return Img.RedKeyT.image;
+    } else if (c == AuthenticationColour.BLUE) {
+      return Img.BlueKeyT.image;
+    } else if (c == AuthenticationColour.GREEN) {
+      return Img.GreenKeyT.image;
+    } else {
+      return Img.YellowKeyT.image;
     }
   }
 

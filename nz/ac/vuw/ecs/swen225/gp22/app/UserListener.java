@@ -3,6 +3,8 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
@@ -10,6 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.BoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 import org.dom4j.DocumentException;
 
 /**
@@ -224,7 +227,7 @@ to be loaded
   /**
    * @return the time left for the ping timer
    */
-  public static int getTimeLeft(){
+  public static int getTimeLeft() {
     return timer.timeLeftToPlay();
   }
 
@@ -275,7 +278,6 @@ to be loaded
    * level1 goes to level2, level2 also loads level 2
    */
   public static void nextLevel() {
-
     Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
 
     timer.redrawJFrame();
