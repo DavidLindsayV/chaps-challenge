@@ -11,48 +11,51 @@ import javax.imageio.ImageIO;
  */
 
 public enum Img {
-    WallSprite,
-    FloorSprite,
-    BlueDoor,
-    GreenDoor,
-    PurpleDoor,
-    RedDoor,
-    YellowDoor,
-    BlueKey,
-    GreenKey,
-    PurpleKey,
-    RedKey,
-    YellowKey,
-    BlueKeyT,
-    GreenKeyT,
-    PurpleKeyT,
-    RedKeyT,
-    YellowKeyT,
-    TreasureT,
-    Exit,
-    ExitLock,
-    Treasure,
-    InfoField,
-    Enemy,
-    Empty,
-    Title,
-    ChapL,
-    ChapR;
-    Img() {
-        image = loadImage(this.name());
-    }
+  WallSprite,
+  FloorSprite,
+  BlueDoor,
+  GreenDoor,
+  PurpleDoor,
+  RedDoor,
+  YellowDoor,
+  BlueKey,
+  GreenKey,
+  PurpleKey,
+  RedKey,
+  YellowKey,
+  BlueKeyT,
+  GreenKeyT,
+  PurpleKeyT,
+  RedKeyT,
+  YellowKeyT,
+  TreasureT,
+  Exit,
+  ExitLock,
+  Treasure,
+  InfoField,
+  Enemy,
+  Empty,
+  Title,
+  ChapL,
+  ChapR;
 
-    /**
-    * Loads the image by finding it inside the Sprites folder and returning it. 
-    * @return Buffered Image based on the name inputted. 
-    * @param name takes the name of the image.
-    */
-    static private BufferedImage loadImage(String name) {
-        URL imagePath = Img.class.getResource(name + ".png");
-        try {
-            return ImageIO.read(imagePath);
-        } catch (IOException e) {
-            throw new Error(e);
-        }
+  public final BufferedImage image;
+
+  Img() {
+    image = loadImage(this.name());
+  }
+
+  /**
+   * Loads the image by finding it inside the Sprites folder and returning it.
+   * @return Buffered Image based on the name inputted.
+   * @param name takes the name of the image.
+   */
+  private static BufferedImage loadImage(String name) {
+    URL imagePath = Img.class.getResource(name + ".png");
+    try {
+      return ImageIO.read(imagePath);
+    } catch (IOException e) {
+      throw new Error(e);
     }
+  }
 }
