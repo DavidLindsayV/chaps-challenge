@@ -206,7 +206,7 @@ public class UserListener implements KeyListener {
       System.out.println("Exception loading a level");
       exitGame();
     }
-    loadTimer();
+    //loadTimer();
   }
 
   /**
