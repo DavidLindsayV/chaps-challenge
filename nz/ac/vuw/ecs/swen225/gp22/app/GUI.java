@@ -135,7 +135,12 @@ public class GUI extends Renderer {
       }
     );
     rulesItem.addActionListener(e -> showRules());
-    recordPlayerItem.addActionListener(e -> playRecord());
+    recordPlayerItem.addActionListener(
+      e -> {
+        pauseGame();
+        playRecord();
+      }
+    );
     playSavedItem.addActionListener(
       e -> {
         pauseGame();
