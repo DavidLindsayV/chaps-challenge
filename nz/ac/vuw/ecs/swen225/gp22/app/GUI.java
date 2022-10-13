@@ -12,7 +12,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 
@@ -192,6 +191,7 @@ public class GUI extends Renderer {
   private void resumeGame() {
     pauseButton.setText("⏸");
     UserListener.resumeGame();
+    this.requestFocus();
   }
 
   /**A function to close all the JFrames */
@@ -210,7 +210,11 @@ public class GUI extends Renderer {
     );
   }
 
-  public static ReplayGui replayGui(){ return replayGUI; }
+  public static ReplayGui replayGui() {
+    return replayGUI;
+  }
 
-  public static void closeReplayGui(){ replayGUI = null; }
+  public static void closeReplayGui() {
+    replayGUI = null;
+  }
 }
