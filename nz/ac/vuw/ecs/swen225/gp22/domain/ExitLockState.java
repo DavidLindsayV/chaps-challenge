@@ -4,9 +4,10 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 
 /**
  * Represents an exit lock, which acts as a wall.
- * If the player carrys ALL TREASURES,
+ * If the player carries ALL TREASURES,
  * then it becomes an empty tile.
  * 
+ * @author Brandon Ru 300562436
  */
 public class ExitLockState implements FreeTileState {
     @Override

@@ -5,16 +5,19 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 /**
  * Represents a locked door.
  * The locked door is a wall, but becomes non-wall iff
- *  : the player carrys the correct COLOUR key.
+ * The player holds the correct COLOUR key.
+ * 
+ * @author Brandon Ru 300562436
+ *  
  */
 public class LockedDoorState implements FreeTileState {
     /**
-     * The colour of key (required to open this lock)
+     * The color of key (required to open this lock)
      */
     AuthenticationColour colour;
 
     /**
-     * Creates a key state with a desired colour.
+     * Creates a key state with a desired color.
      * 
      * @param c
      */
