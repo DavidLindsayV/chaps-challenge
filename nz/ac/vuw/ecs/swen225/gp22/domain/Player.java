@@ -30,6 +30,7 @@ public class Player implements Printable {
         this.keyWallet = new HashMap<AuthenticationColour, Integer>();
         this.keyHistory = new HashMap<AuthenticationColour, Integer>();
         this.totalKeysCollected = 0;
+        this.keyHistory = new HashMap<AuthenticationColour, Integer>();
     }
 
     /**

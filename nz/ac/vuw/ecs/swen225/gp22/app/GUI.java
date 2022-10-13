@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -18,6 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
+import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
@@ -25,7 +27,7 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 /**
  * This class extends the Renderer's JFrame class and adds a menu and buttons to
  * allow pausing, resuming, saving, loading, and rules displaying
- * 
+ *
  * @author David Lindsay 300584648
  */
 @SuppressWarnings("serial")
@@ -50,14 +52,22 @@ public class GUI extends Renderer {
   MetalLookAndFeel metal;
 
   // The rules text
-  private String rulesText = "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n"
-      + "\n" + "Controls:" + "- Up, down, left and right arrow keys move the rabbit\n" + "- Ctrl-X exits the game\n"
-      + "- Ctrl-S saves and exits the game\n" + "- Ctrl-R resumes a saved game\n"
-      + "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n"
-      + "- Space to Pause game, Esc to Play game (as well as the pause/play button\n"
-      + "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" + "\n"
-      + "Core game mechanics:\n" + "- Collect all the carrots and walk down the rabbit hole to win\n"
-      + "- Collect keys to open doors of their respective colours\n" + "- Avoid colliding with enemies\n";
+  private String rulesText =
+    "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
+    "\n" +
+    "Controls:" +
+    "- Up, down, left and right arrow keys move the rabbit\n" +
+    "- Ctrl-X exits the game\n" +
+    "- Ctrl-S saves and exits the game\n" +
+    "- Ctrl-R resumes a saved game\n" +
+    "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
+    "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
+    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
+    "\n" +
+    "Core game mechanics:\n" +
+    "- Collect all the carrots and walk down the rabbit hole to win\n" +
+    "- Collect keys to open doors of their respective colours\n" +
+    "- Avoid colliding with enemies\n";
 
   // A field to store the JFrame for replaying recorded levels
   private static ReplayGui replayGUI;
@@ -81,22 +91,30 @@ public class GUI extends Renderer {
     // Make a JButton pauseButton
     pauseButton = new JButton("⏸");
     pauseButton.setPreferredSize(new Dimension(40, 40));
-    pauseButton.addActionListener(e -> {
-      if (!UserListener.paused()) {
-        pauseGame();
-      } else {
-        resumeGame();
+    pauseButton.addActionListener(
+      e -> {
+        if (!UserListener.paused()) {
+          pauseGame();
+        } else {
+          resumeGame();
+        }
       }
-    });
+    );
     panel.setLayout(null);
-    pauseButton.setFont(new Font(pauseButton.getFont().getName(), Font.PLAIN, 40));
+    pauseButton.setFont(
+      new Font(pauseButton.getFont().getName(), Font.PLAIN, 40)
+    );
     pauseButton.setMargin(new Insets(0, 0, 0, 0));
     pauseButton.setBounds(900, 50, 50, 50);
     panel.add(pauseButton);
     // Make exiting, saving showing rules and record playing menu items
     menuBar = new JMenuBar();
     menuBar.setBorder(
-        BorderFactory.createCompoundBorder(menuBar.getBorder(), BorderFactory.createEmptyBorder(0, 0, 0, 0)));
+      BorderFactory.createCompoundBorder(
+        menuBar.getBorder(),
+        BorderFactory.createEmptyBorder(0, 0, 0, 0)
+      )
+    );
     menu = new JMenu("Menu Items");
     menu.setFont(new Font("Roboto", Font.BOLD, 20));
     saveItem = new JMenuItem("Save Level");
@@ -110,16 +128,20 @@ public class GUI extends Renderer {
     menu.add(recordPlayerItem);
     menu.add(playSavedItem);
     exitItem.addActionListener(e -> UserListener.exitGame());
-    saveItem.addActionListener(e -> {
-      pauseGame();
-      UserListener.saveGame();
-    });
+    saveItem.addActionListener(
+      e -> {
+        pauseGame();
+        UserListener.saveGame();
+      }
+    );
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(e -> playRecord());
-    playSavedItem.addActionListener(e -> {
-      pauseGame();
-      UserListener.loadSavedGame();
-    });
+    playSavedItem.addActionListener(
+      e -> {
+        pauseGame();
+        UserListener.loadSavedGame();
+      }
+    );
     menuBar.add(menu);
     this.setJMenuBar(menuBar);
     // Add keylistener to JFrame
@@ -130,9 +152,11 @@ public class GUI extends Renderer {
   /** Plays a recorded game */
   private void playRecord() {
     pauseGame();
-    SwingUtilities.invokeLater(() -> {
-      replayGUI = new ReplayGui();
-    });
+    SwingUtilities.invokeLater(
+      () -> {
+        replayGUI = new ReplayGui();
+      }
+    );
   }
 
   /** Show the rules panel */
@@ -143,7 +167,7 @@ public class GUI extends Renderer {
 
   /**
    * Used by Domain to show tool tips
-   * 
+   *
    * @param toolTip
    */
   public static void showToolTip(String toolTip) {
@@ -160,30 +184,71 @@ public class GUI extends Renderer {
   /**
    * A function that draws various texts, such as current level and keys
    * collected, on the JPanel
-   * 
+   *
    * @param g
    */
   public static void drawText(Graphics g) {
     g.setColor(new Color(50, 50, 50));
-    g.fillRect(200, 25, 400, 110);
+    g.fillRect(200, 25, 435, 110);
     g.setFont(new Font("Roboto", Font.BOLD, 30));
     g.setColor(Color.RED);
-    g.drawString("Current level: " + shortenLevelName(UserListener.currentLevel()), 200, 50);
+    g.drawString(
+      "Current level: " + shortenLevelName(UserListener.currentLevel()),
+      200,
+      50
+    );
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: " + UserListener.timer().timeLeftToPlay() / 1000, 200, 75);
+    g.drawString(
+      "Time left: " + UserListener.timer().timeLeftToPlay() / 1000,
+      200,
+      75
+    );
     g.setColor(Color.GREEN);
-    g.drawString("Keys collected: " + UserListener.currentGame.keysCollected(), 200, 100);
+    g.drawString("Keys collected: ", 200, 100);
+    Map<AuthenticationColour, Integer> keyMap = UserListener.currentGame.keysHistory();
+    int x = 430;
+    if (keyMap != null) {
+      for (AuthenticationColour c : keyMap.keySet()) {
+        for (int i = 0; i < keyMap.get(c); i++) {
+          drawImage(keyToImg(c), x, 75, g);
+          x += 25;
+        }
+      }
+    }
     g.setColor(Color.BLUE);
     g.drawString("Carrots left: ", 200, 125);
-    int x = 370;
+    x = 370;
     for (int i = 0; i < UserListener.currentGame.treasuresLeft(); i++) {
       drawImage(Img.TreasureT.image, x, 105, g);
       x += 25;
     }
   }
 
+  private static BufferedImage keyToImg(AuthenticationColour c) {
+    if (c == AuthenticationColour.PINK) {
+      return Img.RedKeyT.image;
+    } else if (c == AuthenticationColour.BLUE) {
+      return Img.BlueKeyT.image;
+    } else if (c == AuthenticationColour.GREEN) {
+      return Img.GreenKeyT.image;
+    } else {
+      return Img.YellowKeyT.image;
+    }
+  }
+
   private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
-    g.drawImage(img, x, y, x + 25, y + 25, 0, 0, img.getWidth(), img.getHeight(), null);
+    g.drawImage(
+      img,
+      x,
+      y,
+      x + 25,
+      y + 25,
+      0,
+      0,
+      img.getWidth(),
+      img.getHeight(),
+      null
+    );
   }
 
   /**
@@ -212,13 +277,16 @@ public class GUI extends Renderer {
 
   /**
    * A function that processes the level file path, shortening it for displaying
-   * 
+   *
    * @param levelName
    * @return shortened level name
    */
   public static String shortenLevelName(String levelName) {
     if (levelName != null) {
-      return levelName.substring(Math.max(0, levelName.lastIndexOf("/") + 1), levelName.length() - 4);
+      return levelName.substring(
+        Math.max(0, levelName.lastIndexOf("/") + 1),
+        levelName.length() - 4
+      );
     } else {
       return "";
     }
@@ -226,7 +294,7 @@ public class GUI extends Renderer {
 
   /**
    * Getter for replayGui
-   * 
+   *
    * @return replayGui
    */
   public static ReplayGui replayGui() {

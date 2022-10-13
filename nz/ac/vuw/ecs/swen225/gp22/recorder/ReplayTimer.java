@@ -14,10 +14,10 @@ public class ReplayTimer extends Timer{
     /**
      * Field(s)
      */
-    private final int pingRate; // The autoplay ping rate
+    private final int pingRate;
     private boolean firstPing;
 
-    //The timerTask that will run ping() each time the timer triggers
+    //The TimerTask that will run ping()
     private final TimerTask t = new TimerTask() {
         public void run() {
             ping();
@@ -61,6 +61,7 @@ public class ReplayTimer extends Timer{
             //Move the player
             ReplayListener.nextMove();
         }
+        //Just to fix the slider on move
         if(firstPing){
             this.firstPing = false;
         }
