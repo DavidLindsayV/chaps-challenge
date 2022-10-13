@@ -9,11 +9,10 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.MockRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 
 import org.dom4j.DocumentException;
 
@@ -148,6 +147,8 @@ public class PersistencyTests {
             assert false : e.getMessage();
         } catch (IllegalArgumentException e) {
             assert true;
+        } catch (IllegalStateException e) {
+            assert true;
         }
     }
 
@@ -159,6 +160,8 @@ public class PersistencyTests {
         } catch (DocumentException e) {
             assert false : e.getMessage();
         } catch (IllegalArgumentException e) {
+            assert true;
+        } catch (IllegalStateException e) {
             assert true;
         }
     }
@@ -239,7 +242,11 @@ public class PersistencyTests {
     @Test
     public void testLoadingAndSavingLevel1() {
         try {
+            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
+            int initialFileCount = directory.list().length;
             MockPersistency.run("level1.xml");
+            int newFileCount = directory.list().length;
+            assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             fail("Exception thrown");
         }
@@ -248,7 +255,11 @@ public class PersistencyTests {
     @Test
     public void testLoadingAndSavingLevel2() {
         try {
+            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
+            int initialFileCount = directory.list().length;
             MockPersistency.run("level2.xml");
+            int newFileCount = directory.list().length;
+            assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             fail("Exception thrown");
         }
@@ -263,7 +274,11 @@ public class PersistencyTests {
         Domain d = db.make();
 
         try {
+            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
+            int initialFileCount = directory.list().length;
             Parser.saveLevel(d);
+            int newFileCount = directory.list().length;
+            assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (IOException e) {
             assert false : e.getMessage();
         }
