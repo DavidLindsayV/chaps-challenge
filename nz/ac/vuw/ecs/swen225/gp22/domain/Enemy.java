@@ -3,9 +3,11 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 import java.util.List;
 
 /**
- * This class represents an enemy that moves in a predetermined path.
+ * This abstract class represents an enemy that moves in a predetermined path.
  * If the player moves into this enemy, it will DIE.
  * If the enemy moves into this player, it will DIE.
+ * 
+ * @author Brandon Ru 300562436
  */
 public abstract class Enemy {
     /**

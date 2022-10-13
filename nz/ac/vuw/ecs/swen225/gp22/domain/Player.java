@@ -12,6 +12,8 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
  *      - How many treasures it has.
  *      - What keys it has on it's wallet.
  *      - It's current position
+ *      
+ *  @author Brandon Ru 300562436
  */
 public class Player implements Printable {
     private Point                               position;
@@ -22,7 +24,7 @@ public class Player implements Printable {
 
     /**
      * Creates a player linked to a domain, at position (0, 0)
-     * @param d
+     * @param d Domain the player is linked to.
      */
     public Player(Domain d) {
         this.position = new Point(0, 0);
@@ -40,14 +42,16 @@ public class Player implements Printable {
     }
 
     /**
-     * Returns the position of the player (immutable, due to record)
+     * Returns the current position of the player.
+     * @return 
      */
     public Point getPosition() {
         return this.position;
     }
 
     /**
-     * Returns the position of the player
+     * Returns the current graphical position of the player.
+     * @return
      */
     public Point getGraphicalPosition() {
         return this.position.translate(Domain.GRAPHICAL_PADDING, Domain.GRAPHICAL_PADDING);

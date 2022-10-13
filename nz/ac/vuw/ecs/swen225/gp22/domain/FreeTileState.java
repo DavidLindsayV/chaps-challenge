@@ -1,5 +1,12 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+/**
+ * FreeTileState is the internal state of a free tile.
+ * I.E. What the free tile contains inside.
+ * 
+ * @author Brandon Ru 300562436
+ *
+ */
 public interface FreeTileState extends Printable {
     /**
      * Is the tile an obstruction, UNDER THIS STATE.

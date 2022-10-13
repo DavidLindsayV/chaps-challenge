@@ -36,6 +36,8 @@ import nz.ac.vuw.ecs.swen225.gp22.persistency.ActorLoader;
  * |_|_|_|_|#|_|
  * |_|_|_|_|_|_|
  * |_|_|_|_|_|E|
+ * 
+ * @author Brandon Ru 300562436
  */
 public class DomainBuilder {
     /**
@@ -100,9 +102,9 @@ public class DomainBuilder {
     /**
      * Creates an enemy given a row and column, and it's path, set
      *
-     * @param row
-     * @param col
-     * @return
+     * @param row Row of the enemy.
+     * @param col Column of the enemy.
+     * @return DomainBuilder reference.
      */
     public DomainBuilder enemy(int row, int col, List<Point> path) {
         if (path == null) {
@@ -137,11 +139,9 @@ public class DomainBuilder {
     }
 
     /**
-     * Creates an enemy given a row and column, and it's path, set
-     * 
-     * @param row
-     * @param col
-     * @return
+     * Adds an enemy to the domain.
+     * @param e Enemy.
+     * @return DomainBuilder reference.
      */
     public DomainBuilder enemy(Enemy e) {
         int row = e.getPosition().row();
@@ -170,7 +170,6 @@ public class DomainBuilder {
 
     /**
      * Creates a wall tile at the given location.
-     * !! NOTE, this really shouldn't be used often.
      * As all default tiles are rows.
      *
      * @param row Row of the wall tile.
@@ -187,7 +186,7 @@ public class DomainBuilder {
 
     /**
      * Creates a exit tile at the given location.
-     *
+     * 
      * @param row Row of the exit tile.
      * @param col Column of the exit tile.
      * @return Domain builder object.
@@ -322,10 +321,8 @@ public class DomainBuilder {
      * Auto detects the boundaries of the board.
      * and updates them.
      *
-     *
-     * @param row
-     * @param col
-     * @return
+     * @param row Row position
+     * @param col Col position
      */
     private void detectBoundaries(int row, int col) {
         domainHeight = Math.max(domainHeight, row + 1);
@@ -335,9 +332,8 @@ public class DomainBuilder {
     /**
      * Checks if the (row, col) is within the maximum bounds.
      *
-     * @param row
-     * @param col
-     * @return
+     * @param row Row position
+     * @param col Col position
      */
     private void checkWithinAbsoluteLimits(int row, int col) {
         if (row < 0) {
@@ -357,9 +353,7 @@ public class DomainBuilder {
     /**
      * Ensures there is no player at the position.
      *
-     * @param row
-     * @param col
-     * @return
+     * 
      */
     private void checkNoPlayerHere(int row, int col) {
         if (domainPlayerPosition != null && domainPlayerPosition.equals(new Point(row, col))) {

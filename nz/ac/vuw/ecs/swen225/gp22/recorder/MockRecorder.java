@@ -4,6 +4,12 @@ import java.util.Random;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 
+/**
+* The class to create mock tick input so we could create test 
+* the code we wrote, such as saving and loading.
+*
+* @author Kalani Sheridan - ID: 300527652
+*/
 public class MockRecorder {
 
     /**
@@ -12,7 +18,7 @@ public class MockRecorder {
      * 
      * @param <T>  - Generic enum type
      * @param clazz  - The enum class
-     * @return
+     * @return - The enum we have got
      */
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
         int x = new Random().nextInt(clazz.getEnumConstants().length);

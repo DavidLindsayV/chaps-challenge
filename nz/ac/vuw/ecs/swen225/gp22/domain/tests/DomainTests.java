@@ -1,7 +1,15 @@
-//package Tests;
-package nz.ac.vuw.ecs.swen225.gp22.domain;
+
+package nz.ac.vuw.ecs.swen225.gp22.domain.tests;
 
 import org.junit.*;
+
+import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+import nz.ac.vuw.ecs.swen225.gp22.domain.DomainBuilder;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +27,7 @@ interface DomainBuilderFuzzTest{
 
 /**
  * Generator for building a domain
- * @author deleomaxi
+ * @author deleomaxi & rubran
  */
 class BuilderInputGenerator{
 	private static final int BOARDSIZE = 250;
@@ -524,123 +532,6 @@ public class DomainTests {
 	}
 
 	@Test
-	public void enemyTest04() {
-		String ideal = 	"|P|_|_|_|\n" +
-						"|_|4|_|_|\n" +
-						"|_|_|_|_|\n" +
-						"|_|_|_|E|\n";
-
-		// test enemy resets stage
-		Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
-				.enemy(1, 1, List.of(new Point(1, 1), new Point(1, 2), new Point(1, 3))).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-
-		testCompare(ideal, d.toString());
-	}
-
-	// ####################################################
-	// 					EXIT TESTS
-	// ####################################################
-
-	@Test
-	public void exitTest01() {
-		String ideal = 	"|_|_|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
-
-		// player with no more treasures to collect can exit
-		Domain d = new DomainBuilder()
-				.player(0, 0).exit(2, 2).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.DOWN);
-		testCompare(ideal, d.toString());
-	}
-
-	@Test
-	public void exitTest02() {
-		String ideal = 	"|_|_|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
-
-		// player cannot move when they have already exited
-		Domain d = new DomainBuilder()
-				.player(0, 0).exit(2, 2).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.LEFT);
-		testCompare(ideal, d.toString());
-	}
-
-	@Test
-	public void exitTest03() {
-		String ideal = 	"|_|_|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
-
-		// player can exit after collecting all the treasures
-		Domain d = new DomainBuilder().treasure(0, 2)
-				.player(0, 0).exit(2, 2).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.DOWN);
-		testCompare(ideal, d.toString());
-	}
-
-	@Test
-	public void exitTest04() {
-		String ideal = 	"|_|_|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
-
-		// player can exit after collecting all the treasures
-		Domain d = new DomainBuilder().treasure(0, 2)
-				.player(0, 0).exit(2, 2).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.DOWN);
-		testCompare(ideal, d.toString());
-	}
-
-	@Test
-	public void exitTest05() {
-		String ideal = 	"|_|_|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
-
-		// player can open the lock after collecting all the treasures
-		Domain d = new DomainBuilder().treasure(0, 2).lock(1, 2)
-				.player(0, 0).exit(2, 2).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.DOWN);
-		testCompare(ideal, d.toString());
-	}
-
-	@Test
-	public void exitTest06() {
-		String ideal = 	"|_|_|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
-
-		// player can open the lock after collecting all the treasures
-		Domain d = new DomainBuilder().treasure(0, 2).lock(1, 2)
-				.player(0, 0).exit(2, 2).make();
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
-		d.movePlayer(Direction.DOWN);
-		testCompare(ideal, d.toString());
-	}
-
-	@Test
 	public void exitTest07() {
 		String ideal = 	"|_|_|P|\n" +
 						"|_|*|L|\n" +
@@ -663,15 +554,14 @@ public class DomainTests {
 	@Test
 	public void infoTest01() {
 		String ideal = 	"|_|i|_|\n" +
-						"|_|_|_|\n" +
-						"|_|_|P|\n";
+						"|_|_|P|\n" +
+						"|_|_|E|\n";
 
 		// test info placement, player moves on info
 		Domain d = new DomainBuilder().info(0, 1)
 				.player(0, 0).exit(2, 2).make();
 		d.movePlayer(Direction.RIGHT);
 		d.movePlayer(Direction.RIGHT);
-		d.movePlayer(Direction.DOWN);
 		d.movePlayer(Direction.DOWN);
 		testCompare(ideal, d.toString());
 	}
@@ -683,61 +573,61 @@ public class DomainTests {
 	@Test
 	public void failingTest01() {
 		// test for lower bounds
-		checkFailed(()->{Domain d = new DomainBuilder().empty(-1, 1).empty(1, 1).player(0, 0).exit(0,1).make();});
+		checkFailed(()->{new DomainBuilder().empty(-1, 1).empty(1, 1).player(0, 0).exit(0,1).make();});
 	}
 
 	@Test
 	public void failingTest02() {
 		// test for out of upper bounds
-		checkFailed(()->{Domain d = new DomainBuilder().empty(1000, 1).empty(1, 1).player(0, 0).exit(0,1).make();});
+		checkFailed(()->{new DomainBuilder().empty(1000, 1).empty(1, 1).player(0, 0).exit(0,1).make();});
 	}
 
 	@Test
 	public void failingTest03() {
 		// test for lower bounds
-		checkFailed(()->{Domain d = new DomainBuilder().empty(1, -1).empty(1, 1).player(0, 0).exit(0,1).make();});
+		checkFailed(()->{new DomainBuilder().empty(1, -1).empty(1, 1).player(0, 0).exit(0,1).make();});
 	}
 
 	@Test
 	public void failingTest04() {
 		// test for out of upper bounds
-		checkFailed(()->{Domain d = new DomainBuilder().empty(1, 1000).empty(1, 1).player(0, 0).exit(0,1).make();});
+		checkFailed(()->{new DomainBuilder().empty(1, 1000).empty(1, 1).player(0, 0).exit(0,1).make();});
 	}
 
 	@Test
 	public void failingTest05() {
 		// test for null
-		checkFailed(()->{Domain d = new DomainBuilder().empty(new Integer(null), 1).empty(1, 1).player(0, 0).exit(0, 1).make();});
+		checkFailed(()->{new DomainBuilder().empty(new Integer(null), 1).empty(1, 1).player(0, 0).exit(0, 1).make();});
 	}
 
 	@Test
 	public void failingTest06() {
 		// test for player spawn in a wall
-		checkFailed(()->{Domain d = new DomainBuilder().wall(0, 0).empty(1, 1).player(0, 0).exit(0, 1).make();});
+		checkFailed(()->{new DomainBuilder().wall(0, 0).empty(1, 1).player(0, 0).exit(0, 1).make();});
 	}
 
 	@Test
 	public void failingTest07() {
 		// test for spawn two players
-		checkFailed(()->{Domain d = new DomainBuilder().empty(1, 1).player(0, 0).player(0, 0).exit(0, 1).make();});
+		checkFailed(()->{new DomainBuilder().empty(1, 1).player(0, 0).player(0, 0).exit(0, 1).make();});
 	}
 
 	@Test
 	public void failingTest08() {
 		// test for empty domain make
-		checkFailed(()->{Domain d = new DomainBuilder().make();});
+		checkFailed(()->{new DomainBuilder().make();});
 	}
 
 	@Test
 	public void failingTest09() {
 		// test for domain make with no player
-		checkFailed(()->{Domain d = new DomainBuilder().empty(0, 0).make();});
+		checkFailed(()->{new DomainBuilder().empty(0, 0).make();});
 	}
 
 	@Test
 	public void failingTest10() {
 		// test for domain make with no exit
-		checkFailed(()->{Domain d = new DomainBuilder().empty(0, 0).player(0, 0).make();});
+		checkFailed(()->{new DomainBuilder().empty(0, 0).player(0, 0).make();});
 	}
 
 	@Test
@@ -753,7 +643,7 @@ public class DomainTests {
 	public void failingTest12() {
 		// test for boundary check, test player position
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(5, 5).player(0, 0).exit(2, 2).make();
+		        Domain d = new DomainBuilder().empty(5, 5).player(0, 0).exit(2, 2).make();
 			d.setPlayerPosition(new Point(0, 6));
 			d.setPlayerPosition(new Point(6, 0));
 		});
@@ -763,7 +653,7 @@ public class DomainTests {
 	public void failingTest13() {
 		// test enemy cant function with empty list
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
 					.enemy(1, 1, List.of()).make();
 		});
 	}
@@ -772,7 +662,7 @@ public class DomainTests {
 	public void failingTest14() {
 		// test enemy cant function with null list
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
 					.enemy(1, 1, (List<Point>) null).make();
 		});
 	}
@@ -781,7 +671,7 @@ public class DomainTests {
 	public void failingTest15() {
 		// test enemy cant function with list of null points
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
 					.enemy(1, 1, Arrays.stream(new Point[] {null, null}).collect(Collectors.toList())).make();
 		});
 	}
@@ -790,15 +680,8 @@ public class DomainTests {
 	public void failingTest16() {
 		// test enemy cant move outside of domain (row boundary)
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
 					.enemy(1, 1, List.of(new Point(-1, 0))).make();
-		});
-
-		// check over boundary
-		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
-					.enemy(1, 1, List.of(new Point(6, 0))).make();
-			System.out.println(d.toString());
 		});
 	}
 
@@ -806,28 +689,18 @@ public class DomainTests {
 	public void failingTest17() {
 		// check column boundary
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
 					.enemy(1, 1, List.of(new Point(0, -1))).make();
 		});
 
-		// check over boundary
-		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
-					.enemy(1, 1, List.of(new Point(0, 6))).make();
-		});
 	}
 
 	@Test
 	public void failingTest18() {
 		// check both boundary
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
 					.enemy(1, 1, List.of(new Point(-1, -1))).make();
-		});
-
-		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(3, 3)
-					.enemy(1, 1, List.of(new Point(6, 6))).make();
 		});
 	}
 
@@ -835,7 +708,7 @@ public class DomainTests {
 	public void failingTest19() {
 		// check cannot put a wall on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).wall(0, 0).exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).wall(0, 0).exit(1, 1).make();
 		});
 	}
 
@@ -843,7 +716,7 @@ public class DomainTests {
 	public void failingTest20() {
 		// check cannot put a key on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).key(0, 0, "PINK").exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).key(0, 0, "PINK").exit(1, 1).make();
 		});
 	}
 
@@ -851,7 +724,7 @@ public class DomainTests {
 	public void failingTest21() {
 		// check cannot put an exit lock on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).lock(0, 0).exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).lock(0, 0).exit(1, 1).make();
 		});
 	}
 
@@ -859,7 +732,7 @@ public class DomainTests {
 	public void failingTest22() {
 		// check cannot put an exit on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).exit(0, 0).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).exit(0, 0).make();
 		});
 	}
 
@@ -867,7 +740,7 @@ public class DomainTests {
 	public void failingTest23() {
 		// check cannot put an door on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).door(0, 0, "PINK").exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).door(0, 0, "PINK").exit(1, 1).make();
 		});
 	}
 
@@ -875,7 +748,7 @@ public class DomainTests {
 	public void failingTest24() {
 		// check cannot put treasure on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).treasure(0, 0).exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).treasure(0, 0).exit(1, 1).make();
 		});
 	}
 
@@ -883,7 +756,7 @@ public class DomainTests {
 	public void failingTest25() {
 		// check cannot put an empty tile on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).empty(0, 0).exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).empty(0, 0).exit(1, 1).make();
 		});
 	}
 
@@ -891,7 +764,7 @@ public class DomainTests {
 	public void failingTest26() {
 		// check cannot put an enemy on a player
 		checkFailed(()->{
-			Domain d = new DomainBuilder().empty(1, 1).player(0, 0).enemy(0, 0, List.of(new Point(0,0))).exit(1, 1).make();
+			new DomainBuilder().empty(1, 1).player(0, 0).enemy(0, 0, List.of(new Point(0,0))).exit(1, 1).make();
 		});
 	}
 
@@ -983,7 +856,7 @@ public class DomainTests {
 		assert !p.equals(p3) : "Has different values, not equal";
 		assert !p2.equals(p3) : "Has different values, not equals (2)";
 		assert !p2.equals(null) : "Can't equal null";
-		assert !p2.equals(new Integer(1)) : "Can't equal an integer";
+		assert !p2.equals(new Object()) : "Can't equal an object";
 	}
 
 	@Test
@@ -1023,7 +896,6 @@ public class DomainTests {
 
 		big.generateRandom(1000000);
 		big.playAll(db);
-		//System.out.println(db.make().toString());	// printing takes a long as time bruh
 	}
 
 	public void testCompare(String ideal, String actual) {

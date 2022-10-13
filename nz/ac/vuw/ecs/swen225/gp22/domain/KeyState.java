@@ -7,6 +7,8 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
  * The key is a specific colour, and will be added to the players wallet
  * If they step on it.
  * It is NOT a wall.
+ * 
+ * @author Brandon Ru 300562436
  */
 public class KeyState implements FreeTileState {
     /**

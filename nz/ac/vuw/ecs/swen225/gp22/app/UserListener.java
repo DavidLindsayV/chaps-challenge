@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.JOptionPane;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.BoardPanel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -59,20 +60,21 @@ public class UserListener implements KeyListener {
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_UP:
-        SoundEffects.playSound("Step");
         up();
         break;
       case KeyEvent.VK_DOWN:
-        SoundEffects.playSound("Step");
         down();
         break;
       case KeyEvent.VK_LEFT:
-        SoundEffects.playSound("Step");
+        BoardPanel.chapDirection = true;
         left();
         break;
       case KeyEvent.VK_RIGHT:
-        SoundEffects.playSound("Step");
+        BoardPanel.chapDirection = false;
         right();
+        break;
+      case KeyEvent.VK_F:
+        SoundEffects.playSound("Test");
         break;
     }
   }
@@ -153,7 +155,16 @@ to be loaded
       "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\""
     );
     try {
+      
+      JOptionPane.showMessageDialog(GUI.instance, "Choose a level to load!");
+      
       currentLevel = fileLevel.getLevelFilename();
+
+      JOptionPane.showMessageDialog(GUI.instance, "Choose the record of the level you are loading!");
+
+      Recorder.setUp(currentLevel);
+      Recorder.loadPartial();
+
     } catch (MalformedURLException | DocumentException e) {
       System.out.println("Level loading failed");
     }

@@ -18,7 +18,9 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 /**
- * This is the class we will be using to read the saved xml files
+ * This is the class we will be using to read the saved xml files.
+ * 
+ * @author Kalani Sheridan - ID: 300527652  
  */
 public class RecordReader {
 
@@ -33,7 +35,10 @@ public class RecordReader {
      */
     public static <E extends Enum<E>> List<E> loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
         URL url;
-        JFileChooser fileChooser = new JFileChooser("recorded_games/");
+        JFileChooser fileChooser = new JFileChooser(
+            new File(System.getProperty("user.dir")).getAbsolutePath() +
+            "/nz/ac/vuw/ecs/swen225/gp22/levels/"
+        );
         int responce = fileChooser.showOpenDialog(null);
         if(responce == JFileChooser.APPROVE_OPTION){
             url = new File(fileChooser.getSelectedFile().getAbsolutePath()).toURI().toURL();

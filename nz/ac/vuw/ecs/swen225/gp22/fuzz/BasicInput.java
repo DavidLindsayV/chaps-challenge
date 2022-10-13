@@ -1,9 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.fuzz;
 
 import java.util.Random;
-
-import nz.ac.vuw.ecs.swen225.gp22.app.*;
-
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -17,20 +14,21 @@ interface ArtificialInput {
 
 /**
  * Class for getting random artificial inputs
+ *
+ * @author Maximus De Leon deleomaxi 300566351
+ *
  */
 public class BasicInput {
+	// list of inputs only contain up, down, left and right
     private static List<ArtificialInput> inputTypes = List.of(
-        (b)->{b.keyPress(KeyEvent.VK_UP); b.keyRelease(KeyEvent.VK_UP); System.out.println("UP");/* moveup */},
-        (b)->{b.keyPress(KeyEvent.VK_DOWN); b.keyRelease(KeyEvent.VK_DOWN); System.out.println("DOWN");/* movedown */},
-        (b)->{b.keyPress(KeyEvent.VK_LEFT); b.keyRelease(KeyEvent.VK_LEFT); System.out.println("LEFT");/* moveleft */},
-        (b)->{b.keyPress(KeyEvent.VK_RIGHT); b.keyRelease(KeyEvent.VK_RIGHT); System.out.println("RIGHT");/* moveright */}
-        //(u)->{u.pauseGame(); System.out.println("PAUSE");/* pause */},
-        //(u)->{u.resumeGame(); System.out.println("RESUME");/* unpause */}
-        //()->{System.out.println("Other Input");/* more types of input (mouse click?) */}
+        (b)->{b.keyPress(KeyEvent.VK_UP); b.keyRelease(KeyEvent.VK_UP);},
+        (b)->{b.keyPress(KeyEvent.VK_DOWN); b.keyRelease(KeyEvent.VK_DOWN);},
+        (b)->{b.keyPress(KeyEvent.VK_LEFT); b.keyRelease(KeyEvent.VK_LEFT);},
+        (b)->{b.keyPress(KeyEvent.VK_RIGHT); b.keyRelease(KeyEvent.VK_RIGHT);}
     );
 
     /**
-     * Returns a random artificialinput
+     * Returns a random artificialinput from the given list above
      * @return
      */
     public static ArtificialInput getRandom(){

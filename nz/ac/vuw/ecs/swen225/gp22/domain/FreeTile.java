@@ -7,8 +7,13 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
  *      - Empty
  *      - Key
  *      - ...
+ *      
+ * @author Brandon Ru 300562436
  */
 public class FreeTile implements Tile {
+	/**
+	 * Internal state of the free tile.
+	 */
     private FreeTileState state;
 
     /**
@@ -31,6 +36,10 @@ public class FreeTile implements Tile {
         state.performAction(p, this);
     }
 
+    /**
+     * Void function that changes the internal state of the free tile.
+     * @param s State that changes.
+     */
     public void changeState(FreeTileState s) {
         this.state = s;
     }
