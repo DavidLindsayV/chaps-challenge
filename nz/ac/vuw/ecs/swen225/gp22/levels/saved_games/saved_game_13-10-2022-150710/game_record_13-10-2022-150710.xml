@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <level>level1.xml</level>
+  <tick tick="0">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="1">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="2">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="3">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="4">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="5">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="6">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="7">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="8">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="9">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="10">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="11">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="12">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="13">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="14">
+    <move actor="player">NONE</move>
+  </tick>
+</game>
+<!--13-10-2022-150710-->

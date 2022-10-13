@@ -149,7 +149,16 @@ to be loaded
  */
   public static void loadSavedGame() {
     try {
+      
+      JOptionPane.showMessageDialog(GUI.instance, "Choose a level to load!");
+      
       currentLevel = fileLevel.getLevelFilename();
+
+      JOptionPane.showMessageDialog(GUI.instance, "Choose the record of the level you are loading!");
+
+      Recorder.setUp(currentLevel);
+      Recorder.loadPartial();
+
     } catch (MalformedURLException | DocumentException e) {
       System.out.println("Level loading failed");
     }

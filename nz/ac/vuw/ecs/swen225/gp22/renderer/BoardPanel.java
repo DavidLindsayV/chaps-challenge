@@ -14,7 +14,6 @@ import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.WallTile;
-import nz.ac.vuw.ecs.swen225.gp22.recorder.MainRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
@@ -48,13 +47,12 @@ public class BoardPanel extends JPanel {
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
 
-    if (GUI.instance != null) {
-      updateGrid(UserListener.currentGame, g);
-      GUI.drawText(g);
-    }
-    if (MainRecorder.gui != null) {
+    if (GUI.replayGui() != null) {
       updateGrid(ReplayListener.currentGame, g);
       ReplayGui.drawText(g);
+    } else if (GUI.instance != null) {
+      updateGrid(UserListener.currentGame, g);
+      GUI.drawText(g);
     }
   }
 

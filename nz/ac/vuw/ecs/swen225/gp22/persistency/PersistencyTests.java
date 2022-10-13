@@ -17,6 +17,13 @@ import java.nio.file.Files;
 
 import org.dom4j.DocumentException;
 
+/**
+ * Class to store all tests for the persistency module.
+ * 
+ * Student ID: 3005 30113
+ * @author GeorgiaBarrand
+ *
+ */
 public class PersistencyTests {
     String test1Layout = "|_|_|_|_|_|_|\n"
             + "|_|_|_|_|_|_|\n"
@@ -178,22 +185,22 @@ public class PersistencyTests {
             assert true;
         }
     }
-    
-//    @Test
-//    public void testNoTreasure() {
-//        try {
-//            Parser.loadLevel("tests/noTreasure.xml");
-//            fail("Failed to detect no treasure");
-//        } catch (DocumentException e) {
-//            assert false : e.getMessage();
-//        } catch (NullPointerException e) {
-//            assert true;
-//        }
-//    }
-    
+
+    // @Test
+    // public void testNoTreasure() {
+    // try {
+    // Parser.loadLevel("tests/noTreasure.xml");
+    // fail("Failed to detect no treasure");
+    // } catch (DocumentException e) {
+    // assert false : e.getMessage();
+    // } catch (NullPointerException e) {
+    // assert true;
+    // }
+    // }
+
     @Test
     public void testColourNodeWithNoCol() {
-    	try {
+        try {
             Parser.loadLevel("tests/keyWithNoCol.xml");
             fail("Failed to detect no col");
         } catch (DocumentException e) {
@@ -202,10 +209,10 @@ public class PersistencyTests {
             assert true;
         }
     }
-    
+
     @Test
     public void testIncorrectFilename() {
-    	try {
+        try {
             Parser.loadLevel("blah");
             fail("Failed to detect bad filename");
         } catch (DocumentException e) {
@@ -214,10 +221,10 @@ public class PersistencyTests {
             assert true;
         }
     }
-    
+
     @Test
     public void testNullFilename() {
-    	try {
+        try {
             Parser.loadLevel(null);
             fail("Failed to detect null filename");
         } catch (DocumentException e) {
@@ -226,15 +233,23 @@ public class PersistencyTests {
             assert true;
         }
     }
-    
+
     @Test
     public void testLoadingAndSavingLevel1() {
-    	MockPersistency.run("level1.xml");
+        try {
+            MockPersistency.run("level1.xml");
+        } catch (Exception e) {
+            fail("Exception thrown");
+        }
     }
-    
+
     @Test
     public void testLoadingAndSavingLevel2() {
-    	MockPersistency.run("level2.xml");
+        try {
+            MockPersistency.run("level2.xml");
+        } catch (Exception e) {
+            fail("Exception thrown");
+        }
     }
 
     @Test
@@ -251,12 +266,15 @@ public class PersistencyTests {
             assert false : e.getMessage();
         }
     }
-
+    
+    /**
+     * Method to run the mock recorder so that the parser
+     * can successfully save.
+     */
     public void runRecorder() {
         Recorder.setUp("level1.xml");
         for (int i = 0; i < 10; i++) {
             Recorder.tick(MockRecorder.randomEnum(Direction.class));
         }
-
     }
 }

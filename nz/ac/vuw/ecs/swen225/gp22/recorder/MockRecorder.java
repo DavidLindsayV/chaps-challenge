@@ -20,14 +20,13 @@ public class MockRecorder {
     }
 
     /**
-     * Runs a simulation of a game
+     * Runs a mock simulation of a game.
      */
     public static void run() {
         Recorder.setUp("level1.xml");
         for(int i=0; i<1000; i++){
             Recorder.tick( randomEnum(Direction.class) );
         }
-        
         Recorder.save("recorded_games/");
     }
 
