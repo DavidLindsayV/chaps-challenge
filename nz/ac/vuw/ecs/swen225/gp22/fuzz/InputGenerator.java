@@ -9,7 +9,7 @@ import java.util.Collections;
 /**
  * Class for generating input and playing the input
  *
- * @author deleomaxi
+ * @author Maximus De Leon deleomaxi 300566351
  *
  */
 public class InputGenerator {

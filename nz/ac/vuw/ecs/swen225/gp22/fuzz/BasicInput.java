@@ -15,7 +15,7 @@ interface ArtificialInput {
 /**
  * Class for getting random artificial inputs
  *
- * @author deleomaxi
+ * @author Maximus De Leon deleomaxi 300566351
  *
  */
 public class BasicInput {

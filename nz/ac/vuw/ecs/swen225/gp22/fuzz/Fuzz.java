@@ -14,7 +14,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.*;
 /**
  * Fuzz tests using randomly generated input
  *
- * @author deleomaxi
+ * @author Maximus De Leon deleomaxi 300566351
  *
  */
 public class Fuzz{
