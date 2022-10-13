@@ -21,6 +21,7 @@ import org.dom4j.DocumentException;
  * Class to store all tests for the persistency module.
  * 
  * Student ID: 3005 30113
+ * 
  * @author GeorgiaBarrand
  *
  */
@@ -145,7 +146,7 @@ public class PersistencyTests {
             fail("Failed to detect no player specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             assert true;
         }
     }
@@ -157,7 +158,7 @@ public class PersistencyTests {
             fail("Failed to detect no exit specified");
         } catch (DocumentException e) {
             assert false : e.getMessage();
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             assert true;
         }
     }
@@ -186,17 +187,18 @@ public class PersistencyTests {
         }
     }
 
-    // @Test
-    // public void testNoTreasure() {
-    // try {
-    // Parser.loadLevel("tests/noTreasure.xml");
-    // fail("Failed to detect no treasure");
-    // } catch (DocumentException e) {
-    // assert false : e.getMessage();
-    // } catch (NullPointerException e) {
-    // assert true;
-    // }
-    // }
+    @Test
+    public void testNoTreasure() {
+        try {
+            Parser.loadLevel("tests/noTreasure.xml");
+            fail("Failed to detect no treasure");
+        } catch (DocumentException e) {
+            assert false : e.getMessage();
+        } catch (IllegalArgumentException e) {
+            assert true;
+        }
+
+    }
 
     @Test
     public void testColourNodeWithNoCol() {
@@ -266,7 +268,7 @@ public class PersistencyTests {
             assert false : e.getMessage();
         }
     }
-    
+
     /**
      * Method to run the mock recorder so that the parser
      * can successfully save.
