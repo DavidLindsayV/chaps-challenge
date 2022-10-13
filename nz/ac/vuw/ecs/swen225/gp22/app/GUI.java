@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -19,6 +20,7 @@ import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
+import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 /**
  * This class extends the Renderer's JFrame class and adds a menu and buttons to
@@ -163,16 +165,25 @@ public class GUI extends Renderer {
    */
   public static void drawText(Graphics g) {
     g.setColor(new Color(50, 50, 50));
-    g.fillRect(40, 25, 200, 95);
-    g.setFont(new Font("Roboto", Font.BOLD, 20));
+    g.fillRect(200, 25, 400, 110);
+    g.setFont(new Font("Roboto", Font.BOLD, 30));
     g.setColor(Color.RED);
-    g.drawString("Current level: " + shortenLevelName(UserListener.currentLevel()), 50, 50);
+    g.drawString("Current level: " + shortenLevelName(UserListener.currentLevel()), 200, 50);
     g.setColor(Color.YELLOW);
-    g.drawString("Time left: " + UserListener.timer().timeLeftToPlay() / 1000, 50, 70);
+    g.drawString("Time left: " + UserListener.timer().timeLeftToPlay() / 1000, 200, 75);
     g.setColor(Color.GREEN);
-    g.drawString("Keys collected: " + UserListener.currentGame.keysCollected(), 50, 90);
+    g.drawString("Keys collected: " + UserListener.currentGame.keysCollected(), 200, 100);
     g.setColor(Color.BLUE);
-    g.drawString("Carrots left: " + UserListener.currentGame.treasuresLeft(), 50, 110);
+    g.drawString("Carrots left: ", 200, 125);
+    int x = 370;
+    for (int i = 0; i < UserListener.currentGame.treasuresLeft(); i++) {
+      drawImage(Img.TreasureT.image, x, 105, g);
+      x += 25;
+    }
+  }
+
+  private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
+    g.drawImage(img, x, y, x + 25, y + 25, 0, 0, img.getWidth(), img.getHeight(), null);
   }
 
   /**

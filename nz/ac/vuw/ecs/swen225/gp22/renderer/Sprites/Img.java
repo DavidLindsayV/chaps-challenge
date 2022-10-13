@@ -38,14 +38,6 @@ public enum Img {
     Title,
     ChapL,
     ChapR;
-
-
-    public final BufferedImage image;
-    
-    /**
-    * Constructor for Image. 
-    * sets the image. 
-    */
     Img() {
         image = loadImage(this.name());
     }
