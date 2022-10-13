@@ -10,13 +10,13 @@ import nz.ac.vuw.ecs.swen225.gp22.app.Main;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Point;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp22.domain.WallTile;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.MainRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayListener;
-import nz.ac.vuw.ecs.swen225.gp22.domain.Player;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 public class BoardPanel extends JPanel {
@@ -39,19 +39,20 @@ public class BoardPanel extends JPanel {
     g.fillRect(0, 0, 1000, 1000);
     g.setColor(new Color(255, 204, 179));
     g.fillRect(
-        originX - 10,
-        originY - 10,
-        xEndPoint - originX + 20,
-        yEndPoint - originY + 20);
+      originX - 10,
+      originY - 10,
+      xEndPoint - originX + 20,
+      yEndPoint - originY + 20
+    );
     g.setColor(new Color(46, 39, 82));
     g.fillRect(originX, originY, xEndPoint - originX, yEndPoint - originY);
     createGrid(g);
 
-    if (GUI.instance != null ) {
+    if (GUI.instance != null) {
       updateGrid(UserListener.currentGame, g);
       GUI.drawText(g);
     }
-    if(MainRecorder.gui !=null){
+    if (MainRecorder.gui != null) {
       updateGrid(ReplayListener.currentGame, g);
       ReplayGui.drawText(g);
     }
@@ -76,16 +77,17 @@ public class BoardPanel extends JPanel {
 
   public void drawImg(BufferedImage img, int x, int y, Graphics g) {
     g.drawImage(
-        img,
-        getXPos(x),
-        getYPos(y),
-        getXPos(x) + xSpacing,
-        getYPos(y) + ySpacing,
-        0,
-        0,
-        img.getWidth(),
-        img.getHeight(),
-        null);
+      img,
+      getXPos(x),
+      getYPos(y),
+      getXPos(x) + xSpacing,
+      getYPos(y) + ySpacing,
+      0,
+      0,
+      img.getWidth(),
+      img.getHeight(),
+      null
+    );
   }
 
   public int getXPos(int x) {
@@ -115,7 +117,7 @@ public class BoardPanel extends JPanel {
           drawImg(Img.FloorSprite.image, newX, newY, g);
           continue;
         }
-        if (x >= t.length || x < 0) {
+        if (x >= t[0].length || x < 0) {
           drawImg(Img.FloorSprite.image, newX, newY, g);
           continue;
         }
