@@ -5,11 +5,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+/**
+ * Class to load classes from a given jar file.
+ * 
+ * Student ID: 3005 30113
+ * 
+ * @author GeorgiaBarrand
+ */
 public class ActorLoader {
 
     /**
-     * Get the class from a specified jar file
+     * Get the class from a specified jar file.
      * 
+      
      * @param jarFile   the jar file with the class in it
      * @param className the name of the class to be found
      * @return the class object
