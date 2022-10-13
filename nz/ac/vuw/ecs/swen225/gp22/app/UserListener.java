@@ -237,14 +237,18 @@ to be loaded
     loadLevel();
   }
 
-  /**Loads the next level in the game */
+  /**Loads the next level in the game
+   * Since there are only 2 levels, nextLevel just loads level 2
+   * level1 goes to level2, level2 also loads level 2
+   */
   public static void nextLevel() {
     JOptionPane.showMessageDialog(
       GUI.instance,
       "The level " +
       GUI.shortenLevelName(currentLevel) +
-      " is won! \n Restarting current level."
+      " is won! \n Now starting level 2"
     );
+    currentLevel = "level2.xml";
     loadLevel();
   }
 

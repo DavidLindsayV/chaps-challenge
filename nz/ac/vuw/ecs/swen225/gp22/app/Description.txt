@@ -34,12 +34,9 @@ package. Testing is to be done manually.
 
 TASKS LEFT:
 - Testing
-- Making rules better
 - Made beating level 2 print out a different message
 - Test loading of saved games works
-- Make sure you used at least 1 coding pattern
 
 code changes I would like to Make
-- Remove Main.gui and just use GUI.instance
 - make gui's userlistener have a getter and not be public
 - have userlisteners currentGame not be public
