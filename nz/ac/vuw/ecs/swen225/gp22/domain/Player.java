@@ -2,6 +2,8 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sounds.SoundEffects;
 
@@ -87,7 +89,10 @@ public class Player implements Printable {
      * @param key The colour of the key.
      */
     public void removeKey(AuthenticationColour key) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
         if (keyWallet.containsKey(key)) {
             keyWallet.put(key, keyWallet.get(key) - 1);
             if (keyWallet.get(key) <= 0) {
@@ -126,8 +131,12 @@ public class Player implements Printable {
 
     /**
      * Get total keys collected over time.
+<<<<<<< HEAD
      * 
      * @return
+=======
+     * @return Keys collected
+>>>>>>> origin/main
      */
     public int getTotalKeysCollected() {
         return totalKeysCollected;
