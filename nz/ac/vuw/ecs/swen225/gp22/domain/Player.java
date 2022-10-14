@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +67,7 @@ public class Player implements Printable {
      * @param key
      */
     public Map<AuthenticationColour, Integer> getKeysCollected() {
-        return keyWallet;
+        return Collections.unmodifiableMap(keyWallet);
     }
 
     /**
@@ -142,7 +143,7 @@ public class Player implements Printable {
      * @return Keys collected but their specifics
      */
     public Map<AuthenticationColour, Integer> getTotalKeyHistory() {
-        return keyHistory;
+        return Collections.unmodifiableMap(keyHistory);
     }
 
     /**

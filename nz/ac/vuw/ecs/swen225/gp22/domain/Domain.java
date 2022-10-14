@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -81,7 +82,7 @@ public class Domain {
 
   /**
    * Returns the total keys, and their colors
-   * @returns The number of keys left in a hashmap
+   * @returns The number of keys left in a hash map
    */
   public Map<AuthenticationColour, Integer> keysHistory() {
     return player.getTotalKeyHistory();
@@ -301,9 +302,10 @@ public class Domain {
 
   /**
    * Loses the level, iff the player is hit by enemies.
+   * Copies the enemies to prevent concurrent modification error.
    */
   private void checkIfPlayerKilledByEnemies() {
-    boolean playerDead = enemies
+    boolean playerDead = new ArrayList<Enemy>(enemies)
       .stream()
       .anyMatch(e -> e.collidesWith(player.getPosition()));
     if (playerDead) {
