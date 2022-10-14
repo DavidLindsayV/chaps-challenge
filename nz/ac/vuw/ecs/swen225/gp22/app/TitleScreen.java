@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.multi.MultiLookAndFeel;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 
 /**
@@ -31,6 +36,12 @@ public class TitleScreen extends JFrame {
    * Displays a Jfame with an image as the title screen
    */
   public TitleScreen() {
+    try {
+      UIManager.setLookAndFeel(new NimbusLookAndFeel());
+    } catch (UnsupportedLookAndFeelException e1) {
+      System.out.println("Error loading title screen");
+    }
+
     this.setFocusable(true);
     setSize(1000, 1000);
     setTitle("Title Screen");

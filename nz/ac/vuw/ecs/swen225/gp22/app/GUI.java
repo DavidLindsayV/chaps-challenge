@@ -13,11 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import nz.ac.vuw.ecs.swen225.gp22.domain.AuthenticationColour;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.ReplayGui;
 import nz.ac.vuw.ecs.swen225.gp22.renderer.Renderer;
@@ -49,7 +51,7 @@ public class GUI extends Renderer {
   private JMenuItem playSavedItem; // the menu item that will play a saved game
 
   //Metal loook for the jmenubar
-  MetalLookAndFeel metal;
+  LookAndFeel lookAndFeel;
 
   // A field to store the JFrame for replaying recorded levels
   private static ReplayGui replayGUI;
@@ -61,10 +63,10 @@ public class GUI extends Renderer {
     super(1000, 1000);
     setUpGUI();
     instance = this;
-    metal = new MetalLookAndFeel();
+    lookAndFeel = new MetalLookAndFeel();
     MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
     try {
-      UIManager.setLookAndFeel(metal);
+      UIManager.setLookAndFeel(lookAndFeel);
     } catch (UnsupportedLookAndFeelException e) {
       e.printStackTrace();
     }
@@ -264,7 +266,7 @@ public class GUI extends Renderer {
    * A function to change the text of the pause/play button before calling
    * resumeGame in UserListener
    */
-  private void resumeGame() {
+  public void resumeGame() {
     pauseButton.setText("⏸");
     UserListener.resumeGame();
     this.requestFocus();
