@@ -259,7 +259,7 @@ public class UserListener implements KeyListener {
 
   /** Called when the level is lost by Domain */
   public static void loseLevel() {
-    timer.redrawJFrame();
+    GUI.redrawJFrame();
     SoundEffects.playSound("Death");
     MessageBox.showMessage("Level Lost", "The level is lost! Restarting the level");
     loadLevel();
@@ -267,7 +267,7 @@ public class UserListener implements KeyListener {
 
   /** Called when the user runs out of time on a level */
   public static void timeOutLevel() {
-    timer.redrawJFrame();
+    GUI.redrawJFrame();
     SoundEffects.playSound("Death");
     MessageBox.showMessage("Timeout", "The level is lost! Your time has run out. Restarting the level");
     loadLevel();
@@ -280,8 +280,8 @@ public class UserListener implements KeyListener {
   public static void nextLevel() {
     Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
 
-    timer.redrawJFrame();
-    MessageBox.showMessage("Level Won!", "The level " + GUI.shortenLevelName(currentLevel) + " is won! \n Now starting level 2");
+    GUI.redrawJFrame();
+    MessageBox.showMessage("Level Won!", "The level \"" + GUI.shortenLevelName(currentLevel) + "\" is won! \n Now starting level 2");
     currentLevel = "level2.xml";
     loadLevel();
   }

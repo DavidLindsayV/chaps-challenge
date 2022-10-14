@@ -176,6 +176,7 @@ public class GUI extends Renderer {
    * @param toolTip
    */
   public static void showToolTip(String toolTip) {
+    redrawJFrame();
     MessageBox.showMessage("Tool tip", toolTip);
   }
 
@@ -321,5 +322,15 @@ private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
    */
   public static void closeReplayGui() {
     replayGUI = null;
+  }
+
+    /**
+   * Redraws the JFrame of GUI
+   */
+  public static void redrawJFrame() {
+    if (GUI.instance != null) {
+      GUI.instance.panel.revalidate();
+      GUI.instance.panel.repaint();
+    }
   }
 }
