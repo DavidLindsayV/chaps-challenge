@@ -206,7 +206,8 @@ public class Parser {
   private static Element addItems(Element items, Domain d) {
     Player p = d.getPlayer();
     Map<AuthenticationColour, Integer> keys = p.getKeysCollected();
-
+    
+    // Save the initial number of treasures on the level
     items.addAttribute("initialTreasureCount", "" + d.requiredTreasureCount());
 
     // Save keys
@@ -330,17 +331,21 @@ public class Parser {
    *                 and the path
    */
   private static void parsePathElement(int rowNum, List<Element> elems, Consumer<Enemy> consumer) {
-    Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
+    // Get the BasicEnemy class from the jar file
+	Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
         "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");
     }
-
+    
+    // Run through each enemy element
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (((Double) colNum).isNaN()) {
         throw new NullPointerException("No col number specified");
       }
+      
+      // Create the path
       List<Point> path = new ArrayList<Point>();
       for (Node pathStep : e.elements("path")) {
         Number pathRow = pathStep.numberValueOf("@r");
@@ -354,6 +359,7 @@ public class Parser {
         throw new NullPointerException("Path has not been specified");
       }
       try {
+    	// Add the enemy to the domain
         Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
         consumer.accept(enemy);
       } catch (Exception ex) {
@@ -364,7 +370,7 @@ public class Parser {
   }
 
   /**
-   * Load any items collected in a previously played game
+   * Load any items collected in a previously played game and update the domain
    * 
    * @param d
    * @param items
@@ -381,10 +387,12 @@ public class Parser {
     d.overrideInitialTreasureCount(treasureCount.intValue());
 
     Player p = d.getPlayer();
+    // Pick up the same amount of treasures as collected previously
     for (int i = 0; i < items.elements("treasure").size(); i++) {
       p.pickUpTreasure();
     }
-
+    
+    // Pick up any keys collected previously
     for (Element key : items.elements("key")) {
       String colour = key.valueOf("@colour");
       if (colour.isEmpty()) {
@@ -392,7 +400,8 @@ public class Parser {
       }
       p.addKey(AuthenticationColour.valueOf(colour.toUpperCase()));
     }
-
+    
+    // Set the time remaining
     Element time = items.element("time");
     if (((Double) time.numberValueOf("@ms")).isNaN()) {
       throw new NullPointerException("No time specified");
