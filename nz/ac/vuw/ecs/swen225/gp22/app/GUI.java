@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -168,7 +167,7 @@ public class GUI extends Renderer {
   /** Show the rules panel */
   private void showRules() {
     pauseGame();
-    JOptionPane.showMessageDialog(this, rulesText);
+    MessageBox.showMessage("Game rules", rulesText);
   }
 
   /**
@@ -177,14 +176,14 @@ public class GUI extends Renderer {
    * @param toolTip
    */
   public static void showToolTip(String toolTip) {
-    JOptionPane.showMessageDialog(GUI.instance, toolTip);
+    MessageBox.showMessage("Tool tip", toolTip);
   }
 
   /**
    * Removes all existing tool tips
    */
   public static void removeToolTip() {
-    JOptionPane.getRootFrame().dispose();
+    MessageBox.closeMessages();
   }
 
   /**

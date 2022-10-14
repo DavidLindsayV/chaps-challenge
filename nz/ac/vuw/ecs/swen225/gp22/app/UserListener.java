@@ -3,7 +3,6 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import javax.swing.JOptionPane;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -148,7 +147,7 @@ public class UserListener implements KeyListener {
    * application will be started
    */
   public static void saveGame() {
-    JOptionPane.showMessageDialog(GUI.instance, "Saving current game");
+    MessageBox.showMessage("Saving game", "Saving current game");
     try {
       Parser.saveLevel(currentGame);
     } catch (IOException e) {
@@ -163,14 +162,13 @@ public class UserListener implements KeyListener {
    * game to be loaded
    */
   public static void loadSavedGame() {
-    JOptionPane.showMessageDialog(GUI.instance,
-        "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\"");
+    MessageBox.showMessage("Level selection info", "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\"");
     try {
-      JOptionPane.showMessageDialog(GUI.instance, "Choose a level to load!");
+      MessageBox.showMessage("Level choosing", "Choose a level to load!");
 
       currentLevel = fileLevel.getLevelFilename();
 
-      JOptionPane.showMessageDialog(GUI.instance, "Choose the record of the level you are loading!");
+      MessageBox.showMessage("Record choosing", "Choose the record of the level you are loading!");
 
       Recorder.setUp(currentLevel);
       Recorder.loadPartial();
@@ -187,7 +185,7 @@ public class UserListener implements KeyListener {
     if (!paused) {
       paused = true;
       timer.cancel();
-      JOptionPane.showMessageDialog(GUI.instance, "The game is Paused");
+      MessageBox.showMessage("PAUSED", "The game is Paused");
     }
   }
 
@@ -196,7 +194,7 @@ public class UserListener implements KeyListener {
     if (paused) {
       paused = false;
       timer = new pingTimer(timer);
-      JOptionPane.getRootFrame().dispose();
+      MessageBox.closeMessages();
     }
   }
 
@@ -263,7 +261,7 @@ public class UserListener implements KeyListener {
   public static void loseLevel() {
     timer.redrawJFrame();
     SoundEffects.playSound("Death");
-    JOptionPane.showMessageDialog(GUI.instance, "The level is lost! Restarting the level");
+    MessageBox.showMessage("Level Lost", "The level is lost! Restarting the level");
     loadLevel();
   }
 
@@ -271,7 +269,7 @@ public class UserListener implements KeyListener {
   public static void timeOutLevel() {
     timer.redrawJFrame();
     SoundEffects.playSound("Death");
-    JOptionPane.showMessageDialog(GUI.instance, "The level is lost! Your time has run out. Restarting the level");
+    MessageBox.showMessage("Timeout", "The level is lost! Your time has run out. Restarting the level");
     loadLevel();
   }
 
@@ -283,8 +281,7 @@ public class UserListener implements KeyListener {
     Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
 
     timer.redrawJFrame();
-    JOptionPane.showMessageDialog(GUI.instance,
-        "The level " + GUI.shortenLevelName(currentLevel) + " is won! \n Now starting level 2");
+    MessageBox.showMessage("Level Won!", "The level " + GUI.shortenLevelName(currentLevel) + " is won! \n Now starting level 2");
     currentLevel = "level2.xml";
     loadLevel();
   }
