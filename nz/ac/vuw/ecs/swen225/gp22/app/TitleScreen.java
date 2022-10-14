@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -108,6 +109,7 @@ public class TitleScreen extends JFrame {
     button.setLayout(null);
     button.setVerticalAlignment(SwingConstants.CENTER);
     button.setVerticalTextPosition(SwingConstants.CENTER);
+    button.setMargin(new Insets(0, 0, 0, 0));
     this.add(button);
   }
 }
