@@ -80,11 +80,7 @@ public class RecordWriter {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy-HHmmss");
         LocalDateTime now = LocalDateTime.now();
         String nowStr = dtf.format(now);
-
         document.addComment(nowStr);
-
-        System.out.println("SAVING DOCUMENT -- node count: "+document.getRootElement().nodeCount());
-
         // Pretty print write to a xml file
         FileWriter fileWriter = new FileWriter(dir + "game_record_" + nowStr + ".xml");
         OutputFormat format = OutputFormat.createPrettyPrint();

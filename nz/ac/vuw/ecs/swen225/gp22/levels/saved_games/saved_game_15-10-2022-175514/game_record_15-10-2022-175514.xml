@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<game>
+  <level>level1.xml</level>
+  <tick tick="0">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="1">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="2">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="3">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="4">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="5">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="6">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="7">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="8">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="9">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="10">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="11">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="12">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="13">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="14">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="15">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="16">
+    <move actor="player">LEFT</move>
+  </tick>
+  <tick tick="17">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="18">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="19">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="20">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="21">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="22">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="23">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="24">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="25">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="26">
+    <move actor="player">DOWN</move>
+  </tick>
+  <tick tick="27">
+    <move actor="player">RIGHT</move>
+  </tick>
+  <tick tick="28">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="29">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="30">
+    <move actor="player">UP</move>
+  </tick>
+  <tick tick="31">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="32">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="33">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="34">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="35">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="36">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="37">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="38">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="39">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="40">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="41">
+    <move actor="player">NONE</move>
+  </tick>
+  <tick tick="42">
+    <move actor="player">NONE</move>
+  </tick>
+</game>
+<!--15-10-2022-175514-->

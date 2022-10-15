@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.stream.Stream;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
@@ -210,13 +209,14 @@ public class UserListener implements KeyListener {
       }else{
         baseLevel = "level2.xml";
       }
+      
+      //TODO: This needs to be here BEFORE my methods, or we need to change how load level works
+
       loadLevel();
       Recorder.setUp(baseLevel);
       Recorder.loadPartial(urlRecord);
 
     } catch (MalformedURLException | DocumentException e) {
-      //TODO: TEST THIS
-      
       loadLevel();
       System.out.println("Level loading failed");
     }

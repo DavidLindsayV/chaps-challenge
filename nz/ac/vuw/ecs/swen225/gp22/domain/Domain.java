@@ -316,24 +316,25 @@ public class Domain {
     }
   }
 
+  //TODO: THIS IS PROBABLY NESSESARY
 
-  // /**
-  //  * Check if the number of treasures remaining is correct in both player and domain.
-  //  */
-  // private void checkIfValidTreasureCounts() {
-  //   int realTreasureCount = 0;
-	// for (int y=0; y<gameState.length; ++y) {
-	// 	for (int x=0; x<gameState[y].length; ++x) {
-	// 		Tile t = gameState[y][x];
-	// 		if (t.name().equals("treasure")) {
-	// 			realTreasureCount++;
-	// 		}
-	// 	}
-	// }
+  /**
+   * Check if the number of treasures remaining is correct in both player and domain.
+   */
+  private void checkIfValidTreasureCounts() {
+    int realTreasureCount = 0;
+	for (int y=0; y<gameState.length; ++y) {
+		for (int x=0; x<gameState[y].length; ++x) {
+			Tile t = gameState[y][x];
+			if (t.name().equals("treasure")) {
+				realTreasureCount++;
+			}
+		}
+	}
 
-	// if (realTreasureCount != treasuresLeft()) {
-	// 	throw new IllegalStateException("Treasures left in domain does not match treasures left in player.");
-	// }
-  // }
+	if (realTreasureCount != treasuresLeft()) {
+		throw new IllegalStateException("Treasures left in domain does not match treasures left in player.");
+	}
+  }
 
 }
