@@ -61,7 +61,6 @@ public class ReplayGui extends Renderer {
   public ReplayGui() {
     super(1000, 1000);
     instance = this;
-    System.out.println("REPLAY GUI: Creating user listener....");
     rl = new ReplayListener();
 
     setUpGUI();
@@ -93,7 +92,6 @@ public class ReplayGui extends Renderer {
     //Add keylistener to JFrame
     this.addKeyListener(rl);
     this.setFocusable(true);
-    System.out.println("REPLAY GUI: Keys are listening...");
   }
 
   /**
@@ -241,7 +239,6 @@ public class ReplayGui extends Renderer {
    * Sets the replay to be autoplay.
    */
   private void runAutoPlay(){
-    System.out.println("Running autoplay");
     delSpeedSlider();
     delPauseButton();
     delStepButton();
@@ -256,7 +253,6 @@ public class ReplayGui extends Renderer {
    * Sets the replay to be step by step.
    */
   private void runStepByStep(){
-    System.out.println("Running step by step");
     delSpeedSlider();
     delPauseButton();
     delStepButton();

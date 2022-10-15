@@ -43,7 +43,6 @@ public class UserListener implements KeyListener {
     Recorder.setUp(currentLevel);
 
     // Create new timer and load level
-    System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer(currentLevel);
     loadLevel();
   }
@@ -217,7 +216,6 @@ public class UserListener implements KeyListener {
    * Creates the timer for a level
    */
   private static void loadTimer() {
-    System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
     timer = new pingTimer(currentLevel);
   }
