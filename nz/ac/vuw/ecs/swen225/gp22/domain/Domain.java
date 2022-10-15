@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 /**
  * The domain represents the internal state of the game.
  * It handles all the logic between tiles, players, and actors.
- * 
+ *
  * @author Brandon Ru 300562436
  *
  */
@@ -22,7 +23,7 @@ public class Domain {
   private List<Enemy> enemies;
   private int requiredTreasureCount;
   private boolean playing;
-  
+
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
   public static final String TOOLTIP_STRING = "1. CTRL-X - exit the game, the current game state will be lost, the next time the game is\n"
 	+ "started, it will resume from the last unfinished level\n"
@@ -81,7 +82,7 @@ public class Domain {
 
   /**
    * Returns the total keys, and their colors
-   * @returns The number of keys left in a hashmap
+   * @returns The number of keys left in a hash map
    */
   public Map<AuthenticationColour, Integer> keysHistory() {
     return player.getTotalKeyHistory();
@@ -145,23 +146,28 @@ public class Domain {
 
     Point pos = player.getPosition();
     pos = pos.translate(direction.dr, direction.dc);
-    
-    // If this doesn't move the player out of the domain.
+
+    // PRECONDITION CHECK - If this doesn't move the player out of the domain.
     if (withinDomain(pos)) {
       // Interact with the tile.
       Tile target = gameState[(int) pos.row()][(int) pos.col()];
+
       target.acceptPlayer(player);
-      // Then move it in, iff it's not a wall.
+      // PRECONDITION CHECK - Then move it in, iff it's not a wall.
       if (!target.isWall()) {
         player.setPosition(pos);
       }
     }
 
+    // Global post condition check
+    // checkIfValidTreasureCounts();
+
     // Check if the player's position collides with any enemies.
     checkIfPlayerKilledByEnemies();
   }
 
-  /**
+
+/**
    * This function will be called when the enemies need to move.
    * Checks if any enemies collided with enemies.
    * Use observer pattern.
@@ -207,7 +213,6 @@ public class Domain {
    * This function will be called when the level is lost.
    */
   public void loseLevel() {
-    System.out.println("PlayingSound");
     this.playing = false;
     UserListener.loseLevel();
   }
@@ -217,7 +222,6 @@ public class Domain {
    */
   public static void showToolTip() {
     GUI.showToolTip(TOOLTIP_STRING);
-    System.out.println("showing tooltip");
   }
 
   /**
@@ -301,13 +305,36 @@ public class Domain {
 
   /**
    * Loses the level, iff the player is hit by enemies.
+   * Copies the enemies to prevent concurrent modification error.
    */
   private void checkIfPlayerKilledByEnemies() {
-    boolean playerDead = enemies
+    boolean playerDead = new ArrayList<Enemy>(enemies)
       .stream()
       .anyMatch(e -> e.collidesWith(player.getPosition()));
     if (playerDead) {
       loseLevel();
     }
   }
+
+  //TODO: THIS IS PROBABLY NESSESARY
+
+  /**
+   * Check if the number of treasures remaining is correct in both player and domain.
+   */
+  private void checkIfValidTreasureCounts() {
+    int realTreasureCount = 0;
+	for (int y=0; y<gameState.length; ++y) {
+		for (int x=0; x<gameState[y].length; ++x) {
+			Tile t = gameState[y][x];
+			if (t.name().equals("treasure")) {
+				realTreasureCount++;
+			}
+		}
+	}
+
+	if (realTreasureCount != treasuresLeft()) {
+		throw new IllegalStateException("Treasures left in domain does not match treasures left in player.");
+	}
+  }
+
 }

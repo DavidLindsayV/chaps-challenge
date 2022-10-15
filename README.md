@@ -19,6 +19,15 @@ Chap’s challenge is a creative clone of the (first level of the) 1989 Atari ga
 | Fuzz        | Alec de Leon     | deleomaxi                  |
 
 
+## Gource video (as of 11.59pm of 14/10/22)
+https://www.youtube.com/watch?v=Q7MtPYeauz0
+
+## JavaDoc
+JavaDoc has been generated and can be found in the /doc folder. Run by visiting /doc/index.html
+
+## UML Diagrams
+The UML diagram plugins provided did not really work, but we found an alternative and the image generated is in the root directory. chaps-challenge-uml.png
+
 
 
 

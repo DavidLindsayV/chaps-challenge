@@ -33,7 +33,7 @@ public class RecordReader {
      * @throws MalformedURLException
      * @throws DocumentException
      */
-    public static <E extends Enum<E>> List<E> loadDoc(Class<E> clazz) throws MalformedURLException, DocumentException{
+    public static <E extends Enum<E>> List<E> loadDocChooser(Class<E> clazz) throws MalformedURLException, DocumentException{
         URL url;
         JFileChooser fileChooser = new JFileChooser(
             new File(System.getProperty("user.dir")).getAbsolutePath() +
@@ -42,15 +42,11 @@ public class RecordReader {
         int responce = fileChooser.showOpenDialog(null);
         if(responce == JFileChooser.APPROVE_OPTION){
             url = new File(fileChooser.getSelectedFile().getAbsolutePath()).toURI().toURL();
-            Document doc = parse(url);
-            try {
-                return actionList(clazz,doc);
-            } catch (XmlFormatException e) { e.printStackTrace(); }
+            return loadHelper(clazz,url);
         }
         JOptionPane.showMessageDialog(null, "No file chosen!", null, JOptionPane.INFORMATION_MESSAGE);
         return List.of();
     }
-
 
     /**
      * Load a partially completed game for saving again.
@@ -60,17 +56,34 @@ public class RecordReader {
      * @throws MalformedURLException
      * @throws DocumentException
      */
-    public static <E extends Enum<E>> void loadPartial(Class<E> clazz) throws MalformedURLException, DocumentException {
+    public static <E extends Enum<E>> void loadPartial(Class<E> clazz, URL url) throws MalformedURLException, DocumentException {
         
         Document doc = DocumentHelper.createDocument();
-        List<E> actionList = loadDoc(clazz);
-
+        Recorder.setDocument(doc);
         //Set writer first to change the writer
-        Recorder.setWriter(new RecordWriter(doc, Recorder.getLevel()));
+        Recorder.setWriter(new RecordWriter(Recorder.getDoc(), Recorder.getLevel()));
+
+        List<E> actionList = loadHelper(clazz, url);
         for(E action : actionList){
             Recorder.tick(action);
         }
-        Recorder.setDocument(doc);
+    }
+
+    /**
+     * A private helper method for parsing and creating the list.
+     * 
+     * @param <E> - The generic enum.
+     * @param clazz - The class access for the enum.
+     * @param url - The url of the file we are loading.
+     * @return - A list of action enums.
+     * @throws DocumentException
+     */
+    private static <E extends Enum<E>> List<E> loadHelper(Class<E> clazz ,URL url) throws DocumentException{
+        Document doc = parse(url);
+        try {
+            return actionList(clazz,doc);
+        } catch (XmlFormatException e) { e.printStackTrace(); }
+        return List.of();
     }
     
 

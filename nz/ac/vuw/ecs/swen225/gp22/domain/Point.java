@@ -6,8 +6,8 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
  *
  */
 public class Point {
-	private int row;
-	private int col;
+	private final int row;
+	private final int col;
 
 	public Point(int r, int c) {
 		this.row = r;
@@ -30,6 +30,15 @@ public class Point {
              return row == other.row() && col == other.col();
         }
      }
+
+	@Override
+	public int hashCode() {
+		int prime = 31;
+		int coprime = 17;
+		prime = (prime + row) * coprime;
+		prime = (prime + col) * coprime;
+		return prime;
+	}
  }
 
 

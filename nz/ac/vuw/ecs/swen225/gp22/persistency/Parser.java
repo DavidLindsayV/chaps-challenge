@@ -35,9 +35,9 @@ import org.dom4j.io.XMLWriter;
 
 /**
  * Class to both load and save the level layout from or to xml files.
- * 
+ *
  * Student ID: 3005 30113
- * 
+ *
  * @author GeorgiaBarrand
  *
  */
@@ -60,7 +60,7 @@ public class Parser {
 
   /**
    * Load the level layout from an xml file and use it to construct the domain
-   * 
+   *
    * @param filename the name of the file being parsed
    * @return a Domain object representing the level
    */
@@ -114,7 +114,7 @@ public class Parser {
 
   /**
    * Save the current level state to an xml file so that it can be loaded later.
-   * 
+   *
    * @param domain the current game domain
    * @throws IOException
    */
@@ -160,7 +160,7 @@ public class Parser {
   /**
    * Find and return the current date and time as a string in the format
    * dd-MM-yyyy-HHmmss.
-   * 
+   *
    * @return current time
    */
   private static String getCurrentTime() {
@@ -172,7 +172,7 @@ public class Parser {
 
   /**
    * Create a Document representation of the current level layout.
-   * 
+   *
    * @param levelLayout 2D array of the positions of tiles on the current level
    * @param playerPos   current player position
    * @param enemies     list of enemies
@@ -198,7 +198,7 @@ public class Parser {
 
   /**
    * Add any collected items to the saved file
-   * 
+   *
    * @param items the items Element
    * @param d     the current domain
    * @return the items Element with added items
@@ -206,7 +206,7 @@ public class Parser {
   private static Element addItems(Element items, Domain d) {
     Player p = d.getPlayer();
     Map<AuthenticationColour, Integer> keys = p.getKeysCollected();
-    
+
     // Save the initial number of treasures on the level
     items.addAttribute("initialTreasureCount", "" + d.requiredTreasureCount());
 
@@ -229,7 +229,7 @@ public class Parser {
 
   /**
    * Add all standard tile to the level document
-   * 
+   *
    * @param levelLayout the current tile layout
    * @param row         current row number
    * @param currRow     the element representing the row we are constructing for
@@ -252,7 +252,7 @@ public class Parser {
 
   /**
    * Add all enemies to the level document.
-   * 
+   *
    * @param currRow the element representing the row we are constructing for the
    *                document
    * @param enemies list of all the enemies on the current level
@@ -276,7 +276,7 @@ public class Parser {
 
   /**
    * Parse a standard node which only has a column attribute e.g wall.
-   * 
+   *
    * @param rowNum   the current row number
    * @param nodes    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row and column
@@ -297,7 +297,7 @@ public class Parser {
 
   /**
    * Parse a node tile type which has a colour attribute e.g door, key
-   * 
+   *
    * @param rowNum   the current row number
    * @param elems    the tile elements being parsed
    * @param consumer the consumer to build the tile which take row, column and the
@@ -324,7 +324,7 @@ public class Parser {
 
   /**
    * Parse a node tile type which has a path i.e an enemy
-   * 
+   *
    * @param rowNum   the current row number
    * @param elems    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row, column
@@ -332,19 +332,19 @@ public class Parser {
    */
   private static void parsePathElement(int rowNum, List<Element> elems, Consumer<Enemy> consumer) {
     // Get the BasicEnemy class from the jar file
-	Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
+    Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
         "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");
     }
-    
+
     // Run through each enemy element
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (((Double) colNum).isNaN()) {
         throw new NullPointerException("No col number specified");
       }
-      
+
       // Create the path
       List<Point> path = new ArrayList<Point>();
       for (Node pathStep : e.elements("path")) {
@@ -359,7 +359,7 @@ public class Parser {
         throw new NullPointerException("Path has not been specified");
       }
       try {
-    	// Add the enemy to the domain
+        // Add the enemy to the domain
         Enemy enemy = (Enemy) basicEnemyClass.getDeclaredConstructor(List.class).newInstance(path);
         consumer.accept(enemy);
       } catch (Exception ex) {
@@ -371,7 +371,7 @@ public class Parser {
 
   /**
    * Load any items collected in a previously played game and update the domain
-   * 
+   *
    * @param d
    * @param items
    */
@@ -387,21 +387,21 @@ public class Parser {
     d.overrideInitialTreasureCount(treasureCount.intValue());
 
     Player p = d.getPlayer();
+
     // Pick up the same amount of treasures as collected previously
     for (int i = 0; i < items.elements("treasure").size(); i++) {
       p.pickUpTreasure();
     }
-    
+
     // Pick up any keys collected previously
     for (Element key : items.elements("key")) {
       String colour = key.valueOf("@colour");
-      System.out.println(colour);
       if (colour.isEmpty()) {
         throw new NullPointerException("No colour specified");
       }
       p.addKey(AuthenticationColour.valueOf(colour.toUpperCase()));
     }
-    
+
     // Set the time remaining
     Element time = items.element("time");
     if (((Double) time.numberValueOf("@ms")).isNaN()) {

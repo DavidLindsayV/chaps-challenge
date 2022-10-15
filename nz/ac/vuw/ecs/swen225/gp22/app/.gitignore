@@ -10,3 +10,6 @@
 /pingTimer.class
 /ReplayGUI.class
 /TitleScreen.class
+/MessageBox.class
+/UserListener$1.class
+/rulesDisplayer.class

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import javax.swing.JFileChooser;
+
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -173,7 +173,8 @@ public class UserListener implements KeyListener {
           folderURL.length()
         );
       File f = new File(folderURL);
-      File[] matchingFiles = f.listFiles(
+      //Saved game url
+      File[] savedGame = f.listFiles(
         new FilenameFilter() {
           public boolean accept(File dir, String name) {
             System.out.println(name);
@@ -181,26 +182,44 @@ public class UserListener implements KeyListener {
           }
         }
       );
-      String url = matchingFiles[0].toURI().toURL().toString();
+      //Recorded game url
+      File[] recordedGame = f.listFiles(
+        new FilenameFilter() {
+          public boolean accept(File dir, String name) {
+            System.out.println(name);
+            return name.contains("game_record");
+          }
+        }
+      );
+      String urlRecord = recordedGame[0].toURI().toURL().toString();
+      String urlSaved = savedGame[0].toURI().toURL().toString();
       currentLevel =
-        url
+        urlSaved
           .toString()
           .substring(
-            url.toString().indexOf("levels/") + 7,
-            url.toString().length()
+            urlSaved.toString().indexOf("levels/") + 7,
+            urlSaved.toString().length()
           );
 
-      MessageBox.showMessage(
-        "Record choosing",
-        "Choose the record of the level you are loading!"
-      );
+      //This is the actual level, not the saved level state
+      String baseLevel;
 
-      Recorder.setUp(currentLevel);
-      Recorder.loadPartial();
+      if(currentLevel.contains("level1.xml")){
+        baseLevel = "level1.xml";
+      }else{
+        baseLevel = "level2.xml";
+      }
+      
+      //TODO: This needs to be here BEFORE my methods, or we need to change how load level works
+
+      loadLevel();
+      Recorder.setUp(baseLevel);
+      Recorder.loadPartial(urlRecord);
+
     } catch (MalformedURLException | DocumentException e) {
+      loadLevel();
       System.out.println("Level loading failed");
     }
-    System.out.println(currentLevel);
     loadLevel();
     timer.cancel();
     timer = new pingTimer(timeRemaining);
@@ -243,7 +262,6 @@ public class UserListener implements KeyListener {
    * Creates the timer for a level
    */
   private static void loadTimer() {
-    System.out.println("BREAKPOINT: Ping timer is loaded.");
     timer.cancel();
     timer = new pingTimer(currentLevel);
   }
