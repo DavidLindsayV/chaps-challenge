@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"nz.ac.vuw.ecs.swen225.gp22.domain","l":"Player"}];updateSearchResults();
