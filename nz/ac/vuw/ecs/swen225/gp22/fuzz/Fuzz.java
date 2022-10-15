@@ -18,17 +18,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.*;
  *
  */
 public class Fuzz{
-	private static final int ROBOT_DELAY = 10;
-
-    /**
-     * Generates movement input for tests
-     * @return
-     */
-    private InputGenerator generateRandomInput(){
-        InputGenerator ig = new InputGenerator();
-        ig.generateRandom(100000);
-        return ig;
-    }
+	private static final int ROBOT_DELAY = 10; // delay between robots inputs
 
     /**
      * Performs a 1 minute random fuzz test (for level 1)
@@ -36,7 +26,7 @@ public class Fuzz{
     @Test
     public void test1Random(){
         // create new app, open app, load in level 1
-    	GUI g = new GUI();
+    	new GUI();
 
         // until level is complete or time runs out keep going
         playGame(KeyEvent.VK_1);
@@ -48,7 +38,7 @@ public class Fuzz{
     @Test
     public void test2Random(){
         // create new app, open app, load in level 2
-    	GUI g = new GUI();
+    	new GUI();
 
     	// until level is complete or time runs out keep going
         playGame(KeyEvent.VK_2);
@@ -58,15 +48,16 @@ public class Fuzz{
      * Plays the game when given an app, takes a level keycode
      * the game is accessed through the keycode commands given by app
      *
-     * @param level
+     * @param takes keycode of the level letter (due to app command to swap levels)
      */
     public void playGame(int level){
-        InputGenerator ig = generateRandomInput();
+        InputGenerator ig = new InputGenerator();;
         try {
+        	TimeUnit.SECONDS.sleep(2); 	// allow robot and gui to load
+
         	// timeout after 60 seconds, test succeeds if timeout is successful
 	        assertTimeoutPreemptively(Duration.ofSeconds(60), ()->{
 	        	Robot bot = new Robot();
-	        	TimeUnit.SECONDS.sleep(1); 	// allow robot and gui to load
 
 	        	// load the level with robot key presses
 	        	bot.setAutoDelay(ROBOT_DELAY);
@@ -86,7 +77,7 @@ public class Fuzz{
 
         // if assertion times out then stop running, no errors found, return success
         catch (AssertionFailedError e) {
-        	System.out.println("STOPPED RUNNING, TIMEOUT!");
+        	System.out.println("STOPPED RUNNING, TIMEOUT! " + e);
 
         	// shut everything down so that tests dont overlap
         	ig.finish();
@@ -108,8 +99,5 @@ public class Fuzz{
 	    	assert false;
 	    	return;
 	    }
-
-
-        System.out.println("ALL INPUTS CONSUMED");
     }
 }

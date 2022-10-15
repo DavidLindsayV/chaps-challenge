@@ -31,7 +31,7 @@ public class MockPersistency {
       }
       UserListener l = new UserListener();
       UserListener.loadTimer(1600);
-
+   
       Domain d = Parser.loadLevel(filename);
       Parser.saveLevel(d);
     } catch (IOException e) {

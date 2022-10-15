@@ -331,14 +331,22 @@ public class Parser {
    *                 and the path
    */
   private static void parsePathElement(int rowNum, List<Element> elems, Consumer<Enemy> consumer) {
+<<<<<<< HEAD
 	// Get the BasicEnemy class from the jar file
+=======
+    // Get the BasicEnemy class from the jar file
+>>>>>>> 5a13427740751db08ac03856d51c284fe9f64153
 	Class<?> basicEnemyClass = ActorLoader.getClass(new File("nz/ac/vuw/ecs/swen225/gp22/levels/level2.jar"),
         "nz.ac.vuw.ecs.swen225.gp22.persistency.BasicEnemy");
     if (basicEnemyClass == null) {
       throw new NullPointerException("No BasicEnemy class found");
     }
     
+<<<<<<< HEAD
     // Run through each enemy Element
+=======
+    // Run through each enemy element
+>>>>>>> 5a13427740751db08ac03856d51c284fe9f64153
     for (Element e : elems) {
       Number colNum = e.numberValueOf("@c");
       if (((Double) colNum).isNaN()) {
@@ -387,7 +395,10 @@ public class Parser {
     d.overrideInitialTreasureCount(treasureCount.intValue());
 
     Player p = d.getPlayer();
+<<<<<<< HEAD
     
+=======
+>>>>>>> 5a13427740751db08ac03856d51c284fe9f64153
     // Pick up the same amount of treasures as collected previously
     for (int i = 0; i < items.elements("treasure").size(); i++) {
       p.pickUpTreasure();
@@ -396,6 +407,7 @@ public class Parser {
     // Pick up any keys collected previously
     for (Element key : items.elements("key")) {
       String colour = key.valueOf("@colour");
+      System.out.println(colour);
       if (colour.isEmpty()) {
         throw new NullPointerException("No colour specified");
       }

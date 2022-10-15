@@ -1,9 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -53,8 +55,7 @@ public class UserListener implements KeyListener {
    * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
    */
   @Override
-  public void keyTyped(KeyEvent e) {
-  }
+  public void keyTyped(KeyEvent e) {}
 
   /*
    * (non-Javadoc)
@@ -64,23 +65,23 @@ public class UserListener implements KeyListener {
   @Override
   public void keyPressed(KeyEvent e) {
     switch (e.getKeyCode()) {
-    case KeyEvent.VK_UP:
-      up();
-      break;
-    case KeyEvent.VK_DOWN:
-      down();
-      break;
-    case KeyEvent.VK_LEFT:
-      BoardPanel.chapDirection = true;
-      left();
-      break;
-    case KeyEvent.VK_RIGHT:
-      BoardPanel.chapDirection = false;
-      right();
-      break;
-    case KeyEvent.VK_F:
-      SoundEffects.playSound("Test");
-      break;
+      case KeyEvent.VK_UP:
+        up();
+        break;
+      case KeyEvent.VK_DOWN:
+        down();
+        break;
+      case KeyEvent.VK_LEFT:
+        BoardPanel.chapDirection = true;
+        left();
+        break;
+      case KeyEvent.VK_RIGHT:
+        BoardPanel.chapDirection = false;
+        right();
+        break;
+      case KeyEvent.VK_F:
+        SoundEffects.playSound("Test");
+        break;
     }
   }
 
@@ -92,15 +93,15 @@ public class UserListener implements KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
-    case KeyEvent.VK_SPACE:
-      pauseGame();
-      break;
-    case KeyEvent.VK_ESCAPE:
-      resumeGame();
-      break;
-    default:
-      ctrlCommands(e);
-      break;
+      case KeyEvent.VK_SPACE:
+        pauseGame();
+        break;
+      case KeyEvent.VK_ESCAPE:
+        resumeGame();
+        break;
+      default:
+        ctrlCommands(e);
+        break;
     }
   }
 
@@ -112,23 +113,23 @@ public class UserListener implements KeyListener {
   private void ctrlCommands(KeyEvent e) {
     if (e.isControlDown()) {
       switch (e.getKeyCode()) {
-      case KeyEvent.VK_X:
-        exitGame();
-        break;
-      case KeyEvent.VK_S:
-        saveGame();
-        break;
-      case KeyEvent.VK_R:
-        loadSavedGame();
-        break;
-      case KeyEvent.VK_1:
-        currentLevel = "level1.xml";
-        loadLevel();
-        break;
-      case KeyEvent.VK_2:
-        currentLevel = "level2.xml";
-        loadLevel();
-        break;
+        case KeyEvent.VK_X:
+          exitGame();
+          break;
+        case KeyEvent.VK_S:
+          saveGame();
+          break;
+        case KeyEvent.VK_R:
+          loadSavedGame();
+          break;
+        case KeyEvent.VK_1:
+          currentLevel = "level1.xml";
+          loadLevel();
+          break;
+        case KeyEvent.VK_2:
+          currentLevel = "level2.xml";
+          loadLevel();
+          break;
       }
     }
   }
@@ -147,7 +148,7 @@ public class UserListener implements KeyListener {
    * application will be started
    */
   public static void saveGame() {
-    JOptionPane.showMessageDialog(GUI.instance, "Saving current game");
+    MessageBox.showMessage("Saving game", "Saving current game");
     try {
       Parser.saveLevel(currentGame);
     } catch (IOException e) {
@@ -162,14 +163,36 @@ public class UserListener implements KeyListener {
    * game to be loaded
    */
   public static void loadSavedGame() {
-    JOptionPane.showMessageDialog(GUI.instance,
-        "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\"");
     try {
-      JOptionPane.showMessageDialog(GUI.instance, "Choose a level to load!");
+      MessageBox.showMessage("Level choosing", "Choose a saved level to load!");
+      String folderURL = fileLevel.getLevelFilename();
+      folderURL =new File(System.getProperty("user.dir")).getAbsolutePath() + 
+        folderURL.substring(
+          folderURL.indexOf("/nz/ac/vuw/ecs/swen225/gp22/"),
+          folderURL.length()
+        );
+      File f = new File(folderURL);
+      File[] matchingFiles = f.listFiles(
+        new FilenameFilter() {
+          public boolean accept(File dir, String name) {
+            System.out.println(name);
+            return name.contains("saved_game");
+          }
+        }
+      );
+      String url = matchingFiles[0].toURI().toURL().toString();
+      currentLevel =
+        url
+          .toString()
+          .substring(
+            url.toString().indexOf("levels/") + 7,
+            url.toString().length()
+          );
 
-      currentLevel = fileLevel.getLevelFilename();
-
-      JOptionPane.showMessageDialog(GUI.instance, "Choose the record of the level you are loading!");
+      MessageBox.showMessage(
+        "Record choosing",
+        "Choose the record of the level you are loading!"
+      );
 
       Recorder.setUp(currentLevel);
       Recorder.loadPartial();
@@ -179,6 +202,7 @@ public class UserListener implements KeyListener {
     loadLevel();
     timer.cancel();
     timer = new pingTimer(timeRemaining);
+    GUI.instance.resumeGame();
   }
 
   /** Pauses game, displays a "Game is paused" dialog */
@@ -186,7 +210,7 @@ public class UserListener implements KeyListener {
     if (!paused) {
       paused = true;
       timer.cancel();
-      JOptionPane.showMessageDialog(GUI.instance, "The game is Paused");
+      MessageBox.showMessage("PAUSED", "The game is Paused");
     }
   }
 
@@ -195,7 +219,7 @@ public class UserListener implements KeyListener {
     if (paused) {
       paused = false;
       timer = new pingTimer(timer);
-      JOptionPane.getRootFrame().dispose();
+      MessageBox.closeMessages();
     }
   }
 
@@ -259,17 +283,23 @@ public class UserListener implements KeyListener {
 
   /** Called when the level is lost by Domain */
   public static void loseLevel() {
-    timer.redrawJFrame();
+    GUI.redrawJFrame();
     SoundEffects.playSound("Death");
-    JOptionPane.showMessageDialog(GUI.instance, "The level is lost! Restarting the level");
+    MessageBox.showMessage(
+      "Level Lost",
+      "The level is lost! Restarting the level"
+    );
     loadLevel();
   }
 
   /** Called when the user runs out of time on a level */
   public static void timeOutLevel() {
-    timer.redrawJFrame();
+    GUI.redrawJFrame();
     SoundEffects.playSound("Death");
-    JOptionPane.showMessageDialog(GUI.instance, "The level is lost! Your time has run out. Restarting the level");
+    MessageBox.showMessage(
+      "Timeout",
+      "The level is lost! Your time has run out. Restarting the level"
+    );
     loadLevel();
   }
 
@@ -280,9 +310,13 @@ public class UserListener implements KeyListener {
   public static void nextLevel() {
     Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
 
-    timer.redrawJFrame();
-    JOptionPane.showMessageDialog(GUI.instance,
-        "The level " + GUI.shortenLevelName(currentLevel) + " is won! \n Now starting level 2");
+    GUI.redrawJFrame();
+    MessageBox.showMessage(
+      "Level Won!",
+      "The level \"" +
+      GUI.shortenLevelName(currentLevel) +
+      "\" is won! \n Now starting level 2"
+    );
     currentLevel = "level2.xml";
     loadLevel();
   }

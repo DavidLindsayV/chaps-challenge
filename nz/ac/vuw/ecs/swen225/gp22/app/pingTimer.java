@@ -27,7 +27,7 @@ public class pingTimer extends Timer {
    */
   public pingTimer(String level) {
     super();
-    timeLeftToPlay = 60 * 1000 * getLevelNum(level);
+    timeLeftToPlay = 60 * 1000 * getLevelNum(level) + pingRate; //the +pingRate is so that time starts at 60 seconds or 120 seconds visually instead of immediately going to 59.8 seconds or 119.8 seconds
     this.scheduleAtFixedRate(t, 0, (long) pingRate); //this timer will trigger every half second
   }
 
@@ -73,7 +73,7 @@ public class pingTimer extends Timer {
     timeLeftToPlay -= pingRate;
     //If out of time, reload level
     if (timeLeftToPlay <= 0) {
-      redrawJFrame();
+      GUI.redrawJFrame();
       UserListener.timeOutLevel();
     }
     //Record the move with the Recorder
@@ -86,17 +86,7 @@ public class pingTimer extends Timer {
     }
     UserListener.setMove(Direction.NONE);
     //Repaint the GUI
-    redrawJFrame();
-  }
-
-  /**
-   * Redraws the JFrame of GUI
-   */
-  public void redrawJFrame() {
-    if (GUI.instance != null) {
-      GUI.instance.panel.revalidate();
-      GUI.instance.panel.repaint();
-    }
+    GUI.redrawJFrame();
   }
 
   /**Getter for timeLeftToPlay
