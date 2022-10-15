@@ -239,26 +239,19 @@ public class PersistencyTests {
     public void testLoadingSavedGame() {
         try {
             File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
-            int initialFileCount = directory.list().length;
-            MockPersistency.run("saved_games/test_saved_game.xml");
-            int newFileCount = directory.list().length;
+            String[] directoryList = directory.list();
+            assert directoryList != null : "No files found in directory";
+            int initialFileCount = directoryList.length;
+            
+            MockPersistency.run("tests/test_saved_game.xml");
+            String[] newDirectoryList = directory.list();
+            assert newDirectoryList != null : "No files found in directory";
+            int newFileCount = newDirectoryList.length;
+
             assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void testLoadingAndSavingLevel2() {
-        try {
-            File directory = new File("nz/ac/vuw/ecs/swen225/gp22/levels/saved_games");
-            int initialFileCount = directory.list().length;
-            MockPersistency.run("level2.xml");
-            int newFileCount = directory.list().length;
-            assert newFileCount != initialFileCount + 1 : "A new file was not created";
-        } catch (Exception e) {
-            fail("Exception thrown");
         }
     }
 
