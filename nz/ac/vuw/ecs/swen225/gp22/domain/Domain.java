@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
@@ -147,22 +148,26 @@ public class Domain {
     Point pos = player.getPosition();
     pos = pos.translate(direction.dr, direction.dc);
     
-    // If this doesn't move the player out of the domain.
+    // PRECONDITION CHECK - If this doesn't move the player out of the domain.
     if (withinDomain(pos)) {
       // Interact with the tile.
       Tile target = gameState[(int) pos.row()][(int) pos.col()];
       target.acceptPlayer(player);
-      // Then move it in, iff it's not a wall.
+      // PRECONDITION CHECK - Then move it in, iff it's not a wall.
       if (!target.isWall()) {
         player.setPosition(pos);
       }
     }
-
+    
+    // Global post condition check
+    checkIfValidTreasureCounts();  
+    
     // Check if the player's position collides with any enemies.
     checkIfPlayerKilledByEnemies();
   }
 
-  /**
+  
+/**
    * This function will be called when the enemies need to move.
    * Checks if any enemies collided with enemies.
    * Use observer pattern.
@@ -312,4 +317,25 @@ public class Domain {
       loseLevel();
     }
   }
+  
+
+  /**
+   * Check if the number of treasures remaining is correct in both player and domain.
+   */
+  private void checkIfValidTreasureCounts() {
+    int realTreasureCount = 0;
+	for (int y=0; y<gameState.length; ++y) {
+		for (int x=0; x<gameState[y].length; ++x) {
+			Tile t = gameState[y][x];
+			if (t.name().equals("treasure")) {
+				realTreasureCount++;
+			}
+		}
+	}
+	
+	if (realTreasureCount != treasuresLeft()) {
+		throw new IllegalStateException("Treasures left in domain does not match treasures left in player.");
+	}
+  }
+
 }
