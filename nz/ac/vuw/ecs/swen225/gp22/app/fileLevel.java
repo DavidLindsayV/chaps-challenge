@@ -18,7 +18,7 @@ import org.dom4j.DocumentException;
 public class fileLevel {
 
   /**
-   * A method to allow the user to select the xml file for a level to load
+   * A method to allow the user to select the folder containing the xml file for a level to load
    * @return shortened URL of selected level 
    * @throws MalformedURLException
    * @throws DocumentException
@@ -28,8 +28,9 @@ public class fileLevel {
     URL url;
     JFileChooser fileChooser = new JFileChooser(
       new File(System.getProperty("user.dir")).getAbsolutePath() +
-      "/nz/ac/vuw/ecs/swen225/gp22/levels/"
+      "/nz/ac/vuw/ecs/swen225/gp22/levels/saved_games/"
     );
+    fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     int responce = fileChooser.showOpenDialog(null);
     if (responce == JFileChooser.APPROVE_OPTION) {
       url =
@@ -38,10 +39,7 @@ public class fileLevel {
           .toURL();
       return url
         .toString()
-        .substring(
-          url.toString().indexOf("levels/") + 7,
-          url.toString().length()
-        );
+        ;
     }
     throw new MalformedURLException();
   }

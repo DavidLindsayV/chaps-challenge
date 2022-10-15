@@ -1,8 +1,11 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
 import java.awt.event.*;
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import javax.swing.JFileChooser;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -161,14 +164,31 @@ public class UserListener implements KeyListener {
    * game to be loaded
    */
   public static void loadSavedGame() {
-    MessageBox.showMessage(
-      "Level selection info",
-      "Select a level xml file to load\n Level1 and level2 are the first and second levels \n Under \"saved games\" are previously begun games to load \n The saved games are split into folders by the times they were saved \n Select an xml file with \"saved_game\" in the name, not \"game record\""
-    );
     try {
-      MessageBox.showMessage("Level choosing", "Choose a level to load!");
-
-      currentLevel = fileLevel.getLevelFilename();
+      MessageBox.showMessage("Level choosing", "Choose a saved level to load!");
+      String folderURL = fileLevel.getLevelFilename();
+      folderURL =new File(System.getProperty("user.dir")).getAbsolutePath() + 
+        folderURL.substring(
+          folderURL.indexOf("/nz/ac/vuw/ecs/swen225/gp22/"),
+          folderURL.length()
+        );
+      File f = new File(folderURL);
+      File[] matchingFiles = f.listFiles(
+        new FilenameFilter() {
+          public boolean accept(File dir, String name) {
+            System.out.println(name);
+            return name.contains("saved_game");
+          }
+        }
+      );
+      String url = matchingFiles[0].toURI().toURL().toString();
+      currentLevel =
+        url
+          .toString()
+          .substring(
+            url.toString().indexOf("levels/") + 7,
+            url.toString().length()
+          );
 
       MessageBox.showMessage(
         "Record choosing",
