@@ -1,9 +1,11 @@
-package nz.ac.vuw.ecs.swen225.gp22.persistency;
+package nz.ac.vuw.ecs.swen225.gp22.persistency.tests;
 
 import org.junit.jupiter.api.Test;
 
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.MockPersistency;
+import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.MockRecorder;
 import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
 
