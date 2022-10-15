@@ -139,7 +139,7 @@
         <wall c="10" />
     </row>
     <items initialTreasureCount="9">
-        <key colour="blue"/>
+        <key />
         <treasure />
         <time ms="1600" />
     </items>

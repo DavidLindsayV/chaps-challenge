@@ -395,6 +395,7 @@ public class Parser {
     // Pick up any keys collected previously
     for (Element key : items.elements("key")) {
       String colour = key.valueOf("@colour");
+      System.out.println(colour);
       if (colour.isEmpty()) {
         throw new NullPointerException("No colour specified");
       }
