@@ -57,10 +57,7 @@ public class ReplayListener implements KeyListener {
     displayTime = 60 * 1000 * pingTimer.getLevelNum(currentLevel);
 
     timer = new ReplayTimer(200);
-    System.out.println("REPLAY LISTENER: starting file name is " + currentLevel);
-    System.out.println("REPLAY LISTENER: Loading level...");
     loadLevel();
-    System.out.println("REPLAY LISTENER: Loaded level.");
   }
 
   /**
@@ -97,7 +94,6 @@ public class ReplayListener implements KeyListener {
    */
   public static void pauseGame() {
     if (isAutoPlay) {
-      System.out.println("The game is paused");
       paused = true;
       timer.cancel();
       JOptionPane.showMessageDialog(ReplayGui.instance, "The replay is Paused");
@@ -109,7 +105,6 @@ public class ReplayListener implements KeyListener {
    */
   public static void resumeGame(int speed) {
     if (isAutoPlay) {
-      System.out.println("The game has resumed");
       paused = false;
       timer = new ReplayTimer(speed);
       JOptionPane.getRootFrame().dispose();
@@ -120,7 +115,6 @@ public class ReplayListener implements KeyListener {
    * Private resumes game for the key listener.
    */
   private static void resumeGame() {
-    System.out.println("The game has resumed");
     paused = false;
     timer = new ReplayTimer(timer);
     JOptionPane.getRootFrame().dispose();
@@ -132,7 +126,6 @@ public class ReplayListener implements KeyListener {
   public static void loadLevel() {
     try {
       currentGame = Parser.loadLevel(currentLevel);
-      System.out.println("REPLAY LISTENER: Parser has parsed a level file!");
     } catch (DocumentException e) {
       System.out.println("Exception loading a level");
       ReplayGui.closeReplay();
@@ -157,13 +150,11 @@ public class ReplayListener implements KeyListener {
         currentGame.moveActors();
         move = moves.get(index);
         currentGame.movePlayer(move);
-        System.out.println("Tick number: " + index + " Move: " + move.name());
         index++;
         displayTime -= 200;
         GUI.replayGui().panel.revalidate();
         GUI.replayGui().panel.repaint();
       } else {
-        System.out.println("The replay is over!");
         paused = true;
         timer.cancel();
         GUI.replayGui().endOfReplay();

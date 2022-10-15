@@ -207,7 +207,6 @@ public class Domain {
    * This function will be called when the level is lost.
    */
   public void loseLevel() {
-    System.out.println("PlayingSound");
     this.playing = false;
     UserListener.loseLevel();
   }
@@ -217,7 +216,6 @@ public class Domain {
    */
   public static void showToolTip() {
     GUI.showToolTip(TOOLTIP_STRING);
-    System.out.println("showing tooltip");
   }
 
   /**

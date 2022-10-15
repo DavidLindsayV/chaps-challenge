@@ -33,7 +33,6 @@ public class Recorder {
      * @param level - The level xml name
      */
     public static void setUp(String level){
-        System.out.println("RECORDER: Recorder has been setup.");
         document = DocumentHelper.createDocument();
         recWriter = new RecordWriter(document, level);
     }
@@ -55,7 +54,6 @@ public class Recorder {
      * @param directory - The directory of where to save the game
      */
     public static void save(String directory) {
-        System.out.println("RECORDER: Recorder has saved.");
         try {
             recWriter.save(directory);
         } catch (IOException e) {
