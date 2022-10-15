@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import nz.ac.vuw.ecs.swen225.gp22.app.GUI;
 import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
