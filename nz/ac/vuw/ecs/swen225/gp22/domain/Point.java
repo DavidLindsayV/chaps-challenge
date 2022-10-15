@@ -6,8 +6,8 @@ package nz.ac.vuw.ecs.swen225.gp22.domain;
  *
  */
 public class Point {
-	private int row;
-	private int col;
+	private final int row;
+	private final int col;
 
 	public Point(int r, int c) {
 		this.row = r;
