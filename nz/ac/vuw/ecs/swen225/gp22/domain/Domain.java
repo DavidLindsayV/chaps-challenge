@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -81,7 +82,7 @@ public class Domain {
 
   /**
    * Returns the total keys, and their colors
-   * @returns The number of keys left in a hashmap
+   * @returns The number of keys left in a hash map
    */
   public Map<AuthenticationColour, Integer> keysHistory() {
     return player.getTotalKeyHistory();
@@ -146,22 +147,26 @@ public class Domain {
     Point pos = player.getPosition();
     pos = pos.translate(direction.dr, direction.dc);
     
-    // If this doesn't move the player out of the domain.
+    // PRECONDITION CHECK - If this doesn't move the player out of the domain.
     if (withinDomain(pos)) {
       // Interact with the tile.
       Tile target = gameState[(int) pos.row()][(int) pos.col()];
       target.acceptPlayer(player);
-      // Then move it in, iff it's not a wall.
+      // PRECONDITION CHECK - Then move it in, iff it's not a wall.
       if (!target.isWall()) {
         player.setPosition(pos);
       }
     }
-
+    
+    // Global post condition check
+    checkIfValidTreasureCounts();  
+    
     // Check if the player's position collides with any enemies.
     checkIfPlayerKilledByEnemies();
   }
 
-  /**
+  
+/**
    * This function will be called when the enemies need to move.
    * Checks if any enemies collided with enemies.
    * Use observer pattern.
@@ -301,13 +306,35 @@ public class Domain {
 
   /**
    * Loses the level, iff the player is hit by enemies.
+   * Copies the enemies to prevent concurrent modification error.
    */
   private void checkIfPlayerKilledByEnemies() {
-    boolean playerDead = enemies
+    boolean playerDead = new ArrayList<Enemy>(enemies)
       .stream()
       .anyMatch(e -> e.collidesWith(player.getPosition()));
     if (playerDead) {
       loseLevel();
     }
   }
+  
+
+  /**
+   * Check if the number of treasures remaining is correct in both player and domain.
+   */
+  private void checkIfValidTreasureCounts() {
+    int realTreasureCount = 0;
+	for (int y=0; y<gameState.length; ++y) {
+		for (int x=0; x<gameState[y].length; ++x) {
+			Tile t = gameState[y][x];
+			if (t.name().equals("treasure")) {
+				realTreasureCount++;
+			}
+		}
+	}
+	
+	if (realTreasureCount != treasuresLeft()) {
+		throw new IllegalStateException("Treasures left in domain does not match treasures left in player.");
+	}
+  }
+
 }

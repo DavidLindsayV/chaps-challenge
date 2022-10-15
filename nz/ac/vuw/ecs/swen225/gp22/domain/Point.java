@@ -30,6 +30,15 @@ public class Point {
              return row == other.row() && col == other.col();
         }
      }
+
+	@Override
+	public int hashCode() {
+		int prime = 31;
+		int coprime = 17;
+		prime = (prime + row) * coprime;
+		prime = (prime + col) * coprime;
+		return prime;
+	}
  }
 
 
