@@ -12,7 +12,7 @@ import nz.ac.vuw.ecs.swen225.gp22.app.UserListener;
 /**
  * The domain represents the internal state of the game.
  * It handles all the logic between tiles, players, and actors.
- * 
+ *
  * @author Brandon Ru 300562436
  *
  */
@@ -23,7 +23,7 @@ public class Domain {
   private List<Enemy> enemies;
   private int requiredTreasureCount;
   private boolean playing;
-  
+
   public static final int GRAPHICAL_PADDING = 1; // Viewport padding.
   public static final String TOOLTIP_STRING = "1. CTRL-X - exit the game, the current game state will be lost, the next time the game is\n"
 	+ "started, it will resume from the last unfinished level\n"
@@ -146,26 +146,27 @@ public class Domain {
 
     Point pos = player.getPosition();
     pos = pos.translate(direction.dr, direction.dc);
-    
+
     // PRECONDITION CHECK - If this doesn't move the player out of the domain.
     if (withinDomain(pos)) {
       // Interact with the tile.
       Tile target = gameState[(int) pos.row()][(int) pos.col()];
+
       target.acceptPlayer(player);
       // PRECONDITION CHECK - Then move it in, iff it's not a wall.
       if (!target.isWall()) {
         player.setPosition(pos);
       }
     }
-    
+
     // Global post condition check
-    checkIfValidTreasureCounts();  
-    
+    checkIfValidTreasureCounts();
+
     // Check if the player's position collides with any enemies.
     checkIfPlayerKilledByEnemies();
   }
 
-  
+
 /**
    * This function will be called when the enemies need to move.
    * Checks if any enemies collided with enemies.
@@ -314,7 +315,7 @@ public class Domain {
       loseLevel();
     }
   }
-  
+
 
   /**
    * Check if the number of treasures remaining is correct in both player and domain.
@@ -329,7 +330,7 @@ public class Domain {
 			}
 		}
 	}
-	
+
 	if (realTreasureCount != treasuresLeft()) {
 		throw new IllegalStateException("Treasures left in domain does not match treasures left in player.");
 	}

@@ -35,9 +35,9 @@ import org.dom4j.io.XMLWriter;
 
 /**
  * Class to both load and save the level layout from or to xml files.
- * 
+ *
  * Student ID: 3005 30113
- * 
+ *
  * @author GeorgiaBarrand
  *
  */
@@ -60,7 +60,7 @@ public class Parser {
 
   /**
    * Load the level layout from an xml file and use it to construct the domain
-   * 
+   *
    * @param filename the name of the file being parsed
    * @return a Domain object representing the level
    */
@@ -114,7 +114,7 @@ public class Parser {
 
   /**
    * Save the current level state to an xml file so that it can be loaded later.
-   * 
+   *
    * @param domain the current game domain
    * @throws IOException
    */
@@ -160,7 +160,7 @@ public class Parser {
   /**
    * Find and return the current date and time as a string in the format
    * dd-MM-yyyy-HHmmss.
-   * 
+   *
    * @return current time
    */
   private static String getCurrentTime() {
@@ -172,7 +172,7 @@ public class Parser {
 
   /**
    * Create a Document representation of the current level layout.
-   * 
+   *
    * @param levelLayout 2D array of the positions of tiles on the current level
    * @param playerPos   current player position
    * @param enemies     list of enemies
@@ -198,7 +198,7 @@ public class Parser {
 
   /**
    * Add any collected items to the saved file
-   * 
+   *
    * @param items the items Element
    * @param d     the current domain
    * @return the items Element with added items
@@ -229,7 +229,7 @@ public class Parser {
 
   /**
    * Add all standard tile to the level document
-   * 
+   *
    * @param levelLayout the current tile layout
    * @param row         current row number
    * @param currRow     the element representing the row we are constructing for
@@ -252,7 +252,7 @@ public class Parser {
 
   /**
    * Add all enemies to the level document.
-   * 
+   *
    * @param currRow the element representing the row we are constructing for the
    *                document
    * @param enemies list of all the enemies on the current level
@@ -276,7 +276,7 @@ public class Parser {
 
   /**
    * Parse a standard node which only has a column attribute e.g wall.
-   * 
+   *
    * @param rowNum   the current row number
    * @param nodes    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row and column
@@ -297,7 +297,7 @@ public class Parser {
 
   /**
    * Parse a node tile type which has a colour attribute e.g door, key
-   * 
+   *
    * @param rowNum   the current row number
    * @param elems    the tile elements being parsed
    * @param consumer the consumer to build the tile which take row, column and the
@@ -324,7 +324,7 @@ public class Parser {
 
   /**
    * Parse a node tile type which has a path i.e an enemy
-   * 
+   *
    * @param rowNum   the current row number
    * @param elems    the tile elements being parsed
    * @param consumer the consumer to build the tile which takes the row, column
@@ -371,7 +371,7 @@ public class Parser {
 
   /**
    * Load any items collected in a previously played game and update the domain
-   * 
+   *
    * @param d
    * @param items
    */
@@ -396,7 +396,6 @@ public class Parser {
     // Pick up any keys collected previously
     for (Element key : items.elements("key")) {
       String colour = key.valueOf("@colour");
-      System.out.println(colour);
       if (colour.isEmpty()) {
         throw new NullPointerException("No colour specified");
       }
