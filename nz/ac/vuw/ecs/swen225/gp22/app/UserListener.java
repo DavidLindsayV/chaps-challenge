@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.stream.Stream;
+
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -199,12 +201,25 @@ public class UserListener implements KeyListener {
             urlSaved.toString().indexOf("levels/") + 7,
             urlSaved.toString().length()
           );
-      Recorder.setUp(currentLevel);
+
+      //This is the actual level, not the saved level state
+      String baseLevel;
+
+      if(currentLevel.contains("level1.xml")){
+        baseLevel = "level1.xml";
+      }else{
+        baseLevel = "level2.xml";
+      }
+      loadLevel();
+      Recorder.setUp(baseLevel);
       Recorder.loadPartial(urlRecord);
+
     } catch (MalformedURLException | DocumentException e) {
+      //TODO: TEST THIS
+      
+      loadLevel();
       System.out.println("Level loading failed");
     }
-    loadLevel();
     timer.cancel();
     timer = new pingTimer(timeRemaining);
     GUI.instance.resumeGame();

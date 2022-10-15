@@ -116,6 +116,13 @@ public class Recorder {
         return Recorder.level; 
     }
 
+    /**
+     * Gets the document.
+     */
+    public static Document getDoc(){ 
+        return document;
+    }
+
 
     /**
      * Sets the level.

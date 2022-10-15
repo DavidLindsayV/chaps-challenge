@@ -35,12 +35,12 @@ public class MockRecorder {
      */
     public static void run() {
         
-        //Testing saving a game
-        Recorder.setUp("level1.xml");
-        for(int i=0; i<10; i++){
-            Recorder.tick( randomEnum(Direction.class) );
-        }
-        Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
+        // //Testing saving a game
+        // Recorder.setUp("level1.xml");
+        // for(int i=0; i<10; i++){
+        //     Recorder.tick( randomEnum(Direction.class) );
+        // }
+        // Recorder.save("nz/ac/vuw/ecs/swen225/gp22/levels/completed_records/");
 
         //Testing loading a partially complete game
         Recorder.setUp("level1.xml");

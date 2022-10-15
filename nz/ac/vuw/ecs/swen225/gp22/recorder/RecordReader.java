@@ -60,14 +60,13 @@ public class RecordReader {
         
         Document doc = DocumentHelper.createDocument();
         Recorder.setDocument(doc);
-        List<E> actionList = loadHelper(clazz, url);
-
         //Set writer first to change the writer
-        Recorder.setWriter(new RecordWriter(doc, Recorder.getLevel()));
+        Recorder.setWriter(new RecordWriter(Recorder.getDoc(), Recorder.getLevel()));
+
+        List<E> actionList = loadHelper(clazz, url);
         for(E action : actionList){
             Recorder.tick(action);
         }
-
     }
 
     /**
