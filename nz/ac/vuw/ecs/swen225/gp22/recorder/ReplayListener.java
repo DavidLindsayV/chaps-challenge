@@ -47,8 +47,9 @@ public class ReplayListener implements KeyListener {
     isAutoPlay = false;
     moves = Recorder.load();
 
-    if (moves.isEmpty())
+    if (moves.isEmpty()){
       moves = List.of(Direction.NONE);
+    }  
 
     index = 0;
     move = moves.get(index);
@@ -203,5 +204,5 @@ public class ReplayListener implements KeyListener {
   public static void stopTimer() {
     timer.cancel();
   }
-
+  
 }

@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp22.recorder;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.dom4j.Document;
@@ -33,6 +34,7 @@ public class Recorder {
      * @param level - The level xml name
      */
     public static void setUp(String level){
+        System.out.println("RECORDER: Recorder has been setup.");
         document = DocumentHelper.createDocument();
         recWriter = new RecordWriter(document, level);
     }
@@ -54,6 +56,7 @@ public class Recorder {
      * @param directory - The directory of where to save the game
      */
     public static void save(String directory) {
+        System.out.println("RECORDER: Recorder has saved.");
         try {
             recWriter.save(directory);
         } catch (IOException e) {
@@ -64,9 +67,10 @@ public class Recorder {
     /** 
      * Loads a level which is partially completed.
      */
-    public static void loadPartial() {
+    public static void loadPartial(String urlStr) {
         try {
-            RecordReader.loadPartial(clazz);
+            URL url = new URL(urlStr);
+            RecordReader.loadPartial(clazz, url);
         } catch (MalformedURLException | DocumentException e) {
             e.printStackTrace();
         }
@@ -77,7 +81,7 @@ public class Recorder {
      */
     public static List<Direction> load() {
         try {
-            return RecordReader.loadDoc(clazz);
+            return RecordReader.loadDocChooser(clazz);
         } catch (MalformedURLException | DocumentException e) {
             System.out.println("Load failed: "+e);
             return List.of();
