@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -50,25 +50,7 @@ public class GUI extends Renderer {
   private JMenuItem playSavedItem; // the menu item that will play a saved game
 
   //Metal loook for the jmenubar
-  MetalLookAndFeel metal;
-
-  // The rules text
-  private String rulesText =
-    "You're a little rabbit, try and navigate through the maze and collect all the carrots before time runs out!\n" +
-    "\n" +
-    "Controls:" +
-    "- Up, down, left and right arrow keys move the rabbit\n" +
-    "- Ctrl-X exits the game\n" +
-    "- Ctrl-S saves and exits the game\n" +
-    "- Ctrl-R resumes a saved game\n" +
-    "- Ctrl-1 and Ctrl-2 start games at level 1 and level 2\n" +
-    "- Space to Pause game, Esc to Play game (as well as the pause/play button\n" +
-    "- There are menu items for showing rules, saving, exiting, and showing recorded levels\n" +
-    "\n" +
-    "Core game mechanics:\n" +
-    "- Collect all the carrots and walk down the rabbit hole to win\n" +
-    "- Collect keys to open doors of their respective colours\n" +
-    "- Avoid colliding with enemies\n";
+  LookAndFeel lookAndFeel;
 
   // A field to store the JFrame for replaying recorded levels
   private static ReplayGui replayGUI;
@@ -80,10 +62,10 @@ public class GUI extends Renderer {
     super(1000, 1000);
     setUpGUI();
     instance = this;
-    metal = new MetalLookAndFeel();
+    lookAndFeel = new MetalLookAndFeel();
     MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
     try {
-      UIManager.setLookAndFeel(metal);
+      UIManager.setLookAndFeel(lookAndFeel);
     } catch (UnsupportedLookAndFeelException e) {
       e.printStackTrace();
     }
@@ -168,7 +150,7 @@ public class GUI extends Renderer {
   /** Show the rules panel */
   private void showRules() {
     pauseGame();
-    JOptionPane.showMessageDialog(this, rulesText);
+    rulesDisplayer.showRules();
   }
 
   /**
@@ -177,14 +159,15 @@ public class GUI extends Renderer {
    * @param toolTip
    */
   public static void showToolTip(String toolTip) {
-    JOptionPane.showMessageDialog(GUI.instance, toolTip);
+    redrawJFrame();
+    MessageBox.showMessage("Tool tip", toolTip);
   }
 
   /**
    * Removes all existing tool tips
    */
   public static void removeToolTip() {
-    JOptionPane.getRootFrame().dispose();
+    MessageBox.closeMessages();
   }
 
   /**
@@ -231,10 +214,10 @@ public class GUI extends Renderer {
   }
 
   /**Converts from key colour to corresponding image
- * @param c
- * @return
- */
-private static BufferedImage keyToImg(AuthenticationColour c) {
+   * @param c
+   * @return
+   */
+  private static BufferedImage keyToImg(AuthenticationColour c) {
     if (c == AuthenticationColour.PINK) {
       return Img.RedKeyT.image;
     } else if (c == AuthenticationColour.BLUE) {
@@ -247,12 +230,12 @@ private static BufferedImage keyToImg(AuthenticationColour c) {
   }
 
   /**Draws an image on the jframe
- * @param img
- * @param x
- * @param y
- * @param g
- */
-private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
+   * @param img
+   * @param x
+   * @param y
+   * @param g
+   */
+  private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
     g.drawImage(
       img,
       x,
@@ -272,15 +255,17 @@ private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
    * pauseGame in UserListener
    */
   private void pauseGame() {
-    pauseButton.setText("▶");
-    UserListener.pauseGame();
+    if (pauseButton != null) {
+      pauseButton.setText("▶");
+      UserListener.pauseGame();
+    }
   }
 
   /**
    * A function to change the text of the pause/play button before calling
    * resumeGame in UserListener
    */
-  private void resumeGame() {
+  public void resumeGame() {
     pauseButton.setText("⏸");
     UserListener.resumeGame();
     this.requestFocus();
@@ -322,5 +307,15 @@ private static void drawImage(BufferedImage img, int x, int y, Graphics g) {
    */
   public static void closeReplayGui() {
     replayGUI = null;
+  }
+
+  /**
+   * Redraws the JFrame of GUI
+   */
+  public static void redrawJFrame() {
+    if (GUI.instance != null) {
+      GUI.instance.panel.revalidate();
+      GUI.instance.panel.repaint();
+    }
   }
 }
