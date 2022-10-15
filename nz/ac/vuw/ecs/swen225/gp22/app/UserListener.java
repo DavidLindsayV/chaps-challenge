@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-
+import javax.swing.SwingUtilities;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Domain;
 import nz.ac.vuw.ecs.swen225.gp22.persistency.Parser;
@@ -45,7 +45,6 @@ public class UserListener implements KeyListener {
     Recorder.setUp(currentLevel);
 
     // Create new timer and load level
-    System.out.println("starting file name is " + currentLevel);
     timer = new pingTimer(currentLevel);
     loadLevel();
   }
@@ -95,7 +94,7 @@ public class UserListener implements KeyListener {
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
-        GUI.instance.pauseGame();
+        GUI.instance.pauseGame(true);
         break;
       case KeyEvent.VK_ESCAPE:
         GUI.instance.resumeGame();
@@ -141,7 +140,11 @@ public class UserListener implements KeyListener {
    */
   public static void exitGame() {
     GUI.closeAll();
-    System.exit(0);
+    SwingUtilities.invokeLater(
+      () -> {
+        new TitleScreen();
+      }
+    );
   }
 
   /**
@@ -165,9 +168,11 @@ public class UserListener implements KeyListener {
    */
   public static void loadSavedGame() {
     try {
+      //Allow user to select directory of saved level to load
       MessageBox.showMessage("Level choosing", "Choose a saved level to load!");
       String folderURL = fileLevel.getLevelFilename();
-      folderURL =new File(System.getProperty("user.dir")).getAbsolutePath() + 
+      folderURL =
+        new File(System.getProperty("user.dir")).getAbsolutePath() +
         folderURL.substring(
           folderURL.indexOf("/nz/ac/vuw/ecs/swen225/gp22/"),
           folderURL.length()
@@ -204,18 +209,17 @@ public class UserListener implements KeyListener {
       //This is the actual level, not the saved level state
       String baseLevel;
 
-      if(currentLevel.contains("level1.xml")){
+      if (currentLevel.contains("level1.xml")) {
         baseLevel = "level1.xml";
-      }else{
+      } else {
         baseLevel = "level2.xml";
       }
-      
+
       //TODO: This needs to be here BEFORE my methods, or we need to change how load level works
 
       loadLevel();
       Recorder.setUp(baseLevel);
       Recorder.loadPartial(urlRecord);
-
     } catch (MalformedURLException | DocumentException e) {
       loadLevel();
       System.out.println("Level loading failed");
@@ -227,11 +231,13 @@ public class UserListener implements KeyListener {
   }
 
   /** Pauses game, displays a "Game is paused" dialog */
-  public static void pauseGame() {
+  public static void pauseGame(boolean showMessage) {
     if (!paused) {
       paused = true;
       timer.cancel();
-      MessageBox.showMessage("PAUSED", "The game is Paused");
+      if (showMessage) {
+        MessageBox.showMessage("PAUSED", "The game is Paused");
+      }
     }
   }
 
@@ -239,7 +245,9 @@ public class UserListener implements KeyListener {
   public static void resumeGame() {
     if (paused) {
       paused = false;
-      if(timer != null){ timer.cancel(); }
+      if (timer != null) {
+        timer.cancel();
+      }
       timer = new pingTimer(timer);
       MessageBox.closeMessages();
     }

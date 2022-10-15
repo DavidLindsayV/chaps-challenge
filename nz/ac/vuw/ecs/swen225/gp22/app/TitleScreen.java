@@ -46,6 +46,7 @@ public class TitleScreen extends JFrame {
     setTitle("Title Screen");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+    //Set up the buttons
     addButton(
       startGameButton,
       "Start Game!",
@@ -76,13 +77,14 @@ public class TitleScreen extends JFrame {
     addButton(
       quitButton,
       "Quit",
-      e -> this.dispose(),
+      e -> { this.dispose(); System.exit(0);},
       510,
       300,
       140,
       70,
       new Font("Calibri", Font.BOLD, 35)
     );
+    //Set up the image
     panel.setLayout(null);
     panel.setVisible(true);
     this.add(panel);
@@ -92,6 +94,16 @@ public class TitleScreen extends JFrame {
     picLabel.setPreferredSize(new Dimension(250, 100));
   }
 
+  /**Adds a button to the title screen JFrame
+   * @param button
+   * @param buttonText
+   * @param action
+   * @param x
+   * @param y
+   * @param width
+   * @param height
+   * @param buttonFont
+   */
   private void addButton(
     JButton button,
     String buttonText,

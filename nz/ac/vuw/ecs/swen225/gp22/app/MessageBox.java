@@ -10,6 +10,10 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
  */
 public class MessageBox {
 
+  /**Shows a custom JOptionPane with different visuals from the default JOptionPane
+   * @param title
+   * @param message
+   */
   public static void showMessage(String title, String message) {
     JOptionPane.showMessageDialog(
       GUI.instance,
@@ -20,6 +24,9 @@ public class MessageBox {
     );
   }
 
+  /**
+   * Close all JOptionPanes
+   */
   public static void closeMessages(){
     JOptionPane.getRootFrame().dispose();
   }

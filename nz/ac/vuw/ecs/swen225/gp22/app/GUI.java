@@ -77,7 +77,7 @@ public class GUI extends Renderer {
     pauseButton.addActionListener(
       e -> {
         if (!UserListener.paused()) {
-          pauseGame();
+          pauseGame(true);
         } else {
           resumeGame();
         }
@@ -113,20 +113,19 @@ public class GUI extends Renderer {
     exitItem.addActionListener(e -> UserListener.exitGame());
     saveItem.addActionListener(
       e -> {
-        pauseGame();
         UserListener.saveGame();
       }
     );
     rulesItem.addActionListener(e -> showRules());
     recordPlayerItem.addActionListener(
       e -> {
-        pauseGame();
+        pauseGame(false);
         playRecord();
       }
     );
     playSavedItem.addActionListener(
       e -> {
-        pauseGame();
+        pauseGame(false);
         UserListener.loadSavedGame();
       }
     );
@@ -139,7 +138,7 @@ public class GUI extends Renderer {
 
   /** Plays a recorded game */
   private void playRecord() {
-    pauseGame();
+    pauseGame(false);
     SwingUtilities.invokeLater(
       () -> {
         replayGUI = new ReplayGui();
@@ -149,7 +148,7 @@ public class GUI extends Renderer {
 
   /** Show the rules panel */
   private void showRules() {
-    pauseGame();
+    pauseGame(true);
     rulesDisplayer.showRules();
   }
 
@@ -192,6 +191,7 @@ public class GUI extends Renderer {
       200,
       75
     );
+    //Draw the keys collected
     g.setColor(Color.GREEN);
     g.drawString("Keys collected: ", 200, 100);
     Map<AuthenticationColour, Integer> keyMap = UserListener.currentGame.keysHistory();
@@ -204,6 +204,7 @@ public class GUI extends Renderer {
         }
       }
     }
+    //Draw carrots left to collect
     g.setColor(Color.BLUE);
     g.drawString("Carrots left: ", 200, 125);
     x = 370;
@@ -254,10 +255,10 @@ public class GUI extends Renderer {
    * A function to change the text of the pause/play button before calling
    * pauseGame in UserListener
    */
-  public void pauseGame() {
+  public void pauseGame(boolean showMessage) {
     if (pauseButton != null) {
       pauseButton.setText("▶");
-      UserListener.pauseGame();
+      UserListener.pauseGame(showMessage);
     }
   }
 

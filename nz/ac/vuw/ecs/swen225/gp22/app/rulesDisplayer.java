@@ -1,5 +1,8 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
+/**A class for displaying the rules in a JOptionPane
+ * @author David Lindsay 300584648
+ */
 public class rulesDisplayer {
 
   // The rules text
@@ -20,6 +23,9 @@ public class rulesDisplayer {
     "- Collect keys to open doors of their respective colours\n" +
     "- Avoid colliding with enemies\n";
 
+  /**
+   * A static method to show the rules in a JOptionPane
+   */
   public static void showRules() {
     MessageBox.showMessage("Game rules", rulesText);
   }
