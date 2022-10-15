@@ -242,15 +242,11 @@ public class PersistencyTests {
             String[] directoryList = directory.list();
             assert directoryList != null : "No files found in directory";
             int initialFileCount = directoryList.length;
-            
+
             MockPersistency.run("tests/test_saved_game.xml");
             String[] newDirectoryList = directory.list();
             assert newDirectoryList != null : "No files found in directory";
             int newFileCount = newDirectoryList.length;
-<<<<<<< HEAD:nz/ac/vuw/ecs/swen225/gp22/persistency/tests/PersistencyTests.java
-
-=======
->>>>>>> 5a13427740751db08ac03856d51c284fe9f64153:nz/ac/vuw/ecs/swen225/gp22/persistency/PersistencyTests.java
             assert newFileCount == initialFileCount + 1 : "A new file was not created";
         } catch (Exception e) {
             e.printStackTrace();
