@@ -254,7 +254,7 @@ public class GUI extends Renderer {
    * A function to change the text of the pause/play button before calling
    * pauseGame in UserListener
    */
-  private void pauseGame() {
+  public void pauseGame() {
     if (pauseButton != null) {
       pauseButton.setText("▶");
       UserListener.pauseGame();

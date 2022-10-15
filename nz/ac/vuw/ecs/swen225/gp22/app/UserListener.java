@@ -95,10 +95,10 @@ public class UserListener implements KeyListener {
   public void keyReleased(KeyEvent e) {
     switch (e.getKeyCode()) {
       case KeyEvent.VK_SPACE:
-        pauseGame();
+        GUI.instance.pauseGame();
         break;
       case KeyEvent.VK_ESCAPE:
-        resumeGame();
+        GUI.instance.resumeGame();
         break;
       default:
         ctrlCommands(e);
@@ -200,6 +200,7 @@ public class UserListener implements KeyListener {
     } catch (MalformedURLException | DocumentException e) {
       System.out.println("Level loading failed");
     }
+    System.out.println(currentLevel);
     loadLevel();
     timer.cancel();
     timer = new pingTimer(timeRemaining);
@@ -219,6 +220,7 @@ public class UserListener implements KeyListener {
   public static void resumeGame() {
     if (paused) {
       paused = false;
+      if(timer != null){ timer.cancel(); }
       timer = new pingTimer(timer);
       MessageBox.closeMessages();
     }

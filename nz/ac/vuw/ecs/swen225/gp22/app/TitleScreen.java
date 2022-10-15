@@ -61,7 +61,7 @@ public class TitleScreen extends JFrame {
       200,
       300,
       80,
-      new Font("Calibri", Font.BOLD, 50)
+      new Font("Calibri", Font.BOLD, 40)
     );
     addButton(
       rulesButton,
