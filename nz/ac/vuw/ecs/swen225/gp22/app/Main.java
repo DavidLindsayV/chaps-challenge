@@ -13,7 +13,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    // SoundEffects.playSound("music");
+    SoundEffects.playSound("music");
     SwingUtilities.invokeLater(
       () -> {
         new TitleScreen();
