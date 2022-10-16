@@ -139,6 +139,7 @@ public class UserListener implements KeyListener {
    * is started, it will resume from the last unfinished level
    */
   public static void exitGame() {
+	if (timer != null) timer.cancel();
     GUI.closeAll();
     SwingUtilities.invokeLater(
       () -> {
@@ -196,6 +197,7 @@ public class UserListener implements KeyListener {
           }
         }
       );
+      if(savedGame == null || recordedGame == null || savedGame.length == 0 || recordedGame.length == 0) { throw new IllegalStateException(); }
       String urlRecord = recordedGame[0].toURI().toURL().toString();
       String urlSaved = savedGame[0].toURI().toURL().toString();
       currentLevel =
@@ -247,8 +249,10 @@ public class UserListener implements KeyListener {
       paused = false;
       if (timer != null) {
         timer.cancel();
+        timer = new pingTimer(timer);
+      }else {
+    	  timer = new pingTimer(currentLevel);
       }
-      timer = new pingTimer(timer);
       MessageBox.closeMessages();
     }
   }
@@ -263,7 +267,6 @@ public class UserListener implements KeyListener {
       System.out.println("Exception loading a level");
       exitGame();
     }
-    loadTimer();
   }
 
   /**
@@ -319,8 +322,11 @@ public class UserListener implements KeyListener {
       "Level Lost",
       "The level is lost! Restarting the level"
     );
+    if(pingTimer.getLevelNum(currentLevel) == 1) { currentLevel = "level1.xml"; }else { currentLevel = "level2.xml"; }
     loadLevel();
+    loadTimer();
   }
+ 
 
   /** Called when the user runs out of time on a level */
   public static void timeOutLevel() {
@@ -330,7 +336,9 @@ public class UserListener implements KeyListener {
       "Timeout",
       "The level is lost! Your time has run out. Restarting the level"
     );
+    if(pingTimer.getLevelNum(currentLevel) == 1) { currentLevel = "level1.xml"; }else { currentLevel = "level2.xml"; }
     loadLevel();
+    loadTimer();
   }
 
   /**
@@ -349,6 +357,7 @@ public class UserListener implements KeyListener {
     );
     currentLevel = "level2.xml";
     loadLevel();
+    loadTimer();
   }
 
   /**

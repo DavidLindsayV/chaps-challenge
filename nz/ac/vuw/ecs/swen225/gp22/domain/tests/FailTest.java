@@ -31,6 +31,8 @@ interface DomainBuilderFuzzTest{
  */
 class BuilderInputGenerator{
 	private static final int BOARDSIZE = 250;
+	private static final Random RAND = new Random();
+
 	private static final List<DomainBuilderFuzzTest> inputTypes = List.of(
 		(d)->{d.empty(rint(BOARDSIZE), rint(BOARDSIZE));},
 		(d)->{d.wall(rint(BOARDSIZE), rint(BOARDSIZE));},
@@ -52,7 +54,7 @@ class BuilderInputGenerator{
 	 * @return
 	 */
 	private static int rint(int n) {
-		return new Random().nextInt(n);
+		return RAND.nextInt(n);
 	}
 
 	/**

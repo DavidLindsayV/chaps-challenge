@@ -16,7 +16,7 @@ import java.net.URL;
 * @author Kalani Sheridan - ID: 300527652
 */
 public class MockRecorder {
-
+    private static final Random RAND = new Random();
     /**
      * Get random enum clas for testing, not my method.
      * Found here: https://stackoverflow.com/questions/1972392/pick-a-random-value-from-an-enum
@@ -26,7 +26,7 @@ public class MockRecorder {
      * @return - The enum we have got
      */
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
-        int x = new Random().nextInt(clazz.getEnumConstants().length);
+        int x = RAND.nextInt(clazz.getEnumConstants().length);
         return clazz.getEnumConstants()[x];
     }
 

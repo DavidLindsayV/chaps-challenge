@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp22.app;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import nz.ac.vuw.ecs.swen225.gp22.domain.Direction;
@@ -11,10 +12,8 @@ import nz.ac.vuw.ecs.swen225.gp22.recorder.Recorder;
  * @author David Lindsay 300584648
  */
 public class pingTimer extends Timer {
-
   private int timeLeftToPlay = 0; //time left to play current level in milliseconds
   private final int pingRate = 200; //the timer will refresh every 200 ms
-
   //The timerTask that will run ping() each time the timer triggers
   private final TimerTask t = new TimerTask() {
     public void run() {

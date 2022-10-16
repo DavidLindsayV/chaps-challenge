@@ -23,11 +23,11 @@ import nz.ac.vuw.ecs.swen225.gp22.renderer.Sprites.Img;
 public class TitleScreen extends JFrame {
 
   //Button to start the game
-  private JButton startGameButton;
+  private JButton startGameButton = new JButton();
   //Button to show the rules
-  private JButton rulesButton;
+  private JButton rulesButton = new JButton();
   //Button to quit the game
-  private JButton quitButton;
+  private JButton quitButton = new JButton();
   //J panel to display stuff
   private JPanel panel = new JPanel();
 
